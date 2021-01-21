@@ -1,0 +1,12 @@
+{
+    "include": ["src/**/*"],
+    "exclude": ["node_modules"],
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "assets/*": ["./src/assets/*"],
+            "components/*": ["./src/components/*"],
+            "views/*": ["./src/views/*"]
+        }
+    }
+}
