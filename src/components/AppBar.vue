@@ -1,43 +1,52 @@
 <template>
-  <v-container class="py-0 fill-height">
-    <v-row class="mr-3">
+  <v-container>
+    <v-row>
       <!-- 按键 -->
-      <v-btn
-        v-for="link in links"
-        :key="link.id"
-        text
-        class="mx-3 text-subtitle-1 font-weight-bold"
-        style="width: 80px"
-      >
-        {{ link }}
-      </v-btn>
+      <v-col cols="12" sm="6">
+        <v-btn
+          v-for="link in links"
+          :key="link.id"
+          text
+          rounded
+          class="mx-3 text-subtitle-1 font-weight-bold"
+          style="width: 80px"
+        >
+          {{ link }}
+        </v-btn>
+      </v-col>
       <!-- 布局占位 -->
       <v-spacer></v-spacer>
       <!-- 搜索框 -->
-      <v-responsive max-width="260" class="mr-6">
+      <v-col cols="12" sm="3">
         <v-text-field
-          dense
-          flat
           solo
-          hide-details
+          dense
+          :flat="!focus"
           rounded
-          clearable
-          label="搜索"
+          hide-details
+          placeholder="search"
+          height="38"
           background-color="grey lighten-2"
+          @focus="focus = true"
+          @blur="focus = false"
         ></v-text-field>
-      </v-responsive>
+      </v-col>
       <!-- 头像 -->
-      <v-avatar color="grey lighten-2" size="38"></v-avatar>
+      <v-col cols="12" sm="1">
+        <v-avatar color="grey lighten-2" size="38">
+          <v-icon>mdi-biohazard</v-icon>
+        </v-avatar>
+      </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
 export default {
-  name: "AppBar",
   data() {
     return {
-      links: ["首页", "日推", "电台", "关于"],
+      focus: false,
+      links: ["首页", "歌单", "个性", "关于"],
     };
   },
 };
