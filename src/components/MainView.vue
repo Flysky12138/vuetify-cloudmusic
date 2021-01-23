@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-sheet min-height="88vh" rounded="lg">
+    <v-sheet min-height="88vh" rounded="xl">
       <slot />
     </v-sheet>
   </v-container>
