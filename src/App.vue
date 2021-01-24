@@ -14,12 +14,13 @@
 </template>
 
 <script>
-import AppBar from "components/AppBar.vue";
-import MainView from "components/MainView.vue";
+import AppBar from "components/AppBar";
+import MainView from "components/MainView";
 export default {
   components: {
     AppBar,
     MainView,
   },
+  data: () => ({}),
 };
 </script>
