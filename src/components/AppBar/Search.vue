@@ -1,5 +1,5 @@
 <template>
-  <v-sheet max-width="260" class="mr-6">
+  <v-sheet max-width="260">
     <v-text-field
       solo
       dense
@@ -9,9 +9,13 @@
       background-color="grey lighten-2"
       :flat="!isFocus"
       @focus="isFocus = true"
-      @blur="isFocus = false"
+      @blur="
+        isFocus = false;
+        clear();
+      "
       v-model="data"
-    ></v-text-field>
+    >
+    </v-text-field>
   </v-sheet>
 </template>
 
@@ -21,5 +25,10 @@ export default {
     isFocus: false,
     data: "",
   }),
+  methods: {
+    clear() {
+      this.data = "";
+    },
+  },
 };
 </script>

@@ -1,13 +1,11 @@
 <template>
   <v-container class="d-flex align-center">
     <!-- 按键 -->
-    <bt-link class="d-none d-sm-flex" />
+    <tools />
     <!-- 布局调整 -->
-    <v-spacer class="d-none d-sm-flex"></v-spacer>
+    <v-spacer></v-spacer>
     <!-- 搜索框 -->
-    <search />
-    <!-- 布局调整 -->
-    <v-spacer class="d-sm-none"></v-spacer>
+    <search class="mr-6" />
     <!-- 头像 -->
     <avatar />
   </v-container>
@@ -16,13 +14,9 @@
 <script>
 import Avatar from "./AppBar/Avatar.vue";
 import Search from "./AppBar/Search.vue";
-import BtLink from "./AppBar/BtLink.vue";
+import Tools from "./AppBar/Tools.vue";
 export default {
-  components: {
-    BtLink,
-    Search,
-    Avatar,
-  },
+  components: { Avatar, Search, Tools },
   data: () => ({}),
 };
 </script>
