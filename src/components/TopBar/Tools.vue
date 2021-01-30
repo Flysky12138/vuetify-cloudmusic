@@ -1,17 +1,17 @@
 <template>
-  <div class="d-flex">
-    <div v-for="(item, index) in items" :key="index" class="d-flex">
-      <component :is="componentId(item)" v-bind="propsData(item)"></component>
-      <div class="mx-5"></div>
+    <div class="d-flex">
+      <div v-for="(item, index) in items" :key="index" class="d-flex">
+        <component :is="componentId(item)" v-bind="propsData(item)"></component>
+        <div class="mx-5"></div>
+      </div>
     </div>
-  </div>
 </template>
 
 <script>
-import btMenu from "./Tools/btMenu.vue";
-import BtNormal from "./Tools/btNormal.vue";
+import BtMenu from "./Tools/BtMenu.vue";
+import BtNormal from "./Tools/BtNormal.vue";
 export default {
-  components: { btMenu, BtNormal },
+  components: { BtMenu, BtNormal },
   data: () => ({
     items: [
       { name: "首页", link: "" },
@@ -32,7 +32,7 @@ export default {
   }),
   methods: {
     componentId(data) {
-      return typeof data.links === "undefined" ? BtNormal : btMenu;
+      return typeof data.links === "undefined" ? BtNormal : BtMenu;
     },
     propsData(data) {
       return typeof data.links === "undefined"

@@ -2,32 +2,26 @@
   <v-app>
     <!-- 顶部导航栏 -->
     <v-app-bar color="white" app elevate-on-scroll>
-      <app-bar />
+      <top-bar />
     </v-app-bar>
     <!-- 路由显示区 -->
     <v-main class="grey lighten-3">
-      <main-view>
-        <router-view />
-      </main-view>
+      <v-container>
+        <v-sheet min-height="888vh" rounded="lg">
+          <router-view />
+        </v-sheet>
+      </v-container>
     </v-main>
-    <!-- 悬浮按键 -->
-    <v-sheet
-      style="position: fixed; bottom: 10vh; right: 7vw"
-      class="d-flex flex-column-reverse justify-start align-center"
-      color="transparent"
-    >
-      <v-btn elevation="2" icon x-large>
-        <v-icon>mdi-chevron-up</v-icon>
-      </v-btn>
-    </v-sheet>
+    <!-- 侧边栏 -->
+    <side-bar />
   </v-app>
 </template>
 
 <script>
-import AppBar from "components/AppBar";
-import MainView from "components/MainView";
+import TopBar from "components/TopBar.vue";
+import SideBar from "components/SideBar.vue";
 export default {
-  components: { AppBar, MainView },
+  components: { TopBar, SideBar },
   data: () => ({}),
 };
 </script>

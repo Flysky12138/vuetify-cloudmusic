@@ -7,7 +7,7 @@
 <script>
 export default {
   data: () => ({
-    icons: { default: "mdi-biohazard", user: "mdi-cannabis" },
+    icons: { default: "mdi-account-outline", user: "mdi-cannabis" },
   }),
 };
 </script>

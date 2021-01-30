@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import Avatar from "./AppBar/Avatar.vue";
-import Search from "./AppBar/Search.vue";
-import Tools from "./AppBar/Tools.vue";
+import Avatar from "./TopBar/Avatar.vue";
+import Search from "./TopBar/Search.vue";
+import Tools from "./TopBar/Tools.vue";
 export default {
   components: { Avatar, Search, Tools },
   data: () => ({}),

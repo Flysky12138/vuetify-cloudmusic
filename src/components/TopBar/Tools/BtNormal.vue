@@ -1,5 +1,5 @@
 <template>
-  <v-btn text rounded class="text-subtitle-1 font-weight-bold" width="80">
+  <v-btn text rounded class="text-subtitle-1 font-weight-bold" width="5vw">
     {{ value.name }}
   </v-btn>
 </template>
