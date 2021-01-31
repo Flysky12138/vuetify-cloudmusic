@@ -1,0 +1,85 @@
+<template>
+  <fixed-view offset-y="-5">
+    <template v-slot:rc>
+      <!-- 上一首 -->
+      <transition name="moveUp">
+        <v-btn icon class="upBt" v-show="isShow">
+          <v-icon>{{ player.up }}</v-icon>
+        </v-btn>
+      </transition>
+      <!-- 音乐图片 -->
+      <v-btn fab dark color="blue lighten-2" elevation="0" v-show="isShow">
+        <v-icon class="audio">{{ player.songImg }}</v-icon>
+      </v-btn>
+      <!-- 下一首 -->
+      <transition name="moveDown">
+        <v-btn icon class="bottomBt" v-show="isShow">
+          <v-icon>{{ player.down }}</v-icon>
+        </v-btn>
+      </transition>
+    </template>
+  </fixed-view>
+</template>
+
+<script>
+import FixedView from "./common/FixedView.vue";
+export default {
+  components: { FixedView },
+  data: () => ({
+    isShow: false,
+    player: {
+      up: "mdi-chevron-up",
+      down: "mdi-chevron-down",
+      songImg: "mdi-music-clef-treble",
+    },
+  }),
+  mounted() {
+    setTimeout(() => {
+      this.isShow = true;
+    }, 1000);
+  },
+};
+</script>
+
+<style lang="scss">
+$deviation: 60px;
+@mixin common {
+  position: absolute;
+  z-index: -1;
+}
+.upBt {
+  @include common;
+  bottom: $deviation;
+}
+.bottomBt {
+  @include common;
+  top: $deviation;
+}
+.moveUp-enter {
+  bottom: 0;
+}
+.moveDown-enter {
+  top: 0;
+}
+.moveUp-enter-to {
+  bottom: $deviation;
+}
+.moveDown-enter-to {
+  top: $deviation;
+}
+.moveUp-enter-active,
+.moveDown-enter-active {
+  transition: all 0.3s ease-out;
+}
+@keyframes Rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.audio {
+  animation: Rotate 5s linear infinite;
+}
+</style>
