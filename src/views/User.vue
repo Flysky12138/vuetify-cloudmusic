@@ -1,5 +1,5 @@
 <template>
-  <div>登录界面</div>
+  <div>用户信息</div>
 </template>
 
 <script>

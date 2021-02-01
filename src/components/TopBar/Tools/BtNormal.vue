@@ -1,5 +1,11 @@
 <template>
-  <v-btn text rounded class="text-subtitle-1 font-weight-bold" width="5vw">
+  <v-btn
+    text
+    rounded
+    class="text-subtitle-1 font-weight-bold"
+    width="5vw"
+    :to="value.link"
+  >
     {{ value.name }}
   </v-btn>
 </template>

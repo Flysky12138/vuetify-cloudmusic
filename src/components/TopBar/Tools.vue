@@ -14,7 +14,7 @@ export default {
   components: { BtMenu, BtNormal },
   data: () => ({
     items: [
-      { name: "首页", link: "" },
+      { name: "首页", link: "/" },
       {
         name: "歌单",
         links: [
