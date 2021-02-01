@@ -7,7 +7,7 @@
           <v-icon>{{ player.up }}</v-icon>
         </v-btn>
       </transition>
-      <!-- 音乐图片 -->
+      <!-- 音乐封面 -->
       <v-btn fab dark color="blue lighten-2" elevation="0" v-show="isShow">
         <v-icon class="audio">{{ player.songImg }}</v-icon>
       </v-btn>

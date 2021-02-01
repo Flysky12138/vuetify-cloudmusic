@@ -12,11 +12,11 @@
 </template>
 
 <script>
-import Avatar from "./TopBar/Avatar.vue";
-import Search from "./TopBar/Search.vue";
 import Tools from "./TopBar/Tools.vue";
+import Search from "./TopBar/Search.vue";
+import Avatar from "./TopBar/Avatar.vue";
 export default {
-  components: { Avatar, Search, Tools },
+  components: { Tools, Search, Avatar },
   data: () => ({}),
 };
 </script>

@@ -1,10 +1,10 @@
 <template>
-    <div class="d-flex">
-      <div v-for="(item, index) in items" :key="index" class="d-flex">
-        <component :is="componentId(item)" v-bind="propsData(item)"></component>
-        <div class="mx-5"></div>
-      </div>
+  <div class="d-flex">
+    <div v-for="(item, index) in items" :key="index" class="d-flex">
+      <component :is="componentId(item)" :value="item"></component>
+      <div class="mx-5"></div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -26,18 +26,19 @@ export default {
           { name: "欧美", link: "" },
         ],
       },
-      { name: "个性", link: "" },
+      {
+        name: "个性",
+        links: [
+          { name: "日推", link: "" },
+          { name: "F M", link: "" },
+        ],
+      },
       { name: "关于", link: "" },
     ],
   }),
   methods: {
     componentId(data) {
       return typeof data.links === "undefined" ? BtNormal : BtMenu;
-    },
-    propsData(data) {
-      return typeof data.links === "undefined"
-        ? { value: data }
-        : { value: data, OpenOnHover: false };
     },
   },
 };
