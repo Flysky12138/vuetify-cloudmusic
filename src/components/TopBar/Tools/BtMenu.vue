@@ -13,7 +13,6 @@
         rounded
         class="text-subtitle-1 font-weight-bold"
         width="5vw"
-        :to="value.link"
       >
         <!-- icon宽12px,空div用来使文字居中 -->
         <div class="ml-3"></div>
@@ -28,7 +27,12 @@
         class="d-flex justify-center px-0"
       >
         <v-list-item-action class="ma-0">
-          <v-btn text rounded class="text-subtitle-2 font-weight-bold">
+          <v-btn
+            text
+            rounded
+            class="text-subtitle-2 font-weight-bold"
+            :to="item.link"
+          >
             {{ item.name }}
           </v-btn>
         </v-list-item-action>

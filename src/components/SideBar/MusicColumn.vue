@@ -4,17 +4,17 @@
       <!-- 上一首 -->
       <transition name="moveUp">
         <v-btn icon class="upBt" v-show="isShow">
-          <v-icon>{{ player.up }}</v-icon>
+          <v-icon>{{ icons.up }}</v-icon>
         </v-btn>
       </transition>
       <!-- 音乐封面 -->
       <v-btn fab dark color="blue lighten-2" elevation="0" v-show="isShow">
-        <v-icon class="audio">{{ player.songImg }}</v-icon>
+        <v-icon class="audio">{{ icons.song }}</v-icon>
       </v-btn>
       <!-- 下一首 -->
       <transition name="moveDown">
         <v-btn icon class="bottomBt" v-show="isShow">
-          <v-icon>{{ player.down }}</v-icon>
+          <v-icon>{{ icons.down }}</v-icon>
         </v-btn>
       </transition>
     </template>
@@ -27,10 +27,10 @@ export default {
   components: { FixedView },
   data: () => ({
     isShow: false,
-    player: {
+    icons: {
       up: "mdi-chevron-up",
       down: "mdi-chevron-down",
-      songImg: "mdi-music-clef-treble",
+      song: "mdi-music-clef-treble",
     },
   }),
   mounted() {

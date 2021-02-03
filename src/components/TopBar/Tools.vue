@@ -1,10 +1,9 @@
 <template>
-  <div class="d-flex">
-    <div v-for="(item, index) in items" :key="index" class="d-flex">
+  <v-row align="center" no-gutters>
+    <v-col cols="2" v-for="(item, index) in items" :key="index">
       <component :is="componentId(item)" :value="item"></component>
-      <div class="mx-5"></div>
-    </div>
-  </div>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
