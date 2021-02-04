@@ -1,7 +1,7 @@
 <template>
   <v-row align="center" no-gutters>
     <v-col cols="2" v-for="(item, index) in items" :key="index">
-      <component :is="componentId(item)" :value="item"></component>
+      <component :is="whichComp(item)" :value="item"></component>
     </v-col>
   </v-row>
 </template>
@@ -36,8 +36,8 @@ export default {
     ],
   }),
   methods: {
-    componentId(data) {
-      return typeof data.links === "undefined" ? BtNormal : BtMenu;
+    whichComp(value) {
+      return typeof value.links === "undefined" ? BtNormal : BtMenu;
     },
   },
 };
