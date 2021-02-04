@@ -1,6 +1,6 @@
 <template>
-  <v-sheet class="d-flex justify-center pt-16">
-    <v-card width="50%" min-width="500px" rounded="lg" elevation="4">
+  <v-sheet class="d-flex justify-center py-16">
+    <v-card width="80vw" max-width="600px" rounded="lg" elevation="4">
       <v-card-title class="justify-center font-weight-bold text-h4 blue--text">
         {{ title }}
       </v-card-title>

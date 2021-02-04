@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center">
-    <v-col cols="5">
+    <v-col cols="7" sm="5">
       <v-text-field
         :label="label[0]"
         prefix="+86"
@@ -8,21 +8,21 @@
         maxlength="11"
         clearable
         autofocus
-        v-model="messageValue"
+        v-model="value.message"
         :success="inputTrue"
       ></v-text-field>
     </v-col>
 
-    <v-col cols="1"></v-col>
+    <v-col sm="1" class="hidden-xs-only"></v-col>
 
-    <v-col cols="3">
+    <v-col cols="7" sm="3">
       <v-text-field
         :label="label[1]"
         maxlength="5"
         counter="5"
         :disabled="!inputTrue"
         ref="Code"
-        v-model="codeValue"
+        v-model="value.code"
       >
         <template v-slot:append-outer>
           <v-progress-circular
@@ -44,8 +44,10 @@
 export default {
   data: () => ({
     label: ["手机号", "验证码"],
-    messageValue: "",
-    codeValue: "",
+    value: {
+      message: "",
+      code: "",
+    },
     inputTrue: false,
     time: {
       value: 60,
@@ -57,18 +59,22 @@ export default {
     ),
   }),
   watch: {
-    messageValue(newValue) {
+    "value.message"(newValue) {
       if (this.rules.test(newValue)) {
-        this.codeValue = "";
         this.inputTrue = true;
         setTimeout(() => {
           this.getCode();
           this.countDown();
           this.time.isShowTime = true;
           this.$refs.Code.focus();
-        }, 1000);
+        }, 500);
       } else {
         this.inputTrue = false;
+      }
+    },
+    inputTrue(newValue, oldValue) {
+      if (!newValue && oldValue) {
+        this.value.code = "";
         this.time.isShowTime = false;
       }
     },
@@ -87,7 +93,7 @@ export default {
           clearInterval(this.time.interval);
           this.time.isShowTime = false;
         }
-      }, 500);
+      }, 1000);
     },
   },
 };
