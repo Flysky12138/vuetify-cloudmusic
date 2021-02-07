@@ -3,9 +3,9 @@
     <!-- 按键 -->
     <tools />
     <!-- 搜索框 -->
-    <search class="mr-6" />
+    <search />
     <!-- 头像 -->
-    <avatar />
+    <avatar class="ml-6" />
   </v-container>
 </template>
 

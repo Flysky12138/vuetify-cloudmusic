@@ -4,6 +4,8 @@
     transition="slide-y-transition"
     offset-y
     nudge-bottom="10vh"
+    open-on-hover
+    close-delay="100"
   >
     <template v-slot:activator="{ on, attrs }">
       <v-btn
