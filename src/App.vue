@@ -3,18 +3,28 @@
     <!-- <div v-if="$vuetify.breakpoint.smAndUp"> -->
     <!-- 顶部导航栏 -->
     <v-app-bar color="white" app elevate-on-scroll>
-      <top-bar />
+      <v-container class="d-flex align-center">
+        <!-- 按键 -->
+        <btn-router />
+        <!-- 搜索框 -->
+        <search />
+        <!-- 头像 -->
+        <avatar class="ml-6" />
+      </v-container>
     </v-app-bar>
     <!-- 路由显示区 -->
     <v-main class="grey lighten-3">
       <v-container>
-        <v-sheet min-height="88vh" rounded="lg">
+        <v-sheet rounded="lg">
           <router-view />
         </v-sheet>
       </v-container>
     </v-main>
     <!-- 侧边栏 -->
-    <side-bar />
+    <!-- 音乐按键栏 -->
+    <music-column />
+    <!-- 回顶按键 -->
+    <go-top />
     <!-- </div>
     <v-sheet
       v-else
@@ -27,10 +37,13 @@
 </template>
 
 <script>
-import TopBar from "components/TopBar.vue";
-import SideBar from "components/SideBar.vue";
+import BtnRouter from "components/AppBar/ButtonRouter";
+import Search from "components/AppBar/Search.vue";
+import Avatar from "components/AppBar/Avatar.vue";
+import MusicColumn from "components/SideBar/MusicColumn.vue";
+import GoTop from "components/SideBar/GoTop.vue";
 export default {
-  components: { TopBar, SideBar },
+  components: { BtnRouter, Search, Avatar, MusicColumn, GoTop },
   data: () => ({}),
 };
 </script>

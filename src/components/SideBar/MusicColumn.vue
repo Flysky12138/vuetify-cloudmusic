@@ -1,5 +1,5 @@
 <template>
-  <fixed-view offset-y="-5">
+  <fixed-view offset-y="-5vh">
     <template v-slot:rc>
       <!-- 上一首 -->
       <transition name="moveUp">
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import FixedView from "./common/FixedView.vue";
+import FixedView from "./Common.vue";
 export default {
   components: { FixedView },
   data: () => ({
@@ -33,7 +33,7 @@ export default {
       song: "mdi-music-clef-treble",
     },
   }),
-  mounted() {
+  created() {
     setTimeout(() => {
       this.isShow = true;
     }, 1000);

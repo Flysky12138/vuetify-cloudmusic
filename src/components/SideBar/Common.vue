@@ -30,28 +30,28 @@
 <script>
 export default {
   props: {
-    "offset-x": {
+    offsetX: {
       type: String,
-      default: "0",
+      default: "0px",
     },
-    "offset-y": {
+    offsetY: {
       type: String,
-      default: "0",
+      default: "0px",
     },
   },
   data: () => ({}),
   computed: {
     offset() {
       return {
-        "--offset-x": this.offsetX + "vw",
-        "--offset-y": this.offsetY + "vh",
+        "--offset-x": this.offsetX,
+        "--offset-y": this.offsetY,
       };
     },
   },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @mixin common($item: column) {
   position: fixed;
   display: flex;

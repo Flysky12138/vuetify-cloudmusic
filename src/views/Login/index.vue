@@ -23,14 +23,14 @@
 </template>
 
 <script>
-import Message from "components/Views/Login/Message.vue";
-import QRcode from "components/Views/Login/QRcode.vue";
+import Message from "./components/Phone";
+import QRcode from "./components/QRcode";
 export default {
   components: { Message, QRcode },
   data: () => ({
     tab: null,
     title: "登录",
-    items: ["短信", "二维码"],
+    items: ["手机号", "二维码"],
   }),
   methods: {
     whichComp(value) {

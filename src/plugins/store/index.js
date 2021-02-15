@@ -5,9 +5,7 @@ Vue.use(Vuex);
 
 const opts = {
     state: {},
-    mutations: {},
-    actions: {},
-    modules: {},
+    mutations: {}
 };
 
 export default new Vuex.Store(opts);

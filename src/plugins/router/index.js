@@ -7,20 +7,20 @@ const routes = [
     {
         path: "/",
         name: "HelloWorld",
-        component: () => import("views/HelloWorld.vue"),
+        component: () => import("views/HelloWorld.vue")
     },
     {
         path: "/login",
         name: "Login",
-        component: () => import("views/Login.vue"),
+        component: () => import("views/Login")
     },
     {
         path: "/user",
         name: "User",
-        component: () => import("views/User.vue"),
-    },
+        component: () => import("views/User.vue")
+    }
 ];
 
 export default new VueRouter({
-    routes,
+    routes
 });
