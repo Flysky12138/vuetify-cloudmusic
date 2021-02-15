@@ -3,28 +3,20 @@
     <!-- <div v-if="$vuetify.breakpoint.smAndUp"> -->
     <!-- 顶部导航栏 -->
     <v-app-bar color="white" app elevate-on-scroll>
-      <v-container class="d-flex align-center">
-        <!-- 按键 -->
-        <btn-router />
-        <!-- 搜索框 -->
-        <search />
-        <!-- 头像 -->
-        <avatar class="ml-6" />
+      <v-container>
+        <app-bar />
       </v-container>
     </v-app-bar>
     <!-- 路由显示区 -->
     <v-main class="grey lighten-3">
       <v-container>
-        <v-sheet rounded="lg">
+        <v-sheet rounded="lg" :min-height="$vuetify.breakpoint.height - 90">
           <router-view />
         </v-sheet>
       </v-container>
     </v-main>
-    <!-- 侧边栏 -->
-    <!-- 音乐按键栏 -->
-    <music-column />
-    <!-- 回顶按键 -->
-    <go-top />
+    <!-- 侧边固定栏 -->
+    <side-bar />
     <!-- </div>
     <v-sheet
       v-else
@@ -37,13 +29,10 @@
 </template>
 
 <script>
-import BtnRouter from "components/AppBar/ButtonRouter";
-import Search from "components/AppBar/Search.vue";
-import Avatar from "components/AppBar/Avatar.vue";
-import MusicColumn from "components/SideBar/MusicColumn.vue";
-import GoTop from "components/SideBar/GoTop.vue";
+import AppBar from "frame/AppBar";
+import SideBar from "frame/SideBar";
 export default {
-  components: { BtnRouter, Search, Avatar, MusicColumn, GoTop },
+  components: { AppBar, SideBar },
   data: () => ({}),
 };
 </script>

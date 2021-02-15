@@ -61,7 +61,7 @@ export default {
     "phone.value"(newValue) {
       // 号码正确且已注册
       if (this.rules.test(newValue)) {
-        this.$http.existence(newValue).then((res) => {
+        this.$http.check(newValue).then((res) => {
           if (res.hasPassword) {
             this.phone.inputTrue = true;
           } else {

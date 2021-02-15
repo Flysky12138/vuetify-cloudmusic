@@ -22,7 +22,7 @@ axios.defaults.withCredentials = true;
 /*
  * 设置请求传递数据的格式（看服务器要求什么格式）
  */
-axios.defaults.headers["Content-Type"] = "application/x-www-from-urlencoded";
+axios.defaults.headers["Content-Type"] = "application/x-www-form-urlencoded";
 axios.defaults.transformRequest = data => qs.stringify(data);
 
 /*

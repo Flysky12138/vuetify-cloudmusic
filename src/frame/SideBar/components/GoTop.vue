@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import FixedView from "./Common.vue";
+import FixedView from "components/FixedView.vue";
 export default {
   components: { FixedView },
   data: () => ({

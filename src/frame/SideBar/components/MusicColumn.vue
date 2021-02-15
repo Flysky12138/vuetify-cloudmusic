@@ -1,6 +1,6 @@
 <template>
   <fixed-view offset-y="-5vh">
-    <template v-slot:rc>
+    <template v-slot:r>
       <!-- 上一首 -->
       <transition name="moveUp">
         <v-btn icon class="upBt" v-show="isShow">
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import FixedView from "./Common.vue";
+import FixedView from "components/FixedView.vue";
 export default {
   components: { FixedView },
   data: () => ({

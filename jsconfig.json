@@ -6,6 +6,7 @@
         "paths": {
             "assets/*": ["./src/assets/*"],
             "components/*": ["./src/components/*"],
+            "frame/*": ["./src/frame/*"],
             "views/*": ["./src/views/*"]
         }
     }

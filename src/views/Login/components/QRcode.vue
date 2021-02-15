@@ -17,7 +17,6 @@ export default {
     unikey: "",
     qrimg: "",
     interval: {},
-    success: false,
   }),
   created() {
     this.getQRCode();
@@ -54,7 +53,6 @@ export default {
               this.$refs.topSnack.value = "授权成功";
               this.$refs.topSnack.color = "success";
               clearInterval(this.interval);
-              this.success = true;
               break;
           }
           console.log(res);

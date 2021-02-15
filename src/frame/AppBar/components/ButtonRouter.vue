@@ -7,10 +7,10 @@
 </template>
 
 <script>
-import ButtonMenu from "./components/ButtonMenu.vue";
-import ButtonNormal from "./components/ButtonNormal.vue";
+import ButtonRouterMenu from "components/Button/ButtonRouterMenu.vue";
+import ButtonRouterNormal from "components/Button/ButtonRouterNormal.vue";
 export default {
-  components: { ButtonMenu, ButtonNormal },
+  components: { ButtonRouterMenu, ButtonRouterNormal },
   data: () => ({
     items: [
       { name: "首页", link: "/" },
@@ -37,7 +37,9 @@ export default {
   }),
   methods: {
     whichComp(value) {
-      return typeof value.links === "undefined" ? ButtonNormal : ButtonMenu;
+      return typeof value.links === "undefined"
+        ? ButtonRouterNormal
+        : ButtonRouterMenu;
     },
   },
 };

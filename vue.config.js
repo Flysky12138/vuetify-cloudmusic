@@ -8,6 +8,7 @@ module.exports = {
             alias: {
                 assets: "@/assets",
                 components: "@/components",
+                frame: "@/frame",
                 views: "@/views"
             }
         }
