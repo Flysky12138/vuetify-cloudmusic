@@ -7,6 +7,7 @@
         <app-bar />
       </v-container>
     </v-app-bar>
+
     <!-- 路由显示区 -->
     <v-main class="grey lighten-3">
       <v-container>
@@ -15,6 +16,7 @@
         </v-sheet>
       </v-container>
     </v-main>
+
     <!-- 侧边固定栏 -->
     <side-bar />
     <!-- </div>

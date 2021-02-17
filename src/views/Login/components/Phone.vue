@@ -14,8 +14,10 @@
       >
       </v-text-field>
     </v-col>
+
     <!-- 布局占位 -->
     <v-col cols="1" class="hidden-xs-only"></v-col>
+
     <!-- 密码输入 -->
     <v-col cols="7" sm="4">
       <v-text-field
@@ -32,6 +34,7 @@
       >
       </v-text-field>
     </v-col>
+
     <!-- 提示 -->
     <top-snack ref="topSnack" />
   </v-row>
@@ -40,19 +43,10 @@
 <script>
 import TopSnack from "components/Tips/TopSnack.vue";
 export default {
-  components: {
-    TopSnack,
-  },
+  components: { TopSnack },
   data: () => ({
-    phone: {
-      value: "",
-      inputTrue: false,
-    },
-    password: {
-      value: "",
-      isShow: false,
-      disabled: true,
-    },
+    phone: { value: "", inputTrue: false },
+    password: { value: "", isShow: false, disabled: true },
     rules: new RegExp(
       "^(13[0-9]|14[5|7]|15[0|1|2|3|4|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$"
     ),
@@ -62,7 +56,7 @@ export default {
       // 号码正确且已注册
       if (this.rules.test(newValue)) {
         this.$http.check(newValue).then((res) => {
-          if (res.hasPassword) {
+          if (res) {
             this.phone.inputTrue = true;
           } else {
             this.$refs.topSnack.value =
@@ -87,25 +81,25 @@ export default {
   },
   methods: {
     login(event) {
-      if (event.keyCode === 13) {
+      if (this.password.value !== "" && event.keyCode === 13) {
         this.$http
           .cellphone(this.phone.value, this.password.value)
           .then((res) => {
-            console.log(res);
-            if (typeof res === "undefined") {
-              this.$refs.topSnack.value = "密码错误超过限制";
+            if (res.code === 0) {
               this.$refs.topSnack.color = "error";
-            } else if (res.code === 200) {
-              this.$refs.topSnack.value =
-                "登录成功，当前用户 【 " + res.profile.nickname + " 】";
-              this.$refs.topSnack.color = "success";
-            } else if (res.code === 250) {
-              this.$refs.topSnack.value = "当前登录失败，请稍后再试";
-              this.$refs.topSnack.color = "error";
-            } else if (res.code === 502) {
               this.$refs.topSnack.value = "密码错误";
-              this.$refs.topSnack.color = "error";
               this.password.value = "";
+            } else if (res.code === 1) {
+              this.$refs.topSnack.color = "success";
+              this.$refs.topSnack.value =
+                "登录成功，当前用户 【 " + res.nickname + " 】";
+              console.log(res.cookie);
+            } else if (res.code === 2) {
+              this.$refs.topSnack.color = "error";
+              this.$refs.topSnack.value = "当前登录失败，请稍后再试";
+            } else if (res.code === 3) {
+              this.$refs.topSnack.color = "error";
+              this.$refs.topSnack.value = "密码错误超过限制，请换二维码登录";
             }
           });
       }

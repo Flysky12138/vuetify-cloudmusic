@@ -38,14 +38,8 @@
 <script>
 export default {
   props: {
-    offsetX: {
-      type: String,
-      default: "0px",
-    },
-    offsetY: {
-      type: String,
-      default: "0px",
-    },
+    offsetX: { type: String, default: "0px" },
+    offsetY: { type: String, default: "0px" },
   },
   data: () => ({}),
   computed: {

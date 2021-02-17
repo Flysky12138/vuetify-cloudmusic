@@ -2,8 +2,8 @@
   <v-snackbar
     transition="scroll-y-transition"
     top
+    timeout="3000"
     v-model="isShow"
-    :timeout="timeout"
     :color="color"
   >
     {{ value }}
@@ -18,18 +18,19 @@ export default {
   data: () => ({
     isShow: false,
     value: "",
-    timeout: 3000,
     color: "primary",
   }),
+  /* 当父组件传入的props值与上次相同时不会触发watch，无法修改isShow的值，再次显示
+   * 所以不用props传值，父组件通过$refs直接访问组件数据
+   */
   watch: {
     value(newValue) {
       newValue !== "" && (this.isShow = true);
     },
     // 还原样式
-    isShow(newValue, oldValue) {
-      if (!newValue && oldValue) {
+    isShow(newValue) {
+      if (!newValue) {
         this.value = "";
-        this.timeout = 3000;
         this.color = "primary";
       }
     },

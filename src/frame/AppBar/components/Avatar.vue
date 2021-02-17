@@ -22,10 +22,7 @@
 <script>
 export default {
   data: () => ({
-    link: {
-      id: 0,
-      value: ["login", "user"],
-    },
+    link: { id: 0, value: ["login", "user"] },
     messages: 0,
     icon: "mdi-account-outline",
   }),

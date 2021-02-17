@@ -1,9 +1,13 @@
 import cellphone from "./login/cellphone";
-import qr from "./login/qr";
+import _qr from "./login/qr";
 import check from "./cellphone/existence/check";
 
 export default {
     cellphone,
-    qr,
+    qr: {
+        key: _qr.key,
+        create: _qr.create,
+        check: _qr.check
+    },
     check
 };

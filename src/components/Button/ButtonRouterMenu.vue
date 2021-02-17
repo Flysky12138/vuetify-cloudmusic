@@ -22,6 +22,7 @@
         <v-icon x-small class="pt-1">{{ icon.value[icon.id] }}</v-icon>
       </v-btn>
     </template>
+
     <v-list v-intersect="changeIcon">
       <v-list-item
         v-for="(item, index) in value.links"
@@ -49,10 +50,7 @@ export default {
     value: { type: Object, required: true },
   },
   data: () => ({
-    icon: {
-      id: 0,
-      value: ["mdi-chevron-down", "mdi-chevron-up"],
-    },
+    icon: { id: 0, value: ["mdi-chevron-down", "mdi-chevron-up"] },
   }),
   methods: {
     changeIcon(entries) {

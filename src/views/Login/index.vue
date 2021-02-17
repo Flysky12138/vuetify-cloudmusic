@@ -5,13 +5,16 @@
       <v-card-title class="justify-center font-weight-bold text-h4 blue--text">
         {{ title }}
       </v-card-title>
+
       <v-divider></v-divider>
+
       <!-- 切换选项卡 -->
       <v-tabs v-model="tab" color="basil" grow>
         <v-tab v-for="item in items" :key="item" class="font-weight-bold">
           {{ item }}
         </v-tab>
       </v-tabs>
+
       <!-- 手机号、二维码 -->
       <v-tabs-items v-model="tab" vertical reverse>
         <v-tab-item v-for="(item, index) in items" :key="index" class="py-8">
@@ -23,10 +26,10 @@
 </template>
 
 <script>
-import Message from "./components/Phone";
-import QRcode from "./components/QRcode";
+import Phone from "./components/Phone.vue";
+import QRcode from "./components/QRcode.vue";
 export default {
-  components: { Message, QRcode },
+  components: { Phone, QRcode },
   data: () => ({
     tab: null,
     title: "登录",
@@ -34,7 +37,7 @@ export default {
   }),
   methods: {
     whichComp(value) {
-      return value === 0 ? Message : QRcode;
+      return value === 0 ? Phone : QRcode;
     },
   },
 };
