@@ -39,20 +39,28 @@ export default {
       this.$http.qr.check(this.unikey).then((res) => {
         switch (res.code) {
           case 0:
-            clearInterval(this.interval);
             this.$refs.topSnack.value = "二维码已过期，将重新获取";
             this.qrimg = "";
+            clearInterval(this.interval);
             setTimeout(() => {
               this.getQRCode();
             }, 500);
             break;
           case 3:
-            clearInterval(this.interval);
             this.$refs.topSnack.value = "授权登录成功";
             this.$refs.topSnack.color = "success";
-            console.log(res.cookie);
+            this.getAccountInformation();
+            clearInterval(this.interval);
             break;
         }
+      });
+    },
+    // 获取账号信息
+    getAccountInformation() {
+      this.$http.account().then((res) => {
+        this.$store.commit("isLogin", true);
+        this.$store.commit("user/userInformation", res);
+        this.$router.push("/");
       });
     },
   },

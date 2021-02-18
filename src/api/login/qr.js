@@ -2,15 +2,9 @@ import axios from "../api";
 
 // 二维码key生成接口
 function key() {
-    return axios
-        .get("/login/qr/key", {
-            params: {
-                timerstamp: new Date().getTime()
-            }
-        })
-        .then(res => {
-            return Promise.resolve(res.data.unikey);
-        });
+    return axios.get("/login/qr/key").then(res => {
+        return Promise.resolve(res.data.unikey);
+    });
 }
 // 二维码生成接口
 function create(key) {
@@ -18,8 +12,7 @@ function create(key) {
         .get("/login/qr/create", {
             params: {
                 key,
-                qrimg: true,
-                timerstamp: new Date().getTime()
+                qrimg: true
             }
         })
         .then(res => {
@@ -31,8 +24,7 @@ function check(key) {
     return axios
         .get("/login/qr/check", {
             params: {
-                key,
-                timerstamp: new Date().getTime()
+                key
             }
         })
         .then(res => {

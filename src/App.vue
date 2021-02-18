@@ -36,5 +36,16 @@ import SideBar from "frame/SideBar";
 export default {
   components: { AppBar, SideBar },
   data: () => ({}),
+  created() {
+    // 获取账号信息
+    this.$http.status().then((res) => {
+      if (res) {
+        this.$http.account().then((res) => {
+          this.$store.commit("isLogin", true);
+          this.$store.commit("user/userInformation", res);
+        });
+      }
+    });
+  },
 };
 </script>

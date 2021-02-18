@@ -32,6 +32,12 @@ axios.defaults.transformRequest = data => qs.stringify(data);
  */
 axios.interceptors.request.use(
     config => {
+        // 时间戳
+        if (typeof config.params === "undefined") {
+            config["params"] = {};
+        }
+        config.params["timerstamp"] = new Date().getTime();
+        // token
         let token = localStorage.getItem("token");
         token && (config.headers.Authorization = token);
         return config;

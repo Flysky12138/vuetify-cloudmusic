@@ -93,7 +93,7 @@ export default {
                 this.$refs.topSnack.color = "success";
                 this.$refs.topSnack.value =
                   "登录成功，当前用户 【 " + res.nickname + " 】";
-                console.log(res.cookie);
+                this.getAccountInformation();
                 break;
               case 2:
                 this.$refs.topSnack.color = "error";
@@ -106,6 +106,14 @@ export default {
             }
           });
       }
+    },
+    // 获取账号信息
+    getAccountInformation() {
+      this.$http.account().then((res) => {
+        this.$store.commit("isLogin", true);
+        this.$store.commit("user/userInformation", res);
+        this.$router.push("/");
+      });
     },
   },
 };

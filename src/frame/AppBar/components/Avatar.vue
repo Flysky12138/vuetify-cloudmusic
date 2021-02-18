@@ -1,19 +1,20 @@
 <template>
   <v-badge
     color="primary"
-    :content="messages"
-    :value="messages"
+    :content="$store.state.user.messages.number"
+    :value="$store.state.user.messages.number ? true : false"
     overlap
     bordered
   >
     <v-avatar color="grey lighten-2" size="38">
-      <v-btn icon :to="link.value[link.id]">
-        <v-icon>{{ icon }}</v-icon>
-        <!-- <v-img
-          :src="require('assets/logo.svg')"
-          max-width="25"
-          max-height="25"
-        ></v-img> -->
+      <v-btn icon :to="choiceRouter">
+        <v-img
+          v-if="$store.state.isLogin"
+          :src="$store.state.user.profile.avatarUrl"
+          max-width="38"
+          max-height="38"
+        ></v-img>
+        <v-icon v-else>{{ icon }}</v-icon>
       </v-btn>
     </v-avatar>
   </v-badge>
@@ -22,14 +23,12 @@
 <script>
 export default {
   data: () => ({
-    link: { id: 0, value: ["login", "user"] },
-    messages: 0,
     icon: "mdi-account-outline",
   }),
-  created() {
-    setTimeout(() => {
-      this.messages = 1;
-    }, 2000);
+  computed: {
+    choiceRouter() {
+      return this.$store.state.isLogin ? "user" : "login";
+    },
   },
 };
 </script>

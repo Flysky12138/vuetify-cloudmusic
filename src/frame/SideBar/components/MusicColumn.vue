@@ -26,17 +26,16 @@ import FixedView from "components/FixedView.vue";
 export default {
   components: { FixedView },
   data: () => ({
-    isShow: false,
     icons: {
       up: "mdi-chevron-up",
       down: "mdi-chevron-down",
       song: "mdi-music-clef-treble",
     },
   }),
-  created() {
-    setTimeout(() => {
-      this.isShow = true;
-    }, 1000);
+  computed: {
+    isShow() {
+      return this.$store.state.play.isPlay;
+    },
   },
 };
 </script>
@@ -71,7 +70,7 @@ $deviation: 60px;
 .moveDown-enter-active {
   transition: all 0.3s ease-out;
 }
-@keyframes Rotate {
+@keyframes rotate {
   0% {
     transform: rotate(0deg);
   }
@@ -80,6 +79,6 @@ $deviation: 60px;
   }
 }
 .audio {
-  animation: Rotate 5s linear infinite;
+  animation: rotate 5s linear infinite;
 }
 </style>
