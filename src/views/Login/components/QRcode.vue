@@ -60,7 +60,9 @@ export default {
       this.$http.account().then((res) => {
         this.$store.commit("isLogin", true);
         this.$store.commit("user/userInformation", res);
-        this.$router.push("/");
+        setTimeout(() => {
+          this.$router.push("/");
+        }, 2000);
       });
     },
   },
