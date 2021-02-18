@@ -37,7 +37,7 @@ export default {
     // 检测二维码扫码状态
     checkQRCodeStatus() {
       this.$http.qr.check(this.unikey).then((res) => {
-        switch (res.code) {
+        switch (res) {
           case 0:
             this.$refs.topSnack.value = "二维码已过期，将重新获取";
             this.qrimg = "";
@@ -62,7 +62,7 @@ export default {
         this.$store.commit("user/userInformation", res);
         setTimeout(() => {
           this.$router.push("/");
-        }, 2000);
+        }, 1500);
       });
     },
   },

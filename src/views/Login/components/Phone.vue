@@ -83,7 +83,7 @@ export default {
         this.$http
           .cellphone(this.phone.value, this.password.value)
           .then((res) => {
-            switch (res.code) {
+            switch (res) {
               case 0:
                 this.$refs.topSnack.color = "error";
                 this.$refs.topSnack.value = "密码错误";
@@ -114,7 +114,7 @@ export default {
         this.$store.commit("user/userInformation", res);
         setTimeout(() => {
           this.$router.push("/");
-        }, 2000);
+        }, 1500);
       });
     },
   },

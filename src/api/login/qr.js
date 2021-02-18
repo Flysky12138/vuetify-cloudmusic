@@ -28,26 +28,22 @@ function check(key) {
             }
         })
         .then(res => {
-            let data = {
-                code: 1,
-                cookie: ""
-            };
+            let code = 1;
             switch (res.code) {
                 case 800: // 二维码过期
-                    data.code = 0;
+                    code = 0;
                     break;
                 case 801: // 等待扫码
-                    data.code = 1;
+                    code = 1;
                     break;
                 case 802: // 待确认
-                    data.code = 2;
+                    code = 2;
                     break;
                 case 803: // 授权成功
-                    data.code = 3;
-                    data.cookie = res.cookie;
+                    code = 3;
                     break;
             }
-            return Promise.resolve(data);
+            return Promise.resolve(code);
         });
 }
 

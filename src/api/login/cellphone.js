@@ -9,28 +9,22 @@ function cellphone(phone, password, countrycode = "86") {
             countrycode
         })
         .then(res => {
-            let data = {
-                code: 1,
-                cookie: "",
-                nickname: ""
-            };
+            let code = 2;
             switch (res.code) {
                 case 502: // 密码错误
-                    data.code = 0;
+                    code = 0;
                     break;
                 case 200: // 登录成功
-                    data.code = 1;
-                    data.cookie = res.cookie;
-                    data.nickname = res.profile.nickname;
+                    code = 1;
                     break;
                 case 250: // 登录失败
-                    data.code = 2;
+                    code = 2;
                     break;
                 case 509: // 密码错误超过限制
-                    data.code = 3;
+                    code = 3;
                     break;
             }
-            return Promise.resolve(data);
+            return Promise.resolve(code);
         });
 }
 
