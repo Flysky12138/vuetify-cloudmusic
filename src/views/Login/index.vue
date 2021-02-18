@@ -16,7 +16,7 @@
       </v-tabs>
 
       <!-- 手机号、二维码 -->
-      <v-tabs-items v-model="tab" vertical reverse>
+      <v-tabs-items v-model="tab" vertical>
         <v-tab-item v-for="(item, index) in items" :key="index" class="py-8">
           <component :is="whichComp(index)"></component>
         </v-tab-item>

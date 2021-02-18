@@ -47,9 +47,7 @@ export default {
   data: () => ({
     phone: { value: "", inputTrue: false },
     password: { value: "", isShow: false, disabled: true },
-    rules: new RegExp(
-      "^(13[0-9]|14[5|7]|15[0|1|2|3|4|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$"
-    ),
+    rules: new RegExp("^(13[0-9]|14[5|7]|15[0-9]|18[0-3|5-9])\\d{8}$"),
   }),
   watch: {
     "phone.value"(newValue) {
@@ -85,21 +83,26 @@ export default {
         this.$http
           .cellphone(this.phone.value, this.password.value)
           .then((res) => {
-            if (res.code === 0) {
-              this.$refs.topSnack.color = "error";
-              this.$refs.topSnack.value = "密码错误";
-              this.password.value = "";
-            } else if (res.code === 1) {
-              this.$refs.topSnack.color = "success";
-              this.$refs.topSnack.value =
-                "登录成功，当前用户 【 " + res.nickname + " 】";
-              console.log(res.cookie);
-            } else if (res.code === 2) {
-              this.$refs.topSnack.color = "error";
-              this.$refs.topSnack.value = "当前登录失败，请稍后再试";
-            } else if (res.code === 3) {
-              this.$refs.topSnack.color = "error";
-              this.$refs.topSnack.value = "密码错误超过限制，请换二维码登录";
+            switch (res.code) {
+              case 0:
+                this.$refs.topSnack.color = "error";
+                this.$refs.topSnack.value = "密码错误";
+                this.password.value = "";
+                break;
+              case 1:
+                this.$refs.topSnack.color = "success";
+                this.$refs.topSnack.value =
+                  "登录成功，当前用户 【 " + res.nickname + " 】";
+                console.log(res.cookie);
+                break;
+              case 2:
+                this.$refs.topSnack.color = "error";
+                this.$refs.topSnack.value = "当前登录失败，请稍后再试";
+                break;
+              case 3:
+                this.$refs.topSnack.color = "error";
+                this.$refs.topSnack.value = "密码错误超过限制，请换二维码登录";
+                break;
             }
           });
       }
