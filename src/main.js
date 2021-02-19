@@ -3,10 +3,10 @@ import App from "./App.vue";
 import router from "./plugins/router";
 import store from "./plugins/store";
 import vuetify from "./plugins/vuetify";
-import api from "./api";
+import http from "./http";
 
 Vue.config.productionTip = false;
-Vue.prototype.$http = api;
+Vue.prototype.$http = http;
 
 new Vue({
     router,

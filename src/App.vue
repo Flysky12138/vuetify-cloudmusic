@@ -38,9 +38,9 @@ export default {
   data: () => ({}),
   created() {
     // 获取账号信息
-    this.$http.status().then((res) => {
+    this.$http.login.status().then((res) => {
       if (res) {
-        this.$http.account().then((res) => {
+        this.$http.user.account().then((res) => {
           this.$store.commit("isLogin", true);
           this.$store.commit("user/userInformation", res);
         });

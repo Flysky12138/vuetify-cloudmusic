@@ -80,7 +80,7 @@ export default {
   methods: {
     login(event) {
       if (this.password.value !== "" && event.keyCode === 13) {
-        this.$http
+        this.$http.login
           .cellphone(this.phone.value, this.password.value)
           .then((res) => {
             switch (res) {
@@ -91,8 +91,7 @@ export default {
                 break;
               case 1:
                 this.$refs.topSnack.color = "success";
-                this.$refs.topSnack.value =
-                  "登录成功，当前用户 【 " + res.nickname + " 】";
+                this.$refs.topSnack.value = "授权登录成功";
                 this.getAccountInformation();
                 break;
               case 2:
@@ -109,7 +108,7 @@ export default {
     },
     // 获取账号信息
     getAccountInformation() {
-      this.$http.account().then((res) => {
+      this.$http.user.account().then((res) => {
         this.$store.commit("isLogin", true);
         this.$store.commit("user/userInformation", res);
         setTimeout(() => {

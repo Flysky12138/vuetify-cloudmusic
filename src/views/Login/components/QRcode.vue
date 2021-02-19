@@ -24,9 +24,9 @@ export default {
   methods: {
     // 生成二维码
     getQRCode() {
-      this.$http.qr.key().then((res) => {
+      this.$http.login.qr.key().then((res) => {
         this.unikey = res;
-        this.$http.qr.create(this.unikey).then((res) => {
+        this.$http.login.qr.create(this.unikey).then((res) => {
           this.qrimg = res;
           this.interval = setInterval(() => {
             this.checkQRCodeStatus();
@@ -36,7 +36,7 @@ export default {
     },
     // 检测二维码扫码状态
     checkQRCodeStatus() {
-      this.$http.qr.check(this.unikey).then((res) => {
+      this.$http.login.qr.check(this.unikey).then((res) => {
         switch (res) {
           case 0:
             this.$refs.topSnack.value = "二维码已过期，将重新获取";
@@ -57,7 +57,7 @@ export default {
     },
     // 获取账号信息
     getAccountInformation() {
-      this.$http.account().then((res) => {
+      this.$http.user.account().then((res) => {
         this.$store.commit("isLogin", true);
         this.$store.commit("user/userInformation", res);
         setTimeout(() => {
