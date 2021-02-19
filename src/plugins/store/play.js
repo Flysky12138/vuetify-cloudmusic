@@ -3,7 +3,7 @@ const state = {
 };
 
 const mutations = {
-    onPlay(state) {
+    isPlay(state) {
         state.isPlay = true;
     }
 };

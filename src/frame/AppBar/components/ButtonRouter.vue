@@ -36,7 +36,6 @@
               <v-icon x-small class="pt-1">mdi-chevron-down</v-icon>
             </v-btn>
           </template>
-
           <v-list>
             <v-list-item
               v-for="(item, index) in item.links"
