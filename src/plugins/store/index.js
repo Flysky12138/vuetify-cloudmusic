@@ -6,7 +6,7 @@ import user from "./user";
 
 Vue.use(Vuex);
 
-const opts = {
+const store = {
     state: {
         isLogin: false
     },
@@ -21,4 +21,4 @@ const opts = {
     }
 };
 
-export default new Vuex.Store(opts);
+export default new Vuex.Store(store);

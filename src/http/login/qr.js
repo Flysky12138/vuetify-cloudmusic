@@ -27,9 +27,9 @@ function check(key) {
                 key
             }
         })
-        .then(res => {
+        .then(response => {
             let code = 1;
-            switch (res.code) {
+            switch (response.code) {
                 case 800: // 二维码过期
                     code = 0;
                     break;

@@ -1,67 +1,47 @@
 <template>
+  <!-- 右上角消息徽章 -->
   <v-badge
     color="primary"
     :content="number"
-    :value="number ? true : false"
+    :value="isLogin ? true : false"
     overlap
     bordered
   >
+    <!-- 头像 -->
     <v-avatar color="grey lighten-2" size="38">
-      <v-menu
-        offset-y
-        :open-on-hover="isLogin"
-        open-delay="500"
-        :disabled="!isLogin"
-        rounded="lg"
-        left
-        transition="slide-y-transition"
-        nudge-bottom="10"
-        close-delay="100"
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn icon :to="isLogin ? 'user' : 'login'" v-bind="attrs" v-on="on">
-            <v-img
-              v-if="isLogin"
-              :src="avatarUrl"
-              max-width="38"
-              max-height="38"
-            ></v-img>
-            <v-icon v-else>mdi-account-outline</v-icon>
-          </v-btn>
-        </template>
-        <v-card width="200">
-          <v-card-title>
-            {{ nickname }}
-          </v-card-title>
-          <v-divider></v-divider>
-          <v-card-text>
-            {{ signature }}
-          </v-card-text>
-          <v-card-actions>
-            <v-btn color="success" @click="logout" class="mx-auto">
-              logout
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-menu>
+      <!-- 用户信息跳转按键 -->
+      <v-btn v-if="isLogin" icon to="account" @contextmenu.prevent="logout">
+        <v-img :src="avatarUrl" max-width="38" max-height="38"></v-img>
+      </v-btn>
+      <!-- 登陆界面 -->
+      <login v-else @is="login" />
     </v-avatar>
   </v-badge>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import Login from "./Login";
 export default {
+  components: { Login },
   data: () => ({}),
   computed: {
     ...mapState({
       isLogin: (state) => state.isLogin,
       avatarUrl: (state) => state.user.profile.avatarUrl,
       number: (state) => state.user.messages.number,
-      nickname: (state) => state.user.profile.nickname,
-      signature: (state) => state.user.profile.signature,
     }),
   },
   methods: {
+    login() {
+      // 获取账号信息
+      this.$http.user.account().then((res) => {
+        this.$store.commit("user/userInformation", res);
+        setTimeout(() => {
+          this.$store.commit("isLogin", true);
+        }, 2000);
+      });
+    },
     logout() {
       this.$http.logout().then(() => {
         this.$store.commit("isLogin", false);

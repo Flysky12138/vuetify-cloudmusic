@@ -11,7 +11,7 @@
     <!-- 路由显示区 -->
     <v-main class="grey lighten-3">
       <v-container>
-        <v-sheet rounded="lg" :min-height="$vuetify.breakpoint.height - 90">
+        <v-sheet rounded="lg" :min-height="$vuetify.breakpoint.height - 88">
           <router-view />
         </v-sheet>
       </v-container>
@@ -46,6 +46,10 @@ export default {
         });
       }
     });
+    // 弹出播放按键
+    setTimeout(() => {
+      this.$store.commit("play/isPlay");
+    }, 2000);
   },
 };
 </script>

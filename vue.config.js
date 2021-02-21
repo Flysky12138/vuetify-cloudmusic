@@ -7,6 +7,7 @@ module.exports = {
         resolve: {
             alias: {
                 assets: "@/assets",
+                common: "@/common",
                 components: "@/components",
                 frame: "@/frame",
                 views: "@/views"

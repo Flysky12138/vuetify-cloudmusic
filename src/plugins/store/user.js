@@ -12,7 +12,8 @@ const state = {
         lastLoginIP: "",
         lastLoginTime: 0,
         nickname: "",
-        signature: ""
+        signature: "",
+        gender: 0
     },
     messages: {
         number: 2

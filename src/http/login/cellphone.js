@@ -8,9 +8,9 @@ function cellphone(phone, password, countrycode = "86") {
             password,
             countrycode
         })
-        .then(res => {
+        .then(response => {
             let code = 2;
-            switch (res.code) {
+            switch (response.code) {
                 case 502: // 密码错误
                     code = 0;
                     break;

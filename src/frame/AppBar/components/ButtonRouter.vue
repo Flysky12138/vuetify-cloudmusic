@@ -19,7 +19,7 @@
           rounded="lg"
           transition="slide-y-transition"
           offset-y
-          nudge-bottom="10vh"
+          nudge-bottom="10"
           open-on-hover
           close-delay="100"
         >
@@ -45,9 +45,10 @@
               <v-list-item-action class="ma-0">
                 <v-btn
                   text
-                  rounded
                   class="text-subtitle-2 font-weight-bold"
+                  width="5vw"
                   :to="item.link"
+                  tile
                 >
                   {{ item.name }}
                 </v-btn>

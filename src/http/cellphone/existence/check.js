@@ -9,8 +9,8 @@ function check(phone, countrycode = "86") {
                 countrycode
             }
         })
-        .then(res => {
-            return Promise.resolve(res.hasPassword);
+        .then(response => {
+            return Promise.resolve(response.hasPassword);
         });
 }
 

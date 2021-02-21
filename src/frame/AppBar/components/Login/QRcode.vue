@@ -1,27 +1,29 @@
 <template>
   <v-container>
-    <v-row justify="center">
+    <v-row justify="center" v-intersect="onIntersect">
       <v-col cols="6">
         <v-img :src="qrimg"></v-img>
       </v-col>
     </v-row>
-    <top-snack ref="topSnack" />
   </v-container>
 </template>
 
 <script>
-import TopSnack from "components/Tips/TopSnack.vue";
 export default {
-  components: { TopSnack },
   data: () => ({
     unikey: "",
     qrimg: "",
     interval: {},
   }),
-  created() {
-    this.getQRCode();
-  },
   methods: {
+    // 是否在二维码界面
+    onIntersect(entries) {
+      if (entries[0].isIntersecting) {
+        this.getQRCode();
+      } else {
+        clearInterval(this.interval);
+      }
+    },
     // 生成二维码
     getQRCode() {
       this.$http.login.qr.key().then((res) => {
@@ -38,31 +40,23 @@ export default {
     checkQRCodeStatus() {
       this.$http.login.qr.check(this.unikey).then((res) => {
         switch (res) {
-          case 0:
-            this.$refs.topSnack.value = "二维码已过期，将重新获取";
+          case 0: // 二维码过期
+            this.$emit("isQrWait", false);
             this.qrimg = "";
             clearInterval(this.interval);
             setTimeout(() => {
               this.getQRCode();
             }, 500);
             break;
-          case 3:
-            this.$refs.topSnack.value = "授权登录成功";
-            this.$refs.topSnack.color = "success";
-            this.getAccountInformation();
+          case 2: // 等待确认
+            this.$emit("isQrWait", true);
+            break;
+          case 3: // 扫码成功
+            this.$emit("isQrWait", false);
+            this.$emit("isLogin");
             clearInterval(this.interval);
             break;
         }
-      });
-    },
-    // 获取账号信息
-    getAccountInformation() {
-      this.$http.user.account().then((res) => {
-        this.$store.commit("isLogin", true);
-        this.$store.commit("user/userInformation", res);
-        setTimeout(() => {
-          this.$router.push("/");
-        }, 1500);
       });
     },
   },
