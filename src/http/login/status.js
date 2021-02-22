@@ -4,9 +4,15 @@ import axios from "../api";
 function status() {
     return axios.get("/login/status").then(response => {
         if (response.data.account === null && response.data.profile === null) {
-            return Promise.resolve(false);
+            return Promise.resolve({
+                islogin: false,
+                id: 0
+            });
         } else {
-            return Promise.resolve(true);
+            return Promise.resolve({
+                islogin: true,
+                id: response.data.account.id
+            });
         }
     });
 }

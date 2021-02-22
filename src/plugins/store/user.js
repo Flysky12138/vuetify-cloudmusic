@@ -1,32 +1,34 @@
 const state = {
-    account: {
-        id: 0,
-        createTime: 0,
-        vipType: 0
-    },
+    // detail
+    createDays: 0,
+    createTime: 0,
+    level: 0,
+    listenSongs: 0,
     profile: {
         avatarUrl: "",
         backgroundUrl: "",
         birthday: 0,
         city: 0,
-        lastLoginIP: "",
-        lastLoginTime: 0,
+        gender: 0,
         nickname: "",
+        playlistCount: 0,
+        province: 0,
         signature: "",
-        gender: 0
+        userId: 0,
+        vipType: 0
     },
-    messages: {
-        number: 2
-    }
+
+    newsAmount: 10
 };
 
 const mutations = {
-    userInformation(state, data) {
-        for (let i in state.account) {
-            state.account[i] = data.account[i];
-        }
+    detail(state, params) {
+        state.createDays = params.createDays;
+        state.createTime = params.createTime;
+        state.level = params.level;
+        state.listenSongs = params.listenSongs;
         for (let i in state.profile) {
-            state.profile[i] = data.profile[i];
+            state.profile[i] = params.profile[i];
         }
     }
 };

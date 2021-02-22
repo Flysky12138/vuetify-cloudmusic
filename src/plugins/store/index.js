@@ -8,11 +8,11 @@ Vue.use(Vuex);
 
 const store = {
     state: {
-        isLogin: false
+        islogin: false
     },
     mutations: {
-        isLogin(state, data) {
-            state.isLogin = data;
+        isLogin(state, params) {
+            state.islogin = params;
         }
     },
     modules: {

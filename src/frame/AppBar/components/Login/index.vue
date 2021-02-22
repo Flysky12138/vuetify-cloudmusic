@@ -1,11 +1,19 @@
 <template>
   <v-dialog width="80vw" max-width="600px" overlay-opacity="0.8">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn v-bind="attrs" v-on="on" height="40">
-        <v-icon>mdi-account-outline</v-icon>
+      <v-btn v-bind="attrs" v-on="on" :width="width" :height="height">
+        <!-- 默认插槽位置 -->
+        <slot></slot>
       </v-btn>
     </template>
-    <v-card rounded="lg" :loading="qrLoading">
+    <v-card :loading="qrLoading">
+      <template slot="progress">
+        <v-progress-linear
+          color="green"
+          height="8"
+          indeterminate
+        ></v-progress-linear>
+      </template>
       <!-- 标题 -->
       <v-card-title class="justify-center font-weight-bold text-h4 blue--text">
         {{ title }}
@@ -25,10 +33,10 @@
         <v-tab-item
           v-for="(item, index) in items"
           :key="index"
-          :class="index == 0 ? 'py-12' : 'py-8'"
+          :class="index === 0 ? 'py-12' : 'py-8'"
         >
           <component
-            :is="whichComp(index)"
+            :is="index === 0 ? 'Phone' : 'QRcode'"
             @isLogin="
               $emit('is');
               overlay = true;
@@ -45,8 +53,6 @@
           width="10"
         ></v-progress-circular>
       </v-overlay>
-      <!-- 默认插槽位置 -->
-      <slot></slot>
     </v-card>
   </v-dialog>
 </template>
@@ -56,6 +62,10 @@ import Phone from "./Phone.vue";
 import QRcode from "./QRcode.vue";
 export default {
   components: { Phone, QRcode },
+  props: {
+    width: Number,
+    height: Number,
+  },
   data: () => ({
     tab: null,
     title: "登录",
@@ -63,10 +73,5 @@ export default {
     qrLoading: false,
     overlay: false,
   }),
-  methods: {
-    whichComp(value) {
-      return value === 0 ? "Phone" : "QRcode";
-    },
-  },
 };
 </script>

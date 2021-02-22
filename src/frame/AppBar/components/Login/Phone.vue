@@ -44,8 +44,7 @@
         timeout="3000"
         v-model="topSnack.isShow"
         :color="topSnack.color"
-      >
-        {{ topSnack.value }}
+        >{{ topSnack.value }}
         <template v-slot:action="{ attrs }">
           <v-btn text v-bind="attrs" @click="topSnack.isShow = false"
             >Close
@@ -73,7 +72,7 @@ export default {
       // 号码正确
       if (this.rules.test(newValue)) {
         // 且已注册
-        this.$http.check(newValue).then((res) => {
+        this.$http.login.check(newValue).then((res) => {
           if (res) {
             this.phone.inputTrue = true;
           } else {
