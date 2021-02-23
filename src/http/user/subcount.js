@@ -1,6 +1,6 @@
 import axios from "../api";
 
-// 获取用户信息 , 歌单，收藏，mv, dj 数量
+// 获取用户、歌单、收藏、MV、DJ的数量
 function subcount() {
     return axios.get("/user/subcount");
 }

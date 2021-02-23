@@ -30,20 +30,17 @@
 </template>
 
 <script>
-import AppBar from "frame/AppBar";
-import SideBar from "frame/SideBar";
+import AppBar from "components/Layout/AppBar";
+import SideBar from "components/Layout/SideBar";
 import { mapMutations } from "vuex";
 export default {
   components: { AppBar, SideBar },
   data: () => ({}),
   created() {
-    // 获取账号信息
+    // 获取ID,等级和头像
     this.$http.login.status().then((res) => {
       if (res.islogin) {
-        this.$http.user.detail(res.id).then((res) => {
-          this.detail(res);
-          this.isLogin(true);
-        });
+        this.setLogin(res);
       }
     });
     // 弹出播放按键
@@ -53,8 +50,7 @@ export default {
   },
   methods: {
     ...mapMutations({
-      isLogin: "isLogin",
-      detail: "user/detail",
+      setLogin: "login",
       isPlay: "play/isPlay",
     }),
   },

@@ -2,22 +2,31 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import play from "./play";
-import user from "./user";
 
 Vue.use(Vuex);
 
 const store = {
     state: {
-        islogin: false
+        islogin: false,
+        user: {
+            uid: 0,
+            level: 0,
+            avatarUrl: ""
+        }
     },
     mutations: {
-        isLogin(state, params) {
-            state.islogin = params;
+        login(state, params) {
+            state.user.uid = params.userId;
+            state.user.level = params.level;
+            state.user.avatarUrl = params.avatarUrl;
+            state.islogin = true;
+        },
+        logout(state) {
+            state.islogin = false;
         }
     },
     modules: {
-        play,
-        user
+        play
     }
 };
 

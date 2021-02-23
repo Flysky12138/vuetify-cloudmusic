@@ -9,7 +9,6 @@ module.exports = {
                 assets: "@/assets",
                 common: "@/common",
                 components: "@/components",
-                frame: "@/frame",
                 views: "@/views"
             }
         }
