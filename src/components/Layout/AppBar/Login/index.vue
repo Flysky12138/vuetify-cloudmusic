@@ -18,16 +18,13 @@
       <v-card-title class="justify-center font-weight-bold text-h4 blue--text">
         {{ title }}
       </v-card-title>
-
       <v-divider></v-divider>
-
       <!-- 切换选项卡 -->
       <v-tabs v-model="tab" color="basil" grow>
         <v-tab v-for="item in items" :key="item" class="font-weight-bold">
           {{ item }}
         </v-tab>
       </v-tabs>
-
       <!-- 手机号、二维码 -->
       <v-tabs-items v-model="tab" vertical>
         <v-tab-item

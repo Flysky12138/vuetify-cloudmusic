@@ -2,7 +2,7 @@
   <v-app>
     <template v-if="$vuetify.breakpoint.mdAndUp">
       <!-- 顶部导航栏 -->
-      <v-app-bar color="white" app elevate-on-scroll>
+      <v-app-bar app color="white" elevate-on-scroll>
         <v-container>
           <app-bar />
         </v-container>
@@ -18,7 +18,6 @@
       <!-- 侧边固定栏 -->
       <side-bar />
     </template>
-
     <template v-else>
       <v-sheet
         class="d-flex justify-center align-center text-h6 font-weight-bold"

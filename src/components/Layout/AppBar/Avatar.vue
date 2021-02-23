@@ -1,5 +1,4 @@
 <template>
-  <!-- 头像 -->
   <v-avatar color="grey lighten-2" size="38">
     <!-- 用户界面 -->
     <v-btn v-if="islogin" icon to="account" @contextmenu.prevent="logout">
@@ -13,8 +12,8 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
 import Login from "./Login";
+import { mapState, mapMutations } from "vuex";
 export default {
   components: { Login },
   data: () => ({}),

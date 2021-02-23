@@ -16,10 +16,10 @@ const store = {
     },
     mutations: {
         login(state, params) {
+            state.islogin = true;
             state.user.uid = params.userId;
             state.user.level = params.level;
             state.user.avatarUrl = params.avatarUrl;
-            state.islogin = true;
         },
         logout(state) {
             state.islogin = false;

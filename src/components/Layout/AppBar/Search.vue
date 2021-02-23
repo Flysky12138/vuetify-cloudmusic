@@ -13,9 +13,8 @@
         isFocus = false;
         clear();
       "
-      v-model="data"
-    >
-    </v-text-field>
+      v-model="value"
+    ></v-text-field>
   </v-sheet>
 </template>
 
@@ -23,11 +22,11 @@
 export default {
   data: () => ({
     isFocus: false,
-    data: "",
+    value: "",
   }),
   methods: {
     clear() {
-      this.data = "";
+      this.value = "";
     },
   },
 };

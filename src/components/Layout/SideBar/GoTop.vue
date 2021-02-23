@@ -10,7 +10,7 @@
           @click="$vuetify.goTo(target, options)"
           v-show="!isScrollTop"
         >
-          <v-icon>{{ goTop }}</v-icon>
+          <v-icon>mdi-chevron-up</v-icon>
         </v-btn>
       </v-fab-transition>
     </template>
@@ -22,7 +22,6 @@ import FixedView from "components/FixedView.vue";
 export default {
   components: { FixedView },
   data: () => ({
-    goTop: "mdi-chevron-up",
     isScrollTop: true,
   }),
   computed: {

@@ -6,6 +6,7 @@
     <search />
     <!-- 头像 -->
     <avatar class="ml-6" />
+    <!-- 等级显示 -->
     <v-scroll-x-reverse-transition>
       <span
         v-show="islogin"
@@ -17,10 +18,10 @@
 </template>
 
 <script>
+import ButtonRouter from "./ButtonRouter.vue";
+import Search from "./Search.vue";
+import Avatar from "./Avatar.vue";
 import { mapState } from "vuex";
-import ButtonRouter from "./components/ButtonRouter.vue";
-import Search from "./components/Search.vue";
-import Avatar from "./components/Avatar.vue";
 export default {
   components: { ButtonRouter, Search, Avatar },
   data: () => ({}),

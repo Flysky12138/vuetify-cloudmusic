@@ -4,17 +4,17 @@
       <!-- 上一首 -->
       <transition name="moveUp">
         <v-btn icon class="upBt" v-show="isShow">
-          <v-icon>{{ icons.up }}</v-icon>
+          <v-icon>mdi-chevron-up</v-icon>
         </v-btn>
       </transition>
       <!-- 音乐封面 -->
       <v-btn fab dark color="blue lighten-2" elevation="0" v-show="isShow">
-        <v-icon class="audio">{{ icons.song }}</v-icon>
+        <v-icon class="audio">mdi-music-clef-treble</v-icon>
       </v-btn>
       <!-- 下一首 -->
       <transition name="moveDown">
         <v-btn icon class="bottomBt" v-show="isShow">
-          <v-icon>{{ icons.down }}</v-icon>
+          <v-icon>mdi-chevron-down</v-icon>
         </v-btn>
       </transition>
     </template>
@@ -23,19 +23,14 @@
 
 <script>
 import FixedView from "components/FixedView.vue";
+import { mapState } from "vuex";
 export default {
   components: { FixedView },
-  data: () => ({
-    icons: {
-      up: "mdi-chevron-up",
-      down: "mdi-chevron-down",
-      song: "mdi-music-clef-treble",
-    },
-  }),
+  data: () => ({}),
   computed: {
-    isShow() {
-      return this.$store.state.play.isPlay;
-    },
+    ...mapState({
+      isShow: (state) => state.play.isPlay,
+    }),
   },
 };
 </script>

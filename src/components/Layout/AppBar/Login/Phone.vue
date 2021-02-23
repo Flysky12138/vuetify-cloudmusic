@@ -12,13 +12,10 @@
           autofocus
           v-model.number="phone.value"
           :success="phone.inputTrue"
-        >
-        </v-text-field>
+        ></v-text-field>
       </v-col>
-
       <!-- 布局占位 -->
       <v-col cols="1" class="hidden-xs-only"></v-col>
-
       <!-- 密码输入 -->
       <v-col cols="7" sm="4">
         <v-text-field
@@ -32,10 +29,8 @@
           :disabled="password.disabled"
           v-model="password.value"
           @keyup.13="login"
-        >
-        </v-text-field>
+        ></v-text-field>
       </v-col>
-
       <!-- 提示 -->
       <v-snackbar
         v-show="topSnack.isShow"

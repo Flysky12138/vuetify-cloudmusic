@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import MusicColumn from "./components/MusicColumn.vue";
-import GoTop from "./components/GoTop.vue";
+import MusicColumn from "./MusicColumn.vue";
+import GoTop from "./GoTop.vue";
 export default {
   components: { MusicColumn, GoTop },
   data: () => ({}),
