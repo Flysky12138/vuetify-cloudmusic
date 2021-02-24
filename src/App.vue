@@ -42,16 +42,17 @@ export default {
         this.setLogin(res);
       }
     });
-    // 弹出播放按键
-    setTimeout(() => {
-      this.isPlay();
-    }, 1000);
   },
   methods: {
     ...mapMutations({
       setLogin: "login",
-      isPlay: "play/isPlay",
     }),
   },
 };
 </script>
+
+<style lang="scss">
+* {
+  outline: none;
+}
+</style>

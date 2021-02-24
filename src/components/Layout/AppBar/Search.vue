@@ -1,5 +1,5 @@
 <template>
-  <v-sheet max-width="260">
+  <v-sheet width="230">
     <v-text-field
       solo
       dense
@@ -11,9 +11,11 @@
       @focus="isFocus = true"
       @blur="
         isFocus = false;
-        clear();
+        value = '';
       "
       v-model="value"
+      class="subtitle-2"
+      @keyup.13="search"
     ></v-text-field>
   </v-sheet>
 </template>
@@ -25,8 +27,10 @@ export default {
     value: "",
   }),
   methods: {
-    clear() {
-      this.value = "";
+    search() {
+      if (this.value !== "") {
+        this.$router.push("search");
+      }
     },
   },
 };
