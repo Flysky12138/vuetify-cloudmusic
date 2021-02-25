@@ -10,7 +10,7 @@
           maxlength="11"
           clearable
           autofocus
-          v-model.number="phone.value"
+          v-model="phone.value"
           :success="phone.inputTrue"
         ></v-text-field>
       </v-col>
@@ -32,35 +32,19 @@
         ></v-text-field>
       </v-col>
       <!-- 提示 -->
-      <v-snackbar
-        v-show="topSnack.isShow"
-        transition="scroll-y-transition"
-        top
-        timeout="3000"
-        v-model="topSnack.isShow"
-        :color="topSnack.color"
-        >{{ topSnack.value }}
-        <template v-slot:action="{ attrs }">
-          <v-btn text v-bind="attrs" @click="topSnack.isShow = false"
-            >Close
-          </v-btn>
-        </template>
-      </v-snackbar>
+      <top-snack ref="topSnack" />
     </v-row>
   </v-container>
 </template>
 
 <script>
+import TopSnack from "components/TopSnack.vue";
 export default {
+  components: { TopSnack },
   data: () => ({
     phone: { value: "", inputTrue: false },
     password: { value: "", isShow: false, disabled: true },
     rules: new RegExp("^(13[0-9]|14[5|7]|15[0-9]|18[0-3|5-9])\\d{8}$"),
-    topSnack: {
-      isShow: false,
-      value: "",
-      color: "error",
-    },
   }),
   watch: {
     "phone.value"(newValue) {
@@ -71,15 +55,14 @@ export default {
           if (res) {
             this.phone.inputTrue = true;
           } else {
-            this.topSnack.value =
+            this.$refs.topSnack.text =
               "该手机号未注册 【 " + this.phone.value + " 】";
-            this.topSnack.color = "primary";
-            this.topSnack.isShow = true;
+            this.$refs.topSnack.color = "primary";
           }
         });
       } else {
         this.phone.inputTrue = false;
-        this.topSnack.isShow = false;
+        this.$refs.topSnack.text = "";
       }
     },
     "phone.inputTrue"(newValue) {
@@ -102,23 +85,17 @@ export default {
           .then((res) => {
             switch (res) {
               case 0:
-                this.topSnack.value = "密码错误";
-                this.topSnack.color = "error";
-                this.topSnack.isShow = true;
+                this.$refs.topSnack.text = "密码错误";
                 this.password.value = "";
                 break;
               case 1: // 登录成功
                 this.$emit("isLogin");
                 break;
               case 2:
-                this.topSnack.value = "当前登录失败，请稍后再试";
-                this.topSnack.color = "error";
-                this.topSnack.isShow = true;
+                this.$refs.topSnack.text = "当前登录失败，请稍后再试";
                 break;
               case 3:
-                this.topSnack.value = "密码错误超过限制，请换二维码登录";
-                this.topSnack.color = "error";
-                this.topSnack.isShow = true;
+                this.$refs.topSnack.text = "密码错误超过限制，请换二维码登录";
                 break;
             }
           });

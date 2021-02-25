@@ -6,34 +6,18 @@
       </v-col>
     </v-row>
     <!-- 提示 -->
-    <v-snackbar
-      v-show="topSnack.isShow"
-      transition="scroll-y-transition"
-      top
-      timeout="3000"
-      v-model="topSnack.isShow"
-      :color="topSnack.color"
-      >{{ topSnack.value }}
-      <template v-slot:action="{ attrs }">
-        <v-btn text v-bind="attrs" @click="topSnack.isShow = false"
-          >Close
-        </v-btn>
-      </template>
-    </v-snackbar>
+    <top-snack ref="topSnack" />
   </v-container>
 </template>
 
 <script>
+import TopSnack from "components/TopSnack.vue";
 export default {
+  components: { TopSnack },
   data: () => ({
     unikey: "",
     qrimg: "",
     interval: {},
-    topSnack: {
-      isShow: false,
-      value: "",
-      color: "primary",
-    },
   }),
   methods: {
     // 是否在二维码界面
@@ -62,8 +46,8 @@ export default {
         switch (res) {
           case 0: // 二维码过期
             this.$emit("isQrWait", false);
-            this.topSnack.value = "二维码已过期，将重新获取";
-            this.topSnack.isShow = true;
+            this.$refs.topSnack.text = "二维码已过期，将重新获取";
+            this.$refs.topSnack.color = "primary";
             this.qrimg = "";
             clearInterval(this.interval);
             setTimeout(() => {

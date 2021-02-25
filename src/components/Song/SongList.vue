@@ -19,7 +19,8 @@
       height="440"
       class="elevation-0 mb-4"
       :headers="headers"
-      :items="desserts"
+      :items="items"
+      item-key="count"
       hide-default-footer
       disable-sort
       :search="search"
@@ -29,10 +30,10 @@
       @page-count="pageCount = $event"
     >
       <!-- header插槽 -->
-      <template v-slot:[`header.btns`]>
-        <v-tooltip left>
+      <template v-slot:header.btns>
+        <v-tooltip left open-delay="800">
           <template v-slot:activator="{ on }">
-            <v-btn icon v-on="on" class="mt-n1">
+            <v-btn icon v-on="on">
               <v-icon>mdi-motion-play-outline</v-icon>
             </v-btn>
           </template>
@@ -40,14 +41,14 @@
         </v-tooltip>
       </template>
       <!-- item插槽 -->
-      <template v-slot:[`item.duration`]="{ item }">
+      <template v-slot:item.duration="{ item }">
         <div>{{ getDuration(item.duration) }}</div>
       </template>
-      <template v-slot:[`item.count`]="{ item }">
-        <div>{{ desserts.indexOf(item) + 1 }}</div>
+      <template v-slot:item.count="{ item }">
+        <div>{{ items.indexOf(item) + 1 }}</div>
       </template>
-      <template v-slot:[`item.btns`]="{ item }">
-        <v-btn icon>
+      <template v-slot:item.btns="{ item }">
+        <v-btn icon v-if="islogin">
           <v-icon>mdi-plus-circle-outline</v-icon>
         </v-btn>
         <v-btn icon @click="isPlay(item.id)">
@@ -68,51 +69,38 @@
 
 <script>
 import songTime from "common/songTime";
-import { mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   props: {
     title: {
-      type: "",
+      type: String,
+      required: true,
+    },
+    items: {
+      type: Array,
       required: true,
     },
   },
   data: () => ({
     search: "",
-    page: 1, // 浏览页
-    itemsPerPage: 8, // 单页显示数
+    page: 1, // 当前浏览页
+    itemsPerPage: 8, // 单页显示列表数
     pageCount: 0, // 分页数
+    // 表头
     headers: [
-      { text: "", align: "center", value: "count" },
+      { text: "#", align: "center", value: "count" },
       { text: "歌曲标题", value: "name" },
       { text: "时长", value: "duration" },
       { text: "歌手", value: "artists" },
       { text: "专辑", value: "album" },
       { text: "", align: "right", value: "btns" },
     ],
-    desserts: [
-      {
-        id: "",
-        name: "I（Cover 金泰妍）",
-        duration: 208866,
-        artists: "Deer洁洁",
-        album: "I",
-      },
-      {
-        id: "",
-        name: "I（Cover 金泰妍）",
-        duration: 208866,
-        artists: "Deer洁洁",
-        album: "I",
-      },
-      {
-        id: "",
-        name: "I（Cover 金泰妍）",
-        duration: 208866,
-        artists: "Deer洁洁",
-        album: "I",
-      },
-    ],
   }),
+  computed: {
+    ...mapState({
+      islogin: (state) => state.islogin,
+    }),
+  },
   methods: {
     ...mapMutations({
       isPlay: "play/isPlay",
