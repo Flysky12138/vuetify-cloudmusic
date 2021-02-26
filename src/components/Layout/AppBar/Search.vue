@@ -14,7 +14,7 @@
         value = '';
       "
       v-model="value"
-      class="subtitle-2"
+      class="body-1"
       @keyup.13="search"
     ></v-text-field>
   </v-sheet>
@@ -29,7 +29,12 @@ export default {
   methods: {
     search() {
       if (this.value !== "") {
-        this.$router.push("search");
+        this.$router.push({
+          path: "search",
+          query: {
+            keywords: this.value,
+          },
+        });
       }
     },
   },

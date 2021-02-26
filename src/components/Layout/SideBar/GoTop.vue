@@ -1,26 +1,20 @@
 <template>
-  <fixed-view>
-    <template v-slot:rb>
-      <v-fab-transition>
-        <v-btn
-          fab
-          dark
-          color="blue lighten-2"
-          v-scroll="onScroll"
-          @click="$vuetify.goTo(target, options)"
-          v-show="!isScrollTop"
-        >
-          <v-icon>mdi-chevron-up</v-icon>
-        </v-btn>
-      </v-fab-transition>
-    </template>
-  </fixed-view>
+  <v-fab-transition>
+    <v-btn
+      fab
+      dark
+      color="blue lighten-2"
+      v-scroll="onScroll"
+      @click="$vuetify.goTo(target, options)"
+      v-show="!isScrollTop"
+    >
+      <v-icon>mdi-chevron-up</v-icon>
+    </v-btn>
+  </v-fab-transition>
 </template>
 
 <script>
-import FixedView from "components/FixedView.vue";
 export default {
-  components: { FixedView },
   data: () => ({
     isScrollTop: true,
   }),

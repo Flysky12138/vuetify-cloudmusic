@@ -39,7 +39,7 @@ export default {
     logout() {
       this.$http.logout().then(() => {
         this.setLogout();
-        this.$router.replace("/");
+        // this.$router.replace("/");
       });
     },
   },

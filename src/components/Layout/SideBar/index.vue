@@ -1,9 +1,13 @@
 <template>
   <div>
     <!-- 音乐按键 -->
-    <music-column />
+    <div class="right" style="top: 45vh">
+      <music-column />
+    </div>
     <!-- 回顶按键 -->
-    <go-top />
+    <div class="right bottom">
+      <go-top />
+    </div>
   </div>
 </template>
 
@@ -15,3 +19,33 @@ export default {
   data: () => ({}),
 };
 </script>
+
+<style lang="scss" scoped>
+@mixin common($item: column) {
+  position: fixed;
+  display: flex;
+  flex-direction: $item;
+  align-items: center;
+  background-color: transparent !important;
+}
+
+.left {
+  @include common;
+  left: 5vw;
+}
+
+.right {
+  @include common;
+  right: 5vw;
+}
+
+.top {
+  @include common;
+  top: 10vh;
+}
+
+.bottom {
+  @include common(column-reverse);
+  bottom: 10vh;
+}
+</style>

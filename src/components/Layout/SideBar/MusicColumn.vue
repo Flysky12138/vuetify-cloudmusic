@@ -1,69 +1,60 @@
 <template>
-  <fixed-view offset-y="-5vh">
-    <template v-slot:r>
+  <div class="d-flex justify-center align-center">
+    <!-- 音乐封面 -->
+    <v-btn
+      fab
+      dark
+      color="blue lighten-2"
+      elevation="0"
+      v-show="isShow"
+      @contextmenu.prevent="disPlay"
+    >
+      <v-icon class="audio">mdi-music-clef-treble</v-icon>
+    </v-btn>
+    <!-- 按键 -->
+    <div style="position: absolute; z-index: -1" v-show="isShow">
       <!-- 上一首 -->
-      <transition name="moveUp">
-        <v-btn icon class="upBt" v-show="isShow">
-          <v-icon>mdi-chevron-up</v-icon>
-        </v-btn>
-      </transition>
-      <!-- 音乐封面 -->
-      <v-btn fab dark color="blue lighten-2" elevation="0" v-show="isShow">
-        <v-icon class="audio">mdi-music-clef-treble</v-icon>
+      <v-btn icon>
+        <v-icon>mdi-chevron-up</v-icon>
       </v-btn>
-      <!-- 下一首 -->
-      <transition name="moveDown">
-        <v-btn icon class="bottomBt" v-show="isShow">
-          <v-icon>mdi-chevron-down</v-icon>
-        </v-btn>
+      <transition name="elongate">
+        <div class="box" v-show="isShow"></div>
       </transition>
-    </template>
-  </fixed-view>
+      <!-- 下一首 -->
+      <v-btn icon>
+        <v-icon>mdi-chevron-down</v-icon>
+      </v-btn>
+    </div>
+  </div>
 </template>
 
 <script>
-import FixedView from "components/FixedView.vue";
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
-  components: { FixedView },
   data: () => ({}),
   computed: {
     ...mapState({
       isShow: (state) => state.play.isPlay,
     }),
   },
+  methods: {
+    ...mapMutations({
+      disPlay: "play/disPlay",
+    }),
+  },
 };
 </script>
 
 <style lang="scss">
-$deviation: 60px;
-@mixin common {
-  position: absolute;
-  z-index: -1;
+.box {
+  height: 70px;
 }
-.upBt {
-  @include common;
-  bottom: $deviation;
+.elongate-enter,
+.elongate-leave-to {
+  height: 0;
 }
-.bottomBt {
-  @include common;
-  top: $deviation;
-}
-.moveUp-enter {
-  bottom: 0;
-}
-.moveDown-enter {
-  top: 0;
-}
-.moveUp-enter-to {
-  bottom: $deviation;
-}
-.moveDown-enter-to {
-  top: $deviation;
-}
-.moveUp-enter-active,
-.moveDown-enter-active {
-  transition: all 0.3s ease-out;
+.elongate-enter-active {
+  transition: height 0.5s ease-out;
 }
 @keyframes rotate {
   0% {

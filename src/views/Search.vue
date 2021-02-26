@@ -1,6 +1,13 @@
 <template>
   <v-container>
-    <song-list title="songs" :items="songs" />
+    <song-list
+      :title="keywords"
+      :subtitle="songCount"
+      :items="songs"
+      @pageEnd="getMoreSongs"
+      ref="songList"
+      :loading="loading"
+    />
   </v-container>
 </template>
 
@@ -9,32 +16,43 @@ import SongList from "components/Song/SongList.vue";
 export default {
   components: { SongList },
   data: () => ({
-    songs: [
-      {
-        id: "",
-        name: "I（Cover 金泰妍）",
-        duration: 208866,
-        artists: "Deer洁洁",
-        album: "I",
-      },
-      {
-        id: "",
-        name: "I（Cover 金泰妍）",
-        duration: 208866,
-        artists: "Deer洁洁",
-        album: "I",
-      },
-      {
-        id: "",
-        name: "I（Cover 金泰妍）",
-        duration: 208866,
-        artists: "Deer洁洁",
-        album: "I",
-      },
-    ],
+    keywords: "",
+    songCount: 0,
+    songs: [],
+    hasMore: false,
+    loading: false,
   }),
   created() {
-    // this.$http.song.search("letter");
+    this.keywords = this.$route.query.keywords;
+    this.searchSongs(this.keywords);
+  },
+  methods: {
+    // 获取歌曲列表
+    searchSongs(keywords, offset = 0, push = false) {
+      this.loading = true;
+      this.$http.song.search(keywords, offset).then((res) => {
+        if (push) {
+          this.songs.push.apply(this.songs, res.songs);
+        } else {
+          this.songs = res.songs;
+          this.$refs.songList.toPage(1);
+        }
+        this.songCount = res.songCount;
+        this.hasMore = res.hasMore;
+        this.loading = false;
+      });
+    },
+    // 获取更多歌曲列表
+    getMoreSongs(page) {
+      if (this.hasMore) {
+        this.searchSongs(this.keywords, page / 4, true);
+      }
+    },
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.keywords = to.query.keywords;
+    this.searchSongs(this.keywords);
+    next();
   },
 };
 </script>
