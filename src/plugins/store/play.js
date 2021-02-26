@@ -1,15 +1,15 @@
 const state = {
-    isPlay: false,
+    isplay: false,
     lists: []
 };
 
 const mutations = {
     isPlay(state, id) {
-        state.isPlay = true;
+        state.isplay = true;
         state.lists = id;
     },
     disPlay(state) {
-        state.isPlay = false;
+        state.isplay = false;
     }
 };
 

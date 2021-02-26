@@ -131,7 +131,7 @@ export default {
     }),
     // 回到某页
     toPage(param) {
-      if (param < this.pageCount) {
+      if (param <= this.pageCount) {
         this.page = param;
       }
     },

@@ -1,9 +1,11 @@
 <template>
   <div>
     <!-- 音乐按键 -->
-    <div class="right" style="top: 45vh">
-      <music-column />
-    </div>
+    <v-scale-transition>
+      <div class="right" style="top: 45vh" v-show="isplay">
+        <music-column />
+      </div>
+    </v-scale-transition>
     <!-- 回顶按键 -->
     <div class="right bottom">
       <go-top />
@@ -14,9 +16,15 @@
 <script>
 import MusicColumn from "./MusicColumn.vue";
 import GoTop from "./GoTop.vue";
+import { mapState } from "vuex";
 export default {
   components: { MusicColumn, GoTop },
   data: () => ({}),
+  computed: {
+    ...mapState({
+      isplay: (state) => state.play.isplay,
+    }),
+  },
 };
 </script>
 

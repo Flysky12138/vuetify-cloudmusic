@@ -6,19 +6,18 @@
       dark
       color="blue lighten-2"
       elevation="0"
-      v-show="isShow"
       @contextmenu.prevent="disPlay"
     >
       <v-icon class="audio">mdi-music-clef-treble</v-icon>
     </v-btn>
     <!-- 按键 -->
-    <div style="position: absolute; z-index: -1" v-show="isShow">
+    <div style="position: absolute; z-index: -1">
       <!-- 上一首 -->
       <v-btn icon>
         <v-icon>mdi-chevron-up</v-icon>
       </v-btn>
       <transition name="elongate">
-        <div class="box" v-show="isShow"></div>
+        <div class="box" v-show="isplay"></div>
       </transition>
       <!-- 下一首 -->
       <v-btn icon>
@@ -34,7 +33,7 @@ export default {
   data: () => ({}),
   computed: {
     ...mapState({
-      isShow: (state) => state.play.isPlay,
+      isplay: (state) => state.play.isplay,
     }),
   },
   methods: {
@@ -49,12 +48,11 @@ export default {
 .box {
   height: 70px;
 }
-.elongate-enter,
-.elongate-leave-to {
+.elongate-enter {
   height: 0;
 }
 .elongate-enter-active {
-  transition: height 0.5s ease-out;
+  transition: height 0.5s cubic-bezier(0.88, -0.03, 0.36, 1.56);
 }
 @keyframes rotate {
   0% {
