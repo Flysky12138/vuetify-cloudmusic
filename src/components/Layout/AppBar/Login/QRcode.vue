@@ -46,8 +46,8 @@ export default {
         switch (res) {
           case 0: // 二维码过期
             this.$emit("isQrWait", false);
-            this.$refs.topSnack.text = "二维码已过期，将重新获取";
             this.$refs.topSnack.color = "primary";
+            this.$refs.topSnack.text = "二维码已过期，将重新获取";
             this.qrimg = "";
             clearInterval(this.interval);
             setTimeout(() => {

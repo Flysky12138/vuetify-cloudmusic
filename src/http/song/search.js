@@ -25,15 +25,9 @@ function search(keywords, offset = 0) {
                         id: element.id,
                         name: element.name,
                         duration: songTime(element.duration),
-                        artists: "",
+                        artists: element.artists.map(res => res.name).join("/"),
                         album: "《" + element.album.name + "》"
                     };
-                    element.artists.forEach((res, index) => {
-                        arr.artists = res.name;
-                        if (index !== 0) {
-                            arr.artists += "/" + res.name;
-                        }
-                    });
                     obj.songs.push(arr);
                 });
             }

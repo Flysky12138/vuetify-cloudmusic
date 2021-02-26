@@ -55,9 +55,9 @@ export default {
           if (res) {
             this.phone.inputTrue = true;
           } else {
+            this.$refs.topSnack.color = "primary";
             this.$refs.topSnack.text =
               "该手机号未注册 【 " + this.phone.value + " 】";
-            this.$refs.topSnack.color = "primary";
           }
         });
       } else {

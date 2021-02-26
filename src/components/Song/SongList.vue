@@ -9,8 +9,7 @@
         class="blue--text text--lighten-2 font-italic text-caption ml-4"
         style="padding-top: 6px"
         v-text="subtitle"
-      >
-      </span>
+      ></span>
       <v-spacer></v-spacer>
       <div width="100">
         <v-text-field

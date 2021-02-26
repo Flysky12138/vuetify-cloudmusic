@@ -14,7 +14,6 @@
         value = '';
       "
       v-model="value"
-      class="body-1"
       @keyup.13="search"
     ></v-text-field>
   </v-sheet>

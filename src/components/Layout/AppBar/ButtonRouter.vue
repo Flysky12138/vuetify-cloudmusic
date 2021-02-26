@@ -9,8 +9,8 @@
           class="text-subtitle-1 font-weight-bold"
           width="5vw"
           :to="item.link"
-          >{{ item.name }}
-        </v-btn>
+          v-text="item.name"
+        ></v-btn>
       </template>
       <!-- 菜单按键 -->
       <template v-else>
@@ -30,7 +30,8 @@
               rounded
               class="text-subtitle-1 font-weight-bold pl-7"
               width="5vw"
-              >{{ item.name }}
+            >
+              {{ item.name }}
               <v-icon x-small class="pt-1">mdi-chevron-down</v-icon>
             </v-btn>
           </template>
@@ -47,8 +48,8 @@
                   width="5vw"
                   :to="item.link"
                   tile
-                  >{{ item.name }}
-                </v-btn>
+                  v-text="item.name"
+                ></v-btn>
               </v-list-item-action>
             </v-list-item>
           </v-list>

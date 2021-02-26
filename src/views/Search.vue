@@ -4,9 +4,9 @@
       :title="keywords"
       :subtitle="songCount"
       :items="songs"
+      :loading="loading"
       @pageEnd="getMoreSongs"
       ref="songList"
-      :loading="loading"
     />
   </v-container>
 </template>

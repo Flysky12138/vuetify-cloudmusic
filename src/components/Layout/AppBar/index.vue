@@ -10,7 +10,7 @@
     <v-scroll-x-reverse-transition>
       <span
         v-show="islogin"
-        class="mb-n1 align-self-end green--text caption font-weight-black font-italic"
+        class="mb-n1 align-self-end green--text text-caption font-weight-black font-italic"
         >{{ "Lv." + level }}</span
       >
     </v-scroll-x-reverse-transition>
