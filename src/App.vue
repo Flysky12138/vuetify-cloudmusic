@@ -50,3 +50,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+* {
+  outline: none;
+}
+</style>

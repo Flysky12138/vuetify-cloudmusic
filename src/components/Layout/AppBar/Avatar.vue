@@ -1,7 +1,12 @@
 <template>
   <v-avatar color="grey lighten-2" size="38">
     <!-- 用户界面 -->
-    <v-btn v-if="islogin" icon to="account" @contextmenu.prevent="logout">
+    <v-btn
+      v-if="islogin"
+      icon
+      :to="{ path: 'account', query: { uid: uid } }"
+      @contextmenu.prevent="logout"
+    >
       <v-img :src="avatarUrl" max-width="38" max-height="38"></v-img>
     </v-btn>
     <!-- 登陆界面 -->
@@ -20,6 +25,7 @@ export default {
   computed: {
     ...mapState({
       islogin: (state) => state.islogin,
+      uid: (state) => state.user.uid,
       avatarUrl: (state) => state.user.avatarUrl,
     }),
   },

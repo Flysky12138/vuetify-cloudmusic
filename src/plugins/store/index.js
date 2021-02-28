@@ -1,8 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import play from "./play";
-
 Vue.use(Vuex);
 
 const store = {
@@ -12,6 +10,10 @@ const store = {
             uid: 0,
             level: 0,
             avatarUrl: ""
+        },
+        play: {
+            isplay: false,
+            lists: []
         }
     },
     mutations: {
@@ -23,10 +25,14 @@ const store = {
         },
         logout(state) {
             state.islogin = false;
+        },
+        isPlay(state, idArray) {
+            state.play.isplay = true;
+            state.play.lists = idArray;
+        },
+        disPlay(state) {
+            state.play.isplay = false;
         }
-    },
-    modules: {
-        play
     }
 };
 

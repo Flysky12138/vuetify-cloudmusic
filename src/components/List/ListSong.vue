@@ -22,9 +22,9 @@
     </v-card-title>
     <!-- 表格 -->
     <v-data-table
-      height="440"
-      class="elevation-0 mt-2 mb-4"
-      :headers="headers"
+      height="61vh"
+      class="elevation-0 mt-2"
+      :headers="theHeaders"
       :items="items"
       item-key="count"
       hide-default-footer
@@ -35,27 +35,37 @@
       :page.sync="page"
       @page-count="pageCount = $event"
       :loading="loading"
+      fixed-header
     >
-      <!-- header插槽 -->
+      <!-- header.btns插槽 -->
       <template v-slot:header.btns>
         <v-tooltip left open-delay="800">
           <template v-slot:activator="{ on }">
-            <v-btn icon v-on="on" @click="isPlay(items.map((res) => res.id))">
+            <v-btn
+              icon
+              v-on="on"
+              @click="
+                $emit(
+                  'allPlay',
+                  items.map((res) => res.id)
+                )
+              "
+            >
               <v-icon>mdi-motion-play-outline</v-icon>
             </v-btn>
           </template>
           播放所有
         </v-tooltip>
       </template>
-      <!-- item插槽 -->
+      <!-- item.count、item.btns插槽 -->
       <template v-slot:item.count="{ item }">
         <div>{{ items.indexOf(item) + 1 }}</div>
       </template>
       <template v-slot:item.btns="{ item }">
-        <v-btn icon v-if="islogin">
+        <v-btn icon v-if="islogin" @click="$emit('addList', item.id)">
           <v-icon>mdi-plus-circle-outline</v-icon>
         </v-btn>
-        <v-btn icon @click="isPlay([item.id])">
+        <v-btn icon @click="$emit('onePlay', item.id)">
           <v-icon>mdi-motion-play-outline</v-icon>
         </v-btn>
       </template>
@@ -68,54 +78,56 @@
       :total-visible="7"
       circle
       color="blue lighten-2"
+      class="my-4"
     ></v-pagination>
   </v-card>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState } from "vuex";
 export default {
   props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    subtitle: {
-      type: Number,
-      required: true,
-    },
-    items: {
-      type: Array,
-      required: true,
-    },
-    loading: {
-      type: Boolean,
-      default: false,
-    },
+    // 标题
+    title: { type: String, required: true },
+    // 描述
+    subtitle: { type: Number, required: true },
+    /* 内容
+     * params:
+     *  [{
+     *    album:"《JJ陆》",
+     *    artists:"林俊杰",
+     *    duration:"03:45",
+     *    id:108485,
+     *    name:"Always Online"
+     *  },{...}]
+     */
+    items: { type: Array, required: true },
+    // 单页显示列表数
+    itemsPerPage: { type: Number, default: 8 },
+    // 是否正在加载
+    loading: { type: Boolean, default: false },
   },
   data: () => ({
     search: "",
     page: 1, // 当前浏览页
-    itemsPerPage: 8, // 单页显示列表数
     pageCount: 0, // 分页数
     // 表头
     headers: [
-      { text: "#", align: "center", value: "count" },
       { text: "歌曲标题", value: "name" },
       { text: "歌手", value: "artists" },
       { text: "专辑", value: "album" },
       { text: "时长", value: "duration" },
-      { text: "", align: "right", value: "btns" },
     ],
   }),
   watch: {
     /*
      * 到达最后一页时抛出事件
-     * 由于过滤搜索时会减少分页，所以和oldValue比较大小，以便排除该事件
+     * 由于过滤搜索时会减少分页，因此当过滤后数据减少，可能会到最后一页，所以和oldValue比较大小，以便排除该事件
+     * 效果：从数值小的一页跳转到数值更大的最后一页才会执行
      */
     page(newValue, oldValue) {
-      if (newValue === this.pageCount && newValue > oldValue) {
-        this.$emit("pageEnd", this.page);
+      if (newValue > oldValue && newValue === this.pageCount) {
+        this.$emit("pageEnd", this.pageCount);
       }
     },
   },
@@ -123,11 +135,16 @@ export default {
     ...mapState({
       islogin: (state) => state.islogin,
     }),
+    // 默认添加两列（序数、按键）
+    theHeaders() {
+      return [
+        { text: "#", align: "center", value: "count" },
+        ...this.headers,
+        { text: "", align: "right", value: "btns" },
+      ];
+    },
   },
   methods: {
-    ...mapMutations({
-      isPlay: "play/isPlay",
-    }),
     // 回到某页
     toPage(param) {
       if (param <= this.pageCount) {
@@ -137,9 +154,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-* {
-  outline: none;
-}
-</style>

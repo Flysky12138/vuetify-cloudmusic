@@ -1,20 +1,24 @@
 <template>
   <v-container>
-    <song-list
+    <list-song
       :title="keywords"
       :subtitle="songCount"
       :items="songs"
       :loading="loading"
       @pageEnd="getMoreSongs"
       ref="songList"
+      @addList="addList"
+      @allPlay="allPlay"
+      @onePlay="onePlay"
     />
   </v-container>
 </template>
 
 <script>
-import SongList from "components/Song/SongList.vue";
+import { mapMutations } from "vuex";
+import ListSong from "components/List/ListSong.vue";
 export default {
-  components: { SongList },
+  components: { ListSong },
   data: () => ({
     keywords: "",
     songCount: 0,
@@ -27,6 +31,19 @@ export default {
     this.searchSongs(this.keywords);
   },
   methods: {
+    allPlay(e) {
+      console.log(e);
+    },
+    onePlay(e) {
+      console.log("e: ", e);
+    },
+    addList(e) {
+      console.log("e: ", e);
+    },
+    // 播放
+    ...mapMutations({
+      isPlay: "isPlay",
+    }),
     // 获取歌曲列表
     searchSongs(keywords, offset = 0, push = false) {
       this.loading = true;
@@ -43,9 +60,9 @@ export default {
       });
     },
     // 获取更多歌曲列表
-    getMoreSongs(page) {
+    getMoreSongs(offset) {
       if (this.hasMore) {
-        this.searchSongs(this.keywords, page / 4, true);
+        this.searchSongs(this.keywords, offset / 4, true);
       }
     },
   },

@@ -1,11 +1,11 @@
 import detail from "./detail";
-import level from "./level";
-import subcount from "./subcount";
 import playlist from "./playlist";
+import subcount from "./subcount";
+import record from "./record";
 
 export default {
     detail, // 获取用户详情
-    level, // 获取用户等级信息
     playlist, // 获取用户歌单
-    subcount // 获取用户信息 , 歌单，收藏，mv, dj 数量
+    subcount, // 获取用户信息 , 歌单，收藏，mv, dj 数量
+    record // 获取用户播放记录
 };

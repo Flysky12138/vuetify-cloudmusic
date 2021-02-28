@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     ...mapMutations({
-      disPlay: "play/disPlay",
+      disPlay: "disPlay",
     }),
   },
 };
