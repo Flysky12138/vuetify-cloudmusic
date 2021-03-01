@@ -89,7 +89,7 @@ export default {
                 this.password.value = "";
                 break;
               case 1: // 登录成功
-                this.$emit("isLogin");
+                this.$emit("login");
                 break;
               case 2:
                 this.$refs.topSnack.text = "当前登录失败，请稍后再试";

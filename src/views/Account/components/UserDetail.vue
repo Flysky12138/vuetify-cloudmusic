@@ -24,14 +24,13 @@
               >
                 {{ "Lv." + detail.level }}
               </v-chip>
-              <v-icon color="primary">{{ theGender() }}</v-icon>
+              <v-icon :color="theGenderColor()">{{ theGender() }}</v-icon>
             </v-col>
             <v-col cols="3">
               <span class="mr-3">关注：{{ detail.profile.follows }}</span>
               <span>粉丝：{{ detail.profile.followeds }}</span>
             </v-col>
           </v-row>
-          <v-spacer></v-spacer>
         </v-col>
         <v-col cols="12" class="py-0">
           <v-divider class="mb-3"></v-divider>
@@ -67,6 +66,12 @@ export default {
   created() {
     this.getDetail();
   },
+  watch: {
+    uid(newValue) {
+      this.uid = newValue;
+      this.getDetail();
+    },
+  },
   methods: {
     // 获取数据
     getDetail() {
@@ -83,6 +88,15 @@ export default {
           return "mdi-gender-female";
         default:
           return "mdi-gender-male-female";
+      }
+    },
+    // 返回性别颜色
+    theGenderColor() {
+      switch (this.detail.profile.gender) {
+        case 2:
+          return "#FFB5D3";
+        default:
+          return "#29A7E4";
       }
     },
   },

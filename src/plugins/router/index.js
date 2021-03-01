@@ -1,37 +1,39 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
+// 解决报错问题：Error: Avoided redundant navigation to current location
+const original = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return original.call(this, location).catch(err => err);
+};
+
 Vue.use(VueRouter);
 
 const routes = [
-    {
-        path: "/",
-        name: "HelloWorld",
-        component: () => import("views/HelloWorld")
-    },
-    {
-        path: "/account",
-        name: "Account",
-        component: () => import("views/Account")
-    },
-    {
-        path: "/search",
-        name: "Search",
-        component: () => import("views/Search")
-    }
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import("views/Login")
+  },
+  {
+    path: "/",
+    name: "HelloWorld",
+    component: () => import("views/HelloWorld")
+  },
+  {
+    path: "/account",
+    name: "Account",
+    component: () => import("views/Account")
+  },
+  {
+    path: "/search",
+    name: "Search",
+    component: () => import("views/Search")
+  }
 ];
 
 const router = new VueRouter({
-    routes
+  routes
 });
-
-/*
- * 解决报错问题：报错显示是路由重复
- * Error: Avoided redundant navigation to current location
- */
-const originalPush = VueRouter.prototype.push;
-VueRouter.prototype.push = function push(location) {
-    return originalPush.call(this, location).catch(err => err);
-};
 
 export default router;

@@ -1,26 +1,20 @@
 <template>
   <v-avatar color="grey lighten-2" size="38">
-    <!-- 用户界面 -->
-    <v-btn
-      v-if="islogin"
-      icon
-      :to="{ path: 'account', query: { uid: uid } }"
-      @contextmenu.prevent="logout"
-    >
-      <v-img :src="avatarUrl" max-width="38" max-height="38"></v-img>
+    <v-btn icon @contextmenu.prevent="logout" :to="toRouter">
+      <v-img
+        v-if="islogin"
+        :src="avatarUrl"
+        max-width="38"
+        max-height="38"
+      ></v-img>
+      <v-icon v-else>mdi-account-outline</v-icon>
     </v-btn>
-    <!-- 登陆界面 -->
-    <login v-else @is="login" :height="40">
-      <v-icon>mdi-account-outline</v-icon>
-    </login>
   </v-avatar>
 </template>
 
 <script>
-import Login from "./Login";
 import { mapState, mapMutations } from "vuex";
 export default {
-  components: { Login },
   data: () => ({}),
   computed: {
     ...mapState({
@@ -28,25 +22,24 @@ export default {
       uid: (state) => state.user.uid,
       avatarUrl: (state) => state.user.avatarUrl,
     }),
+    // 根据是否登录返回不同路由
+    toRouter() {
+      return this.islogin
+        ? { path: "account", query: { uid: this.uid } }
+        : "login";
+    },
   },
   methods: {
     ...mapMutations({
-      setLogin: "login",
       setLogout: "logout",
     }),
-    login() {
-      // 获取ID,等级和头像
-      this.$http.login.status().then((res) => {
-        if (res.islogin) {
-          this.setLogin(res);
-        }
-      });
-    },
     logout() {
-      this.$http.logout().then(() => {
-        this.setLogout();
-        // this.$router.replace("/");
-      });
+      if (this.islogin) {
+        this.$http.logout().then(() => {
+          this.setLogout();
+          this.$router.replace("/");
+        });
+      }
     },
   },
 };

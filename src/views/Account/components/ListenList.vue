@@ -15,6 +15,7 @@
             disable-sort
             fixed-header
             :items-per-page="items.length"
+            no-data-text="暂无听歌记录"
           >
             <!-- header.btns插槽 -->
             <template v-slot:header.btns>
@@ -52,7 +53,6 @@
 <script>
 export default {
   props: {
-    // 用户uid
     uid: { type: String, required: true },
   },
   data: () => ({
@@ -69,6 +69,12 @@ export default {
   }),
   created() {
     this.getSongList(0);
+  },
+  watch: {
+    uid(newValue) {
+      this.uid = newValue;
+      this.getSongList(0);
+    },
   },
   methods: {
     getSongList(type) {

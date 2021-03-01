@@ -16,7 +16,7 @@
 
 <script>
 import { mapMutations } from "vuex";
-import ListSong from "components/List/ListSong.vue";
+import ListSong from "components/Song/SongList.vue";
 export default {
   components: { ListSong },
   data: () => ({

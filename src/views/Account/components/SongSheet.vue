@@ -1,25 +1,46 @@
 <template>
   <v-card rounded="lg" elevation="2">
     <v-card-title>
-      {{ title + "（" + 4 + "）" }}
+      {{ title[type] + "（" + playlist.length + "）" }}
     </v-card-title>
     <v-card-text class="d-flex" style="overflow: auto">
-      <div v-for="(item, index) in 20" :key="index">
-        <v-img
-          max-width="100"
-          :src="require('assets/logo.svg')"
-          class="ma-3"
-        ></v-img>
-      </div>
+      <template v-for="(item, index) in playlist">
+        <song-card :value="item" @click="a" />
+      </template>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
+import SongCard from "components/Song/SongCard.vue";
 export default {
+  components: { SongCard },
   props: {
-    title: { type: String, default: "", required: true },
+    uid: { type: String, required: true },
+    type: { type: Number, default: 0, required: true },
   },
-  data: () => ({}),
+  data: () => ({
+    playlist: [],
+    title: ["创建的歌单", "收藏的歌单"],
+  }),
+  created() {
+    this.getPlayList();
+  },
+  watch: {
+    uid(newValue) {
+      this.uid = newValue;
+      this.getPlayList();
+    },
+  },
+  methods: {
+    a(a) {
+      console.log("a: ", a);
+    },
+    getPlayList() {
+      this.$http.user.playlist(this.uid, this.type).then((res) => {
+        this.playlist = res;
+      });
+    },
+  },
 };
 </script>

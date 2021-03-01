@@ -45,7 +45,7 @@ export default {
       this.$http.login.qr.check(this.unikey).then((res) => {
         switch (res) {
           case 0: // 二维码过期
-            this.$emit("isQrWait", false);
+            this.$emit("loading", false);
             this.$refs.topSnack.color = "primary";
             this.$refs.topSnack.text = "二维码已过期，将重新获取";
             this.qrimg = "";
@@ -55,11 +55,11 @@ export default {
             }, 500);
             break;
           case 2: // 等待确认
-            this.$emit("isQrWait", true);
+            this.$emit("loading", true);
             break;
           case 3: // 扫码成功
-            this.$emit("isQrWait", false);
-            this.$emit("isLogin");
+            this.$emit("loading", false);
+            this.$emit("login");
             clearInterval(this.interval);
             break;
         }
