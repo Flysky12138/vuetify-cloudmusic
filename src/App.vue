@@ -29,9 +29,9 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 import AppBar from "components/Layout/AppBar";
 import SideBar from "components/Layout/SideBar";
-import { mapMutations } from "vuex";
 export default {
   components: { AppBar, SideBar },
   data: () => ({}),

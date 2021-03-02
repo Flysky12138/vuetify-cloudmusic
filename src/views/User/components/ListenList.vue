@@ -19,29 +19,14 @@
           >
             <!-- header.btns插槽 -->
             <template v-slot:header.btns>
-              <v-tooltip left open-delay="800">
-                <template v-slot:activator="{ on }">
-                  <v-btn
-                    icon
-                    v-on="on"
-                    @click="
-                      $emit(
-                        'allPlay',
-                        items.map((res) => res.song.id)
-                      )
-                    "
-                  >
-                    <v-icon>mdi-motion-play-outline</v-icon>
-                  </v-btn>
-                </template>
-                播放所有
-              </v-tooltip>
+              <button-play
+                :value="items.map((res) => res.song.id)"
+                tip="播放所有"
+              />
             </template>
             <!-- item.btns插槽 -->
             <template v-slot:item.btns="{ item }">
-              <v-btn icon @click="$emit('onePlay', item.song.id)">
-                <v-icon>mdi-motion-play-outline</v-icon>
-              </v-btn>
+              <button-play :value="item.song.id" />
             </template>
           </v-data-table>
         </v-tab-item>
@@ -51,7 +36,9 @@
 </template>
 
 <script>
+import ButtonPlay from "components/Button/ButtonPlay.vue";
 export default {
+  components: { ButtonPlay },
   props: {
     uid: { type: String, required: true },
   },
@@ -73,6 +60,7 @@ export default {
   watch: {
     uid(newValue) {
       this.uid = newValue;
+      this.tab = 0;
       this.getSongList(0);
     },
   },

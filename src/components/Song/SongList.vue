@@ -6,8 +6,7 @@
         {{ '"' + title + '"' }}
       </span>
       <span
-        class="blue--text text--lighten-2 font-italic text-caption ml-4"
-        style="padding-top: 6px"
+        class="blue--text text--lighten-2 font-italic text-caption ml-4 pt-2"
         v-text="subtitle"
       ></span>
       <v-spacer></v-spacer>
@@ -24,7 +23,7 @@
     <v-data-table
       height="61vh"
       class="elevation-0 mt-2"
-      :headers="theHeaders"
+      :headers="headers"
       :items="items"
       item-key="count"
       hide-default-footer
@@ -39,35 +38,15 @@
     >
       <!-- header.btns插槽 -->
       <template v-slot:header.btns>
-        <v-tooltip left open-delay="800">
-          <template v-slot:activator="{ on }">
-            <v-btn
-              icon
-              v-on="on"
-              @click="
-                $emit(
-                  'allPlay',
-                  items.map((res) => res.id)
-                )
-              "
-            >
-              <v-icon>mdi-motion-play-outline</v-icon>
-            </v-btn>
-          </template>
-          播放所有
-        </v-tooltip>
+        <button-play :value="items.map((res) => res.id)" tip="播放所有" />
       </template>
       <!-- item.count、item.btns插槽 -->
       <template v-slot:item.count="{ item }">
         <div>{{ items.indexOf(item) + 1 }}</div>
       </template>
       <template v-slot:item.btns="{ item }">
-        <v-btn icon v-if="islogin" @click="$emit('addList', item.id)">
-          <v-icon>mdi-plus-circle-outline</v-icon>
-        </v-btn>
-        <v-btn icon @click="$emit('onePlay', item.id)">
-          <v-icon>mdi-motion-play-outline</v-icon>
-        </v-btn>
+        <button-add :value="item.id" />
+        <button-play :value="item.id" />
       </template>
     </v-data-table>
     <!-- 分页按键 -->
@@ -85,14 +64,17 @@
 
 <script>
 import { mapState } from "vuex";
+import ButtonPlay from "components/Button/ButtonPlay.vue";
+import ButtonAdd from "components/Button/ButtonAdd.vue";
 export default {
+  components: { ButtonPlay, ButtonAdd },
   props: {
     // 标题
     title: { type: String, required: true },
     // 描述
     subtitle: { type: Number, required: true },
     /* 内容
-     * params:
+     * @params
      *  [{
      *    album:"《JJ陆》",
      *    artists:"林俊杰",
@@ -113,10 +95,12 @@ export default {
     pageCount: 0, // 分页数
     // 表头
     headers: [
+      { text: "#", align: "center", value: "count" },
       { text: "歌曲标题", value: "name" },
       { text: "歌手", value: "artists" },
       { text: "专辑", value: "album" },
       { text: "时长", value: "duration" },
+      { text: "", align: "right", value: "btns" },
     ],
   }),
   watch: {
@@ -135,14 +119,6 @@ export default {
     ...mapState({
       islogin: (state) => state.islogin,
     }),
-    // 默认添加两列（序数、按键）
-    theHeaders() {
-      return [
-        { text: "#", align: "center", value: "count" },
-        ...this.headers,
-        { text: "", align: "right", value: "btns" },
-      ];
-    },
   },
   methods: {
     // 回到某页

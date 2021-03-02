@@ -25,7 +25,7 @@ export default {
     // 根据是否登录返回不同路由
     toRouter() {
       return this.islogin
-        ? { path: "account", query: { uid: this.uid } }
+        ? { path: "user", query: { uid: this.uid } }
         : "login";
     },
   },

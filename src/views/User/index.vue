@@ -7,14 +7,21 @@
       </v-col>
       <!-- 歌单 -->
       <v-col cols="12">
-        <song-sheet :uid="uid" :type="0" />
+        <playlist-collection :uid="uid" :type="0" />
       </v-col>
       <v-col cols="12">
-        <song-sheet :uid="uid" :type="1" />
+        <playlist-collection :uid="uid" :type="1" />
       </v-col>
       <!-- 听歌排行 -->
       <v-col cols="12">
-        <listen-list :uid="uid" @allPlay="allPlay" @onePlay="onePlay" />
+        <v-lazy
+          v-model="isActive"
+          :options="{ threshold: 1 }"
+          min-height="300"
+          transition="fade-transition"
+        >
+          <listen-list :uid="uid" />
+        </v-lazy>
       </v-col>
     </v-row>
   </v-container>
@@ -22,26 +29,20 @@
 
 <script>
 import UserDetail from "./components/UserDetail.vue";
-import SongSheet from "./components/SongSheet.vue";
+import PlaylistCollection from "./components/PlaylistCollection.vue";
 import ListenList from "./components/ListenList.vue";
 export default {
-  components: { UserDetail, SongSheet, ListenList },
+  components: { UserDetail, PlaylistCollection, ListenList },
   data: () => ({
     uid: 0,
+    isActive: false,
   }),
   created() {
     this.uid = this.$route.query.uid;
   },
-  methods: {
-    allPlay(e) {
-      console.log(e);
-    },
-    onePlay(e) {
-      console.log("e: ", e);
-    },
-  },
   beforeRouteUpdate(to, from, next) {
     this.uid = to.query.uid;
+    this.isActive = false;
     next();
   },
 };

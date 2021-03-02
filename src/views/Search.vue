@@ -7,9 +7,6 @@
       :loading="loading"
       @pageEnd="getMoreSongs"
       ref="songList"
-      @addList="addList"
-      @allPlay="allPlay"
-      @onePlay="onePlay"
     />
   </v-container>
 </template>
@@ -31,15 +28,6 @@ export default {
     this.searchSongs(this.keywords);
   },
   methods: {
-    allPlay(e) {
-      console.log(e);
-    },
-    onePlay(e) {
-      console.log("e: ", e);
-    },
-    addList(e) {
-      console.log("e: ", e);
-    },
     // 播放
     ...mapMutations({
       isPlay: "isPlay",

@@ -4,7 +4,10 @@
       :src="value.coverImgUrl"
       class="ma-3 mb-0 text-end"
       style="border-radius: 10px"
-      @click="$emit('click', value.id)"
+      @click="toPlaylist"
+      transition="fab-transition"
+      width="126"
+      height="126"
     >
       <!-- 图片加载前显示 -->
       <template v-slot:placeholder>
@@ -36,5 +39,10 @@ export default {
     value: { type: Object, required: true },
   },
   data: () => ({}),
+  methods: {
+    toPlaylist() {
+      console.log(this.value.id);
+    },
+  },
 };
 </script>
