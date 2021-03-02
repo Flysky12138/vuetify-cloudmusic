@@ -1,5 +1,14 @@
 <template>
   <v-card elevation="2" rounded="lg" style="overflow: hidden">
+    <div
+      class="d-flex align-end"
+      style="height: 40px; position: absolute; z-index: 1"
+    >
+      <v-card-title class="pa-0 mx-4">听歌排行</v-card-title>
+      <v-card-subtitle class="pa-0"
+        >实际播放时间过短的歌曲将不纳入计算</v-card-subtitle
+      >
+    </div>
     <v-tabs v-model="tab" @change="getSongList" right>
       <v-tab>最近一周</v-tab>
       <v-tab>所有时间</v-tab>

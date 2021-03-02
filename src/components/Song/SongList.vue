@@ -21,7 +21,7 @@
     </v-card-title>
     <!-- 表格 -->
     <v-data-table
-      height="61vh"
+      height="450"
       class="elevation-0 my-2"
       :headers="headers"
       :items="items"

@@ -3,7 +3,7 @@
     <template v-if="tip !== ''">
       <v-tooltip left open-delay="800">
         <template v-slot:activator="{ on }">
-          <v-btn icon v-on="on" @click="a">
+          <v-btn icon v-on="on" @click="play">
             <v-icon>mdi-motion-play-outline</v-icon>
           </v-btn>
         </template>
@@ -11,7 +11,7 @@
       </v-tooltip>
     </template>
     <template v-else>
-      <v-btn icon @click="a">
+      <v-btn icon @click="play">
         <v-icon>mdi-motion-play-outline</v-icon>
       </v-btn>
     </template>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapMutations } from "vuex";
 export default {
   props: {
     value: { type: [Number, Array], required: true },
@@ -27,11 +27,11 @@ export default {
   },
   data: () => ({}),
   methods: {
-    ...mapState({
-      isplay: (state) => state.isplay,
+    ...mapMutations({
+      isPlay: "isPlay",
     }),
-    a() {
-      console.log(this.value);
+    play() {
+      this.isPlay(this.value);
     },
   },
 };

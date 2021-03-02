@@ -1,18 +1,22 @@
 <template>
-  <v-btn icon @click="a">
+  <v-btn icon @click="play">
     <v-icon>mdi-plus-circle-outline</v-icon>
   </v-btn>
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   props: {
     value: { type: Number, required: true },
   },
   data: () => ({}),
   methods: {
-    a() {
-      console.log(this.value);
+    ...mapMutations({
+      isPlay: "isPlay",
+    }),
+    play() {
+      this.isPlay(this.value);
     },
   },
 };

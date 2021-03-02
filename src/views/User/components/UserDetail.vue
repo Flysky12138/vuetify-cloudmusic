@@ -6,7 +6,7 @@
         :src="detail.profile.avatarUrl"
         height="140"
         width="140"
-        transition="slide-x-transition"
+        transition="fade-transition"
         style="border-radius: 12px"
       ></v-img>
     </v-col>

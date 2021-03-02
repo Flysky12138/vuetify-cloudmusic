@@ -26,12 +26,18 @@ const store = {
     logout(state) {
       state.islogin = false;
     },
-    isPlay(state, idArray) {
+    isPlay(state, id) {
+      // 单个ID就追加，多个就清空再赋值
+      typeof id === "number"
+        ? state.play.lists.push(id)
+        : (state.play.lists = [...id]);
       state.play.isplay = true;
-      state.play.lists = idArray;
     },
     disPlay(state) {
       state.play.isplay = false;
+    },
+    clearLists(state) {
+      state.play.lists = [];
     }
   }
 };

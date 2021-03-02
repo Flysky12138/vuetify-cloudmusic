@@ -5,7 +5,7 @@
       class="ma-3 mb-0 text-end"
       style="border-radius: 10px"
       @click="toPlaylist"
-      transition="slide-x-transition"
+      transition="fade-transition"
       width="126"
       height="126"
     >
@@ -20,12 +20,8 @@
       </template>
       <!-- 默认插槽 -->
       <template v-slot:default>
-        <v-chip
-          v-text="value.playCount"
-          color="rgba(233, 237, 230, .75)"
-          class="ma-1 px-2"
-          x-small
-        >
+        <v-chip color="rgba(233, 237, 230, .75)" class="ma-1 px-2" x-small>
+          {{ value.playCount }}
         </v-chip>
       </template>
     </v-img>

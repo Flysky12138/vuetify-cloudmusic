@@ -9,7 +9,7 @@ switch (process.env.NODE_ENV) {
     axios.defaults.baseURL = "http://flysky.xyz:3000";
     break;
   default:
-    axios.defaults.baseURL = "http://localhost:3000";
+    axios.defaults.baseURL = "http://192.168.2.175:3000";
     break;
 }
 
