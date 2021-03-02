@@ -1,37 +1,37 @@
 <template>
   <v-card elevation="2" rounded="lg" style="overflow: hidden">
-    <v-tabs v-model="tab" @change="getSongList($event)" right>
+    <v-tabs v-model="tab" @change="getSongList" right>
       <v-tab>最近一周</v-tab>
       <v-tab>所有时间</v-tab>
-      <v-tabs-items v-model="tab">
-        <v-tab-item v-for="item in 2" :key="item">
-          <v-data-table
-            :headers="headers"
-            :items="items"
-            hide-default-footer
-            class="elevation-0"
-            height="532"
-            :loading="loading"
-            disable-sort
-            fixed-header
-            :items-per-page="items.length"
-            no-data-text="暂无听歌记录"
-          >
-            <!-- header.btns插槽 -->
-            <template v-slot:header.btns>
-              <button-play
-                :value="items.map((res) => res.song.id)"
-                tip="播放所有"
-              />
-            </template>
-            <!-- item.btns插槽 -->
-            <template v-slot:item.btns="{ item }">
-              <button-play :value="item.song.id" />
-            </template>
-          </v-data-table>
-        </v-tab-item>
-      </v-tabs-items>
     </v-tabs>
+    <v-tabs-items v-model="tab">
+      <v-tab-item v-for="item in 2" :key="item">
+        <v-data-table
+          :headers="headers"
+          :items="items"
+          hide-default-footer
+          class="elevation-0"
+          height="532"
+          :loading="loading"
+          disable-sort
+          fixed-header
+          :items-per-page="items.length"
+          no-data-text="暂无听歌记录"
+        >
+          <!-- header.btns插槽 -->
+          <template v-slot:header.btns>
+            <button-play
+              :value="items.map((res) => res.song.id)"
+              tip="播放所有"
+            />
+          </template>
+          <!-- item.btns插槽 -->
+          <template v-slot:item.btns="{ item }">
+            <button-play :value="item.song.id" />
+          </template>
+        </v-data-table>
+      </v-tab-item>
+    </v-tabs-items>
   </v-card>
 </template>
 
@@ -55,20 +55,20 @@ export default {
     ],
   }),
   created() {
-    this.getSongList(0);
+    this.getSongList();
   },
   watch: {
     uid(newValue) {
       this.uid = newValue;
       this.tab = 0;
-      this.getSongList(0);
+      this.getSongList();
     },
   },
   methods: {
-    getSongList(type) {
+    getSongList() {
       this.loading = true;
       this.items = [];
-      this.$http.user.record(this.uid, type === 0 ? 1 : 0).then((res) => {
+      this.$http.user.record(this.uid, this.tab === 0 ? 1 : 0).then((res) => {
         this.items = res;
         this.loading = false;
       });

@@ -5,7 +5,7 @@
       class="ma-3 mb-0 text-end"
       style="border-radius: 10px"
       @click="toPlaylist"
-      transition="fab-transition"
+      transition="slide-x-transition"
       width="126"
       height="126"
     >

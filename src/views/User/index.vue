@@ -16,9 +16,8 @@
       <v-col cols="12">
         <v-lazy
           v-model="isActive"
-          :options="{ threshold: 1 }"
+          :options="{ threshold: 0.5 }"
           min-height="300"
-          transition="fade-transition"
         >
           <listen-list :uid="uid" />
         </v-lazy>

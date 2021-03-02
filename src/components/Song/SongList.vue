@@ -22,7 +22,7 @@
     <!-- 表格 -->
     <v-data-table
       height="61vh"
-      class="elevation-0 mt-2"
+      class="elevation-0 my-2"
       :headers="headers"
       :items="items"
       item-key="count"
@@ -45,8 +45,10 @@
         <div>{{ items.indexOf(item) + 1 }}</div>
       </template>
       <template v-slot:item.btns="{ item }">
-        <button-add :value="item.id" />
-        <button-play :value="item.id" />
+        <div class="d-flex justify-end">
+          <button-add :value="item.id" />
+          <button-play :value="item.id" />
+        </div>
       </template>
     </v-data-table>
     <!-- 分页按键 -->
@@ -57,7 +59,6 @@
       :total-visible="7"
       circle
       color="blue lighten-2"
-      class="my-4"
     ></v-pagination>
   </v-card>
 </template>

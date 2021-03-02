@@ -15,29 +15,23 @@
         ></v-progress-linear>
       </template>
       <!-- 标题 -->
-      <v-card-title
-        class="justify-center font-weight-bold text-h4 blue--text"
-        v-text="title"
-      ></v-card-title>
+      <v-card-title class="justify-center font-weight-bold text-h4 blue--text">
+        登录
+      </v-card-title>
       <v-divider></v-divider>
       <!-- 切换选项卡 -->
       <v-tabs v-model="tab" color="basil" grow>
-        <v-tab
-          v-for="item in items"
-          :key="item"
-          class="font-weight-bold"
-          v-text="item"
-        ></v-tab>
+        <v-tab class="font-weight-bold">手机号</v-tab>
+        <v-tab class="font-weight-bold">二维码</v-tab>
       </v-tabs>
       <!-- 手机号、二维码 -->
       <v-tabs-items v-model="tab" vertical>
-        <v-tab-item
-          v-for="(item, index) in items"
-          :key="index"
-          :class="index === 0 ? 'py-12' : 'py-8'"
-        >
+        <v-tab-item class="py-12">
+          <component is="Phone" @login="login"></component>
+        </v-tab-item>
+        <v-tab-item class="py-8">
           <component
-            :is="index === 0 ? 'Phone' : 'QRcode'"
+            is="QRcode"
             @login="login"
             @loading="(res) => (loading = res)"
           ></component>
@@ -63,8 +57,6 @@ export default {
   components: { Phone, QRcode },
   data: () => ({
     tab: 0,
-    title: "登录",
-    items: ["手机号", "二维码"],
     loading: false,
     overlay: false,
   }),
