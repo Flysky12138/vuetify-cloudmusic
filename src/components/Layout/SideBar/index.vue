@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="z-index: 5">
     <!-- 音乐按键 -->
     <v-scale-transition>
       <div class="right" style="top: 45vh" v-show="isplay">

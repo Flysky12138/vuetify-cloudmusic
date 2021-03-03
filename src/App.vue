@@ -11,7 +11,10 @@
       <v-main class="grey lighten-3">
         <v-container>
           <v-sheet rounded="lg" :min-height="$vuetify.breakpoint.height - 88">
-            <router-view />
+            <!-- 对路由添加一个进入动画：渐显 -->
+            <transition name="router">
+              <router-view />
+            </transition>
           </v-sheet>
         </v-container>
       </v-main>
@@ -54,5 +57,16 @@ export default {
 <style lang="scss">
 * {
   outline: none;
+}
+.router-enter {
+  opacity: 0;
+  transform: scale(0.97);
+}
+.router-leave,
+.router-leave-to {
+  display: none;
+}
+.router-enter-active {
+  transition: all 1s;
 }
 </style>

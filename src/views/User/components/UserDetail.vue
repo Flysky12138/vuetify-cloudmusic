@@ -1,17 +1,13 @@
 <template>
   <v-row>
-    <!-- 头像 -->
+    <!-- 左侧头像 -->
     <v-col cols="auto">
-      <v-img
-        :src="detail.profile.avatarUrl"
-        height="140"
-        width="140"
-        transition="fade-transition"
-        style="border-radius: 12px"
-      ></v-img>
+      <image-cover :src="detail.profile.avatarUrl" />
     </v-col>
-    <v-col class="10" v-show="detail.profile">
+    <!-- 右侧信息 -->
+    <v-col class="10">
       <v-row class="text-subtitle-2">
+        <!-- 第一行 -->
         <v-col cols="12">
           <v-row class="d-flex align-end">
             <v-col cols="9">
@@ -32,6 +28,7 @@
             </v-col>
           </v-row>
         </v-col>
+        <!-- 第二行 -->
         <v-col cols="12" class="py-0">
           <v-divider class="mb-3"></v-divider>
           <v-row>
@@ -56,21 +53,35 @@
 </template>
 
 <script>
+import ImageCover from "components/Image/ImageCover.vue";
 export default {
+  components: { ImageCover },
   props: {
     uid: { type: String, required: true },
   },
   data: () => ({
-    detail: { profile: "" },
+    detail: {
+      level: 0,
+      createDays: 0,
+      listenSongs: 0,
+      profile: {
+        avatarUrl: "",
+        birthday: "",
+        city: "",
+        followeds: 0,
+        follows: 0,
+        gender: 0,
+        nickname: "",
+        province: "",
+        signature: "",
+      },
+    },
   }),
   created() {
     this.getDetail();
   },
   watch: {
-    uid(newValue) {
-      this.uid = newValue;
-      this.getDetail();
-    },
+    uid: "getDetail",
   },
   methods: {
     // 获取数据

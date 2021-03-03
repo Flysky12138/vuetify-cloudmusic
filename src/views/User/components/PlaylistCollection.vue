@@ -20,18 +20,15 @@ export default {
     type: { type: Number, default: 0, required: true },
   },
   data: () => ({
-    playlist: [],
     title: ["创建的歌单", "收藏的歌单"],
     theHeight: 245, // 面板高度。避免获取数据前面板塌陷
+    playlist: [],
   }),
   created() {
     this.getPlayList();
   },
   watch: {
-    uid(newValue) {
-      this.uid = newValue;
-      this.getPlayList();
-    },
+    uid: "getPlayList",
   },
   methods: {
     getPlayList() {

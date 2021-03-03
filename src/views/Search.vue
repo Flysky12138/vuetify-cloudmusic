@@ -6,7 +6,6 @@
       :items="songs"
       :loading="loading"
       @pageEnd="getMoreSongs"
-      ref="songList"
     />
   </v-container>
 </template>
@@ -40,7 +39,6 @@ export default {
           this.songs.push.apply(this.songs, res.songs);
         } else {
           this.songs = res.songs;
-          this.$refs.songList.toPage(1);
         }
         this.songCount = res.songCount;
         this.hasMore = res.hasMore;

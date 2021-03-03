@@ -1,12 +1,7 @@
 <template>
   <v-avatar color="grey lighten-2" size="38">
     <v-btn icon @contextmenu.prevent="logout" :to="toRouter">
-      <v-img
-        v-if="islogin"
-        :src="avatarUrl"
-        max-width="38"
-        max-height="38"
-      ></v-img>
+      <v-img v-if="islogin" :src="avatarUrl" max-width="38"></v-img>
       <v-icon v-else>mdi-account-outline</v-icon>
     </v-btn>
   </v-avatar>

@@ -5,7 +5,8 @@ function playlist(uid, type = 0) {
   return axios
     .get("/user/playlist", {
       params: {
-        uid
+        uid,
+        limit: 500
       }
     })
     .then(response => {

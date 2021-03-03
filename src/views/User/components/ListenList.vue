@@ -5,9 +5,9 @@
       style="height: 40px; position: absolute; z-index: 1"
     >
       <v-card-title class="pa-0 mx-4">听歌排行</v-card-title>
-      <v-card-subtitle class="pa-0"
-        >实际播放时间过短的歌曲将不纳入计算</v-card-subtitle
-      >
+      <v-card-subtitle class="pa-0">
+        实际播放时间过短的歌曲将不纳入计算
+      </v-card-subtitle>
     </div>
     <v-tabs v-model="tab" @change="getSongList" right>
       <v-tab>最近一周</v-tab>
@@ -25,7 +25,7 @@
           disable-sort
           fixed-header
           :items-per-page="items.length"
-          no-data-text="暂无听歌记录"
+          no-data-text="暂无听歌记录 或 用户设置了隐私权限"
         >
           <!-- header.btns插槽 -->
           <template v-slot:header.btns>
@@ -67,11 +67,7 @@ export default {
     this.getSongList();
   },
   watch: {
-    uid(newValue) {
-      this.uid = newValue;
-      this.tab = 0;
-      this.getSongList();
-    },
+    uid: "getSongList",
   },
   methods: {
     getSongList() {

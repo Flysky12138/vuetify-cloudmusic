@@ -10,20 +10,23 @@ function record(uid, type) {
       }
     })
     .then(response => {
-      let key;
       let arr = [];
-      type === 0 ? (key = "allData") : (key = "weekData");
-      response[key].forEach(element => {
-        arr.push({
-          playCount: element.playCount === 0 ? "-" : element.playCount,
-          score: element.score,
-          song: {
-            name: element.song.name,
-            id: element.song.id,
-            artists: element.song.ar.map(res => res.name).join(" / ")
-          }
+      // 用户是否允许他人预览
+      if (typeof response !== "undefined") {
+        let key;
+        type === 0 ? (key = "allData") : (key = "weekData");
+        response[key].forEach(element => {
+          arr.push({
+            playCount: element.playCount === 0 ? "-" : element.playCount,
+            score: element.score,
+            song: {
+              name: element.song.name,
+              id: element.song.id,
+              artists: element.song.ar.map(res => res.name).join(" / ")
+            }
+          });
         });
-      });
+      }
       return Promise.resolve(arr);
     });
 }

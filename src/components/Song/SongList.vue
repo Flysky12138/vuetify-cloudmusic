@@ -21,8 +21,7 @@
     </v-card-title>
     <!-- 表格 -->
     <v-data-table
-      height="450"
-      class="elevation-0 my-2"
+      class="elevation-0 mt-2 mb-4"
       :headers="headers"
       :items="items"
       item-key="count"
@@ -53,7 +52,7 @@
     </v-data-table>
     <!-- 分页按键 -->
     <v-pagination
-      v-show="pageCount"
+      v-if="pageCount > 1"
       v-model="page"
       :length="pageCount"
       :total-visible="7"
@@ -64,7 +63,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import ButtonPlay from "components/Button/ButtonPlay.vue";
 import ButtonAdd from "components/Button/ButtonAdd.vue";
 export default {
@@ -113,19 +111,6 @@ export default {
     page(newValue, oldValue) {
       if (newValue > oldValue && newValue === this.pageCount) {
         this.$emit("pageEnd", this.pageCount);
-      }
-    },
-  },
-  computed: {
-    ...mapState({
-      islogin: (state) => state.islogin,
-    }),
-  },
-  methods: {
-    // 回到某页
-    toPage(param) {
-      if (param <= this.pageCount) {
-        this.page = param;
       }
     },
   },

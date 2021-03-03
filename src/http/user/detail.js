@@ -12,6 +12,8 @@ function detail(uid) {
       }
     })
     .then(response => {
+      const p = province.find(res => res.code == response.profile.province);
+      const c = city.find(res => res.code == response.profile.city);
       return Promise.resolve({
         level: response.level,
         listenSongs: response.listenSongs,
@@ -21,14 +23,8 @@ function detail(uid) {
           vipType: response.profile.vipType,
           birthday: date(response.profile.birthday).substring(0, 10),
           gender: response.profile.gender,
-          province:
-            response.profile.province < 1000000
-              ? province.find(res => res.code == response.profile.province).name
-              : "-",
-          city:
-            response.profile.city < 1000000
-              ? city.find(res => res.code == response.profile.city).name
-              : "-",
+          province: typeof p !== "undefined" ? p.name : "-",
+          city: typeof c !== "undefined" ? c.name : "-",
           backgroundUrl: response.profile.backgroundUrl,
           nickname: response.profile.nickname,
           avatarUrl: response.profile.avatarUrl,
