@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" max-width="90vmin" overlay-opacity="0.8">
+  <v-dialog v-model="dialog" max-width="80vmin" overlay-opacity="0.8">
     <template v-slot:activator="{ on, attrs }">
       <v-img
         v-bind="attrs"

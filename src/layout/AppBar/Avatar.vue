@@ -1,15 +1,24 @@
 <template>
-  <v-avatar color="grey lighten-2" size="38">
-    <v-btn icon @contextmenu.prevent="logout" :to="toRouter">
-      <v-img v-if="islogin" :src="avatarUrl" max-width="38"></v-img>
-      <v-icon v-else>mdi-account-outline</v-icon>
-    </v-btn>
-  </v-avatar>
+  <div>
+    <image-avatar
+      v-if="islogin"
+      :uid="uid"
+      :src="avatarUrl"
+      @contextmenu.prevent="logout"
+    />
+    <v-avatar v-else color="grey lighten-2" size="38">
+      <v-btn icon to="logout">
+        <v-icon>mdi-account-outline</v-icon>
+      </v-btn>
+    </v-avatar>
+  </div>
 </template>
 
 <script>
+import ImageAvatar from "components/Image/ImageAvatar.vue";
 import { mapState, mapMutations } from "vuex";
 export default {
+  components: { ImageAvatar },
   data: () => ({}),
   computed: {
     ...mapState({
@@ -17,12 +26,6 @@ export default {
       uid: (state) => state.user.uid,
       avatarUrl: (state) => state.user.avatarUrl,
     }),
-    // 根据是否登录返回不同路由
-    toRouter() {
-      return this.islogin
-        ? { path: "user", query: { uid: this.uid } }
-        : "login";
-    },
   },
   methods: {
     ...mapMutations({

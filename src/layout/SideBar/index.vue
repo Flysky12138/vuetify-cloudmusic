@@ -14,9 +14,9 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import MusicColumn from "./MusicColumn.vue";
 import GoTop from "./GoTop.vue";
-import { mapState } from "vuex";
 export default {
   components: { MusicColumn, GoTop },
   data: () => ({}),
@@ -28,7 +28,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @mixin common($item: column) {
   position: fixed;
   display: flex;

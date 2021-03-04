@@ -24,9 +24,8 @@
           color="rgba(88, 89, 93, .45)"
           class="ma-1 px-2 white--text"
           x-small
-        >
-          {{ value.playCount }}
-        </v-chip>
+          v-text="value.playCount"
+        ></v-chip>
       </template>
     </v-img>
     <v-card-text class="text-caption py-1" v-text="value.name"> </v-card-text>

@@ -1,5 +1,6 @@
 <template>
   <v-card elevation="2" rounded="lg" style="overflow: hidden">
+    <!-- 标题 -->
     <div
       class="d-flex align-end"
       style="height: 40px; position: absolute; z-index: 1"
@@ -9,18 +10,20 @@
         实际播放时间过短的歌曲将不纳入计算
       </v-card-subtitle>
     </div>
+    <!-- 选项卡 -->
     <v-tabs v-model="tab" @change="getSongList" right>
       <v-tab>最近一周</v-tab>
       <v-tab>所有时间</v-tab>
     </v-tabs>
     <v-tabs-items v-model="tab">
       <v-tab-item v-for="item in 2" :key="item">
+        <!-- 表格 -->
         <v-data-table
           :headers="headers"
           :items="items"
           hide-default-footer
           class="elevation-0"
-          height="532"
+          height="432"
           :loading="loading"
           disable-sort
           fixed-header
@@ -72,7 +75,6 @@ export default {
   methods: {
     getSongList() {
       this.loading = true;
-      this.items = [];
       this.$http.user.record(this.uid, this.tab === 0 ? 1 : 0).then((res) => {
         this.items = res;
         this.loading = false;

@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <list-song
+    <song-list
       :title="keywords"
       :subtitle="songCount"
       :items="songs"
@@ -12,9 +12,9 @@
 
 <script>
 import { mapMutations } from "vuex";
-import ListSong from "components/Song/SongList.vue";
+import SongList from "components/Song/SongList.vue";
 export default {
-  components: { ListSong },
+  components: { SongList },
   data: () => ({
     keywords: "",
     songCount: 0,
@@ -24,7 +24,7 @@ export default {
   }),
   created() {
     this.keywords = this.$route.query.keywords;
-    this.searchSongs(this.keywords);
+    this.searchSongs();
   },
   methods: {
     // 播放
@@ -32,9 +32,9 @@ export default {
       isPlay: "isPlay",
     }),
     // 获取歌曲列表
-    searchSongs(keywords, offset = 0, push = false) {
+    searchSongs(offset = 0, push = false) {
       this.loading = true;
-      this.$http.song.search(keywords, offset).then((res) => {
+      this.$http.song.search(this.keywords, offset).then((res) => {
         if (push) {
           this.songs.push.apply(this.songs, res.songs);
         } else {
@@ -48,13 +48,13 @@ export default {
     // 获取更多歌曲列表
     getMoreSongs(offset) {
       if (this.hasMore) {
-        this.searchSongs(this.keywords, offset / 4, true);
+        this.searchSongs(offset / 4, true);
       }
     },
   },
   beforeRouteUpdate(to, from, next) {
     this.keywords = to.query.keywords;
-    this.searchSongs(this.keywords);
+    this.searchSongs();
     next();
   },
 };

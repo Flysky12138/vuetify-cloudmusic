@@ -5,22 +5,24 @@
       <v-col cols="12">
         <user-detail :uid="uid" />
       </v-col>
-      <!-- 歌单 -->
-      <v-col cols="12">
-        <playlist-collection :uid="uid" :type="0" />
-      </v-col>
-      <v-col cols="12">
-        <playlist-collection :uid="uid" :type="1" />
-      </v-col>
       <!-- 听歌排行 -->
       <v-col cols="12">
-        <v-lazy
-          v-model="isActive"
-          :options="{ threshold: 0.5 }"
-          min-height="300"
-        >
-          <listen-list :uid="uid" />
-        </v-lazy>
+        <listen-list :uid="uid" />
+      </v-col>
+      <!-- 歌单 -->
+      <v-col cols="12">
+        <playlist-collection
+          v-if="isShow"
+          :playlist="playlist.create"
+          title="创建的歌单"
+        />
+      </v-col>
+      <v-col cols="12">
+        <playlist-collection
+          v-if="isShow"
+          :playlist="playlist.collect"
+          title="收藏的歌单"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -28,20 +30,31 @@
 
 <script>
 import UserDetail from "./components/UserDetail.vue";
-import PlaylistCollection from "./components/PlaylistCollection.vue";
 import ListenList from "./components/ListenList.vue";
+import PlaylistCollection from "./components/PlaylistCollection.vue";
 export default {
-  components: { UserDetail, PlaylistCollection, ListenList },
+  components: { UserDetail, ListenList, PlaylistCollection },
   data: () => ({
     uid: 0,
-    isActive: false,
+    playlist: {}, // 歌单列表
+    isShow: false,
   }),
   created() {
     this.uid = this.$route.query.uid;
+    this.getPlayList();
+  },
+  methods: {
+    // 获取歌单列表
+    getPlayList() {
+      this.$http.user.playlist(this.uid).then((res) => {
+        this.playlist = res;
+        this.isShow = true;
+      });
+    },
   },
   beforeRouteUpdate(to, from, next) {
     this.uid = to.query.uid;
-    this.isActive = false;
+    this.getPlayList();
     next();
   },
 };

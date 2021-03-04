@@ -7,9 +7,10 @@
     <!-- 右侧信息 -->
     <v-col class="10">
       <v-row class="text-subtitle-2">
-        <!-- 第一行 -->
+        <!-- 昵称 行 -->
         <v-col cols="12">
           <v-row class="d-flex align-end">
+            <!-- 左侧 -->
             <v-col cols="9">
               <span class="text-h3">{{ detail.profile.nickname }}</span>
               <v-chip
@@ -22,16 +23,18 @@
               </v-chip>
               <v-icon :color="theGenderColor()">{{ theGender() }}</v-icon>
             </v-col>
+            <!-- 右侧 -->
             <v-col cols="3">
               <span class="mr-3">关注：{{ detail.profile.follows }}</span>
               <span>粉丝：{{ detail.profile.followeds }}</span>
             </v-col>
           </v-row>
         </v-col>
-        <!-- 第二行 -->
+        <!-- 信息 行 -->
         <v-col cols="12" class="py-0">
           <v-divider class="mb-3"></v-divider>
           <v-row>
+            <!-- 左侧 -->
             <v-col cols="9">
               <span
                 >所在地区：{{ detail.profile.province }} -
@@ -40,6 +43,7 @@
               <span class="ml-5">生日：{{ detail.profile.birthday }}</span>
               <div>个人介绍：{{ detail.profile.signature }}</div>
             </v-col>
+            <!-- 右侧 -->
             <v-col cols="3" class="flex-column">
               <div>注册时间：{{ detail.createDays }} 天</div>
               <div>累计听歌：{{ detail.listenSongs }} 首</div>

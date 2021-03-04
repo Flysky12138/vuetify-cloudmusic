@@ -9,10 +9,7 @@
       background-color="grey lighten-2"
       :flat="!isFocus"
       @focus="isFocus = true"
-      @blur="
-        isFocus = false;
-        value = '';
-      "
+      @blur="isFocus = false"
       v-model="value"
       @keyup.13="search"
     ></v-text-field>

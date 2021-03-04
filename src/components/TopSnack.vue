@@ -22,11 +22,14 @@ export default {
     timeout: 3000,
   }),
   watch: {
+    // 关闭时还原样式
     isShow(newValue) {
       if (!newValue) {
-        this.text = "";
-        this.color = "primary";
-        this.timeout = 3000;
+        setTimeout(() => {
+          this.text = "";
+          this.color = "error";
+          this.timeout = 3000;
+        }, 100);
       }
     },
     text(newValue) {

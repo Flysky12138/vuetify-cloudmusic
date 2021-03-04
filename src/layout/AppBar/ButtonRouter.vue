@@ -1,6 +1,6 @@
 <template>
   <v-row align="center" no-gutters>
-    <v-col cols="2" v-for="(item, index) in items" :key="index">
+    <v-col cols="2" v-for="item in items" :key="item.id">
       <!-- 普通按键 -->
       <template v-if="typeof item.links === 'undefined'">
         <v-btn
@@ -22,6 +22,7 @@
           open-on-hover
           close-delay="100"
         >
+          <!-- 按键 -->
           <template v-slot:activator="{ on, attrs }">
             <v-btn
               v-bind="attrs"
@@ -35,10 +36,11 @@
               <v-icon x-small class="pt-1">mdi-chevron-down</v-icon>
             </v-btn>
           </template>
+          <!-- 展开菜单 -->
           <v-list>
             <v-list-item
-              v-for="(item, index) in item.links"
-              :key="index"
+              v-for="item in item.links"
+              :key="item.id"
               class="d-flex justify-center px-0"
             >
               <v-list-item-action class="ma-0">

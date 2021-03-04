@@ -18,10 +18,10 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import ButtonRouter from "./ButtonRouter.vue";
 import Search from "./Search.vue";
 import Avatar from "./Avatar.vue";
-import { mapState } from "vuex";
 export default {
   components: { ButtonRouter, Search, Avatar },
   data: () => ({}),

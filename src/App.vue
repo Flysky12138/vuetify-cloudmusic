@@ -33,8 +33,8 @@
 
 <script>
 import { mapMutations } from "vuex";
-import AppBar from "components/Layout/AppBar";
-import SideBar from "components/Layout/SideBar";
+import AppBar from "@/layout/AppBar";
+import SideBar from "@/layout/SideBar";
 export default {
   components: { AppBar, SideBar },
   data: () => ({}),
@@ -60,7 +60,7 @@ export default {
 }
 .router-enter {
   opacity: 0;
-  transform: scale(0.97);
+  // transform: scale(0.97);
 }
 .router-leave,
 .router-leave-to {
