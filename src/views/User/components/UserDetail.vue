@@ -41,12 +41,12 @@
                 {{ detail.profile.city }}
               </span>
               <span class="ml-5">生日：{{ detail.profile.birthday }}</span>
-              <div>个人介绍：{{ detail.profile.signature }}</div>
+              <div class="mt-1">个人介绍：{{ detail.profile.signature }}</div>
             </v-col>
             <!-- 右侧 -->
             <v-col cols="3" class="flex-column">
               <div>注册时间：{{ detail.createDays }} 天</div>
-              <div>累计听歌：{{ detail.listenSongs }} 首</div>
+              <div class="mt-1">累计听歌：{{ detail.listenSongs }} 首</div>
             </v-col>
           </v-row>
           <v-divider class="mt-3"></v-divider>

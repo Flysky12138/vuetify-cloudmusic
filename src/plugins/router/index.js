@@ -19,7 +19,7 @@ const router = new VueRouter({
     if (to.hash) {
       scrollTo = to.hash; // 路由跳转时可指定该值，进行新页面定位
     } else if (savedPosition) {
-      scrollTo = savedPosition.y; // 由浏览器的后退/前进按钮触发
+      // scrollTo = savedPosition.y; // 由浏览器的后退/前进按钮触发
     }
     setTimeout(() => {
       return goTo(scrollTo, {

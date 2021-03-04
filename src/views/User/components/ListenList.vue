@@ -23,7 +23,7 @@
           :items="items"
           hide-default-footer
           class="elevation-0"
-          height="432"
+          height="532"
           :loading="loading"
           disable-sort
           fixed-header
