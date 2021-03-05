@@ -11,7 +11,7 @@
       </v-card-subtitle>
     </div>
     <!-- 选项卡 -->
-    <v-tabs v-model="tab" @change="getSongList" right>
+    <v-tabs v-model="tab" @change="$emit('change', tab)" right>
       <v-tab>最近一周</v-tab>
       <v-tab>所有时间</v-tab>
     </v-tabs>
@@ -23,7 +23,7 @@
           :items="items"
           hide-default-footer
           class="elevation-0"
-          height="532"
+          height="432"
           :loading="loading"
           disable-sort
           fixed-header
@@ -52,12 +52,11 @@ import ButtonPlay from "components/Button/ButtonPlay.vue";
 export default {
   components: { ButtonPlay },
   props: {
-    uid: { type: String, required: true },
+    items: { type: Array, required: true },
+    loading: { type: Boolean, default: false, required: true },
   },
   data: () => ({
     tab: 0,
-    items: [], // 内容
-    loading: false,
     headers: [
       { text: "#", align: "end", value: "playCount" },
       { text: "", value: "" },
@@ -66,20 +65,5 @@ export default {
       { text: "", align: "end", value: "btns" },
     ],
   }),
-  created() {
-    this.getSongList();
-  },
-  watch: {
-    uid: "getSongList",
-  },
-  methods: {
-    getSongList() {
-      this.loading = true;
-      this.$http.user.record(this.uid, this.tab === 0 ? 1 : 0).then((res) => {
-        this.items = res;
-        this.loading = false;
-      });
-    },
-  },
 };
 </script>

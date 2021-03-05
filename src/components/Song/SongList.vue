@@ -10,14 +10,14 @@
         v-text="subtitle"
       ></span>
       <v-spacer></v-spacer>
-      <div width="100">
+      <v-sheet width="200">
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
           single-line
           hide-details
         ></v-text-field>
-      </div>
+      </v-sheet>
     </v-card-title>
     <!-- 表格 -->
     <v-data-table
@@ -72,16 +72,9 @@ export default {
     title: { type: String, required: true },
     // 描述
     subtitle: { type: Number, required: true },
-    /* 内容
-     * @params
-     *  [{
-     *    album:"《JJ陆》",
-     *    artists:"林俊杰",
-     *    duration:"03:45",
-     *    id:108485,
-     *    name:"Always Online"
-     *  },{...}]
-     */
+    // 内容
+    // @params Array
+    // { album:String, artists:String, duration:String, id:Number, name:String }[,{...}]
     items: { type: Array, required: true },
     // 单页显示列表数
     itemsPerPage: { type: Number, default: 8 },

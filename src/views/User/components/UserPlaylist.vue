@@ -12,7 +12,6 @@
           v-model="page"
           :min="1"
           :max="maxPage"
-          step="1"
           thumb-label="always"
           :thumb-size="24"
           class="my-n6 mr-3"
@@ -45,7 +44,7 @@
     </v-card-title>
     <!-- 歌单卡片 -->
     <v-card-text
-      class="d-flex"
+      class="d-flex px-1"
       style="overflow: auto"
       ref="songCard"
       @mousewheel="mouseWheel"
@@ -60,7 +59,8 @@ import SongCard from "components/Song/SongCard.vue";
 export default {
   components: { SongCard },
   props: {
-    // @param Array { coverImgUrl: "", playCount: 0, name: "", id: 0 }[,{...}]
+    // @param Array
+    // { coverImgUrl: "", playCount: 0, name: "", id: 0 }[,{...}]
     playlist: { type: Array, required: true },
     title: { type: String, required: true },
   },
@@ -70,7 +70,6 @@ export default {
     count: 20, // 单页显示数量
     lists: [], // 显示的列表
     sliderShow: false, // 滑块显示
-    scrollLeft: 0, // 存放上次滚动条距左边的位置
   }),
   created() {
     // 向上取整
@@ -98,21 +97,18 @@ export default {
     },
     // 使用鼠标滚轮横向滚动
     mouseWheel(event) {
-      const wheel = this.$refs.songCard.scrollLeft;
-      if (event.deltaY < 0) {
+      const scrollLeft = this.$refs.songCard.scrollLeft;
+      const clientWidth = this.$refs.songCard.clientWidth;
+      const scrollWidth = this.$refs.songCard.scrollWidth;
+      if (
         // 向上
-        if (wheel != 0) {
-          event.preventDefault();
-          this.$refs.songCard.scrollLeft += event.deltaY;
-        }
-      } else {
+        (event.deltaY < 0 && scrollLeft !== 0) ||
         // 向下
-        if (this.scrollLeft == 0 || wheel != this.scrollLeft) {
-          event.preventDefault();
-          this.$refs.songCard.scrollLeft += event.deltaY;
-        }
+        (event.deltaY > 0 && scrollLeft + clientWidth < scrollWidth)
+      ) {
+        event.preventDefault();
+        this.$refs.songCard.scrollLeft += event.deltaY;
       }
-      this.scrollLeft = wheel;
     },
   },
 };

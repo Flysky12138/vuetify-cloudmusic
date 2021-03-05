@@ -1,22 +1,20 @@
 <template>
-  <div>
-    <image-avatar
-      v-if="islogin"
-      :uid="uid"
-      :src="avatarUrl"
-      @contextmenu.prevent="logout"
-    />
-    <v-avatar v-else color="grey lighten-2" size="38">
-      <v-btn icon to="logout">
-        <v-icon>mdi-account-outline</v-icon>
-      </v-btn>
-    </v-avatar>
-  </div>
+  <image-avatar
+    v-if="islogin"
+    :uid="uid"
+    :src="avatarUrl"
+    @contextmenu.prevent="logout"
+  />
+  <v-avatar v-else color="grey lighten-2" size="38">
+    <v-btn icon to="login">
+      <v-icon>mdi-account-outline</v-icon>
+    </v-btn>
+  </v-avatar>
 </template>
 
 <script>
-import ImageAvatar from "components/Image/ImageAvatar.vue";
 import { mapState, mapMutations } from "vuex";
+import ImageAvatar from "components/Image/ImageAvatar.vue";
 export default {
   components: { ImageAvatar },
   data: () => ({}),

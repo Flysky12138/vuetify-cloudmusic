@@ -1,19 +1,17 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import play from "./play";
 
 Vue.use(Vuex);
 
 const store = {
+  modules: { play },
   state: {
     islogin: false,
     user: {
       uid: 0,
       level: 0,
       avatarUrl: ""
-    },
-    play: {
-      isplay: false,
-      lists: []
     }
   },
   mutations: {
@@ -25,19 +23,6 @@ const store = {
     },
     logout(state) {
       state.islogin = false;
-    },
-    isPlay(state, id) {
-      // 单个ID就追加，多个就清空再赋值
-      typeof id === "number"
-        ? state.play.lists.push(id)
-        : (state.play.lists = [...id]);
-      state.play.isplay = true;
-    },
-    disPlay(state) {
-      state.play.isplay = false;
-    },
-    clearLists(state) {
-      state.play.lists = [];
     }
   }
 };

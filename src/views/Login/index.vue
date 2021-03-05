@@ -27,11 +27,11 @@
       <!-- 手机号、二维码 -->
       <v-tabs-items v-model="tab" vertical>
         <v-tab-item class="py-12">
-          <component is="Phone" @login="login"></component>
+          <component is="LoginPhone" @login="login"></component>
         </v-tab-item>
         <v-tab-item class="py-8">
           <component
-            is="QRcode"
+            is="LoginQR"
             @login="login"
             @loading="(res) => (loading = res)"
           ></component>
@@ -51,10 +51,10 @@
 
 <script>
 import { mapMutations } from "vuex";
-import Phone from "./components/Phone.vue";
-import QRcode from "./components/QRcode.vue";
+import LoginPhone from "./components/LoginPhone.vue";
+import LoginQR from "./components/LoginQR.vue";
 export default {
-  components: { Phone, QRcode },
+  components: { LoginPhone, LoginQR },
   data: () => ({
     tab: 0,
     loading: false,

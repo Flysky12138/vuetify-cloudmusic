@@ -35,9 +35,8 @@
 <script>
 export default {
   props: {
-    /* @param Object
-     * { coverImgUrl,playCount,name,id }
-     */
+    // @params Object
+    // coverImgUrl:String, playCount:Number ,name:String, id:Number
     value: { type: Object, required: true },
   },
   data: () => ({}),

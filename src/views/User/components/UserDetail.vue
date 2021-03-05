@@ -5,11 +5,11 @@
       <image-cover :src="detail.profile.avatarUrl" />
     </v-col>
     <!-- 右侧信息 -->
-    <v-col class="10">
+    <v-col>
       <v-row class="text-subtitle-2">
         <!-- 昵称 行 -->
         <v-col cols="12">
-          <v-row class="d-flex align-end">
+          <v-row align="end">
             <!-- 左侧 -->
             <v-col cols="9">
               <span class="text-h3">{{ detail.profile.nickname }}</span>
@@ -61,39 +61,9 @@ import ImageCover from "components/Image/ImageCover.vue";
 export default {
   components: { ImageCover },
   props: {
-    uid: { type: String, required: true },
-  },
-  data: () => ({
-    detail: {
-      level: 0,
-      createDays: 0,
-      listenSongs: 0,
-      profile: {
-        avatarUrl: "",
-        birthday: "",
-        city: "",
-        followeds: 0,
-        follows: 0,
-        gender: 0,
-        nickname: "",
-        province: "",
-        signature: "",
-      },
-    },
-  }),
-  created() {
-    this.getDetail();
-  },
-  watch: {
-    uid: "getDetail",
+    detail: { type: Object, required: true },
   },
   methods: {
-    // 获取数据
-    getDetail() {
-      this.$http.user.detail(this.uid).then((res) => {
-        this.detail = res;
-      });
-    },
     // 返回性别图标
     theGender() {
       switch (this.detail.profile.gender) {
