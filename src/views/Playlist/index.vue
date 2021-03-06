@@ -26,7 +26,7 @@ export default {
     playlistDetail: {
       coverImgUrl: "",
       createTime: "",
-      description: "",
+      description: null,
       name: "",
       playCount: 0,
       shareCount: 0,

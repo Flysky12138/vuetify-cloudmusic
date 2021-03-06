@@ -27,9 +27,7 @@ export default {
   },
   data: () => ({}),
   methods: {
-    ...mapMutations({
-      isPlay: "isPlay",
-    }),
+    ...mapMutations(["isPlay"]),
     play() {
       this.isPlay(this.value);
     },

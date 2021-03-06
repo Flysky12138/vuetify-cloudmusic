@@ -72,13 +72,17 @@ export default {
   methods: {
     // 根据介绍文字长度返回文字
     getDescription() {
-      if (this.value.description.length > 50) {
-        this.isShowBtn = true;
-        return this.showAllDescription
-          ? "\n" + this.value.description
-          : this.value.description.substring(0, 50) + "...";
+      if (this.value.description !== null) {
+        if (this.value.description.length > 50) {
+          this.isShowBtn = true;
+          return this.showAllDescription
+            ? "\n" + this.value.description
+            : this.value.description.substring(0, 50) + "...";
+        } else {
+          return this.value.description;
+        }
       } else {
-        return this.value.description;
+        return "无";
       }
     },
   },

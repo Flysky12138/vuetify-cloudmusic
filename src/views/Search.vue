@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
 import SongList from "components/Song/SongList.vue";
 export default {
   components: { SongList },
@@ -27,10 +26,6 @@ export default {
     this.searchSongs();
   },
   methods: {
-    // 播放
-    ...mapMutations({
-      isPlay: "isPlay",
-    }),
     // 获取歌曲列表
     searchSongs(offset = 0, push = false) {
       this.loading = true;

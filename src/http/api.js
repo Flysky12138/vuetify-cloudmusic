@@ -1,9 +1,7 @@
 import axios from "axios";
 import qs from "qs";
 
-/*
- * 根据环境变量区分接口的默认地址
- */
+// 根据环境变量区分接口的默认地址
 switch (process.env.NODE_ENV) {
   case "production":
     axios.defaults.baseURL = "http://flysky.xyz:3000";
@@ -13,9 +11,7 @@ switch (process.env.NODE_ENV) {
     break;
 }
 
-/*
- * 设置超时时间和跨域是否允许携带凭证
- */
+// 设置超时时间和跨域是否允许携带Cookie凭证
 axios.defaults.timeout = 10000;
 axios.defaults.withCredentials = true;
 
@@ -33,10 +29,6 @@ axios.defaults.transformRequest = data => qs.stringify(data);
 axios.interceptors.request.use(
   config => {
     // 添加时间戳
-    // if (typeof config.params === "undefined") {
-    //     config["params"] = {};
-    // }
-    // config.params["timerstamp"] = new Date().getTime();
     if (config.method == "post") {
       config.data = {
         ...config.data,
@@ -48,7 +40,7 @@ axios.interceptors.request.use(
         timerstamp: new Date().getTime()
       };
     }
-    // 添加token
+    // 添加token。本项目使用的Cookie验证，没储存Token
     let token = localStorage.getItem("token");
     token && (config.headers.Authorization = token);
     return config;
@@ -58,9 +50,7 @@ axios.interceptors.request.use(
   }
 );
 
-/*
- * 响应拦截器
- */
+// 响应拦截器
 axios.defaults.validateStatus = status => {
   // 自定义响应成功的HTTP状态码
   return /^(2|3|5)\d{2}$/.test(status);
