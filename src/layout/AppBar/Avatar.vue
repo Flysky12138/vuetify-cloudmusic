@@ -3,7 +3,7 @@
     v-if="islogin"
     :uid="uid"
     :src="avatarUrl"
-    @contextmenu.prevent="logout"
+    @contextmenu.native.prevent="logout"
   />
   <v-avatar v-else color="grey lighten-2" size="38">
     <v-btn icon to="login">

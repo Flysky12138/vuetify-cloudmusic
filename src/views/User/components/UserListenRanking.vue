@@ -20,20 +20,20 @@
         <!-- 表格 -->
         <v-data-table
           :headers="headers"
-          :items="items"
+          :items="value"
           hide-default-footer
           class="elevation-0"
           height="432"
           :loading="loading"
           disable-sort
           fixed-header
-          :items-per-page="items.length"
+          :items-per-page="value.length"
           no-data-text="暂无听歌记录 或 用户设置了隐私权限"
         >
           <!-- header.btns插槽 -->
           <template v-slot:header.btns>
             <button-play
-              :value="items.map((res) => res.song.id)"
+              :value="value.map((res) => res.song.id)"
               tip="播放所有"
             />
           </template>
@@ -52,7 +52,7 @@ import ButtonPlay from "components/Button/ButtonPlay.vue";
 export default {
   components: { ButtonPlay },
   props: {
-    items: { type: Array, required: true },
+    value: { type: Array, required: true },
     loading: { type: Boolean, default: false, required: true },
   },
   data: () => ({

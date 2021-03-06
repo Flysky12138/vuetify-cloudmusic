@@ -3,22 +3,22 @@
     <v-row class="pa-3">
       <!-- 个人信息 -->
       <v-col cols="12">
-        <user-detail :detail="userDetail" />
+        <user-detail :value="userDetail" />
       </v-col>
       <!-- 听歌排行 -->
       <v-col cols="12">
         <user-listen-ranking
-          :items="userListenRanking.items"
+          :value="userListenRanking.items"
           :loading="userListenRanking.loading"
           @change="getUserListenRanking"
         />
       </v-col>
       <!-- 歌单 -->
       <v-col cols="12" v-if="userPlaylist.create.length !== 0">
-        <user-playlist :playlist="userPlaylist.create" title="创建的歌单" />
+        <user-playlist :value="userPlaylist.create" title="创建的歌单" />
       </v-col>
       <v-col cols="12" v-if="userPlaylist.collect.length !== 0">
-        <user-playlist :playlist="userPlaylist.collect" title="收藏的歌单" />
+        <user-playlist :value="userPlaylist.collect" title="收藏的歌单" />
       </v-col>
     </v-row>
   </v-container>

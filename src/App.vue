@@ -20,6 +20,8 @@
       </v-main>
       <!-- 侧边固定栏 -->
       <side-bar />
+      <!-- 顶部提示文字 -->
+      <top-snack-bar />
     </template>
     <template v-else>
       <v-sheet
@@ -33,10 +35,11 @@
 
 <script>
 import { mapMutations } from "vuex";
-import AppBar from "@/layout/AppBar";
-import SideBar from "@/layout/SideBar";
+import AppBar from "./layout/AppBar";
+import SideBar from "./layout/SideBar";
+import TopSnackBar from "./layout/TopSnackBar.vue";
 export default {
-  components: { AppBar, SideBar },
+  components: { AppBar, SideBar, TopSnackBar },
   data: () => ({}),
   created() {
     // 获取ID,等级和头像
@@ -67,6 +70,6 @@ export default {
   display: none;
 }
 .router-enter-active {
-  transition: all 1s;
+  transition: all 1.5s;
 }
 </style>

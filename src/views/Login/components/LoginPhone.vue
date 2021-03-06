@@ -31,16 +31,13 @@
           @keyup.13="login"
         ></v-text-field>
       </v-col>
-      <!-- 提示 -->
-      <top-snack ref="topSnack" />
     </v-row>
   </v-container>
 </template>
 
 <script>
-import TopSnack from "components/TopSnack.vue";
+import { mapMutations } from "vuex";
 export default {
-  components: { TopSnack },
   data: () => ({
     phone: { value: "", inputTrue: false },
     password: { value: "", isShow: false, disabled: true },
@@ -55,14 +52,15 @@ export default {
           if (res) {
             this.phone.inputTrue = true;
           } else {
-            this.$refs.topSnack.color = "primary";
-            this.$refs.topSnack.text =
-              "该手机号未注册 【 " + this.phone.value + " 】";
+            this.topText({
+              text: "该手机号未注册 【 " + this.phone.value + " 】",
+              color: "primary",
+            });
           }
         });
       } else {
         this.phone.inputTrue = false;
-        this.$refs.topSnack.text = "";
+        this.topText("");
       }
     },
     "phone.inputTrue"(newValue) {
@@ -78,6 +76,7 @@ export default {
     },
   },
   methods: {
+    ...mapMutations(["topText"]),
     login() {
       if (this.password.value !== "") {
         this.$http.login
@@ -85,17 +84,17 @@ export default {
           .then((res) => {
             switch (res) {
               case 0:
-                this.$refs.topSnack.text = "密码错误";
+                this.topText("密码错误");
                 this.password.value = "";
                 break;
               case 1: // 登录成功
                 this.$emit("login");
                 break;
               case 2:
-                this.$refs.topSnack.text = "当前登录失败，请稍后再试";
+                this.topText("当前登录失败，请稍后再试");
                 break;
               case 3:
-                this.$refs.topSnack.text = "密码错误超过限制，请换二维码登录";
+                this.topText("密码错误超过限制，请换二维码登录");
                 break;
             }
           });

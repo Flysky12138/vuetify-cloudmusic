@@ -5,21 +5,19 @@
         <v-img :src="qrimg"></v-img>
       </v-col>
     </v-row>
-    <!-- 提示 -->
-    <top-snack ref="topSnack" />
   </v-container>
 </template>
 
 <script>
-import TopSnack from "components/TopSnack.vue";
+import { mapMutations } from "vuex";
 export default {
-  components: { TopSnack },
   data: () => ({
     unikey: "",
     qrimg: "",
     interval: {},
   }),
   methods: {
+    ...mapMutations(["topText"]),
     // 是否在二维码界面
     onIntersect(entries) {
       if (entries[0].isIntersecting) {
@@ -46,8 +44,10 @@ export default {
         switch (res) {
           case 0: // 二维码过期
             this.$emit("loading", false);
-            this.$refs.topSnack.color = "primary";
-            this.$refs.topSnack.text = "二维码已过期，将重新获取";
+            this.topText({
+              text: "二维码已过期，将重新获取",
+              color: "primary",
+            });
             this.qrimg = "";
             clearInterval(this.interval);
             setTimeout(() => {
@@ -56,6 +56,10 @@ export default {
             break;
           case 2: // 等待确认
             this.$emit("loading", true);
+            this.topText({
+              text: "二维码扫描成功，等待确认",
+              color: "primary",
+            });
             break;
           case 3: // 扫码成功
             this.$emit("loading", false);

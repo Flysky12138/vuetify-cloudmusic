@@ -13,7 +13,7 @@
         type="card-heading,list-item-avatar,list-item@2"
       ></v-skeleton-loader>
     </div>
-    <playlist-detail v-else :detail="playlistDetail" />
+    <playlist-detail v-else :value="playlistDetail" />
   </v-container>
 </template>
 

@@ -2,7 +2,7 @@
   <v-row>
     <!-- 左侧头像 -->
     <v-col cols="auto">
-      <image-cover :src="detail.profile.avatarUrl" />
+      <image-cover :src="value.profile.avatarUrl" />
     </v-col>
     <!-- 右侧信息 -->
     <v-col>
@@ -12,21 +12,21 @@
           <v-row align="end">
             <!-- 左侧 -->
             <v-col cols="9">
-              <span class="text-h3">{{ detail.profile.nickname }}</span>
+              <span class="text-h3">{{ value.profile.nickname }}</span>
               <v-chip
                 small
                 class="mx-3 text-subtitle-1 font-weight-bold font-italic"
                 color="red"
                 outlined
               >
-                {{ "Lv." + detail.level }}
+                {{ "Lv." + value.level }}
               </v-chip>
               <v-icon :color="theGenderColor()">{{ theGender() }}</v-icon>
             </v-col>
             <!-- 右侧 -->
             <v-col cols="3">
-              <span class="mr-3">关注：{{ detail.profile.follows }}</span>
-              <span>粉丝：{{ detail.profile.followeds }}</span>
+              <span class="mr-3">关注：{{ value.profile.follows }}</span>
+              <span>粉丝：{{ value.profile.followeds }}</span>
             </v-col>
           </v-row>
         </v-col>
@@ -37,16 +37,16 @@
             <!-- 左侧 -->
             <v-col cols="9">
               <span
-                >所在地区：{{ detail.profile.province }} -
-                {{ detail.profile.city }}
+                >所在地区：{{ value.profile.province }} -
+                {{ value.profile.city }}
               </span>
-              <span class="ml-5">生日：{{ detail.profile.birthday }}</span>
-              <div class="mt-1">个人介绍：{{ detail.profile.signature }}</div>
+              <span class="ml-5">生日：{{ value.profile.birthday }}</span>
+              <div class="mt-1">个人介绍：{{ value.profile.signature }}</div>
             </v-col>
             <!-- 右侧 -->
             <v-col cols="3" class="flex-column">
-              <div>注册时间：{{ detail.createDays }} 天</div>
-              <div class="mt-1">累计听歌：{{ detail.listenSongs }} 首</div>
+              <div>注册时间：{{ value.createDays }} 天</div>
+              <div class="mt-1">累计听歌：{{ value.listenSongs }} 首</div>
             </v-col>
           </v-row>
           <v-divider class="mt-3"></v-divider>
@@ -61,12 +61,12 @@ import ImageCover from "components/Image/ImageCover.vue";
 export default {
   components: { ImageCover },
   props: {
-    detail: { type: Object, required: true },
+    value: { type: Object, required: true },
   },
   methods: {
     // 返回性别图标
     theGender() {
-      switch (this.detail.profile.gender) {
+      switch (this.value.profile.gender) {
         case 1:
           return "mdi-gender-male";
         case 2:
@@ -77,7 +77,7 @@ export default {
     },
     // 返回性别颜色
     theGenderColor() {
-      switch (this.detail.profile.gender) {
+      switch (this.value.profile.gender) {
         case 2:
           return "#FFB5D3";
         default:

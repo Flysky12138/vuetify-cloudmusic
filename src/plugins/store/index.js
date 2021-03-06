@@ -1,11 +1,12 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import play from "./play";
+import topSnackBar from "./topSnackBar";
 
 Vue.use(Vuex);
 
 const store = {
-  modules: { play },
+  modules: { play, topSnackBar },
   state: {
     islogin: false,
     user: {

@@ -2,7 +2,7 @@
   <v-card rounded="lg" elevation="2">
     <!-- 标题 -->
     <v-card-title>
-      {{ title + "（" + playlist.length + "）" }}
+      {{ title + "（" + value.length + "）" }}
       <v-spacer></v-spacer>
       <!-- 切换按键 -->
       <div class="d-flex mr-2 align-end" v-if="maxPage !== 1">
@@ -59,9 +59,7 @@ import SongCard from "components/Song/SongCard.vue";
 export default {
   components: { SongCard },
   props: {
-    // @param Array
-    // { coverImgUrl: "", playCount: 0, name: "", id: 0 }[,{...}]
-    playlist: { type: Array, required: true },
+    value: { type: Array, required: true },
     title: { type: String, required: true },
   },
   data: () => ({
@@ -69,11 +67,11 @@ export default {
     maxPage: 1, // 最大页数
     count: 20, // 单页显示数量
     lists: [], // 显示的列表
-    sliderShow: false, // 滑块显示
+    sliderShow: false, // 滑块换页显示
   }),
   created() {
     // 向上取整
-    this.maxPage = Math.ceil(this.playlist.length / this.count);
+    this.maxPage = Math.ceil(this.value.length / this.count);
     this.getLists();
   },
   watch: {
@@ -87,12 +85,12 @@ export default {
     // 获取需要显示的一段数据
     getLists() {
       if (this.page < this.maxPage) {
-        this.lists = this.playlist.slice(
+        this.lists = this.value.slice(
           this.count * (this.page - 1),
           this.count * this.page
         );
       } else {
-        this.lists = this.playlist.slice(this.count * (this.page - 1));
+        this.lists = this.value.slice(this.count * (this.page - 1));
       }
     },
     // 使用鼠标滚轮横向滚动
@@ -104,7 +102,7 @@ export default {
         // 向上
         (event.deltaY < 0 && scrollLeft !== 0) ||
         // 向下
-        (event.deltaY > 0 && scrollLeft + clientWidth < scrollWidth)
+        (event.deltaY > 0 && scrollLeft + clientWidth + 2 < scrollWidth)
       ) {
         event.preventDefault();
         this.$refs.songCard.scrollLeft += event.deltaY;

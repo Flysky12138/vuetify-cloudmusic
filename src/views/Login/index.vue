@@ -70,12 +70,12 @@ export default {
       this.$http.login.status().then((res) => {
         if (res.islogin) {
           this.setLogin(res);
+          this.overlay = false;
           if (window.history.length <= 1) {
             this.$router.replace("/");
           } else {
             this.$router.go(-1);
           }
-          this.overlay = false;
         }
       });
     },

@@ -2,33 +2,33 @@
   <v-row class="pa-3">
     <!-- 专辑封面 -->
     <v-col cols="auto">
-      <image-cover :src="detail.coverImgUrl" :size="180" />
+      <image-cover :src="value.coverImgUrl" :size="180" />
     </v-col>
     <!-- 专辑信息 -->
     <v-col>
       <v-row>
         <!-- 标题 行 -->
         <v-col cols="12">
-          <span class="text-h4">{{ detail.name }}</span>
+          <span class="text-h4">{{ value.name }}</span>
         </v-col>
         <!-- 头像 行 -->
         <v-col cols="12" class="py-0">
-          <image-avatar :uid="detail.userId" :src="detail.avatarUrl" />
-          <span class="ml-2 text-subtitle-1">{{ detail.nickname }}</span>
+          <image-avatar :uid="value.userId" :src="value.avatarUrl" />
+          <span class="ml-2 text-subtitle-1">{{ value.nickname }}</span>
           <span class="mx-10 text-subtitle-2 text--secondary">
-            创建于：{{ detail.createTime }}
+            创建于：{{ value.createTime }}
           </span>
           <span class="text-subtitle-2 text--secondary">
-            <span> 播放：{{ detail.playCount }} </span>
-            <span class="mx-2"> 分享：{{ detail.shareCount }} </span>
-            <span> 收藏：{{ detail.subscribedCount }} </span>
+            <span> 播放：{{ value.playCount }} </span>
+            <span class="mx-2"> 分享：{{ value.shareCount }} </span>
+            <span> 收藏：{{ value.subscribedCount }} </span>
           </span>
         </v-col>
         <!-- 标签 行 -->
         <v-col cols="12" class="pb-0">
           <span class="text-subtitle-2">标签：</span>
           <v-chip
-            v-for="item in detail.tags"
+            v-for="item in value.tags"
             :key="item.id"
             small
             class="mr-2"
@@ -63,7 +63,7 @@ import ImageCover from "components/Image/ImageCover.vue";
 export default {
   components: { ImageAvatar, ImageCover },
   props: {
-    detail: { type: Object, required: true },
+    value: { type: Object, required: true },
   },
   data: () => ({
     showAllDescription: false,
@@ -72,13 +72,13 @@ export default {
   methods: {
     // 根据介绍文字长度返回文字
     getDescription() {
-      if (this.detail.description.length > 50) {
+      if (this.value.description.length > 50) {
         this.isShowBtn = true;
         return this.showAllDescription
-          ? "\n" + this.detail.description
-          : this.detail.description.substring(0, 50) + "...";
+          ? "\n" + this.value.description
+          : this.value.description.substring(0, 50) + "...";
       } else {
-        return this.detail.description;
+        return this.value.description;
       }
     },
   },
