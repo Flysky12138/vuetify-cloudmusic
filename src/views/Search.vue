@@ -3,7 +3,7 @@
     <song-list
       :title="keywords"
       :subtitle="songCount"
-      :items="songs"
+      :value="songs"
       :loading="loading"
       @pageEnd="getMoreSongs"
     />

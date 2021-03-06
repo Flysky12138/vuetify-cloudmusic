@@ -1,26 +1,30 @@
 <template>
   <v-container>
     <!-- 获取数据前骨架图 -->
-    <div v-if="playlistDetail.name === ''" class="d-flex">
-      <v-skeleton-loader
-        width="180"
-        height="180"
-        class="ma-2"
-        type="image"
-      ></v-skeleton-loader>
-      <v-skeleton-loader
-        width="400"
-        type="card-heading,list-item-avatar,list-item@2"
-      ></v-skeleton-loader>
-    </div>
-    <playlist-detail v-else :value="playlistDetail" />
+    <skeleton-loader v-if="playlistDetail.name === ''" />
+    <v-row v-else>
+      <v-col cols="12">
+        <playlist-detail :value="playlistDetail" />
+      </v-col>
+      <v-col cols="12">
+        <song-list
+          :title="playlistDetail.name"
+          :subtitle="songlistDetail.songlist.length"
+          :value="songlistDetail.songlist"
+          :itemsPerPage="9"
+          :loading="songlistDetail.loading"
+        />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script>
+import SkeletonLoader from "./components/SkeletonLoader.vue";
 import PlaylistDetail from "./components/PlaylistDetail.vue";
+import SongList from "components/Song/SongList";
 export default {
-  components: { PlaylistDetail },
+  components: { SkeletonLoader, PlaylistDetail, SongList },
   data: () => ({
     id: 0,
     playlistDetail: {
@@ -37,6 +41,10 @@ export default {
       avatarUrl: "",
       nickname: "",
     },
+    songlistDetail: {
+      songlist: [],
+      loading: false,
+    },
   }),
   created() {
     this.id = this.$route.query.id;
@@ -47,6 +55,15 @@ export default {
     getPlaylistDetail() {
       this.$http.playlist.detail(this.id).then((res) => {
         this.playlistDetail = res;
+        this.getSonglistDetail(res.trackIds.join(","));
+      });
+    },
+    // 获取歌单歌曲列表
+    getSonglistDetail(ids) {
+      this.songlistDetail.loading = true;
+      this.$http.song.detail(ids).then((res) => {
+        this.songlistDetail.songlist = res;
+        this.songlistDetail.loading = false;
       });
     },
   },

@@ -27,7 +27,7 @@ const router = new VueRouter({
         offset: "0", // 偏移
         easing: "easeOutQuad" // 动画
       });
-    }, 500);
+    }, 100);
   }
 });
 

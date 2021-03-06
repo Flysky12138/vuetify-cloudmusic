@@ -37,7 +37,7 @@
         </v-col>
         <!-- 介绍 行 -->
         <v-col cols="12" class="pb-0 text-subtitle-2">
-          <div style="white-space: pre-wrap; height: 300px; overflow: auto">
+          <div style="white-space: pre-wrap; max-height: 300px; overflow: auto">
             <span>介绍：</span>
             {{ getDescription() }}
             <v-btn

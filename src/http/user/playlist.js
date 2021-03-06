@@ -15,7 +15,6 @@ function playlist(uid) {
         collect: []
       };
       response.playlist.forEach(element => {
-        // 根据type返回值;0该UID创建的歌单,1该UID收藏的歌单
         const type = element.creator.userId == uid ? "create" : "collect";
         obj[type].push({
           id: element.id,

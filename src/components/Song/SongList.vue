@@ -1,12 +1,12 @@
 <template>
   <v-card elevation="0">
     <!-- 标题 -->
-    <v-card-title>
+    <v-card-title class="d-flex align-end">
       <span class="blue--text text--lighten-1">
         {{ '"' + title + '"' }}
       </span>
       <span
-        class="blue--text text--lighten-2 font-italic text-caption ml-4 pt-2"
+        class="blue--text text--lighten-2 font-italic text-caption ml-4"
         v-text="subtitle"
       ></span>
       <v-spacer></v-spacer>
@@ -21,9 +21,9 @@
     </v-card-title>
     <!-- 表格 -->
     <v-data-table
-      class="elevation-0 mt-2 mb-4"
+      class="elevation-0 mt-2 mb-3"
       :headers="headers"
-      :items="items"
+      :items="value"
       item-key="count"
       hide-default-footer
       disable-sort
@@ -37,11 +37,11 @@
     >
       <!-- header.btns插槽 -->
       <template v-slot:header.btns>
-        <button-play :value="items.map((res) => res.id)" tip="播放所有" />
+        <button-play :value="value.map((res) => res.id)" tip="播放所有" />
       </template>
       <!-- item.count、item.btns插槽 -->
       <template v-slot:item.count="{ item }">
-        <div>{{ items.indexOf(item) + 1 }}</div>
+        <div>{{ value.indexOf(item) + 1 }}</div>
       </template>
       <template v-slot:item.btns="{ item }">
         <div class="d-flex justify-end">
@@ -75,7 +75,7 @@ export default {
     // 内容
     // @params Array
     // { album:String, artists:String, duration:String, id:Number, name:String }[,{...}]
-    items: { type: Array, required: true },
+    value: { type: Array, required: true },
     // 单页显示列表数
     itemsPerPage: { type: Number, default: 8 },
     // 是否正在加载

@@ -14,7 +14,7 @@
           :max="maxPage"
           thumb-label="always"
           :thumb-size="24"
-          class="my-n6 mr-3"
+          class="mr-3 my-n6"
           style="width: 200px"
           @mouseup="sliderShow = false"
         ></v-slider>
@@ -28,7 +28,7 @@
           text
           color="success"
           v-text="page + ' / ' + maxPage"
-          @click="sliderShow = true"
+          @click="sliderShow = !sliderShow"
         ></v-btn>
         <!-- 右 -->
         <v-btn

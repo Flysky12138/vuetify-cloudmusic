@@ -21,17 +21,17 @@ function search(keywords, offset = 0) {
       if (obj.songCount !== 0) {
         obj.hasMore = response.result.hasMore;
         response.result.songs.forEach(element => {
-          const arr = {
+          obj.songs.push({
             id: element.id,
             name: element.name,
             duration: songTime(element.duration),
             artists: element.artists.map(res => res.name).join(" / "),
             album: "《" + element.album.name + "》"
-          };
-          obj.songs.push(arr);
+          });
         });
       }
       return Promise.resolve(obj);
     });
 }
+
 export default search;
