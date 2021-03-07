@@ -6,7 +6,7 @@
         <user-detail :value="userDetail" />
       </v-col>
       <!-- 听歌排行 -->
-      <v-col cols="12">
+      <v-col cols="12" class="mb-5">
         <user-listen-ranking
           :value="userListenRanking.items"
           :loading="userListenRanking.loading"

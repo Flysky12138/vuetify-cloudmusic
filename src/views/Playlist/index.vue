@@ -6,13 +6,13 @@
       <v-col cols="12">
         <playlist-detail :value="playlistDetail" />
       </v-col>
-      <v-col cols="12">
+      <v-col cols="12" class="mb-5">
         <song-list
           :title="playlistDetail.name"
           :subtitle="songlistDetail.songlist.length"
           :value="songlistDetail.songlist"
-          :itemsPerPage="9"
           :loading="songlistDetail.loading"
+          :itemsPerPage="30"
         />
       </v-col>
     </v-row>

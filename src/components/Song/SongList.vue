@@ -1,7 +1,7 @@
 <template>
   <v-card elevation="0">
     <!-- 标题 -->
-    <v-card-title class="d-flex align-end">
+    <v-card-title class="d-flex align-end pt-0">
       <span class="blue--text text--lighten-1">
         {{ '"' + title + '"' }}
       </span>
@@ -77,7 +77,7 @@ export default {
     // { album:String, artists:String, duration:String, id:Number, name:String }[,{...}]
     value: { type: Array, required: true },
     // 单页显示列表数
-    itemsPerPage: { type: Number, default: 8 },
+    itemsPerPage: { type: Number, default: 9 },
     // 是否正在加载
     loading: { type: Boolean, default: false },
   },

@@ -8,7 +8,7 @@ function search(keywords, offset = 0) {
       params: {
         keywords,
         offset,
-        limit: 32,
+        limit: 36,
         type: 1
       }
     })
