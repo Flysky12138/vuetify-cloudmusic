@@ -8,7 +8,8 @@
         :width="size"
         :height="size"
         transition="fade-transition"
-        style="border-radius: 12px; box-shadow: #80d8ff 0 0 5px"
+        style="box-shadow: #80d8ff 0 0 5px"
+        class="rounded-xl"
       ></v-img>
     </template>
     <v-img :src="src"></v-img>

@@ -2,7 +2,7 @@
   <v-container>
     <v-row class="pa-3">
       <!-- 个人信息 -->
-      <v-col cols="12">
+      <v-col cols="12" class="py-10">
         <user-detail :value="userDetail" />
       </v-col>
       <!-- 听歌排行 -->
