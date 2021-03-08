@@ -1,7 +1,7 @@
 <template>
   <v-card elevation="0">
     <!-- 标题 -->
-    <v-card-title class="d-flex align-end pt-0">
+    <v-card-title class="d-flex align-end pt-0" id="tableHead">
       <span class="blue--text text--lighten-1">
         {{ '"' + title + '"' }}
       </span>
@@ -105,6 +105,12 @@ export default {
       if (newValue > oldValue && newValue === this.pageCount) {
         this.$emit("pageEnd", this.pageCount);
       }
+      // 换页滚动到表格顶部
+      this.$vuetify.goTo("#tableHead", {
+        duration: "400", // 动画时长
+        offset: "0", // 偏移
+        easing: "easeOutQuad", // 动画
+      });
     },
   },
 };

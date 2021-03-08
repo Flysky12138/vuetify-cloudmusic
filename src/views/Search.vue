@@ -6,6 +6,7 @@
       :value="songs"
       :loading="loading"
       @pageEnd="getMoreSongs"
+      ref="songlist"
     />
   </v-container>
 </template>
@@ -49,6 +50,8 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     this.keywords = to.query.keywords;
+    // 更换搜索内容跳转到第一页
+    this.$refs.songlist.page = 1;
     this.searchSongs();
     next();
   },

@@ -12,6 +12,7 @@
       @blur="isFocus = false"
       v-model="value"
       @keyup.13="search"
+      clearable
     ></v-text-field>
   </v-sheet>
 </template>
