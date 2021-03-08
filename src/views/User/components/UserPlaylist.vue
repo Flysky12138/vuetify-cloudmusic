@@ -70,11 +70,12 @@ export default {
     sliderShow: false, // 滑块换页显示
   }),
   created() {
-    // 向上取整
-    this.maxPage = Math.ceil(this.value.length / this.count);
-    this.getLists();
+    this.init();
   },
   watch: {
+    value() {
+      this.init();
+    },
     // 换页回顶
     page() {
       this.getLists();
@@ -82,6 +83,13 @@ export default {
     },
   },
   methods: {
+    // 初始化
+    init() {
+      this.page = 1;
+      // 向上取整
+      this.maxPage = Math.ceil(this.value.length / this.count);
+      this.getLists();
+    },
     // 获取需要显示的一段数据
     getLists() {
       if (this.page < this.maxPage) {

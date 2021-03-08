@@ -84,7 +84,7 @@ export default {
           { name: "F M", link: "" },
         ],
       },
-      { name: "关于", link: "" },
+      { name: "关于", link: "about" },
     ],
   }),
 };

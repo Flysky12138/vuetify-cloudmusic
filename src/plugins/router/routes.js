@@ -27,6 +27,11 @@ const routes = [
     path: "/playlist",
     name: "Playlist",
     component: () => import("views/Playlist")
+  },
+  {
+    path: "/about",
+    name: "About",
+    component: () => import("views/About")
   }
 ];
 

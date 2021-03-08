@@ -37,7 +37,7 @@
         </v-col>
         <!-- 介绍 行 -->
         <v-col cols="12" class="pb-0 text-subtitle-2">
-          <div style="white-space: pre-wrap; max-height: 300px; overflow: auto">
+          <div style="white-space: pre-wrap">
             <span>介绍：</span>
             {{ getDescription() }}
             <v-btn
@@ -46,7 +46,14 @@
               x-small
               color="success"
               class="ml-4 mt-n1"
-              @click="showAllDescription = !showAllDescription"
+              @click="
+                showAllDescription = !showAllDescription;
+                !showAllDescription &&
+                  $vuetify.goTo(0, {
+                    duration: '600',
+                    easing: 'easeOutQuad',
+                  });
+              "
             >
               {{ showAllDescription ? "收起" : "展开" }}
             </v-btn>

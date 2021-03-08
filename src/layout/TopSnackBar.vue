@@ -14,11 +14,22 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   data: () => ({
     isShow: false,
   }),
+  watch: {
+    text(newValue) {
+      newValue !== "" ? (this.isShow = true) : (this.isShow = false);
+    },
+    // 关闭时清空内容，否则当两次 text 内容相同时不会触发上面的 watch 监听事件
+    isShow(newValue) {
+      if (!newValue) {
+        this.topText("");
+      }
+    },
+  },
   computed: {
     ...mapState({
       text: (state) => state.topSnackBar.text,
@@ -26,10 +37,8 @@ export default {
       timeout: (state) => state.topSnackBar.timeout,
     }),
   },
-  watch: {
-    text(newValue) {
-      newValue !== "" ? (this.isShow = true) : (this.isShow = false);
-    },
+  methods: {
+    ...mapMutations(["topText"]),
   },
 };
 </script>

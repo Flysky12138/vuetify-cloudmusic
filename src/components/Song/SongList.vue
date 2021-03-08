@@ -107,7 +107,7 @@ export default {
       }
       // 换页滚动到表格顶部
       this.$vuetify.goTo("#tableHead", {
-        duration: "400", // 动画时长
+        duration: "600", // 动画时长
         offset: "0", // 偏移
         easing: "easeOutQuad", // 动画
       });
