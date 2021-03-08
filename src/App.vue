@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <template v-if="$vuetify.breakpoint.mdAndUp">
+    <template v-if="$vuetify.breakpoint.mdAndUp && !isMobile">
       <!-- 顶部导航栏 -->
       <v-app-bar app color="white" elevate-on-scroll>
         <v-container>
@@ -24,11 +24,14 @@
       <top-snack-bar />
     </template>
     <template v-else>
-      <v-sheet
-        class="d-flex justify-center align-center text-h6 font-weight-bold"
-        height="100vh"
-        >MD 断点（960px） 以下屏幕不允显示
-      </v-sheet>
+      <v-container class="flex-column justify-center fill-height">
+        <strong>非 PC 端</strong>
+        <strong>&amp;</strong>
+        <strong>width &lt; 960px</strong>
+        <br/>
+        <strong>未适配，不允显示</strong>
+      </v-container>
+      </vcon>
     </template>
   </v-app>
 </template>
@@ -40,7 +43,12 @@ import SideBar from "./layout/SideBar";
 import TopSnackBar from "./layout/TopSnackBar.vue";
 export default {
   components: { AppBar, SideBar, TopSnackBar },
-  data: () => ({}),
+  data: () => ({
+    // Navigator 对象包含一些有关浏览器的信息，userAgent是该对象的一个只读属性，声明了浏览器用于 HTTP 请求的用户代理头的值。
+    isMobile: /Android|WindowsPhone|webOS|iPhone|iPod|BlackBerry|iPad/i.test(
+      navigator.userAgent
+    ),
+  }),
   created() {
     // 获取ID,等级和头像
     this.$http.login.status().then((res) => {
