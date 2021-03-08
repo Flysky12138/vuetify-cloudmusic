@@ -4,7 +4,7 @@ import qs from "qs";
 // 根据环境变量区分接口的默认地址
 switch (process.env.NODE_ENV) {
   case "production":
-    axios.defaults.baseURL = "https://netease-cloud-music-api-gamma.vercel.app";
+    axios.defaults.baseURL = "https://music.api.flysky.xyz";
     break;
   default:
     axios.defaults.baseURL = "http://localhost:3000";
