@@ -19,8 +19,8 @@ axios.defaults.withCredentials = true;
  * 设置请求传递数据的格式（看服务器要求什么格式）
  * 将data值由对象转换成a=aa&b=bb形式
  */
-axios.defaults.headers["Content-Type"] = "application/x-www-form-urlencoded";
-axios.defaults.transformRequest = data => qs.stringify(data);
+// axios.defaults.headers["Content-Type"] = "application/x-www-form-urlencoded";
+// axios.defaults.transformRequest = data => qs.stringify(data);
 
 /*
  * 设置请求拦截器
