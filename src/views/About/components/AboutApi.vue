@@ -48,7 +48,12 @@ export default {
     defaultApi: "https://music.api.flysky.xyz",
   }),
   created() {
-    this.api = localStorage.getItem("api");
+    if (localStorage.getItem("api") == null) {
+      localStorage.setItem("api", this.defaultApi);
+      this.api = this.defaultApi;
+    } else {
+      this.api = localStorage.getItem("api");
+    }
   },
   methods: {
     ...mapMutations(["topText"]),
