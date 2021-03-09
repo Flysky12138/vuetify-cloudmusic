@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <!-- 获取数据前骨架图 -->
-    <skeleton-loader v-if="playlistDetail.name === ''" />
+    <skeleton-loader v-if="count != 1" />
     <v-row v-else>
       <v-col cols="12">
         <playlist-detail :value="playlistDetail" />
@@ -26,6 +26,7 @@ import SongList from "components/Song/SongList";
 export default {
   components: { SkeletonLoader, PlaylistDetail, SongList },
   data: () => ({
+    count: 0,
     id: 0,
     playlistDetail: {
       coverImgUrl: "",
@@ -56,6 +57,7 @@ export default {
       this.$http.playlist.detail(this.id).then((res) => {
         this.playlistDetail = res;
         this.getSonglistDetail(res.trackIds.join(","));
+        this.count++;
       });
     },
     // 获取歌单歌曲列表

@@ -1,17 +1,11 @@
 <template>
   <v-container>
-    <v-row class="pa-3">
+    <!-- 获取数据前骨架图 -->
+    <skeleton-loader v-if="count != 2" />
+    <v-row class="pa-3" v-else>
       <!-- 个人信息 -->
       <v-col cols="12" class="py-10">
         <user-detail :value="userDetail" />
-      </v-col>
-      <!-- 听歌排行 -->
-      <v-col cols="12" class="mb-5">
-        <user-listen-ranking
-          :value="userListenRanking.items"
-          :loading="userListenRanking.loading"
-          @change="getUserListenRanking"
-        />
       </v-col>
       <!-- 歌单 -->
       <v-col cols="12" v-if="userPlaylist.create.length !== 0">
@@ -20,17 +14,27 @@
       <v-col cols="12" v-if="userPlaylist.collect.length !== 0">
         <user-playlist :value="userPlaylist.collect" title="收藏的歌单" />
       </v-col>
+      <!-- 听歌排行 -->
+      <v-col cols="12" v-if="userListenRanking.items.length !== 0">
+        <user-listen-ranking
+          :value="userListenRanking.items"
+          :loading="userListenRanking.loading"
+          @change="getUserListenRanking"
+        />
+      </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import SkeletonLoader from "./components/SkeletonLoader.vue";
 import UserDetail from "./components/UserDetail.vue";
 import UserPlaylist from "./components/UserPlaylist.vue";
 import UserListenRanking from "./components/UserListenRanking.vue";
 export default {
-  components: { UserDetail, UserPlaylist, UserListenRanking },
+  components: { SkeletonLoader, UserDetail, UserPlaylist, UserListenRanking },
   data: () => ({
+    count: 0,
     uid: 0,
     userDetail: {
       level: 0,
@@ -48,26 +52,36 @@ export default {
         signature: "",
       },
     },
-    userListenRanking: {
-      items: [],
-      loading: false,
-    },
     userPlaylist: {
       create: [],
       collect: [],
     },
+    userListenRanking: {
+      items: [],
+      loading: false,
+    },
   }),
   created() {
+    // this.userListenRanking.items.length = 1000;
     this.uid = this.$route.query.uid;
     this.getUserDetail();
-    this.getUserListenRanking();
     this.getUserPlaylist();
+    this.getUserListenRanking();
   },
   methods: {
     // 获取用户信息
     getUserDetail() {
       this.$http.user.detail(this.uid).then((res) => {
         this.userDetail = res;
+        this.count++;
+      });
+    },
+    // 获取用户歌单
+    getUserPlaylist() {
+      this.$http.user.playlist(this.uid).then((res) => {
+        this.userPlaylist.create = res.create;
+        this.userPlaylist.collect = res.collect;
+        this.count++;
       });
     },
     // 获取用户听歌排行
@@ -78,19 +92,12 @@ export default {
         this.userListenRanking.loading = false;
       });
     },
-    // 获取用户歌单
-    getUserPlaylist() {
-      this.$http.user.playlist(this.uid).then((res) => {
-        this.userPlaylist.create = res.create;
-        this.userPlaylist.collect = res.collect;
-      });
-    },
   },
   beforeRouteUpdate(to, from, next) {
     this.uid = to.query.uid;
     this.getUserDetail();
-    this.getUserListenRanking();
     this.getUserPlaylist();
+    this.getUserListenRanking();
     next();
   },
 };
