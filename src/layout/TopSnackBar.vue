@@ -1,8 +1,12 @@
 <template>
   <v-snackbar
     v-model="isShow"
-    transition="scroll-y-transition"
-    top
+    transition="slide-x-reverse-transition"
+    right
+    bottom
+    class="mb-8 mr-8"
+    shaped
+    elevation="12"
     :color="color"
     :timeout="timeout"
   >
@@ -23,10 +27,12 @@ export default {
     text(newValue) {
       newValue !== "" ? (this.isShow = true) : (this.isShow = false);
     },
-    // 关闭时清空内容，否则当两次 text 内容相同时不会触发上面的 watch 监听事件
+    // 关闭时清空内容，否则当两次 text 内容相同时不会触发上面的 watch 监听事件显示提示
     isShow(newValue) {
       if (!newValue) {
-        this.topText("");
+        setTimeout(() => {
+          this.topText("");
+        }, 100);
       }
     },
   },

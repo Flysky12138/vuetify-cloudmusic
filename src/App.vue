@@ -10,7 +10,7 @@
       <!-- 路由显示区 -->
       <v-main class="grey lighten-3">
         <v-container>
-          <v-sheet rounded="lg" :min-height="$vuetify.breakpoint.height - 88">
+          <v-sheet rounded="lg" :min-height="viewHeight">
             <!-- 对路由添加一个进入动画：渐显 -->
             <transition name="router">
               <router-view />
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import AppBar from "./layout/AppBar";
 import SideBar from "./layout/SideBar";
 import TopSnackBar from "./layout/TopSnackBar.vue";
@@ -50,12 +50,28 @@ export default {
     ),
   }),
   created() {
+    console.log(this.$vuetify);
     // 获取ID,等级和头像
     this.$http.login.status().then((res) => {
       if (res.islogin) {
         this.setLogin(res);
       }
     });
+    // 设置默认api
+    if (localStorage.getItem("api") == null) {
+      localStorage.setItem("api", this.defaultApi);
+    }
+  },
+  computed: {
+    ...mapState({
+      defaultApi: (state) => state.defaultApi,
+    }),
+    // 路由界面最低高度；视窗高度 - 顶部导航栏高度 - v-main标签中的v-container标签的padding（my-3）
+    viewHeight() {
+      return (
+        this.$vuetify.breakpoint.height - this.$vuetify.application.top - 24
+      );
+    },
   },
   methods: {
     ...mapMutations({

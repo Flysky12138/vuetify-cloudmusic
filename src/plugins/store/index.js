@@ -9,6 +9,7 @@ const store = {
   modules: { play, topSnackBar },
   state: {
     islogin: false,
+    defaultApi: "https://music.api.flysky.xyz",
     user: {
       uid: 0,
       level: 0,

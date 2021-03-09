@@ -1,7 +1,10 @@
 <template>
   <v-container>
-    <v-row class="pt-6 pl-6">
-      <v-col cols="5">
+    <v-row class="pa-6">
+      <v-col cols="1" class="text-center mt-5">
+        <v-icon>mdi-video-input-component</v-icon>
+      </v-col>
+      <v-col cols="10">
         <about-api />
       </v-col>
     </v-row>

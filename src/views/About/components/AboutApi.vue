@@ -12,7 +12,7 @@
       <a href="https://vercel.com" target="_blank" class="text-decoration-none">
         Vercel
       </a>
-      <span>上，访问速度不理想的建议本地运行接口Api</span>
+      <span>上，访问速度不理想，建议本地运行接口Api</span>
     </v-alert>
     <v-alert border="left" colored-border color="cyan" elevation="2" dense>
       <span>接口下载地址：</span>
@@ -25,6 +25,7 @@
       </a>
     </v-alert>
     <v-text-field
+      class="pt-5"
       label="接口地址"
       placeholder="http://xxx or https://xxx"
       outlined
@@ -41,19 +42,18 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   data: () => ({
     api: "",
-    defaultApi: "https://music.api.flysky.xyz",
   }),
   created() {
-    if (localStorage.getItem("api") == null) {
-      localStorage.setItem("api", this.defaultApi);
-      this.api = this.defaultApi;
-    } else {
-      this.api = localStorage.getItem("api");
-    }
+    this.api = localStorage.getItem("api");
+  },
+  computed: {
+    ...mapState({
+      defaultApi: (state) => state.defaultApi,
+    }),
   },
   methods: {
     ...mapMutations(["topText"]),
