@@ -1,12 +1,12 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import play from "./play";
-import topSnackBar from "./topSnackBar";
+import tip from "./tip";
 
 Vue.use(Vuex);
 
 const store = {
-  modules: { play, topSnackBar },
+  modules: { play, tip },
   state: {
     islogin: false,
     defaultApi: "https://music.api.flysky.xyz",

@@ -5,7 +5,7 @@ const state = {
 };
 
 const mutations = {
-  topText(state, params = { text, color: "error", timeout: "3000" }) {
+  tip(state, params = { text, color: "error", timeout: "3000" }) {
     if (typeof params === "object") {
       state.text = params.text;
       state.color = params.color;

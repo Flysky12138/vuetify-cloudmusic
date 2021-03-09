@@ -1,3 +1,6 @@
+import store from "../store";
+import http from "@/http";
+
 const routes = [
   {
     path: "*",
@@ -5,32 +8,40 @@ const routes = [
   },
   {
     path: "/login",
-    name: "Login",
-    component: () => import("views/Login")
+    component: () => import("views/Login"),
+    // 路由独享的守卫
+    beforeEnter(to, from, next) {
+      http.login.status().then(res => {
+        if (res.islogin) {
+          store.commit("tip", {
+            text: "已经登录了！",
+            color: "success"
+          });
+          history.go(-1);
+        } else {
+          next();
+        }
+      });
+    }
   },
   {
     path: "/",
-    name: "HelloWorld",
     component: () => import("views/HelloWorld")
   },
   {
     path: "/user",
-    name: "User",
     component: () => import("views/User")
   },
   {
     path: "/search",
-    name: "Search",
     component: () => import("views/Search")
   },
   {
     path: "/playlist",
-    name: "Playlist",
     component: () => import("views/Playlist")
   },
   {
     path: "/about",
-    name: "About",
     component: () => import("views/About")
   }
 ];

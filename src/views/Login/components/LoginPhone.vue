@@ -52,7 +52,7 @@ export default {
           if (res) {
             this.phone.inputTrue = true;
           } else {
-            this.topText({
+            this.tip({
               text: "该手机号未注册 【 " + this.phone.value + " 】",
               color: "primary",
             });
@@ -60,7 +60,7 @@ export default {
         });
       } else {
         this.phone.inputTrue = false;
-        this.topText("");
+        this.tip("");
       }
     },
     "phone.inputTrue"(newValue) {
@@ -76,7 +76,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["topText"]),
+    ...mapMutations(["tip"]),
     login() {
       if (this.password.value !== "") {
         this.$http.login
@@ -84,17 +84,17 @@ export default {
           .then((res) => {
             switch (res) {
               case 0:
-                this.topText("密码错误");
+                this.tip("密码错误");
                 this.password.value = "";
                 break;
               case 1: // 登录成功
                 this.$emit("login");
                 break;
               case 2:
-                this.topText("当前登录失败，请稍后再试");
+                this.tip("当前登录失败，请稍后再试");
                 break;
               case 3:
-                this.topText("密码错误超过限制，请换二维码登录");
+                this.tip("密码错误超过限制，请换二维码登录");
                 break;
             }
           });

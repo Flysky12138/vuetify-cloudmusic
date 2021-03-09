@@ -25,7 +25,7 @@
       </a>
     </v-alert>
     <v-text-field
-      class="pt-5"
+      class="pt-3"
       label="接口地址"
       placeholder="http://xxx or https://xxx"
       outlined
@@ -56,20 +56,20 @@ export default {
     }),
   },
   methods: {
-    ...mapMutations(["topText"]),
+    ...mapMutations(["tip"]),
     reset() {
       this.api = this.defaultApi;
       this.save();
     },
     save() {
       localStorage.setItem("api", this.api);
-      this.topText({
+      this.tip({
         text: "保存成功！",
         color: "success",
       });
     },
     colseTopText() {
-      this.topText("");
+      this.tip("");
     },
   },
 };

@@ -31,20 +31,20 @@ export default {
     isShow(newValue) {
       if (!newValue) {
         setTimeout(() => {
-          this.topText("");
+          this.tip("");
         }, 100);
       }
     },
   },
   computed: {
     ...mapState({
-      text: (state) => state.topSnackBar.text,
-      color: (state) => state.topSnackBar.color,
-      timeout: (state) => state.topSnackBar.timeout,
+      text: (state) => state.tip.text,
+      color: (state) => state.tip.color,
+      timeout: (state) => state.tip.timeout,
     }),
   },
   methods: {
-    ...mapMutations(["topText"]),
+    ...mapMutations(["tip"]),
   },
 };
 </script>

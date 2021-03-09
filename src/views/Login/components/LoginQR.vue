@@ -17,7 +17,7 @@ export default {
     interval: {},
   }),
   methods: {
-    ...mapMutations(["topText"]),
+    ...mapMutations(["tip"]),
     // 是否在二维码界面
     onIntersect(entries) {
       if (entries[0].isIntersecting) {
@@ -44,7 +44,7 @@ export default {
         switch (res) {
           case 0: // 二维码过期
             this.$emit("loading", false);
-            this.topText({
+            this.tip({
               text: "二维码已过期，将重新获取",
               color: "primary",
             });
@@ -56,7 +56,7 @@ export default {
             break;
           case 2: // 等待确认
             this.$emit("loading", true);
-            this.topText({
+            this.tip({
               text: "二维码扫描成功，等待确认",
               color: "primary",
             });

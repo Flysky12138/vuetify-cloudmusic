@@ -33,7 +33,7 @@ export default {
       if (this.islogin) {
         this.$http.logout().then(() => {
           this.setLogout();
-          this.$router.replace("/");
+          this.$route.path !== "/" && this.$router.replace("/");
         });
       }
     },

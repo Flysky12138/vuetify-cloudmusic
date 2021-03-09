@@ -21,7 +21,7 @@
       <!-- 侧边固定栏 -->
       <side-bar />
       <!-- 顶部提示文字 -->
-      <top-snack-bar />
+      <tip-bar />
     </template>
     <template v-else>
       <v-container class="flex-column justify-center fill-height">
@@ -40,27 +40,26 @@
 import { mapState, mapMutations } from "vuex";
 import AppBar from "./layout/AppBar";
 import SideBar from "./layout/SideBar";
-import TopSnackBar from "./layout/TopSnackBar.vue";
+import TipBar from "./layout/TipBar.vue";
 export default {
-  components: { AppBar, SideBar, TopSnackBar },
+  components: { AppBar, SideBar, TipBar },
   data: () => ({
-    // Navigator 对象包含一些有关浏览器的信息，userAgent是该对象的一个只读属性，声明了浏览器用于 HTTP 请求的用户代理头的值。
-    isMobile: /Android|WindowsPhone|webOS|iPhone|iPod|BlackBerry|iPad/i.test(
-      navigator.userAgent
-    ),
+    // 判断是否是非PC端
+    isMobile: new RegExp(
+      "Android|WindowsPhone|webOS|iPhone|iPod|BlackBerry|iPad"
+    ).test(navigator.userAgent),
   }),
   created() {
-    console.log(this.$vuetify);
+    // 设置默认api
+    if (localStorage.getItem("api") == null) {
+      localStorage.setItem("api", this.defaultApi);
+    }
     // 获取ID,等级和头像
     this.$http.login.status().then((res) => {
       if (res.islogin) {
         this.setLogin(res);
       }
     });
-    // 设置默认api
-    if (localStorage.getItem("api") == null) {
-      localStorage.setItem("api", this.defaultApi);
-    }
   },
   computed: {
     ...mapState({
@@ -82,9 +81,11 @@ export default {
 </script>
 
 <style lang="scss">
+// 按键边框
 * {
   outline: none;
 }
+// 路由动画
 .router-enter {
   opacity: 0;
   // transform: scale(0.97);
