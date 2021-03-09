@@ -13,10 +13,6 @@
         <v-skeleton-loader type="card-heading"></v-skeleton-loader>
         <v-skeleton-loader width="300" type="list-item@2"></v-skeleton-loader>
       </v-col>
-      <v-spacer></v-spacer>
-      <v-col cols="3" class="pl-10">
-        <v-skeleton-loader width="150" type="list-item@3"></v-skeleton-loader>
-      </v-col>
     </v-row>
     <v-row v-for="item in 2" :key="item">
       <v-col cols="12" class="px-6">

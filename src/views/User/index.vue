@@ -8,10 +8,10 @@
         <user-detail :value="userDetail" />
       </v-col>
       <!-- 歌单 -->
-      <v-col cols="12" v-if="userPlaylist.create.length !== 0">
+      <v-col cols="12">
         <user-playlist :value="userPlaylist.create" title="创建的歌单" />
       </v-col>
-      <v-col cols="12" v-if="userPlaylist.collect.length !== 0">
+      <v-col cols="12">
         <user-playlist :value="userPlaylist.collect" title="收藏的歌单" />
       </v-col>
       <!-- 听歌排行 -->
