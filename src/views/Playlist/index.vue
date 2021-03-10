@@ -6,7 +6,7 @@
       <v-col cols="12">
         <playlist-detail :value="playlistDetail" />
       </v-col>
-      <v-col cols="12" class="mb-5">
+      <v-col cols="12">
         <song-list
           :title="playlistDetail.name"
           :subtitle="songlistDetail.songlist.length"
@@ -23,6 +23,7 @@
 import SkeletonLoader from "./components/SkeletonLoader.vue";
 import PlaylistDetail from "./components/PlaylistDetail.vue";
 import SongList from "components/Song/SongList";
+import axios from "axios";
 export default {
   components: { SkeletonLoader, PlaylistDetail, SongList },
   data: () => ({
@@ -56,21 +57,36 @@ export default {
     getPlaylistDetail() {
       this.$http.playlist.detail(this.id).then((res) => {
         this.playlistDetail = res;
-        this.getSonglistDetail(res.trackIds.join(","));
+        this.getSonglistDetail(res.trackIds);
         this.count++;
       });
     },
     // 获取歌单歌曲列表
-    getSonglistDetail(ids) {
+    getSonglistDetail(idsArr) {
       this.songlistDetail.loading = true;
-      this.$http.song.detail(ids).then((res) => {
-        this.songlistDetail.songlist = res;
+      // 每500首请求一次，数量过多会报错
+      const count = Math.ceil(idsArr.length / 500);
+      // 存放请求函数的数组
+      let funcHttp = [];
+      for (let i = 0; i < count; i++) {
+        funcHttp.push(
+          this.$http.song.detail(idsArr.slice(500 * i, 500 * (i + 1)))
+        );
+      }
+      // 开始请求
+      axios.all(funcHttp).then((res) => {
+        res.forEach((element) => {
+          this.songlistDetail.songlist = this.songlistDetail.songlist.concat(
+            element
+          );
+        });
         this.songlistDetail.loading = false;
       });
     },
   },
   beforeRouteUpdate(to, from, next) {
     this.id = to.query.id;
+    this.count = 0;
     this.getPlaylistDetail();
     next();
   },

@@ -95,6 +95,7 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     this.uid = to.query.uid;
+    this.count = 0;
     this.getUserDetail();
     this.getUserPlaylist();
     this.getUserListenRanking();

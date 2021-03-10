@@ -21,7 +21,7 @@
     </v-card-title>
     <!-- 表格 -->
     <v-data-table
-      class="elevation-0 mt-2 mb-3"
+      class="elevation-0"
       :headers="headers"
       :items="value"
       item-key="count"
@@ -58,6 +58,7 @@
       :total-visible="7"
       circle
       color="blue lighten-2"
+      class="my-3"
     ></v-pagination>
   </v-card>
 </template>

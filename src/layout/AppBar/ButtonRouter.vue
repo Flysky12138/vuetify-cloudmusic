@@ -65,7 +65,7 @@
 export default {
   data: () => ({
     items: [
-      { name: "首页", link: "/" },
+      { name: "推荐", link: "/" },
       {
         name: "歌单",
         links: [

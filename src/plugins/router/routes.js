@@ -4,7 +4,7 @@ import http from "@/http";
 const routes = [
   {
     path: "*",
-    redirect: { name: "HelloWorld" }
+    redirect: { name: "Home" }
   },
   {
     path: "/login",
@@ -26,7 +26,8 @@ const routes = [
   },
   {
     path: "/",
-    component: () => import("views/HelloWorld")
+    name: "Home",
+    component: () => import("views/Home")
   },
   {
     path: "/user",

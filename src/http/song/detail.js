@@ -7,7 +7,7 @@ function detail(ids) {
     axios
       .get("/song/detail", {
         params: {
-          ids
+          ids: ids.join(",")
         }
       })
       .then(response => {
