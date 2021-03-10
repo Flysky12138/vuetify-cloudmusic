@@ -4,12 +4,10 @@ import song from "./song";
 import user from "./user";
 import logout from "./logout";
 
-const opts = {
+export default {
   login,
   playlist,
   song,
   user,
   logout
 };
-
-export default opts;

@@ -1,5 +1,5 @@
 import axios from "axios";
-import qs from "qs";
+// import qs from "qs";
 
 // 根据环境变量区分接口的默认地址
 switch (process.env.NODE_ENV) {

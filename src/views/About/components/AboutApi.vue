@@ -27,7 +27,7 @@
     <v-text-field
       class="pt-3"
       label="接口地址"
-      placeholder="http://xxx or https://xxx"
+      placeholder="https://xxx or http://localhost:port"
       outlined
       dense
       hide-details
