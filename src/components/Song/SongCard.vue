@@ -24,7 +24,7 @@
           color="rgba(88, 89, 93, .45)"
           class="ma-1 px-2 white--text"
           x-small
-          v-text="value.playCount"
+          v-text="theplayCount()"
         ></v-chip>
       </template>
     </v-img>
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import playCount from "common/playCount";
 export default {
   props: {
     // @params Object
@@ -48,6 +49,9 @@ export default {
           id: this.value.id,
         },
       });
+    },
+    theplayCount() {
+      return playCount(this.value.playCount);
     },
   },
 };

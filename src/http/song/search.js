@@ -1,5 +1,5 @@
 import axios from "../api";
-import songTime from "common/songTime";
+import time from "common/time";
 
 // 搜索
 function search(keywords, offset = 0) {
@@ -25,7 +25,7 @@ function search(keywords, offset = 0) {
             obj.songs.push({
               id: element.id,
               name: element.name,
-              duration: songTime(element.duration),
+              duration: time.song(element.duration),
               artists: element.artists.map(res => res.name).join(" / "),
               album: "《" + element.album.name + "》"
             });

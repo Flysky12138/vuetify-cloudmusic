@@ -1,5 +1,5 @@
 import axios from "../api";
-import songTime from "common/songTime";
+import time from "common/time";
 
 // 获取歌曲详情
 function detail(ids) {
@@ -16,7 +16,7 @@ function detail(ids) {
           arr.push({
             id: element.id,
             name: element.name,
-            duration: songTime(element.dt),
+            duration: time.song(element.dt),
             artists: element.ar.map(res => res.name).join(" / "),
             album: "《" + element.al.name + "》"
           });

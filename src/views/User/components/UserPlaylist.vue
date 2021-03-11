@@ -92,14 +92,10 @@ export default {
     },
     // 获取需要显示的一段数据
     getLists() {
-      if (this.page < this.maxPage) {
-        this.lists = this.value.slice(
-          this.count * (this.page - 1),
-          this.count * this.page
-        );
-      } else {
-        this.lists = this.value.slice(this.count * (this.page - 1));
-      }
+      this.lists = this.value.slice(
+        this.count * (this.page - 1),
+        this.count * this.page
+      );
     },
     // 使用鼠标滚轮横向滚动
     mouseWheel(event) {

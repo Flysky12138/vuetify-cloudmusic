@@ -1,5 +1,5 @@
 import axios from "../api";
-import date from "common/date";
+import time from "common/time";
 import province from "common/province-city-china/province.json";
 import city from "common/province-city-china/city.json";
 
@@ -18,11 +18,11 @@ function detail(uid) {
         resolve({
           level: response.level,
           listenSongs: response.listenSongs,
-          createTime: date(response.createTime),
+          createTime: time.date(response.createTime),
           createDays: response.createDays,
           profile: {
             vipType: response.profile.vipType,
-            birthday: date(response.profile.birthday).substring(0, 10),
+            birthday: time.date(response.profile.birthday).substring(0, 10),
             gender: response.profile.gender,
             province: typeof p !== "undefined" ? p.name : "-",
             city: typeof c !== "undefined" ? c.name : "-",
