@@ -1,16 +1,26 @@
 <template>
   <v-container>
-    <v-row justify="space-around" class="pa-3" v-if="count != 1">
-      <v-col cols="auto" v-for="item in 30" :key="item">
+    <v-row justify="space-around" v-if="count != 1">
+      <v-col cols="12" class="ml-4 mb-n8">
+        <v-skeleton-loader type="card-heading" width="200"></v-skeleton-loader>
+      </v-col>
+      <v-col cols="auto" v-for="item in 30" :key="item" class="px-6">
         <v-skeleton-loader
-          class="my-3"
-          width="160"
-          height="160"
+          class="my-6"
+          width="120"
+          height="120"
           type="image"
         ></v-skeleton-loader>
       </v-col>
     </v-row>
     <template v-else>
+      <div class="d-flex align-center mx-6 mt-3">
+        <span class="text-h6 font-weight-bold">推荐歌单</span>
+        <v-spacer></v-spacer>
+        <v-btn class="text--secondary font-weight-bold" text rounded>
+          更多 >
+        </v-btn>
+      </div>
       <v-row justify="space-around" class="py-4">
         <v-col cols="auto" v-for="item in value" :key="item.id">
           <song-card :value="item" />
