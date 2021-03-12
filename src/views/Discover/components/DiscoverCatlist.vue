@@ -8,22 +8,29 @@
           :head="item.sort"
           :items="item.names"
         />
-        <div class="my-1"></div>
+        <div class="mb-6 px-4">
+          <v-divider></v-divider>
+        </div>
       </v-sheet>
     </v-expand-transition>
     <v-row class="px-3" align="center">
       <v-col>
-        <span class="text-h6 font-weight-bold">全部</span>
+        <span class="text-h6 font-weight-bold">{{ cat }}</span>
       </v-col>
       <v-col cols="auto" class="pa-0 mx-auto">
-        <v-btn color="primary" icon @click="isShow = !isShow">
-          <v-icon>{{ isShow ? "mdi-pan-up" : "mdi-pan-down" }}</v-icon>
+        <v-btn
+          color="primary"
+          icon
+          @click="btnEvent"
+          :disabled="value.length === 0"
+        >
+          <v-icon>{{ isShow ? "mdi-chevron-up" : "mdi-chevron-down" }}</v-icon>
         </v-btn>
       </v-col>
       <v-col class="text-end">
-        <v-btn text rounded class="text--secondary font-weight-bold">
+        <span class="text-subtitle-2 text--secondary font-weight-bold">
           热门
-        </v-btn>
+        </span>
       </v-col>
     </v-row>
   </v-container>
@@ -33,11 +40,23 @@
 import DiscoverCatlistItem from "./DiscoverCatlistItem.vue";
 export default {
   props: {
+    cat: { type: String, required: true },
     value: { type: Array, required: true },
   },
   components: { DiscoverCatlistItem },
   data: () => ({
     isShow: false,
   }),
+  methods: {
+    btnEvent() {
+      this.isShow = !this.isShow;
+      // 滚动到页面顶部
+      this.$vuetify.goTo(0, {
+        duration: 500, // 动画时长
+        offset: 0, // 偏移
+        easing: "easeOutQuad", // 动画
+      });
+    },
+  },
 };
 </script>

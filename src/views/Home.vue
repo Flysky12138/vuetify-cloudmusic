@@ -21,7 +21,7 @@
           class="text--secondary font-weight-bold"
           text
           rounded
-          to="discover/playlist"
+          to="/discover/playlist"
         >
           更多 >
         </v-btn>

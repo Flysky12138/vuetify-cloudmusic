@@ -44,7 +44,7 @@ export default {
   methods: {
     toPlaylist() {
       this.$router.push({
-        path: "playlist",
+        path: "/playlist",
         query: {
           id: this.value.id,
         },

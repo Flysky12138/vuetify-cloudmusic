@@ -49,7 +49,7 @@
                 showAllDescription = !showAllDescription;
                 !showAllDescription &&
                   $vuetify.goTo(0, {
-                    duration: '600',
+                    duration: 600,
                     easing: 'easeOutQuad',
                   });
               "

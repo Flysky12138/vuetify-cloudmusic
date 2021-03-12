@@ -28,10 +28,9 @@
         <strong>非 PC 端</strong>
         <strong>&amp;</strong>
         <strong>width &lt; 960px</strong>
-        <br/>
+        <br />
         <strong>未适配，不允显示</strong>
       </v-container>
-      </vcon>
     </template>
   </v-app>
 </template>

@@ -24,8 +24,8 @@ export default {
     },
     options() {
       return {
-        duration: "400",
-        offset: "0",
+        duration: 400,
+        offset: 0,
         easing: "easeOutQuad",
       };
     },
