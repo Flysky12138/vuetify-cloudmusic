@@ -60,6 +60,7 @@ export default {
     this.$http.playlist.catlist().then((res) => {
       this.catlist = res;
     });
+    this.params.cat = this.$route.query.cat;
     this.getPlatlist();
   },
   methods: {
