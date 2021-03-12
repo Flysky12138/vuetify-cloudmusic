@@ -17,7 +17,12 @@
       <div class="d-flex align-center mx-6 mt-3">
         <span class="text-h6 font-weight-bold">推荐歌单</span>
         <v-spacer></v-spacer>
-        <v-btn class="text--secondary font-weight-bold" text rounded>
+        <v-btn
+          class="text--secondary font-weight-bold"
+          text
+          rounded
+          to="discover/playlist"
+        >
           更多 >
         </v-btn>
       </div>

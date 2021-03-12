@@ -6,7 +6,7 @@
     @contextmenu.native.prevent="logout"
   />
   <v-avatar v-else color="grey lighten-2" size="38">
-    <v-btn icon to="login">
+    <v-btn icon to="/login">
       <v-icon>mdi-account-outline</v-icon>
     </v-btn>
   </v-avatar>

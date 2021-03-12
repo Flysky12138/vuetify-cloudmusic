@@ -27,13 +27,12 @@
         <!-- 标签 行 -->
         <v-col cols="12" class="pb-0">
           <span class="text-subtitle-2">标签：</span>
-          <v-chip
+          <song-chip
             v-for="item in value.tags"
             :key="item.id"
-            small
+            :value="item"
             class="mr-2"
-            v-text="item"
-          ></v-chip>
+          />
         </v-col>
         <!-- 介绍 行 -->
         <v-col cols="12" class="pb-0 text-subtitle-2">
@@ -67,8 +66,9 @@
 <script>
 import ImageAvatar from "components/Image/ImageAvatar.vue";
 import ImageCover from "components/Image/ImageCover.vue";
+import SongChip from "components/Song/SongChip.vue";
 export default {
-  components: { ImageAvatar, ImageCover },
+  components: { ImageAvatar, ImageCover, SongChip },
   props: {
     value: { type: Object, required: true },
   },

@@ -1,6 +1,6 @@
 <template>
   <v-avatar size="38">
-    <v-btn icon :to="{ path: 'user', query: { uid: uid } }">
+    <v-btn icon :to="{ path: '/user', query: { uid: uid } }">
       <v-img :src="src" max-width="38">
         <!-- 图片加载前显示 -->
         <template v-slot:placeholder>

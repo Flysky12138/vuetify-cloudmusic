@@ -27,7 +27,7 @@ export default {
     search() {
       if (this.value !== "") {
         this.$router.push({
-          path: "search",
+          path: "/search",
           query: {
             keywords: this.value,
           },

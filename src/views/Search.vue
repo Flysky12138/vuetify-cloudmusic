@@ -42,9 +42,9 @@ export default {
       });
     },
     // 获取更多歌曲列表
-    getMoreSongs(offset) {
+    getMoreSongs(page) {
       if (this.hasMore) {
-        this.searchSongs(offset / 4, true);
+        this.searchSongs(page * 9, true);
       }
     },
   },

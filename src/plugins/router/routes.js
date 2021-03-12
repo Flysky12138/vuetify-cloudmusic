@@ -17,7 +17,8 @@ const routes = [
             text: "已经登录了！",
             color: "success"
           });
-          history.go(-1);
+          location.replace("/");
+          // history.go(-1);
         } else {
           next();
         }
@@ -40,6 +41,10 @@ const routes = [
   {
     path: "/playlist",
     component: () => import("views/Playlist")
+  },
+  {
+    path: "/discover/playlist",
+    component: () => import("views/Discover")
   },
   {
     path: "/about",
