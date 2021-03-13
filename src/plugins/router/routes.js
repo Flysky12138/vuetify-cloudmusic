@@ -49,6 +49,10 @@ const routes = [
   {
     path: "/about",
     component: () => import("views/About")
+  },
+  {
+    path: "/recommend",
+    component: () => import("views/Recommend")
   }
 ];
 

@@ -72,7 +72,7 @@ export default {
     // 标题
     title: { type: String, required: true },
     // 描述
-    subtitle: { type: Number, required: true },
+    subtitle: { type: [Number, String], required: true },
     // 内容
     // @params Array
     // { album:String, artists:String, duration:String, id:Number, name:String }[,{...}]

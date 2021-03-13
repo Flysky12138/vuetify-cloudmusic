@@ -13,6 +13,13 @@ function date(timestamp) {
   return Y + "-" + M + "-" + D + " " + h + ":" + m + ":" + s; // 输出结果：2021-02-20 17:01:15
 }
 
+function nowDate() {
+  const date = new Date();
+  const M = addZero(date.getMonth() + 1);
+  const D = addZero(date.getDate());
+  return M + "/" + D; // 输出结果：02/20
+}
+
 function song(params) {
   const m = addZero(Math.floor(params / 1000 / 60));
   const s = addZero(Math.floor(params / 1000 - m * 60));
@@ -21,5 +28,6 @@ function song(params) {
 
 export default {
   date,
+  nowDate,
   song
 };

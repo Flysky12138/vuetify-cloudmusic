@@ -69,7 +69,7 @@ export default {
       {
         name: "个性",
         links: [
-          { name: "日推", link: "" },
+          { name: "日推", link: "/recommend" },
           { name: "F M", link: "" },
         ],
       },

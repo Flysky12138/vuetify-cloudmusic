@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="2" rounded="lg" style="overflow: hidden">
+  <v-card elevation="1" rounded="lg" style="overflow: hidden">
     <!-- 标题 -->
     <div
       class="d-flex align-end"
