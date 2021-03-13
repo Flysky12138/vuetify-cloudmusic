@@ -58,14 +58,11 @@ export default {
     page(newValue) {
       this.params.offset = (newValue - 1) * this.params.limit;
       // 换页滚动到歌单顶部
-      // 排除更换歌单标签的情况。因为更换标签修改了路由会触发vue-router中自定义的路由跳转滚动定位事件，会与该定位冲突
-      if (this.playlists.length !== 0) {
-        this.$vuetify.goTo("#playlistHead", {
-          duration: 300, // 动画时长
-          offset: 80, // 偏移
-          easing: "easeOutQuad", // 动画
-        });
-      }
+      this.$vuetify.goTo("#playlistHead", {
+        duration: 300, // 动画时长
+        offset: 80, // 偏移
+        easing: "easeOutQuad", // 动画
+      });
       this.getPlatlist();
     },
   },
@@ -83,7 +80,6 @@ export default {
     // 获取歌单
     getPlatlist() {
       this.loading = true;
-      this.playlists = [];
       this.$http.playlist
         .top(
           this.params.cat,
