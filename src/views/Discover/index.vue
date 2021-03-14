@@ -39,7 +39,6 @@
 import DiscoverCatlist from "./components/DiscoverCatlist.vue";
 import SongCard from "components/Song/SongCard.vue";
 export default {
-  name: "discover",
   components: { DiscoverCatlist, SongCard },
   data: () => ({
     catlist: [],

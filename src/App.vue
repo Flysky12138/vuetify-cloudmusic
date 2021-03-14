@@ -13,7 +13,7 @@
           <v-sheet rounded="lg" :min-height="viewHeight">
             <!-- 对路由添加一个进入动画：渐显 -->
             <transition name="router">
-              <keep-alive exclude="discover">
+              <keep-alive :include="include">
                 <router-view />
               </keep-alive>
             </transition>
@@ -46,6 +46,8 @@ export default {
     isMobile: new RegExp(
       "Android|WindowsPhone|webOS|iPhone|iPod|BlackBerry|iPad"
     ).test(navigator.userAgent),
+    // keep-alive组件名
+    include: ["home", "recommend"],
   }),
   created() {
     // 设置默认api
