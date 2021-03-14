@@ -71,11 +71,8 @@ export default {
         if (res.islogin) {
           this.setLogin(res);
           this.overlay = false;
-          if (window.history.length <= 1) {
-            this.$router.replace("/");
-          } else {
-            this.$router.go(-1);
-          }
+          this.$message({ text: "登录成功，欢迎使用！", color: "success" });
+          this.$router.replace("/");
         }
       });
     },

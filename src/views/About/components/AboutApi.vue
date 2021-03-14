@@ -36,13 +36,12 @@
       @click:append="reset"
       @blur="save"
       @keyup.13="save"
-      @focus="colseTopText"
     ></v-text-field>
   </v-container>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState } from "vuex";
 export default {
   data: () => ({
     api: "",
@@ -56,20 +55,16 @@ export default {
     }),
   },
   methods: {
-    ...mapMutations(["tip"]),
     reset() {
       this.api = this.defaultApi;
       this.save();
     },
     save() {
       localStorage.setItem("api", this.api);
-      this.tip({
+      this.$message({
         text: "保存成功！",
         color: "success",
       });
-    },
-    colseTopText() {
-      this.tip("");
     },
   },
 };

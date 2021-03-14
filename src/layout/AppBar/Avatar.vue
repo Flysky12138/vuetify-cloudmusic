@@ -33,6 +33,7 @@ export default {
       if (this.islogin) {
         this.$http.logout().then(() => {
           this.setLogout();
+          this.$message({ text: "退出登录成功！", color: "primary" });
           this.$route.path !== "/" && this.$router.replace("/");
         });
       }

@@ -1,20 +1,19 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import play from "./play";
-import tip from "./tip";
 
 Vue.use(Vuex);
 
 const store = {
-  modules: { play, tip },
+  modules: { play },
   state: {
     islogin: false,
-    defaultApi: "https://music.api.flysky.xyz",
     user: {
       uid: 0,
       level: 0,
       avatarUrl: ""
-    }
+    },
+    defaultApi: "https://music.api.flysky.xyz"
   },
   mutations: {
     login(state, params) {

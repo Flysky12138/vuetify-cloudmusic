@@ -6,11 +6,7 @@ function status() {
     axios
       .get("/login/status")
       .then(response => {
-        if (response.data.account === null) {
-          resolve({
-            islogin: false
-          });
-        } else {
+        if (response.data.account) {
           axios
             .get("/user/detail", {
               params: {
@@ -26,6 +22,10 @@ function status() {
               });
             })
             .catch(error => error);
+        } else {
+          resolve({
+            islogin: false
+          });
         }
       })
       .catch(error => error);

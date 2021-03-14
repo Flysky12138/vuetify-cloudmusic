@@ -19,7 +19,7 @@
     </v-row>
     <v-row v-else justify="space-around" class="mt-0" id="playlistHead">
       <!-- 歌单 -->
-      <v-col cols="auto" v-for="item in playlists" :key="item.id">
+      <v-col cols="auto" v-for="(item, index) in playlists" :key="index">
         <song-card :value="item" />
       </v-col>
       <!-- 分页 -->
@@ -39,6 +39,7 @@
 import DiscoverCatlist from "./components/DiscoverCatlist.vue";
 import SongCard from "components/Song/SongCard.vue";
 export default {
+  name: "discover",
   components: { DiscoverCatlist, SongCard },
   data: () => ({
     catlist: [],
@@ -71,7 +72,7 @@ export default {
     this.$http.playlist.catlist().then((res) => {
       this.catlist = res;
     });
-    if (typeof this.$route.query.cat !== "undefined") {
+    if (this.$route.query.cat) {
       this.params.cat = this.$route.query.cat;
     }
     this.getPlatlist();
@@ -95,9 +96,7 @@ export default {
     },
   },
   beforeRouteUpdate(to, from, next) {
-    typeof to.query.cat !== "undefined"
-      ? (this.params.cat = to.query.cat)
-      : (this.params.cat = "全部");
+    this.params.cat = to.query.cat ? to.query.cat : "全部";
     this.params.offset = 0;
     this.getPlatlist();
     this.page = 1;

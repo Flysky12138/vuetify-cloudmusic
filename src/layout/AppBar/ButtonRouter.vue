@@ -2,7 +2,7 @@
   <v-row align="center" no-gutters>
     <v-col cols="2" v-for="item in items" :key="item.id">
       <!-- 普通按键 -->
-      <template v-if="typeof item.links === 'undefined'">
+      <template v-if="item.link">
         <v-btn
           text
           rounded
