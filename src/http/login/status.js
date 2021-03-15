@@ -16,7 +16,7 @@ function status() {
             .then(response => {
               resolve({
                 islogin: true,
-                userId: response.profile.userId,
+                uid: response.profile.userId,
                 level: response.level,
                 avatarUrl: response.profile.avatarUrl
               });

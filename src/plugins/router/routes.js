@@ -8,7 +8,6 @@ const routes = [
   },
   {
     path: "/login",
-    name: "Login",
     component: () => import("views/Login"),
     // 路由独享的守卫
     beforeEnter(to, from, next) {
@@ -30,33 +29,29 @@ const routes = [
   },
   {
     path: "/user",
-    name: "User",
-    component: () => import("views/User")
+    component: () => import("views/User"),
+    meta: { requiresAuth: true }
   },
   {
     path: "/search",
-    name: "Search",
     component: () => import("views/Search")
   },
   {
     path: "/playlist",
-    name: "Playlist",
     component: () => import("views/Playlist")
   },
   {
     path: "/discover/playlist",
-    name: "Discover",
     component: () => import("views/Discover")
   },
   {
     path: "/about",
-    name: "About",
     component: () => import("views/About")
   },
   {
     path: "/recommend",
-    name: "Recommend",
-    component: () => import("views/Recommend")
+    component: () => import("views/Recommend"),
+    meta: { requiresAuth: true }
   }
 ];
 

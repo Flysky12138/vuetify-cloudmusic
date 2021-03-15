@@ -1,15 +1,27 @@
 <template>
   <div class="d-flex justify-center align-center">
-    <!-- 音乐封面 -->
-    <v-btn
-      fab
-      dark
-      color="blue lighten-2"
-      elevation="0"
-      @contextmenu.prevent="disPlay"
-    >
-      <v-icon class="audio">mdi-music-clef-treble</v-icon>
-    </v-btn>
+    <v-dialog v-model="dialog" fullscreen transition="dialog-bottom-transition">
+      <template v-slot:activator="{ on, attrs }">
+        <!-- 音乐封面 -->
+        <v-btn
+          v-bind="attrs"
+          v-on="on"
+          fab
+          dark
+          color="blue lighten-2"
+          elevation="0"
+          @contextmenu.prevent="disPlay"
+        >
+          <v-icon class="audio">mdi-music-clef-treble</v-icon>
+        </v-btn>
+      </template>
+      <v-card tile>
+        red
+        <v-btn color="success" @click="dialog = false" icon absolute right>
+          <v-icon>mdi-chevron-down</v-icon>
+        </v-btn>
+      </v-card>
+    </v-dialog>
     <!-- 上下按键 -->
     <div style="position: absolute; z-index: -1">
       <!-- 上一首 -->
@@ -31,7 +43,9 @@
 <script>
 import { mapState, mapMutations } from "vuex";
 export default {
-  data: () => ({}),
+  data: () => ({
+    dialog: false,
+  }),
   computed: {
     ...mapState({
       isplay: (state) => state.play.isplay,
@@ -53,7 +67,7 @@ export default {
   height: 0;
 }
 .elongate-enter-active {
-  transition: height 0.5s cubic-bezier(0.88, -0.03, 0.36, 1.56);
+  transition: height 0.3s cubic-bezier(0.62, 0.14, 0.48, 0.78);
 }
 @keyframes rotate {
   0% {

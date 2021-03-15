@@ -1,10 +1,17 @@
 <template>
   <image-avatar
     v-if="islogin"
-    :uid="uid"
-    :src="avatarUrl"
+    :uid="user.uid"
+    :src="user.avatarUrl"
     @contextmenu.native.prevent="logout"
-  />
+  >
+    <!-- 等级显示 -->
+    <span
+      class="mb-n1 align-self-end green--text text-caption font-weight-black font-italic"
+    >
+      {{ "Lv." + user.level }}
+    </span>
+  </image-avatar>
   <v-avatar v-else color="grey lighten-2" size="38">
     <v-btn icon to="/login">
       <v-icon>mdi-account-outline</v-icon>
@@ -21,8 +28,7 @@ export default {
   computed: {
     ...mapState({
       islogin: (state) => state.islogin,
-      uid: (state) => state.user.uid,
-      avatarUrl: (state) => state.user.avatarUrl,
+      user: (state) => state.user,
     }),
   },
   methods: {
@@ -30,13 +36,11 @@ export default {
       setLogout: "logout",
     }),
     logout() {
-      if (this.islogin) {
-        this.$http.logout().then(() => {
-          this.setLogout();
-          this.$message({ text: "退出登录成功！", color: "primary" });
-          this.$route.path !== "/" && this.$router.replace("/");
-        });
-      }
+      this.$http.logout().then(() => {
+        this.setLogout();
+        this.$message({ text: "退出登录成功！", color: "primary" });
+        this.$route.path !== "/" && this.$router.replace("/");
+      });
     },
   },
 };

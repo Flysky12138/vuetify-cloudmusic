@@ -7,20 +7,40 @@ Vue.use(Vuex);
 const store = {
   modules: { play },
   state: {
-    islogin: false,
-    user: {
-      uid: 0,
-      level: 0,
-      avatarUrl: ""
+    get islogin() {
+      return localStorage.getItem("islogin") === "true";
+    },
+    set islogin(params) {
+      localStorage.setItem("islogin", params);
+    },
+    get user() {
+      return JSON.parse(localStorage.getItem("user"));
+    },
+    set user(params) {
+      localStorage.setItem("user", params);
     },
     defaultApi: "https://music.api.flysky.xyz"
   },
   mutations: {
     login(state, params) {
       state.islogin = true;
-      state.user.uid = params.userId;
-      state.user.level = params.level;
-      state.user.avatarUrl = params.avatarUrl;
+      // image2Base64
+      let img = new Image();
+      img.src = params.avatarUrl;
+      img.setAttribute("crossOrigin", "Anonymous");
+      img.onload = function() {
+        let canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        canvas.getContext("2d").drawImage(img, 0, 0, img.width, img.height);
+        let base64 = canvas.toDataURL("image/png");
+        // 保存用户信息
+        state.user = JSON.stringify({
+          uid: params.uid,
+          level: params.level,
+          avatarUrl: base64
+        });
+      };
     },
     logout(state) {
       state.islogin = false;

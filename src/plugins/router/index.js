@@ -35,16 +35,13 @@ const router = new VueRouter({
 });
 
 // 路由全局前置守卫
-// 定义必须登录后才能访问的路由的名
-let mustLogin = ["Recommend"];
 router.beforeEach((to, from, next) => {
-  if (mustLogin.includes(to.name)) {
-    if (store.state.islogin) {
-      next();
-    } else {
-      message({ text: "未登录，跳转到登录界面！" });
-      location.hash = "/login";
-    }
+  if (
+    to.matched.some(record => record.meta.requiresAuth) &&
+    !store.state.islogin
+  ) {
+    message({ text: "未登录，跳转到登录界面！" });
+    location.hash = "/login";
   } else {
     next();
   }
