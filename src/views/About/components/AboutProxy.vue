@@ -28,11 +28,10 @@
       outlined
       dense
       hide-details
-      clearable
       v-model="proxy"
       @blur="save"
       @keyup.13="save"
-      ref="proxy"
+      ref="AboutProxy"
     ></v-text-field>
   </v-container>
 </template>
@@ -47,7 +46,7 @@ export default {
   },
   methods: {
     save() {
-      this.$refs.proxy.blur();
+      this.$refs.AboutProxy.blur();
       localStorage.setItem("proxy", this.proxy);
       this.$message({
         text: "保存成功！",

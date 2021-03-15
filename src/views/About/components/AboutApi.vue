@@ -5,7 +5,7 @@
       colored-border
       elevation="1"
       dense
-      type="info"
+      type="cyan"
       colored-border
       icon="mdi-api"
     >
@@ -37,7 +37,7 @@
       @click:append="reset"
       @blur="save"
       @keyup.13="save"
-      ref="api"
+      ref="AboutApi"
     ></v-text-field>
   </v-container>
 </template>
@@ -56,7 +56,7 @@ export default {
       this.save();
     },
     save() {
-      this.$refs.api.blur();
+      this.$refs.AboutApi.blur();
       localStorage.setItem("api", this.api);
       this.$message({
         text: "保存成功！",

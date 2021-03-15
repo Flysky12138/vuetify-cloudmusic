@@ -6,7 +6,6 @@
       </v-col>
       <v-col cols="10">
         <about-api />
-        <div class="my-3"></div>
         <about-proxy />
       </v-col>
     </v-row>
