@@ -111,6 +111,8 @@ export default {
     if (to.query.page) {
       this.page = Number(to.query.page);
       this.params.offset = (to.query.page - 1) * this.params.limit;
+    } else {
+      this.page = 1;
     }
     this.getPlatlist();
     next();
