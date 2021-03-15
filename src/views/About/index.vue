@@ -6,6 +6,8 @@
       </v-col>
       <v-col cols="10">
         <about-api />
+        <div class="my-3"></div>
+        <about-proxy />
       </v-col>
     </v-row>
   </v-container>
@@ -13,8 +15,9 @@
 
 <script>
 import AboutApi from "./components/AboutApi.vue";
+import AboutProxy from "./components/AboutProxy.vue";
 export default {
-  components: { AboutApi },
+  components: { AboutApi, AboutProxy },
   data: () => ({}),
 };
 </script>
