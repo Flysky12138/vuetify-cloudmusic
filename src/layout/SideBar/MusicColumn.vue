@@ -16,10 +16,7 @@
         </v-btn>
       </template>
       <v-card tile>
-        red
-        <v-btn color="success" @click="dialog = false" icon absolute right>
-          <v-icon>mdi-chevron-down</v-icon>
-        </v-btn>
+        <player @close="dialog = false" />
       </v-card>
     </v-dialog>
     <!-- 上下按键 -->
@@ -42,7 +39,9 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
+import Player from "./Player";
 export default {
+  components: { Player },
   data: () => ({
     dialog: false,
   }),

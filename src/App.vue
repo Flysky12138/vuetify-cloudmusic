@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapMutations } from "vuex";
 import AppBar from "./layout/AppBar";
 import SideBar from "./layout/SideBar";
 export default {
@@ -50,10 +50,6 @@ export default {
     include: ["home", "recommend"],
   }),
   created() {
-    // 设置默认api
-    if (localStorage.getItem("api") == null) {
-      localStorage.setItem("api", this.defaultApi);
-    }
     // 获取ID,等级和头像
     this.$http.login.status().then((res) => {
       if (res.islogin) {
@@ -62,9 +58,6 @@ export default {
     });
   },
   computed: {
-    ...mapState({
-      defaultApi: (state) => state.defaultApi,
-    }),
     // 路由界面最低高度；视窗高度 - 顶部导航栏高度 - v-main标签中的v-container标签的padding（my-3）
     viewHeight() {
       return (

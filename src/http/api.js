@@ -4,7 +4,11 @@ import axios from "axios";
 // 根据环境变量区分接口的默认地址
 switch (process.env.NODE_ENV) {
   case "production":
-    axios.defaults.baseURL = localStorage.getItem("api");
+    let defaultApi = "https://music.api.flysky.xyz";
+    if (localStorage.getItem("api") != null) {
+      defaultApi = localStorage.getItem("api");
+    }
+    axios.defaults.baseURL = defaultApi;
     break;
   default:
     axios.defaults.baseURL = "http://localhost:3000";

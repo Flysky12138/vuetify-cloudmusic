@@ -26,7 +26,7 @@
     </v-alert>
     <v-text-field
       class="pt-3"
-      label="接口地址"
+      label="自定义接口地址"
       placeholder="https://xxx or http://localhost:port"
       outlined
       dense
@@ -36,12 +36,12 @@
       @click:append="reset"
       @blur="save"
       @keyup.13="save"
+      ref="input"
     ></v-text-field>
   </v-container>
 </template>
 
 <script>
-import { mapState } from "vuex";
 export default {
   data: () => ({
     api: "",
@@ -49,17 +49,13 @@ export default {
   created() {
     this.api = localStorage.getItem("api");
   },
-  computed: {
-    ...mapState({
-      defaultApi: (state) => state.defaultApi,
-    }),
-  },
   methods: {
     reset() {
-      this.api = this.defaultApi;
+      this.api = "";
       this.save();
     },
     save() {
+      this.$refs.input.blur();
       localStorage.setItem("api", this.api);
       this.$message({
         text: "保存成功！",

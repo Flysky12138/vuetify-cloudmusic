@@ -14,6 +14,7 @@ export default {
         path: "/discover/playlist",
         query: {
           cat: this.value,
+          page: 1,
         },
       });
     },
