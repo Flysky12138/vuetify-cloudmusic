@@ -19,7 +19,7 @@
           @mouseup="sliderShow = false"
         ></v-slider>
         <!-- 左 -->
-        <v-btn small icon @click="page--" :disabled="page <= 1" color="primary">
+        <v-btn small icon @click="page--" :disabled="page == 1" color="primary">
           <v-icon>mdi-pan-left</v-icon>
         </v-btn>
         <!-- 中 -->
@@ -35,7 +35,7 @@
           small
           icon
           @click="page++"
-          :disabled="page >= maxPage"
+          :disabled="page == maxPage"
           color="primary"
         >
           <v-icon>mdi-pan-right</v-icon>
