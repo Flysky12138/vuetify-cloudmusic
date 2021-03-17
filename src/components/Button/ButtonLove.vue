@@ -1,21 +1,21 @@
 <template>
-  <v-btn icon @click="play">
-    <v-icon v-if="true">mdi-heart-plus-outline</v-icon>
-    <v-icon v-else color="red">mdi-heart</v-icon>
+  <v-btn icon @click="love">
+    <v-icon v-if="islove" color="red">mdi-heart</v-icon>
+    <v-icon v-else>mdi-heart-plus</v-icon>
   </v-btn>
 </template>
 
 <script>
-import { mapMutations } from "vuex";
 export default {
   props: {
-    value: { type: Number, required: true },
+    id: { type: Number, required: true },
   },
-  data: () => ({}),
+  data: () => ({
+    islove: false,
+  }),
   methods: {
-    ...mapMutations(["isPlay"]),
-    play() {
-      this.isPlay(this.value);
+    love() {
+      this.islove = !this.islove;
     },
   },
 };

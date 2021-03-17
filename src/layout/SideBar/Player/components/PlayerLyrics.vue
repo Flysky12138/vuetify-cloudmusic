@@ -12,14 +12,3 @@ export default {
   data: () => ({}),
 };
 </script>
-
-<style lang="scss">
-// 隐藏滚动条
-.scroll {
-  scrollbar-width: none; // Firefox
-  -ms-overflow-style: none; // IE10+
-  &::-webkit-scrollbar {
-    display: none; // Chrome,Safari
-  }
-}
-</style>

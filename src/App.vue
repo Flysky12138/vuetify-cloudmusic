@@ -74,7 +74,7 @@ export default {
 </script>
 
 <style lang="scss">
-// 按键边框
+// 全局按键边框隐藏
 * {
   outline: none;
 }
@@ -89,5 +89,13 @@ export default {
 }
 .router-enter-active {
   transition: all 1.5s;
+}
+// 全局预设隐藏滚动条类
+.scroll {
+  scrollbar-width: none; // Firefox
+  -ms-overflow-style: none; // IE10+
+  &::-webkit-scrollbar {
+    display: none; // Chrome,Safari
+  }
 }
 </style>

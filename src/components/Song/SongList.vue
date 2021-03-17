@@ -37,7 +37,7 @@
     >
       <!-- header.btns插槽 -->
       <template v-slot:header.btns>
-        <button-play :value="value.map((res) => res.id)" tip="播放所有" />
+        <button-play :id="value.map((res) => res.id)" tip="播放所有" />
       </template>
       <!-- item.count、item.btns插槽 -->
       <template v-slot:item.count="{ item }">
@@ -45,8 +45,8 @@
       </template>
       <template v-slot:item.btns="{ item }">
         <div class="d-flex justify-end">
-          <button-add :value="item.id" />
-          <button-play :value="item.id" />
+          <button-add :id="item.id" />
+          <button-play :id="item.id" />
         </div>
       </template>
     </v-data-table>

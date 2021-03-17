@@ -1,40 +1,62 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col cols="7">
-        <!-- 封面 -->
+      <!-- 封面、歌曲名、歌手 -->
+      <v-col cols="8" class="pb-0">
         <v-img
           :src="imgUrl"
-          class="rounded-lg"
+          max-width="400"
+          class="rounded-lg mx-auto"
           style="box-shadow: #80d8ff 0 0 5px"
         ></v-img>
-        <!-- 歌曲名 -->
         <div class="text-center font-weight-bold text-h5 text-truncate pt-3">
           歌曲标题歌曲标题歌曲标题歌曲标
         </div>
-        <!-- 歌手 -->
         <div class="text-center font-weight-bold text-subtitle-2 text-truncate">
           歌手歌手歌手歌手歌手歌手
         </div>
-        <!-- 按键 -->
-        <div class="text-center pt-3">
-          <button-add />
-          <button-love class="mx-6" />
-          <v-btn icon>
-            <v-icon>mdi-volume-high</v-icon>
-          </v-btn>
+      </v-col>
+      <!-- 按键 -->
+      <v-col cols="9">
+        <div
+          class="d-flex justify-space-between align-center pt-3 mx-auto"
+          style="max-width: 400px"
+        >
+          <!-- 左边 -->
+          <div>
+            <button-add :id="a" />
+            <button-love :id="1" />
+          </div>
+          <!-- 中间 -->
+          <div>
+            <v-btn icon>
+              <v-icon>mdi-page-first</v-icon>
+            </v-btn>
+            <v-btn
+              icon
+              large
+              class="mx-3"
+              style="background-color: rgba(90, 90, 90, 0.1)"
+            >
+              <v-icon>mdi-pause</v-icon>
+            </v-btn>
+            <v-btn icon>
+              <v-icon>mdi-page-last</v-icon>
+            </v-btn>
+          </div>
+          <!-- 右边 -->
+          <div>
+            <button-sound />
+            <button-playlist />
+          </div>
         </div>
       </v-col>
       <!-- 进度条 -->
-      <v-col cols="8" class="text-center">
-        <v-slider :min="0" :max="196611" thumb-label hide-details>
-          <template v-slot:thumb-label="{ value }">
-            {{ songTime(value) }}
-          </template>
+      <v-col cols="8">
+        <v-slider v-model="c" min="0" max="196611" hide-details>
           <template v-slot:prepend>
-            <span class="mt-1">{{ songTime(a) }}</span>
+            <span class="mt-1">{{ songTime(c) }}</span>
           </template>
-
           <template v-slot:append>
             <span class="mt-1">{{ songTime(b) }}</span>
           </template>
@@ -45,16 +67,19 @@
 </template>
 
 <script>
+import time from "common/time";
 import ButtonLove from "components/Button/ButtonLove.vue";
 import ButtonAdd from "components/Button/ButtonAdd.vue";
-import time from "common/time";
+import ButtonSound from "components/Button/ButtonSound.vue";
+import ButtonPlaylist from "components/Button/ButtonPlaylist.vue";
 export default {
-  components: { ButtonLove, ButtonAdd },
+  components: { ButtonLove, ButtonAdd, ButtonSound, ButtonPlaylist },
   data: () => ({
     imgUrl:
       "http://p1.music.126.net/4YSJcLtkBWGFXTRZNc0wTQ==/109951163892261723.jpg",
     a: 0,
     b: 196611,
+    c: 0,
   }),
   methods: {
     songTime(params) {

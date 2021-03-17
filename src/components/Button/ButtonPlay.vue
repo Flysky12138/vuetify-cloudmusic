@@ -1,7 +1,7 @@
 <template>
   <div>
     <template v-if="tip !== ''">
-      <v-tooltip left open-delay="800">
+      <v-tooltip left open-delay="500">
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on" @click="play">
             <v-icon>mdi-motion-play-outline</v-icon>
@@ -22,14 +22,14 @@
 import { mapMutations } from "vuex";
 export default {
   props: {
-    value: { type: [Number, Array], required: true },
+    id: { type: [Number, Array], required: true },
     tip: { type: String, default: "" },
   },
   data: () => ({}),
   methods: {
     ...mapMutations(["isPlay"]),
     play() {
-      this.isPlay(this.value);
+      this.isPlay(this.id);
     },
   },
 };

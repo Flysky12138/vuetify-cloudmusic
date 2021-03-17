@@ -8,13 +8,13 @@
 import { mapMutations } from "vuex";
 export default {
   props: {
-    value: { type: Number, required: true },
+    id: { type: Number, required: true },
   },
   data: () => ({}),
   methods: {
     ...mapMutations(["isPlay"]),
     play() {
-      this.isPlay(this.value);
+      this.isPlay(this.id);
     },
   },
 };
