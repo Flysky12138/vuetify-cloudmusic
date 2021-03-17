@@ -25,11 +25,11 @@
           <player-music />
         </v-col>
         <!-- 歌词 -->
-        <v-col v-if="true" cols="6">
+        <v-col v-if="true" cols="5">
           <player-lyrics />
         </v-col>
         <!-- 评论 -->
-        <v-col v-else cols="6">
+        <v-col v-else cols="5">
           <player-comment />
         </v-col>
       </v-row>
