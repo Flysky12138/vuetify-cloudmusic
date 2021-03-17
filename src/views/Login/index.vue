@@ -1,11 +1,6 @@
 <template>
   <v-container class="d-flex justify-center pt-16">
-    <v-card
-      :loading="loading"
-      width="600"
-      rounded="lg"
-      style="overflow: hidden"
-    >
+    <v-card :loading="loading" width="600" rounded="lg" class="overflow-hidden">
       <!-- Card顶部进度条插槽 -->
       <template slot="progress">
         <v-progress-linear

@@ -1,8 +1,8 @@
 <template>
   <v-container
     fluid
-    style="position: relative; height: 100vh; overflow: hidden"
-    class="pa-0"
+    class="pa-0 overflow-hidden"
+    style="position: relative; height: 100vh"
   >
     <!-- 虚化背景 -->
     <v-img class="bg" :src="imgUrl"></v-img>

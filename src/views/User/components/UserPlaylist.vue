@@ -44,8 +44,7 @@
     </v-card-title>
     <!-- 歌单卡片 -->
     <v-card-text
-      class="d-flex px-1"
-      style="overflow: auto"
+      class="d-flex px-1 overflow-x-auto"
       ref="songCard"
       @mousewheel="mouseWheel"
     >
