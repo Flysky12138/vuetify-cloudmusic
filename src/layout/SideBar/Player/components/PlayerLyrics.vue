@@ -3,13 +3,13 @@
     <v-col cols="12" class="text-center">
       <v-responsive height="200"></v-responsive>
       <div
-        v-for="item in 100"
-        :key="item"
-        :id="'songlyrics_' + item"
+        v-for="(item, index) in value"
+        :key="item.id"
+        :id="'songlyrics_' + index"
         class="my-6 font-weight-bold"
-        :style="lyricsStyle(item)"
+        :style="lyricsStyle(index)"
       >
-        {{ item }}
+        {{ item.value }}
       </div>
       <v-responsive height="234"></v-responsive>
     </v-col>
@@ -18,12 +18,15 @@
 
 <script>
 export default {
+  props: {
+    value: { type: Array, required: true },
+  },
   data: () => ({
     playitem: 1, // 当前播放的歌词
   }),
   mounted() {
     setTimeout(() => {
-      this.playitem = 20;
+      this.playitem = 10;
     }, 1000);
   },
   watch: {
@@ -40,18 +43,16 @@ export default {
     lyricsStyle(params) {
       // 根据当前播放位置，返回所有歌词样式
       let offset = Math.abs(params - this.playitem);
-      if (offset === 0) {
-        return {
-          "font-size": "30px",
-        };
-      } else if (offset < 4) {
-        return {
-          opacity: (10 - offset) * 0.1,
-        };
-      } else {
-        return {
-          opacity: 0.4,
-        };
+      switch (offset) {
+        case 0:
+          return { "font-size": "30px" };
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+          return { opacity: (10 - offset) * 0.1 };
+        default:
+          return { opacity: 0.5 };
       }
     },
   },
