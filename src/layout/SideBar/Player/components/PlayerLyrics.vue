@@ -38,13 +38,21 @@ export default {
   },
   methods: {
     lyricsStyle(params) {
-      return params === this.playitem
-        ? {
-            "font-size": "30px",
-          }
-        : {
-            opacity: (8 - Math.abs(params - this.playitem)) * 0.12,
-          };
+      // 根据当前播放位置，返回所有歌词样式
+      let offset = Math.abs(params - this.playitem);
+      if (offset === 0) {
+        return {
+          "font-size": "30px",
+        };
+      } else if (offset < 4) {
+        return {
+          opacity: (10 - offset) * 0.1,
+        };
+      } else {
+        return {
+          opacity: 0.4,
+        };
+      }
     },
   },
 };
