@@ -1,9 +1,9 @@
 <template>
-  <v-row class="overflow-y-auto scroll" style="height: 80vh">
+  <v-row class="overflow-y-auto scroll" style="height: 530px">
     <v-col cols="12" class="text-center">
-      <v-responsive height="25vh"></v-responsive>
+      <v-responsive height="200"></v-responsive>
       <div
-        v-for="item in 300"
+        v-for="item in 100"
         :key="item"
         :id="'songlyrics_' + item"
         class="my-6 font-weight-bold"
@@ -11,7 +11,7 @@
       >
         {{ item }}
       </div>
-      <v-responsive height="42vh"></v-responsive>
+      <v-responsive height="234"></v-responsive>
     </v-col>
   </v-row>
 </template>
@@ -23,7 +23,7 @@ export default {
   }),
   mounted() {
     setTimeout(() => {
-      this.playitem = 30;
+      this.playitem = 20;
     }, 1000);
   },
   watch: {
@@ -31,7 +31,7 @@ export default {
       this.$vuetify.goTo("#songlyrics_" + this.playitem, {
         container: ".scroll",
         duration: 400,
-        offset: 157,
+        offset: 192,
         easing: "easeOutQuad",
       });
     },

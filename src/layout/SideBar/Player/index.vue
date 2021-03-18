@@ -57,6 +57,6 @@ export default {
   position: absolute;
   left: 0;
   top: 0;
-  filter: blur(80px);
+  filter: blur(50px);
 }
 </style>

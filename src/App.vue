@@ -91,7 +91,8 @@ export default {
   transition: all 1.5s;
 }
 // 全局预设隐藏滚动条类
-.scroll {
+.scroll,
+html {
   scrollbar-width: none; // Firefox
   -ms-overflow-style: none; // IE10+
   &::-webkit-scrollbar {
