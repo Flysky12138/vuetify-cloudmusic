@@ -29,20 +29,7 @@
           </div>
           <!-- 中间 -->
           <div>
-            <v-btn icon>
-              <v-icon>mdi-page-first</v-icon>
-            </v-btn>
-            <v-btn
-              icon
-              large
-              class="mx-3"
-              style="background-color: rgba(90, 90, 90, 0.1)"
-            >
-              <v-icon>mdi-pause</v-icon>
-            </v-btn>
-            <v-btn icon>
-              <v-icon>mdi-page-last</v-icon>
-            </v-btn>
+            <button-music />
           </div>
           <!-- 右边 -->
           <div>
@@ -72,8 +59,15 @@ import ButtonLove from "components/Button/ButtonLove.vue";
 import ButtonAdd from "components/Button/ButtonAdd.vue";
 import ButtonSound from "components/Button/ButtonSound.vue";
 import ButtonPlaylist from "components/Button/ButtonPlaylist.vue";
+import ButtonMusic from "components/Button/ButtonMusic.vue";
 export default {
-  components: { ButtonLove, ButtonAdd, ButtonSound, ButtonPlaylist },
+  components: {
+    ButtonLove,
+    ButtonAdd,
+    ButtonSound,
+    ButtonPlaylist,
+    ButtonMusic,
+  },
   data: () => ({
     imgUrl:
       "http://p1.music.126.net/4YSJcLtkBWGFXTRZNc0wTQ==/109951163892261723.jpg",

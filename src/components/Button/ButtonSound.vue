@@ -18,12 +18,12 @@
 <script>
 export default {
   data: () => ({
-    volume: true,
-    count: 10,
+    volume: true, // 静音
+    count: 10, // 音量
   }),
   watch: {
     count(newValue) {
-      this.volume = this.count === 0 ? false : true;
+      this.volume = newValue === 0 ? false : true;
     },
   },
   methods: {
