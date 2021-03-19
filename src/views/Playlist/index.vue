@@ -23,7 +23,6 @@
 import SkeletonLoader from "./components/SkeletonLoader.vue";
 import PlaylistDetail from "./components/PlaylistDetail.vue";
 import SongList from "components/Song/SongList";
-import axios from "axios";
 export default {
   components: { SkeletonLoader, PlaylistDetail, SongList },
   data: () => ({
@@ -64,22 +63,8 @@ export default {
     // 获取歌单歌曲列表
     getSonglistDetail(idsArr) {
       this.songlistDetail.loading = true;
-      // 每500首请求一次，数量过多会报错
-      const count = Math.ceil(idsArr.length / 500);
-      // 存放请求函数的数组
-      let funcHttp = [];
-      for (let i = 0; i < count; i++) {
-        funcHttp.push(
-          this.$http.song.detail(idsArr.slice(500 * i, 500 * (i + 1)))
-        );
-      }
-      // 开始请求
-      axios.all(funcHttp).then((res) => {
-        res.forEach((element) => {
-          this.songlistDetail.songlist = this.songlistDetail.songlist.concat(
-            element
-          );
-        });
+      this.$http.song.detail(idsArr).then((res) => {
+        this.songlistDetail.songlist = res;
         this.songlistDetail.loading = false;
       });
     },

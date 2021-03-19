@@ -1,28 +1,35 @@
 <template>
   <div>
-    <v-btn icon>
+    <v-btn icon @click="previous">
       <v-icon>mdi-page-first</v-icon>
     </v-btn>
     <v-btn
       icon
       large
-      class="mx-3"
+      class="mx-5"
       style="background-color: rgba(90, 90, 90, 0.1)"
-      @click="isplay = !isplay"
+      @click="play"
     >
       <v-icon v-if="isplay">mdi-pause</v-icon>
       <v-icon v-else>mdi-play</v-icon>
     </v-btn>
-    <v-btn icon>
+    <v-btn icon @click="next">
       <v-icon>mdi-page-last</v-icon>
     </v-btn>
   </div>
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
 export default {
-  data: () => ({
-    isplay: false,
-  }),
+  data: () => ({}),
+  methods: {
+    ...mapMutations(["previous", "next", "play"]),
+  },
+  computed: {
+    ...mapState({
+      isplay: (state) => state.play.isplay,
+    }),
+  },
 };
 </script>

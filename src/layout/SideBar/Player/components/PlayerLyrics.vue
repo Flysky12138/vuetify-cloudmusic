@@ -17,19 +17,16 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   props: {
     value: { type: Array, required: true },
   },
   data: () => ({
-    playitem: 1, // 当前播放的歌词
+    playitem: 0, // 当前播放的歌词在数组位置
   }),
-  mounted() {
-    setTimeout(() => {
-      this.playitem = 10;
-    }, 1000);
-  },
   watch: {
+    // 滚动到正在播放的歌词
     playitem() {
       this.$vuetify.goTo("#songlyrics_" + this.playitem, {
         container: ".scroll",
@@ -38,6 +35,24 @@ export default {
         easing: "easeOutQuad",
       });
     },
+    playDt(newValue) {
+      for (let i = 0; i < this.value.length; i++) {
+        if (this.value[i].time < newValue) {
+          this.playitem = i;
+        } else {
+          return;
+        }
+      }
+    },
+    // 换歌回顶
+    value() {
+      this.playitem = 0;
+    },
+  },
+  computed: {
+    ...mapState({
+      playDt: (state) => state.play.music.dt, // 当前播放音乐所在的时间
+    }),
   },
   methods: {
     lyricsStyle(params) {
@@ -45,7 +60,7 @@ export default {
       let offset = Math.abs(params - this.playitem);
       switch (offset) {
         case 0:
-          return { "font-size": "30px" };
+          return { "font-size": "30px", color: "#0D47A1" };
         case 1:
         case 2:
         case 3:

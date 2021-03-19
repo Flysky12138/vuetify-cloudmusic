@@ -12,15 +12,26 @@ function lyric(id) {
       .then(response => {
         let arr = [];
         // 歌词字符串转数组
-        const lyric = response.lrc.lyric.split("\n");
-        lyric.forEach(element => {
-          let time = element.match(/\d{2}:\d{2}.(\d{2}|\d{3})/g);
-          arr.push({
-            time: time == null ? "" : time[0],
-            value: element.substring(element.indexOf("]") + 1)
+        if (response.lrc) {
+          const lyric = response.lrc.lyric.split("\n");
+          lyric.forEach(element => {
+            let time = element.match(/\d{2}:\d{2}.(\d{2}|\d{3})/g);
+            time = time
+              ? Number(time[0].substring(0, 2) * 60) +
+                Number(time[0].substring(3))
+              : 0;
+            arr.push({
+              time: Math.round(time * 1000),
+              value: element.substring(element.indexOf("]") + 1)
+            });
           });
-        });
-        resolve(arr);
+        } else {
+          arr.push({
+            time: 0,
+            value: "纯音乐，请欣赏"
+          });
+        }
+        resolve(arr.filter(res => res.value !== ""));
       })
       .catch(error => reject(error));
   });

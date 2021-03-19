@@ -2,7 +2,7 @@
   <div class="d-flex justify-center align-center">
     <v-dialog v-model="dialog" fullscreen transition="dialog-bottom-transition">
       <template v-slot:activator="{ on, attrs }">
-        <!-- 音乐封面 -->
+        <!-- 跳转播放器界面按键 -->
         <v-btn
           v-bind="attrs"
           v-on="on"
@@ -10,7 +10,6 @@
           dark
           color="blue lighten-2"
           elevation="0"
-          @contextmenu.prevent="disPlay"
         >
           <v-icon class="audio">mdi-music-clef-treble</v-icon>
         </v-btn>
@@ -38,7 +37,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState } from "vuex";
 import Player from "./Player";
 export default {
   components: { Player },
@@ -48,11 +47,6 @@ export default {
   computed: {
     ...mapState({
       isplay: (state) => state.play.isplay,
-    }),
-  },
-  methods: {
-    ...mapMutations({
-      disPlay: "disPlay",
     }),
   },
 };

@@ -27,7 +27,7 @@
             :id="'songlist_' + Number(item - 1)"
           >
             <v-list-item-content>
-              <v-list-item-title> Two-line {{ item }} </v-list-item-title>
+              <v-list-item-title>{{ item }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
@@ -43,6 +43,7 @@ export default {
     selectedItem: 0,
   }),
   watch: {
+    // 打开菜单后滚动定位
     isopen(newValue) {
       if (newValue) {
         setTimeout(() => {

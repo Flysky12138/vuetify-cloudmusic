@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" max-width="80vmin" overlay-opacity="0.8">
+  <v-dialog max-width="80vmin" overlay-opacity="0.8">
     <template v-slot:activator="{ on, attrs }">
       <v-img
         v-bind="attrs"
@@ -22,8 +22,6 @@ export default {
     src: { type: String, required: true },
     size: { type: Number, default: 140 },
   },
-  data: () => ({
-    dialog: false,
-  }),
+  data: () => ({}),
 };
 </script>

@@ -18,18 +18,6 @@ function detail(id) {
           picUrl: element.al.picUrl,
           artists: element.ar.map(res => res.name).join(" / "),
           duration: element.dt,
-          l: {
-            br: element.l.br,
-            size: element.l.size
-          },
-          m: {
-            br: element.m.br,
-            size: element.m.size
-          },
-          h: {
-            br: element.h.br,
-            size: element.h.size
-          },
           mv: element.mv
         });
       })

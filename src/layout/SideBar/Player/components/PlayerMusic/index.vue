@@ -5,7 +5,6 @@
       <v-col cols="8" class="pb-0">
         <v-img
           :src="value.picUrl"
-          min-width="300"
           min-height="300"
           max-width="400"
           class="rounded-lg mx-auto"
@@ -44,15 +43,20 @@
       <!-- 进度条 -->
       <v-col cols="8">
         <v-slider
-          v-model="playDt"
+          v-model="dt"
           min="0"
           :max="value.duration"
           hide-details
           color="purple darken-3"
-          track-color="purple lighten-2"
+          track-color="purple lighten-3"
+          @mousedown="canSetDt = true"
+          @mouseup="
+            canSetDt = false;
+            $emit('changeDt', dt);
+          "
         >
           <template v-slot:prepend>
-            <span class="mt-1">{{ songTime(playDt) }}</span>
+            <span class="mt-1">{{ songTime(dt) }}</span>
           </template>
           <template v-slot:append>
             <span class="mt-1">{{ songTime(value.duration) }}</span>
@@ -64,6 +68,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import time from "common/time";
 import ButtonAdd from "components/Button/ButtonAdd.vue";
 import ButtonLove from "components/Button/ButtonLove.vue";
@@ -82,8 +87,20 @@ export default {
     value: { type: Object, required: true },
   },
   data: () => ({
-    playDt: 0,
+    dt: 0, // 滑动条显示当前播放的时间
+    canSetDt: false, // 是否允许手动滑动滑动条
   }),
+  watch: {
+    // 手动滑动时不赋值
+    playDt(newValue) {
+      !this.canSetDt && (this.dt = newValue);
+    },
+  },
+  computed: {
+    ...mapState({
+      playDt: (state) => state.play.music.dt, // 当前播放音乐的时间
+    }),
+  },
   methods: {
     songTime(params) {
       return time.song(params);
