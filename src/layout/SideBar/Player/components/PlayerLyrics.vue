@@ -35,6 +35,7 @@ export default {
         easing: "easeOutQuad",
       });
     },
+    // 根据播放进度指定滚动的位置
     playDt(newValue) {
       for (let i = 0; i < this.value.length; i++) {
         if (this.value[i].time < newValue) {
@@ -46,7 +47,9 @@ export default {
     },
     // 换歌回顶
     value() {
-      this.playitem = 0;
+      setTimeout(() => {
+        this.playitem = 0;
+      }, 200);
     },
   },
   computed: {

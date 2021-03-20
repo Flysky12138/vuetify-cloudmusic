@@ -21,7 +21,7 @@
     <!-- 上下按键 -->
     <div style="position: absolute; z-index: -1">
       <!-- 上一首 -->
-      <v-btn icon>
+      <v-btn icon @click="previous">
         <v-icon>mdi-chevron-up</v-icon>
       </v-btn>
       <!-- 按键动画调整 -->
@@ -29,7 +29,7 @@
         <div class="box" v-show="isShow"></div>
       </transition>
       <!-- 下一首 -->
-      <v-btn icon>
+      <v-btn icon @click="next">
         <v-icon>mdi-chevron-down</v-icon>
       </v-btn>
     </div>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import Player from "./Player";
 export default {
   components: { Player },
@@ -48,6 +48,9 @@ export default {
     ...mapState({
       isShow: (state) => state.play.isShow,
     }),
+  },
+  methods: {
+    ...mapMutations(["previous", "next"]),
   },
 };
 </script>

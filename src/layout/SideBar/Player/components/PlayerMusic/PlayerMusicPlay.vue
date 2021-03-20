@@ -1,8 +1,10 @@
 <template>
   <div>
+    <!-- 上一首 -->
     <v-btn icon @click="previous">
       <v-icon>mdi-page-first</v-icon>
     </v-btn>
+    <!-- 播放,暂停 -->
     <v-btn
       icon
       large
@@ -13,6 +15,7 @@
       <v-icon v-if="isplay">mdi-pause</v-icon>
       <v-icon v-else>mdi-play</v-icon>
     </v-btn>
+    <!-- 下一首 -->
     <v-btn icon @click="next">
       <v-icon>mdi-page-last</v-icon>
     </v-btn>
