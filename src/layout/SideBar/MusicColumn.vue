@@ -26,7 +26,7 @@
       </v-btn>
       <!-- 按键动画调整 -->
       <transition name="elongate">
-        <div class="box" v-show="isplay"></div>
+        <div class="box" v-show="isShow"></div>
       </transition>
       <!-- 下一首 -->
       <v-btn icon>
@@ -46,7 +46,7 @@ export default {
   }),
   computed: {
     ...mapState({
-      isplay: (state) => state.play.isplay,
+      isShow: (state) => state.play.isShow,
     }),
   },
 };

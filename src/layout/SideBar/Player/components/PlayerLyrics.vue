@@ -23,10 +23,10 @@ export default {
     value: { type: Array, required: true },
   },
   data: () => ({
-    playitem: 0, // 当前播放的歌词在数组位置
+    playitem: 0, // 指定正在播放歌词
   }),
   watch: {
-    // 滚动到正在播放的歌词
+    // 滚动到指定歌词位置
     playitem() {
       this.$vuetify.goTo("#songlyrics_" + this.playitem, {
         container: ".scroll",
@@ -51,12 +51,12 @@ export default {
   },
   computed: {
     ...mapState({
-      playDt: (state) => state.play.music.dt, // 当前播放音乐所在的时间
+      playDt: (state) => state.play.music.dt, // 当前音乐播放进度
     }),
   },
   methods: {
     lyricsStyle(params) {
-      // 根据当前播放位置，返回所有歌词样式
+      // 返回歌词样式
       let offset = Math.abs(params - this.playitem);
       switch (offset) {
         case 0:

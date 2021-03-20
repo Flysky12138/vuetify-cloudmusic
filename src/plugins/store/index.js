@@ -9,10 +9,10 @@ const store = {
   state: {
     // 登录状态
     get islogin() {
-      return localStorage.getItem("islogin") === "true";
+      return JSON.parse(localStorage.getItem("islogin"));
     },
     set islogin(params) {
-      localStorage.setItem("islogin", params);
+      localStorage.setItem("islogin", JSON.stringify(params));
     },
     // 用户信息
     get user() {

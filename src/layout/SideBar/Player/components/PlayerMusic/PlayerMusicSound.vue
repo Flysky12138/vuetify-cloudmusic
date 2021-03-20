@@ -4,34 +4,50 @@
       left
       overlap
       color="cyan"
-      :value="hover && count !== 0 && volume"
-      :content="count"
+      :value="hover && volume !== 0 && !muted"
+      :content="volume"
     >
-      <v-btn icon @click="volume = !volume" @mousewheel="setVolume">
-        <v-icon v-if="volume">mdi-volume-high</v-icon>
-        <v-icon v-else>mdi-volume-mute</v-icon>
+      <v-btn icon @click="muted = !muted" @mousewheel="mouseWheel">
+        <v-icon v-if="muted">mdi-volume-mute</v-icon>
+        <v-icon v-else>mdi-volume-high</v-icon>
       </v-btn>
     </v-badge>
   </v-hover>
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
 export default {
   data: () => ({
-    volume: true, // 静音
-    count: 10, // 音量
+    volume: 0, // 音量
+    muted: false, // 静音
   }),
+  created() {
+    this.volume = this.vuexVolume;
+    this.muted = this.vuexMuted;
+  },
   watch: {
-    count(newValue) {
-      this.volume = newValue === 0 ? false : true;
+    volume(newValue) {
+      this.muted = newValue === 0 ? true : false;
+      this.setVolume(newValue);
+    },
+    muted(newValue) {
+      newValue ? this.setMuted(true) : this.setMuted(false);
     },
   },
+  computed: {
+    ...mapState({
+      vuexVolume: (state) => state.play.volume,
+      vuexMuted: (state) => state.play.muted,
+    }),
+  },
   methods: {
-    setVolume(event) {
-      if (event.deltaY < 0 && this.count > 0) {
-        this.count -= 5;
-      } else if (event.deltaY > 0 && this.count < 100) {
-        this.count += 5;
+    ...mapMutations(["setVolume", "setMuted"]),
+    mouseWheel(event) {
+      if (event.deltaY < 0 && this.volume < 100) {
+        this.volume += 5;
+      } else if (event.deltaY > 0 && this.volume > 0) {
+        this.volume -= 5;
       }
     },
   },

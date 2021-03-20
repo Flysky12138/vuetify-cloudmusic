@@ -1,16 +1,33 @@
 const state = {
-  isplay: false, // 播放
-  // 当前播放的歌曲
+  isplay: false, // 正在播放
+  isShow: false, // 显示侧边音乐按键
   music: {
-    id: 0,
-    dt: 0
+    id: 0, // ID
+    dt: 0 // 播放进度
   },
   lists: [], // 默认播放列表ID
   random: false, // 随机播放
-  randomlists: [] // 随机播放列表ID
+  randomlists: [], // 随机播放列表ID
+  // 音量
+  get volume() {
+    const data = JSON.parse(localStorage.getItem("volume"));
+    return data !== null ? data : 50;
+  },
+  set volume(params) {
+    localStorage.setItem("volume", JSON.stringify(params));
+  },
+  // 静音
+  get muted() {
+    const data = JSON.parse(localStorage.getItem("muted"));
+    return data ? true : false;
+  },
+  set muted(params) {
+    localStorage.setItem("muted", JSON.stringify(params));
+  }
 };
 
 const mutations = {
+  // 添加歌曲到列表
   addPlay(state, id) {
     state.lists = [];
     // lists 赋值
@@ -24,24 +41,55 @@ const mutations = {
       ];
     }
     state.music.id = state.lists[0];
-    state.isplay = true;
+    state.isShow = true;
   },
   // 上一首
   previous(state) {
-    const current = state.lists.indexOf(state.music.id);
-    state.music.id =
-      current === 0
-        ? state.lists[state.lists.length - 1]
-        : state.lists[current - 1];
+    if (state.random) {
+      let index = state.randomlists.indexOf(state.music.id);
+      index = (index + state.randomlists.length - 1) % state.randomlists.length;
+      state.music.id = state.randomlists[index];
+    } else {
+      let index = state.lists.indexOf(state.music.id);
+      index = (index + state.lists.length - 1) % state.lists.length;
+      state.music.id = state.lists[index];
+    }
   },
   // 下一首
   next(state) {
-    const current = state.lists.indexOf(state.music.id);
-    state.music.id = state.lists[(current + 1) % state.lists.length];
+    if (state.random) {
+      let index = state.randomlists.indexOf(state.music.id);
+      index = (index + 1) % state.randomlists.length;
+      state.music.id = state.randomlists[index];
+    } else {
+      let index = state.lists.indexOf(state.music.id);
+      index = (index + 1) % state.lists.length;
+      state.music.id = state.lists[index];
+    }
   },
-  // 存放当前播放时间
+  // 存放当前播放进度
   setPlayDt(state, params) {
     state.music.dt = params;
+  },
+  // 播放
+  play(state) {
+    setTimeout(() => {
+      state.isplay = true;
+    }, 100);
+  },
+  // 暂停
+  pause(state) {
+    setTimeout(() => {
+      state.isplay = false;
+    }, 100);
+  },
+  // 音量
+  setVolume(state, params) {
+    state.volume = params;
+  },
+  // 静音
+  setMuted(state, params) {
+    state.muted = params;
   }
 };
 

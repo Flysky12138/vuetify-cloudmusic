@@ -27,8 +27,16 @@
         </v-col>
       </v-row>
     </v-card>
-    <!-- 音乐播放标签 -->
-    <audio :src="url" @timeupdate="playDt" loop="loop" ref="audio"></audio>
+    <!-- 音乐播放标签 autoplay:换歌后继续播放 -->
+    <audio
+      :src="url"
+      :autoplay="isplay"
+      crossorigin="anonymous"
+      preload="auto"
+      ref="audio"
+      @timeupdate="playDt"
+      @ended="next"
+    ></audio>
   </v-container>
 </template>
 
@@ -49,23 +57,38 @@ export default {
   },
   watch: {
     id: "getMusicDetail",
+    // 播放、暂定
+    isplay(newValue) {
+      newValue ? this.$refs.audio.play() : this.$refs.audio.pause();
+    },
+    // 音量
+    volume(newValue) {
+      this.$refs.audio.volume = newValue / 100;
+    },
+    // 静音
+    muted(newValue) {
+      this.$refs.audio.muted = newValue;
+    },
   },
   computed: {
     ...mapState({
       id: (state) => state.play.music.id,
+      isplay: (state) => state.play.isplay,
+      volume: (state) => state.play.volume,
+      muted: (state) => state.play.muted,
     }),
   },
   methods: {
-    ...mapMutations(["setPlayDt"]),
-    // 存放当前播放时间到Vuex
+    ...mapMutations(["setPlayDt", "next"]),
+    // 存放当前播放进度到Vuex
     playDt(res) {
-      this.setPlayDt(Math.round(res.target.currentTime * 1000));
+      this.setPlayDt(res.target.currentTime * 1000);
     },
-    // 拖动播放时间条,调整播放进度
+    // 调整播放进度
     changeDt(res) {
-      this.$refs.audio.currentTime = Math.floor(res / 1e3);
+      this.$refs.audio.currentTime = Math.floor(res / 1000);
     },
-    // 获取播放歌曲信息
+    // 获取播放歌曲、歌词信息
     getMusicDetail() {
       this.$http.song.play(this.id).then((res) => {
         this.music.id = res.id;
@@ -74,9 +97,6 @@ export default {
         this.music.artists = res.artists;
         this.music.duration = res.duration;
         this.url = res.url;
-        setTimeout(() => {
-          this.$refs.audio.play();
-        }, 1000);
       });
       this.$http.song.lyric(this.id).then((res) => {
         this.lyrics = res;
@@ -94,6 +114,6 @@ export default {
   left: 0;
   top: 0;
   transform: scale(1.3);
-  filter: blur(130px);
+  filter: blur(200px);
 }
 </style>

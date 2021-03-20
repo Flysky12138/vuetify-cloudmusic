@@ -8,7 +8,7 @@
       large
       class="mx-5"
       style="background-color: rgba(90, 90, 90, 0.1)"
-      @click="play"
+      @click="onPlay"
     >
       <v-icon v-if="isplay">mdi-pause</v-icon>
       <v-icon v-else>mdi-play</v-icon>
@@ -23,13 +23,16 @@
 import { mapState, mapMutations } from "vuex";
 export default {
   data: () => ({}),
-  methods: {
-    ...mapMutations(["previous", "next", "play"]),
-  },
   computed: {
     ...mapState({
       isplay: (state) => state.play.isplay,
     }),
+  },
+  methods: {
+    ...mapMutations(["previous", "next", "play", "pause"]),
+    onPlay() {
+      this.isplay ? this.pause() : this.play();
+    },
   },
 };
 </script>

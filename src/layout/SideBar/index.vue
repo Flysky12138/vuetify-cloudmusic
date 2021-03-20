@@ -2,7 +2,7 @@
   <div style="z-index: 5">
     <!-- 音乐按键 -->
     <v-scale-transition>
-      <div class="right" style="top: 45vh" v-show="isplay">
+      <div class="right" style="top: 45vh" v-show="isShow">
         <music-column />
       </div>
     </v-scale-transition>
@@ -22,7 +22,7 @@ export default {
   data: () => ({}),
   computed: {
     ...mapState({
-      isplay: (state) => state.play.isplay,
+      isShow: (state) => state.play.isShow,
     }),
   },
 };

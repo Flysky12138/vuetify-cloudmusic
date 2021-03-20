@@ -87,8 +87,8 @@ export default {
     value: { type: Object, required: true },
   },
   data: () => ({
-    dt: 0, // 滑动条显示当前播放的时间
-    canSetDt: false, // 是否允许手动滑动滑动条
+    dt: 0, // 播放进度
+    canSetDt: false, // 鼠标是否正在滑动滑动条
   }),
   watch: {
     // 手动滑动时不赋值
@@ -98,7 +98,7 @@ export default {
   },
   computed: {
     ...mapState({
-      playDt: (state) => state.play.music.dt, // 当前播放音乐的时间
+      playDt: (state) => state.play.music.dt, // 当前播放音乐进度
     }),
   },
   methods: {
