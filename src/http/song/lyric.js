@@ -11,7 +11,7 @@ function lyric(id) {
       })
       .then(response => {
         let arr = [];
-        // 歌词字符串转数组
+        // 歌词字符串转数组 [00:00.00]sdgsdb
         if (response.lrc) {
           const lyric = response.lrc.lyric.split("\n");
           lyric.forEach(element => {

@@ -65,7 +65,10 @@ export default {
   },
   methods: {
     addSong(params) {
-      this.dialog = false;
+      this.$http.playlist.tracks(params, this.id).then((res) => {
+        console.log("res: ", res);
+        this.dialog = false;
+      });
     },
     // 获取用户创建的歌单
     getCreatePlaylist() {
