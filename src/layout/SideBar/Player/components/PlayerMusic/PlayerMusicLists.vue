@@ -9,7 +9,7 @@
     transition="slide-y-transition"
   >
     <template v-slot:activator="{ on, attrs }">
-      <v-btn v-bind="attrs" v-on="on" icon>
+      <v-btn v-bind="attrs" v-on="on" icon @click="openGoto">
         <v-icon>mdi-playlist-music</v-icon>
       </v-btn>
     </template>
@@ -42,19 +42,17 @@ export default {
     isopen: false,
     selectedItem: 0,
   }),
-  watch: {
+  methods: {
     // 打开菜单后滚动定位
-    isopen(newValue) {
-      if (newValue) {
-        setTimeout(() => {
-          this.$vuetify.goTo("#songlist_" + this.selectedItem, {
-            container: "#card",
-            duration: 400,
-            offset: -55,
-            easing: "easeOutQuad",
-          });
-        }, 100);
-      }
+    openGoto() {
+      setTimeout(() => {
+        this.$vuetify.goTo("#songlist_" + this.selectedItem, {
+          container: "#card",
+          duration: 400,
+          offset: -55,
+          easing: "easeOutQuad",
+        });
+      }, 100);
     },
   },
 };

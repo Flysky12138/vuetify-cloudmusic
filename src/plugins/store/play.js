@@ -6,6 +6,7 @@ const state = {
     dt: 0 // 播放进度
   },
   lists: [], // 默认播放列表ID
+  loop: false, // 单曲循环播放
   random: false, // 随机播放
   randomlists: [], // 随机播放列表ID
   // 音量
@@ -40,8 +41,25 @@ const mutations = {
         state.lists[i]
       ];
     }
-    state.music.id = state.lists[0];
+    state.music.id = state.random ? state.randomlists[0] : state.lists[0];
     state.isShow = true;
+  },
+  // 播放方式
+  playmode(state, params) {
+    switch (params) {
+      case 0:
+        state.loop = true;
+        state.random = false;
+        break;
+      case 1:
+        state.loop = false;
+        state.random = false;
+        break;
+      case 2:
+        state.loop = false;
+        state.random = true;
+        break;
+    }
   },
   // 上一首
   previous(state) {

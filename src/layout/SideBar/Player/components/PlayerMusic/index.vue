@@ -36,7 +36,8 @@
           <!-- 右边 -->
           <div>
             <player-music-sound />
-            <player-music-lists />
+            <player-music-mode />
+            <!-- <player-music-lists /> -->
           </div>
         </div>
       </v-col>
@@ -74,6 +75,7 @@ import ButtonAdd from "components/Button/ButtonAdd.vue";
 import ButtonLove from "components/Button/ButtonLove.vue";
 import PlayerMusicPlay from "./PlayerMusicPlay.vue";
 import PlayerMusicSound from "./PlayerMusicSound.vue";
+import PlayerMusicMode from "./PlayerMusicMode.vue";
 import PlayerMusicLists from "./PlayerMusicLists.vue";
 export default {
   components: {
@@ -81,6 +83,7 @@ export default {
     ButtonLove,
     PlayerMusicPlay,
     PlayerMusicSound,
+    PlayerMusicMode,
     PlayerMusicLists,
   },
   props: {

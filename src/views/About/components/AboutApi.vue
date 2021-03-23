@@ -5,7 +5,7 @@
       colored-border
       elevation="1"
       dense
-      type="cyan"
+      color="cyan"
       colored-border
       icon="mdi-api"
     >

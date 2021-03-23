@@ -4,10 +4,9 @@ import axios from "axios";
 // 根据环境变量区分接口的默认地址
 switch (process.env.NODE_ENV) {
   case "production":
-    let defaultApi = "https://music.api.flysky.xyz";
+    const defaultApi = "https://music.api.flysky.xyz";
     const api = localStorage.getItem("api");
-    api !== "" && (defaultApi = localStorage.getItem("api"));
-    axios.defaults.baseURL = defaultApi;
+    axios.defaults.baseURL = api ? api : defaultApi;
     break;
   default:
     axios.defaults.baseURL = "http://localhost:3000";
@@ -33,7 +32,7 @@ axios.interceptors.request.use(
   config => {
     // 添加代理
     const proxy = localStorage.getItem("proxy");
-    proxy !== "" && (config.params = { ...config.params, proxy });
+    proxy && (config.params = { ...config.params, proxy });
     // 添加时间戳
     if (config.method == "post") {
       config.data = {
@@ -47,7 +46,7 @@ axios.interceptors.request.use(
       };
     }
     // 添加token。本项目使用的Cookie验证，没储存Token
-    let token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     token && (config.headers.Authorization = token);
     return config;
   },

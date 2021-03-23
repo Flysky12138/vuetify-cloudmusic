@@ -34,6 +34,7 @@
       crossorigin="anonymous"
       preload="auto"
       ref="audio"
+      :loop="loop ? true : false"
       @timeupdate="playDt"
       @ended="next"
     ></audio>
@@ -76,6 +77,7 @@ export default {
       isplay: (state) => state.play.isplay,
       volume: (state) => state.play.volume,
       muted: (state) => state.play.muted,
+      loop: (state) => state.play.loop,
     }),
   },
   methods: {
