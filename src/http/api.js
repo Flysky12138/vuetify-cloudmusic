@@ -30,9 +30,6 @@ axios.defaults.withCredentials = true;
  */
 axios.interceptors.request.use(
   config => {
-    // 添加代理
-    const proxy = localStorage.getItem("proxy");
-    proxy && (config.params = { ...config.params, proxy });
     // 添加时间戳
     if (config.method == "post") {
       config.data = {

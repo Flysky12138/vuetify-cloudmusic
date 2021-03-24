@@ -1,12 +1,19 @@
 <template>
-  <v-container>
-    <v-row class="pa-6">
+  <v-container class="pa-12">
+    <v-row>
       <v-col cols="1" class="text-center mt-5">
-        <v-icon>mdi-video-input-component</v-icon>
+        <v-icon>mdi-resistor</v-icon>
       </v-col>
       <v-col cols="10">
         <about-api />
-        <about-proxy />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="1" class="text-center mt-5">
+        <v-icon>mdi-cog-outline</v-icon>
+      </v-col>
+      <v-col cols="10">
+        <about-theme />
       </v-col>
     </v-row>
   </v-container>
@@ -14,9 +21,9 @@
 
 <script>
 import AboutApi from "./components/AboutApi.vue";
-import AboutProxy from "./components/AboutProxy.vue";
+import AboutTheme from "./components/AboutTheme.vue";
 export default {
-  components: { AboutApi, AboutProxy },
+  components: { AboutApi, AboutTheme },
   data: () => ({}),
 };
 </script>

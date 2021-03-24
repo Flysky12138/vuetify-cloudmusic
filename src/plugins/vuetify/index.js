@@ -3,9 +3,11 @@ import Vuetify from "vuetify/lib";
 
 Vue.use(Vuetify);
 
+const isDark = JSON.parse(localStorage.getItem("isDark"));
+
 const opts = {
   theme: {
-    dark: false
+    dark: isDark
   },
   icons: {
     iconfont: "mdi"

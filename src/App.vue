@@ -2,13 +2,17 @@
   <v-app>
     <template v-if="$vuetify.breakpoint.mdAndUp && !isMobile">
       <!-- 顶部导航栏 -->
-      <v-app-bar app color="white" elevate-on-scroll>
+      <v-app-bar
+        app
+        :color="$vuetify.theme.isDark ? '' : 'white'"
+        elevate-on-scroll
+      >
         <v-container>
           <app-bar />
         </v-container>
       </v-app-bar>
       <!-- 路由显示区 -->
-      <v-main class="grey lighten-3">
+      <v-main :class="$vuetify.theme.isDark ? '' : 'grey lighten-3'">
         <v-container>
           <v-sheet rounded="lg" :min-height="viewHeight">
             <!-- 对路由添加一个进入动画：渐显 -->
