@@ -18,13 +18,7 @@ const state = {
     localStorage.setItem("volume", JSON.stringify(params));
   },
   // 静音
-  get muted() {
-    const data = JSON.parse(localStorage.getItem("muted"));
-    return data ? true : false;
-  },
-  set muted(params) {
-    localStorage.setItem("muted", JSON.stringify(params));
-  }
+  muted: false
 };
 
 const mutations = {

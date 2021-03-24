@@ -35,13 +35,12 @@ export default {
       this.setVolume(newValue);
     },
     muted(newValue) {
-      newValue ? this.setMuted(true) : this.setMuted(false);
+      this.setMuted(newValue);
     },
   },
   computed: {
     ...mapState({
       vuexVolume: (state) => state.play.volume,
-      vuexMuted: (state) => state.play.muted,
     }),
   },
   methods: {
