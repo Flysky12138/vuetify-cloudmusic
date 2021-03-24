@@ -1,5 +1,5 @@
 <template>
-  <v-card rounded="lg" elevation="1">
+  <v-card elevation="1" rounded="lg">
     <!-- 标题 -->
     <v-card-title>
       {{ title + "（" + value.length + "）" }}

@@ -4,7 +4,7 @@
     <skeleton-loader v-if="count != 2" />
     <v-row class="pa-3" v-else>
       <!-- 个人信息 -->
-      <v-col cols="12" class="py-10">
+      <v-col cols="12" class="py-10 px-7">
         <user-detail :value="userDetail" />
       </v-col>
       <!-- 歌单 -->
