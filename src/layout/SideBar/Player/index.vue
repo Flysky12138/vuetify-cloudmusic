@@ -56,6 +56,10 @@ export default {
   created() {
     this.getMusicDetail();
   },
+  mounted() {
+    this.$refs.audio.volume = this.volume / 100;
+    this.$refs.audio.muted = this.volume;
+  },
   watch: {
     id: "getMusicDetail",
     // 播放、暂定
