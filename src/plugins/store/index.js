@@ -33,6 +33,7 @@ const store = {
     },
     logout(state) {
       state.islogin = false;
+      state.user = {};
     }
   }
 };

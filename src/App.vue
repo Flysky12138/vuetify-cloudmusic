@@ -56,15 +56,11 @@ export default {
   created() {
     // 获取ID,等级和头像
     this.$http.login.status().then((res) => {
-      if (res.islogin) {
-        this.setLogin(res);
-      }
+      res.islogin ? this.login(res) : this.logout();
     });
   },
   methods: {
-    ...mapMutations({
-      setLogin: "login",
-    }),
+    ...mapMutations(["login", "logout"]),
   },
 };
 </script>
