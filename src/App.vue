@@ -13,8 +13,8 @@
       </v-app-bar>
       <!-- 路由显示区 -->
       <v-main :class="$vuetify.theme.isDark ? '' : 'grey lighten-3'">
-        <v-container>
-          <v-sheet rounded="lg" :min-height="viewHeight">
+        <v-container style="height: 100%">
+          <v-sheet rounded="lg" height="100%">
             <!-- 对路由添加一个进入动画：渐显 -->
             <transition name="router">
               <keep-alive :include="include">
@@ -60,14 +60,6 @@ export default {
         this.setLogin(res);
       }
     });
-  },
-  computed: {
-    // 路由界面最低高度；视窗高度 - 顶部导航栏高度 - v-main标签中的v-container标签的padding（my-3）
-    viewHeight() {
-      return (
-        this.$vuetify.breakpoint.height - this.$vuetify.application.top - 24
-      );
-    },
   },
   methods: {
     ...mapMutations({

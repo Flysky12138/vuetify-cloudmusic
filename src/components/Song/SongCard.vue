@@ -2,8 +2,7 @@
   <v-card max-width="150" elevation="0">
     <v-img
       :src="value.coverImgUrl"
-      class="ma-3 my-0 mt-1 text-end"
-      style="border-radius: 10px"
+      class="ma-3 my-0 mt-1 text-end rounded-lg"
       transition="fade-transition"
       width="126"
       height="126"
@@ -24,7 +23,7 @@
           color="rgba(88, 89, 93, .45)"
           class="ma-1 px-2 white--text"
           x-small
-          v-text="theplayCount()"
+          v-text="theplayCount"
         ></v-chip>
       </template>
     </v-img>
@@ -41,6 +40,11 @@ export default {
     value: { type: Object, required: true },
   },
   data: () => ({}),
+  computed: {
+    theplayCount() {
+      return playCount(this.value.playCount);
+    },
+  },
   methods: {
     toPlaylist() {
       this.$router.push({
@@ -49,9 +53,6 @@ export default {
           id: this.value.id,
         },
       });
-    },
-    theplayCount() {
-      return playCount(this.value.playCount);
     },
   },
 };
