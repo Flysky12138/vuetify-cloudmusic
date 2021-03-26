@@ -51,11 +51,13 @@ function lyric(id) {
               }
             });
             // 在最后插入翻译者
-            let contributor = tlyric[0].substring(1, tlyric[0].length - 1);
-            arr.push({
-              time: 600000,
-              lyric: contributor.replace("by:", "翻译贡献者: ")
-            });
+            if (!tlyric[0].match(/\d{2}:\d{2}.(\d{2}|\d{3})/g)) {
+              let contributor = tlyric[0].substring(1, tlyric[0].length - 1);
+              arr.push({
+                time: 600000,
+                lyric: contributor.replace("by:", "翻译贡献者: ")
+              });
+            }
           }
         } else {
           arr.push({
