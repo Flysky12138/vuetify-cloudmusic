@@ -9,7 +9,8 @@
         class="my-6 font-weight-bold"
         :style="lyricsStyle(index)"
       >
-        {{ item.value }}
+        <span>{{ item.lyric }}</span>
+        <span v-if="item.tlyric"><br />{{ item.tlyric }}</span>
       </div>
       <v-responsive height="234"></v-responsive>
     </v-col>
@@ -36,7 +37,7 @@ export default {
       });
     },
     // 根据播放进度指定滚动的位置
-    playDt(newValue, oldValue) {
+    playDt(newValue) {
       for (let i = 0; i < this.value.length; i++) {
         if (this.value[i].time < newValue) {
           this.playitem = i;
@@ -63,14 +64,14 @@ export default {
       let offset = Math.abs(params - this.playitem);
       switch (offset) {
         case 0:
-          return { "font-size": "30px", color: "#0D47A1" };
+          return { "font-size": "30px", color: "#6A1B9A" };
         case 1:
         case 2:
         case 3:
         case 4:
           return { opacity: (10 - offset) * 0.1 };
         default:
-          return { opacity: 0.5 };
+          return { opacity: 0.3 };
       }
     },
   },

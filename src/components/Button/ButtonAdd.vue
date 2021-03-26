@@ -11,14 +11,14 @@
         <v-icon>mdi-plus-circle-outline</v-icon>
       </v-btn>
     </template>
-    <v-card max-height="400" class="overflow-y-auto scroll">
+    <v-card max-height="400" class="overflow-y-auto scroll" rounded="lg">
       <v-list>
         <v-list-item-group>
           <v-list-item
             v-for="item in playlist"
             :key="item.id"
             @click="addSong(item.id)"
-            class="py-1"
+            class="py-2"
           >
             <v-img
               :src="item.coverImgUrl"
@@ -36,7 +36,7 @@
                 {{ item.name }}
               </div>
               <div class="font-weight-bold text-subtitle-1">
-                {{ item.playCount }}
+                {{ item.playCount }} 首
               </div>
             </div>
           </v-list-item>

@@ -37,7 +37,11 @@
     >
       <!-- header.btns插槽 -->
       <template v-slot:header.btns>
-        <button-play :id="value.map((res) => res.id)" tip="播放所有" />
+        <button-play
+          :id="value.map((res) => res.id)"
+          :disable="loading"
+          tip="播放所有"
+        />
       </template>
       <!-- item.count、item.btns插槽 -->
       <template v-slot:item.count="{ item }">
