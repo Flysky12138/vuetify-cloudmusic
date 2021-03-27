@@ -11,60 +11,63 @@ function lyric(id) {
       })
       .then(response => {
         let arr = [];
+        let user = {
+          time: 1e6,
+          lyric: "",
+          tlyric: ""
+        };
+        // 歌词
         if (response.lrc) {
-          // 歌词
           const lyric = response.lrc.lyric
             .split("\n")
             .filter(res => res !== "");
           lyric.forEach(element => {
             let time = element.match(/\d{2}:\d{2}.(\d{2}|\d{3})/g);
             if (time) {
-              // 00:00.00 字符串转毫秒
               time = Math.round(
                 (Number(time[0].substring(0, 2)) * 60 +
                   Number(time[0].substring(3))) *
                   1000
               );
               arr.push({
-                time: time,
-                lyric: element.substring(element.indexOf("]") + 1)
+                time: time, // 毫秒
+                lyric: element.substring(element.indexOf("]") + 1) // 歌词
               });
             }
           });
-          // 翻译
-          const tlyric = response.tlyric.lyric
-            .split("\n")
-            .filter(res => res !== "");
-          if (tlyric.length !== 0) {
-            // 在arr数组中对应相同time对象插入翻译项tlyric
-            tlyric.forEach(element => {
-              let time = element.match(/\d{2}:\d{2}.(\d{2}|\d{3})/g);
-              if (time) {
-                time = Math.round(
-                  (Number(time[0].substring(0, 2)) * 60 +
-                    Number(time[0].substring(3))) *
-                    1000
-                );
-                const item = arr.find(res => res.time === time);
-                item &&
-                  (item.tlyric = element.substring(element.indexOf("]") + 1));
-              }
-            });
-            // 在最后插入翻译者
-            if (!tlyric[0].match(/\d{2}:\d{2}.(\d{2}|\d{3})/g)) {
-              let contributor = tlyric[0].substring(1, tlyric[0].length - 1);
-              arr.push({
-                time: 600000,
-                lyric: contributor.replace("by:", "翻译贡献者: ")
-              });
-            }
-          }
+          // 歌词贡献者
+          response.lyricUser &&
+            (user.lyric = "歌词贡献者: " + response.lyricUser.nickname);
         } else {
           arr.push({
             time: 0,
             lyric: "纯音乐，请欣赏"
           });
         }
+        // 翻译
+        if (response.tlyric) {
+          const tlyric = response.tlyric.lyric
+            .split("\n")
+            .filter(res => res !== "");
+          // 在arr数组中,对应相同time对象中插入翻译项tlyric
+          tlyric.forEach(element => {
+            let time = element.match(/\d{2}:\d{2}.(\d{2}|\d{3})/g);
+            if (time) {
+              time = Math.round(
+                (Number(time[0].substring(0, 2)) * 60 +
+                  Number(time[0].substring(3))) *
+                  1000
+              );
+              const item = arr.find(res => res.time === time);
+              item &&
+                (item.tlyric = element.substring(element.indexOf("]") + 1)); // 翻译
+            }
+          });
+          // 翻译贡献者
+          response.transUser &&
+            (user.tlyric = "翻译贡献者: " + response.transUser.nickname);
+        }
+        arr.push(user);
         resolve(arr.filter(res => res.lyric !== ""));
       })
       .catch(error => reject(error));
