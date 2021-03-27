@@ -106,8 +106,7 @@ export default {
             this.music.artists = res.artists;
             this.music.duration = res.duration;
             this.url = res.url;
-            res.freeTrialInfo &&
-              (this.dtOffset = res.freeTrialInfo.start + 0.9);
+            res.freeTrialInfo && (this.dtOffset = res.freeTrialInfo.start);
           });
           this.$http.song.lyric(this.id).then((res) => {
             this.lyrics = res;

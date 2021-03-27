@@ -1,7 +1,7 @@
 <template>
   <v-row
     class="overflow-y-auto scroll"
-    style="height: 500px"
+    style="height: 520px"
     @mousewheel="mouseWheel"
   >
     <v-col cols="12" class="text-center">
