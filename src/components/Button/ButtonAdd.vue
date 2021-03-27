@@ -66,7 +66,6 @@ export default {
   methods: {
     addSong(params) {
       this.$http.playlist.tracks(params, this.id).then((res) => {
-        console.log("res: ", res);
         this.dialog = false;
       });
     },

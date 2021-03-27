@@ -1,7 +1,7 @@
 <template>
   <v-row class="overflow-y-auto scroll" style="height: 530px">
     <v-col cols="12" class="text-center">
-      <v-responsive height="200"></v-responsive>
+      <v-responsive height="160"></v-responsive>
       <div
         v-for="(item, index) in value"
         :key="item.id"
@@ -12,7 +12,7 @@
         <span>{{ item.lyric }}</span>
         <span v-if="item.tlyric"><br />{{ item.tlyric }}</span>
       </div>
-      <v-responsive height="234"></v-responsive>
+      <v-responsive height="160"></v-responsive>
     </v-col>
   </v-row>
 </template>
@@ -29,12 +29,14 @@ export default {
   watch: {
     // 滚动到指定歌词位置
     playitem() {
-      this.$vuetify.goTo("#songlyrics_" + this.playitem, {
-        container: ".scroll",
-        duration: 400,
-        offset: 192,
-        easing: "easeOutQuad",
-      });
+      setTimeout(() => {
+        this.$vuetify.goTo("#songlyrics_" + this.playitem, {
+          container: ".scroll",
+          duration: 400,
+          offset: 132,
+          easing: "easeOutQuad",
+        });
+      }, 100);
     },
     // 根据播放进度指定滚动的位置
     playDt(newValue) {
@@ -48,9 +50,7 @@ export default {
     },
     // 换歌回顶
     value() {
-      setTimeout(() => {
-        this.playitem = 0;
-      }, 200);
+      this.playitem = 0;
     },
   },
   computed: {
