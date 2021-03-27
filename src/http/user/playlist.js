@@ -7,7 +7,7 @@ function playlist(uid) {
       .get("/user/playlist", {
         params: {
           uid,
-          limit: 500
+          limit: 1000
         }
       })
       .then(response => {
@@ -20,7 +20,7 @@ function playlist(uid) {
           obj[type].push({
             id: element.id,
             name: element.name,
-            playCount: element.playCount,
+            trackCount: element.trackCount,
             coverImgUrl: element.coverImgUrl
           });
         });

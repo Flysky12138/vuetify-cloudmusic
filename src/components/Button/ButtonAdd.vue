@@ -36,7 +36,7 @@
                 {{ item.name }}
               </div>
               <div class="font-weight-bold text-subtitle-1">
-                {{ item.playCount }} 首
+                {{ item.trackCount }} 首
               </div>
             </div>
           </v-list-item>

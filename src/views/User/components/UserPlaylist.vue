@@ -13,13 +13,20 @@
           :min="1"
           :max="maxPage"
           thumb-label="always"
-          :thumb-size="24"
+          thumb-size="24"
+          ticks="always"
+          tick-size="4"
           class="mr-3 my-n6"
           style="width: 200px"
-          @mouseup="sliderShow = false"
         ></v-slider>
         <!-- 左 -->
-        <v-btn small icon @click="page--" :disabled="page == 1" color="primary">
+        <v-btn
+          small
+          icon
+          @click="page--"
+          :disabled="page === 1"
+          color="primary"
+        >
           <v-icon>mdi-pan-left</v-icon>
         </v-btn>
         <!-- 中 -->
@@ -35,7 +42,7 @@
           small
           icon
           @click="page++"
-          :disabled="page == maxPage"
+          :disabled="page === maxPage"
           color="primary"
         >
           <v-icon>mdi-pan-right</v-icon>
@@ -99,18 +106,18 @@ export default {
     // 使用鼠标滚轮横向滚动
     mouseWheel(event) {
       // 滚到到头或尾可上或下滚动页面
-      // const scrollLeft = this.$refs.songCard.scrollLeft;
-      // const clientWidth = this.$refs.songCard.clientWidth;
-      // const scrollWidth = this.$refs.songCard.scrollWidth;
-      // if (
-      //   // 向上
-      //   (event.deltaY < 0 && scrollLeft !== 0) ||
-      //   // 向下
-      //   (event.deltaY > 0 && scrollLeft + clientWidth + 2 < scrollWidth)
-      // ) {
-      event.preventDefault();
-      this.$refs.songCard.scrollLeft += event.deltaY;
-      // }
+      /* const scrollLeft = this.$refs.songCard.scrollLeft;
+      const clientWidth = this.$refs.songCard.clientWidth;
+      const scrollWidth = this.$refs.songCard.scrollWidth;
+      if (
+        // 向上
+        (event.deltaY < 0 && scrollLeft !== 0) ||
+        // 向下
+        (event.deltaY > 0 && scrollLeft + clientWidth + 2 < scrollWidth)
+      ) {
+        event.preventDefault();
+        this.$refs.songCard.scrollLeft += event.deltaY;
+      } */
     },
   },
 };
