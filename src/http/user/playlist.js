@@ -20,6 +20,7 @@ function playlist(uid) {
           obj[type].push({
             id: element.id,
             name: element.name,
+            playCount: element.playCount,
             trackCount: element.trackCount,
             coverImgUrl: element.coverImgUrl
           });
