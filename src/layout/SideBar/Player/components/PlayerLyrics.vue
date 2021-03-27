@@ -1,7 +1,7 @@
 <template>
   <v-row
     class="overflow-y-auto scroll"
-    style="height: 500px"
+    style="height: 530px"
     @mousewheel="mouseWheel"
   >
     <v-col cols="12" class="text-center">
@@ -44,8 +44,13 @@ export default {
     },
     // 根据播放进度指定滚动的位置
     playDt(newValue) {
-      const index = this.value.findIndex((res) => res.time >= newValue) - 1;
-      this.playitem = index > 0 ? index : 0;
+      for (let i = 0; i < this.value.length; i++) {
+        if (this.value[i].time <= newValue) {
+          this.playitem = i;
+        } else {
+          return;
+        }
+      }
     },
     // 换歌回顶
     value() {

@@ -52,6 +52,7 @@ export default {
     music: { id: 0, picUrl: "", name: "", artists: "", duration: 0 },
     url: "",
     lyrics: [],
+    dtOffset: 0, // 歌曲播放的时间偏移量,部分歌曲(VIP,未登录)只会截取一段返回
   }),
   created() {
     this.getMusicDetail();
@@ -87,7 +88,7 @@ export default {
     ...mapMutations(["setPlayDt", "next"]),
     // 存放当前播放进度到Vuex
     playDt(res) {
-      this.setPlayDt(res.target.currentTime * 1000);
+      this.setPlayDt((res.target.currentTime + this.dtOffset) * 1000);
     },
     // 调整播放进度
     changeDt(res) {
@@ -95,16 +96,26 @@ export default {
     },
     // 获取播放歌曲、歌词信息
     getMusicDetail() {
-      this.$http.song.play(this.id).then((res) => {
-        this.music.id = res.id;
-        this.music.picUrl = res.picUrl;
-        this.music.name = res.name;
-        this.music.artists = res.artists;
-        this.music.duration = res.duration;
-        this.url = res.url;
-      });
-      this.$http.song.lyric(this.id).then((res) => {
-        this.lyrics = res;
+      this.dtOffset = 0;
+      this.$http.song.check(this.id).then((res) => {
+        if (res) {
+          this.$http.song.play(this.id).then((res) => {
+            this.music.id = res.id;
+            this.music.picUrl = res.picUrl;
+            this.music.name = res.name;
+            this.music.artists = res.artists;
+            this.music.duration = res.duration;
+            this.url = res.url;
+            res.freeTrialInfo &&
+              (this.dtOffset = res.freeTrialInfo.start + 0.9);
+          });
+          this.$http.song.lyric(this.id).then((res) => {
+            this.lyrics = res;
+          });
+        } else {
+          this.$message({ text: "暂无版权,已跳过" });
+          this.next();
+        }
       });
     },
   },

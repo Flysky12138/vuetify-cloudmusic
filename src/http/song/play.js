@@ -37,7 +37,6 @@ function url(id) {
       .then(response => {
         const element = response.data[0];
         resolve({
-          br: element.br,
           freeTrialInfo: element.freeTrialInfo,
           size: element.size,
           type: element.type,
