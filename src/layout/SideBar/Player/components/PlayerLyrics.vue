@@ -1,5 +1,9 @@
 <template>
-  <v-row class="overflow-y-auto scroll" style="height: 530px">
+  <v-row
+    class="overflow-y-auto scroll"
+    style="height: 500px"
+    @mousewheel="mouseWheel"
+  >
     <v-col cols="12" class="text-center">
       <v-responsive height="160"></v-responsive>
       <div
@@ -24,29 +28,24 @@ export default {
     value: { type: Array, required: true },
   },
   data: () => ({
-    playitem: 0, // 指定正在播放歌词
+    playitem: 0, // 指定正在播放的歌词
+    // 鼠标滚动了歌词
+    scroll: {
+      onMouse: false,
+      setTimeout: {},
+    },
   }),
   watch: {
     // 滚动到指定歌词位置
     playitem() {
       setTimeout(() => {
-        this.$vuetify.goTo("#songlyrics_" + this.playitem, {
-          container: ".scroll",
-          duration: 400,
-          offset: 132,
-          easing: "easeOutQuad",
-        });
+        !this.scroll.onMouse && this.scrollGoto();
       }, 100);
     },
     // 根据播放进度指定滚动的位置
     playDt(newValue) {
-      for (let i = 0; i < this.value.length; i++) {
-        if (this.value[i].time < newValue) {
-          this.playitem = i;
-        } else {
-          return;
-        }
-      }
+      const index = this.value.findIndex((res) => res.time >= newValue) - 1;
+      this.playitem = index > 0 ? index : 0;
     },
     // 换歌回顶
     value() {
@@ -59,8 +58,26 @@ export default {
     }),
   },
   methods: {
+    // 歌词滚动
+    scrollGoto() {
+      this.$vuetify.goTo("#songlyrics_" + this.playitem, {
+        container: ".scroll",
+        duration: 400,
+        offset: 132,
+        easing: "easeOutQuad",
+      });
+    },
+    // 鼠标滚动了歌词.3S后才会自动滚动歌词
+    mouseWheel() {
+      clearTimeout(this.scroll.setTimeout);
+      this.scroll.onMouse = true;
+      this.scroll.setTimeout = setTimeout(() => {
+        this.scroll.onMouse = false;
+        this.scrollGoto();
+      }, 3000);
+    },
+    // 返回歌词样式
     lyricsStyle(params) {
-      // 返回歌词样式
       let offset = Math.abs(params - this.playitem);
       switch (offset) {
         case 0:
