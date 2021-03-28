@@ -27,7 +27,7 @@
         ></v-chip>
       </template>
     </v-img>
-    <v-card-text class="text-caption py-1" v-text="value.name"> </v-card-text>
+    <v-card-text class="text-caption py-1" v-text="value.name"></v-card-text>
   </v-card>
 </template>
 

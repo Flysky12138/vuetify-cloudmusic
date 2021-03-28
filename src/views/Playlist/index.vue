@@ -13,6 +13,7 @@
           :value="songlistDetail.songlist"
           :loading="songlistDetail.loading"
           :itemsPerPage="30"
+          :own="playlistDetail.userId === uid"
         />
       </v-col>
     </v-row>
@@ -20,6 +21,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import SkeletonLoader from "./components/SkeletonLoader.vue";
 import PlaylistDetail from "./components/PlaylistDetail.vue";
 import SongList from "components/Song/SongList";
@@ -50,6 +52,11 @@ export default {
   created() {
     this.id = this.$route.query.id;
     this.getPlaylistDetail();
+  },
+  computed: {
+    ...mapState({
+      uid: (state) => state.user.uid,
+    }),
   },
   methods: {
     // 获取歌单信息

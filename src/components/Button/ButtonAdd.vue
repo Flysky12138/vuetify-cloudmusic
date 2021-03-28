@@ -64,8 +64,9 @@ export default {
     }),
   },
   methods: {
+    // 向歌单添加歌曲
     addSong(params) {
-      this.$http.playlist.tracks(params, this.id).then((res) => {
+      this.$http.playlist.tracks(params, this.id, true).then((res) => {
         this.dialog = false;
       });
     },

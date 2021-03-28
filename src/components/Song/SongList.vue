@@ -49,7 +49,8 @@
       </template>
       <template v-slot:item.btns="{ item }">
         <div class="d-flex justify-end">
-          <button-add :id="item.id" />
+          <button-delete v-if="own" :id="item.id" @success="delValueItem" />
+          <button-add v-else :id="item.id" />
           <button-play :id="item.id" />
         </div>
       </template>
@@ -68,10 +69,11 @@
 </template>
 
 <script>
+import ButtonDelete from "components/Button/ButtonDelete.vue";
 import ButtonPlay from "components/Button/ButtonPlay.vue";
 import ButtonAdd from "components/Button/ButtonAdd.vue";
 export default {
-  components: { ButtonPlay, ButtonAdd },
+  components: { ButtonDelete, ButtonPlay, ButtonAdd },
   props: {
     // 标题
     title: { type: String, required: true },
@@ -85,6 +87,8 @@ export default {
     itemsPerPage: { type: Number, default: 9 },
     // 是否正在加载
     loading: { type: Boolean, default: false },
+    // 是否是自己的歌单
+    own: { type: Boolean, default: false },
   },
   data: () => ({
     search: "",
@@ -116,6 +120,12 @@ export default {
         offset: 0, // 偏移
         easing: "easeOutQuad", // 动画
       });
+    },
+  },
+  methods: {
+    delValueItem(id) {
+      const index = this.value.findIndex((res) => res.id === id);
+      this.value.splice(index, 1);
     },
   },
 };

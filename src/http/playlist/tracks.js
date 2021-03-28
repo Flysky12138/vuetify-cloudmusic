@@ -1,14 +1,14 @@
 import axios from "../api";
 
 // 对歌单添加或删除歌曲
-function tracks(pid, tracks) {
+function tracks(pid, tracks, method = true) {
   return new Promise((resolve, reject) => {
     axios
       .get("/playlist/tracks", {
         params: {
           pid,
           tracks,
-          op: "add" // del
+          op: method ? "add" : "del"
         }
       })
       .then(response => {

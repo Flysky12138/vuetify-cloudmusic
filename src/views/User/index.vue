@@ -62,7 +62,6 @@ export default {
     },
   }),
   created() {
-    // this.userListenRanking.items.length = 1000;
     this.uid = this.$route.query.uid;
     this.getUserDetail();
     this.getUserPlaylist();
