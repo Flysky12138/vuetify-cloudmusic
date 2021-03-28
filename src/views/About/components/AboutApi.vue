@@ -59,7 +59,7 @@ export default {
       this.$refs.AboutApi.blur();
       localStorage.setItem("api", this.api);
       this.$message({
-        text: "保存成功！手动刷新网页生效",
+        text: "保存成功！手动刷新网页后生效",
         color: "success",
       });
     },
