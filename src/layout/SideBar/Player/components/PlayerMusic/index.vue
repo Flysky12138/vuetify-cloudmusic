@@ -3,19 +3,12 @@
     <v-row justify="center">
       <!-- 封面、歌曲名、歌手 -->
       <v-col cols="8" class="pb-0">
-        <v-dialog max-width="80vmin" overlay-opacity="0.9">
-          <template v-slot:activator="{ on, attrs }">
-            <v-img
-              v-bind="attrs"
-              v-on="on"
-              :src="value.picUrl"
-              min-height="300"
-              max-width="400"
-              class="rounded-lg mx-auto"
-            ></v-img>
-          </template>
-          <v-img :src="value.picUrl"></v-img>
-        </v-dialog>
+        <v-img
+          :src="value.picUrl"
+          min-height="300"
+          max-width="400"
+          class="rounded-lg mx-auto"
+        ></v-img>
         <div
           class="text-center font-weight-bold text-h5 text-truncate pt-3"
           v-text="value.name"
