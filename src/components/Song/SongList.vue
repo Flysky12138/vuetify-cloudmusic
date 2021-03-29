@@ -16,7 +16,7 @@
   >
     <!-- top插槽 -->
     <template v-slot:top>
-      <div class="d-flex align-end pb-3 blue--text" id="tableTop">
+      <div class="d-flex align-end pb-4 px-3 blue--text" id="tableTop">
         <span class="text--lighten-1 text-h5">
           {{ '"' + title + '"' }}
         </span>
@@ -146,6 +146,6 @@ export default {
 
 <style lang="scss">
 .playItem {
-  color: #e65100;
+  color: #d500f9;
 }
 </style>

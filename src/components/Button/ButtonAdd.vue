@@ -7,6 +7,7 @@
         icon
         :disabled="!islogin"
         @click="getCreatePlaylist"
+        style="color: inherit"
       >
         <v-icon>mdi-plus-circle-outline</v-icon>
       </v-btn>

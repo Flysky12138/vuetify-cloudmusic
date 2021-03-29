@@ -1,5 +1,5 @@
 <template>
-  <v-btn icon @click="delSong">
+  <v-btn icon @click="delSong" style="color: inherit">
     <v-icon>mdi-close-circle-outline</v-icon>
   </v-btn>
 </template>

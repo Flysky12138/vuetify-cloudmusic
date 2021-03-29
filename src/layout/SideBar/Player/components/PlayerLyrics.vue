@@ -75,7 +75,7 @@ export default {
       this.$vuetify.goTo("#songlyrics_" + this.lyricIndex, {
         container: ".scroll",
         duration: 400,
-        offset: 132,
+        offset: 142,
         easing: "easeOutQuad",
       });
     },
