@@ -9,18 +9,17 @@ const createMessage = options => {
   tip.setAttribute("id", "message");
   app.appendChild(tip);
   // 返回一个新的Vue实例并且将实例挂载到 #message DOM节点上
-  return new Vue({
+  new Vue({
     vuetify,
-    render: h => {
-      return h(Message, {
+    render: h =>
+      h(Message, {
         // 给Message组件中的props赋值
         props: {
           text: options.text,
           color: options.color,
           time: options.time
         }
-      });
-    }
+      })
   }).$mount("#message");
 };
 

@@ -1,6 +1,6 @@
 <template>
   <v-btn icon @click="delSong">
-    <v-icon>mdi-delete-circle-outline</v-icon>
+    <v-icon>mdi-close-circle-outline</v-icon>
   </v-btn>
 </template>
 

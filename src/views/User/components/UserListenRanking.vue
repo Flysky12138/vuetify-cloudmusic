@@ -23,7 +23,7 @@
           :items="value"
           hide-default-footer
           class="elevation-0"
-          height="532"
+          :height="value.length >= 10 ? '532' : ''"
           :loading="loading"
           disable-sort
           fixed-header

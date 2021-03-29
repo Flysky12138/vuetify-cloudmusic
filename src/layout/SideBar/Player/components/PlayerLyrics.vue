@@ -3,6 +3,7 @@
     class="overflow-y-auto scroll"
     style="height: 520px"
     @mousewheel="mouseWheel"
+    v-intersect="onIntersect"
   >
     <v-col cols="12" class="text-center">
       <v-responsive height="160"></v-responsive>
@@ -28,7 +29,7 @@ export default {
     value: { type: Array, required: true },
   },
   data: () => ({
-    playitem: 0, // 指定正在播放的歌词
+    lyricIndex: 0, // 指定正在播放的歌词
     // 鼠标滚动了歌词
     scroll: {
       onMouse: false,
@@ -37,24 +38,30 @@ export default {
   }),
   watch: {
     // 滚动到指定歌词位置
-    playitem() {
+    lyricIndex() {
       setTimeout(() => {
         !this.scroll.onMouse && this.scrollGoto();
       }, 100);
     },
     // 根据播放进度指定滚动的位置
     playDt(newValue) {
-      for (let i = 0; i < this.value.length; i++) {
-        if (this.value[i].time <= newValue) {
-          this.playitem = i;
-        } else {
-          return;
-        }
-      }
+      // for (let i = 0; i < this.value.length; i++) {
+      //   if (this.value[i].time <= newValue) {
+      //     this.lyricIndex = i;
+      //   } else {
+      //     return;
+      //   }
+      // }
+      // 颠倒素组后查找满足条件的第一个对象索引值
+      const reverseIndex = [...this.value]
+        .reverse()
+        .findIndex((res) => res.time <= newValue);
+      this.lyricIndex =
+        reverseIndex === -1 ? 0 : this.value.length - reverseIndex - 1;
     },
     // 换歌回顶
     value() {
-      this.playitem = 0;
+      this.lyricIndex = 0;
     },
   },
   computed: {
@@ -65,7 +72,7 @@ export default {
   methods: {
     // 歌词滚动
     scrollGoto() {
-      this.$vuetify.goTo("#songlyrics_" + this.playitem, {
+      this.$vuetify.goTo("#songlyrics_" + this.lyricIndex, {
         container: ".scroll",
         duration: 400,
         offset: 132,
@@ -83,7 +90,7 @@ export default {
     },
     // 返回歌词样式
     lyricsStyle(params) {
-      let offset = Math.abs(params - this.playitem);
+      let offset = Math.abs(params - this.lyricIndex);
       switch (offset) {
         case 0:
           return { "font-size": "30px", color: "#6A1B9A" };
@@ -95,6 +102,10 @@ export default {
         default:
           return { opacity: 0.3 };
       }
+    },
+    // 播放界面显示,执行一次歌词滚动
+    onIntersect(entries) {
+      entries[0].isIntersecting && this.scrollGoto();
     },
   },
 };

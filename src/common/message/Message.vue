@@ -26,6 +26,7 @@ export default {
   data: () => ({
     isShow: false,
   }),
+  // 写在 created 中没有动画
   mounted() {
     this.isShow = true;
   },
