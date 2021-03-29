@@ -1,74 +1,77 @@
 <template>
-  <v-card elevation="0">
-    <!-- 标题 -->
-    <v-card-title class="d-flex align-end pt-0" id="tableHead">
-      <span class="blue--text text--lighten-1">
-        {{ '"' + title + '"' }}
-      </span>
-      <span
-        class="blue--text text--lighten-2 font-italic text-caption ml-4"
-        v-text="subtitle"
-      ></span>
-      <v-spacer></v-spacer>
-      <v-sheet width="200">
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          single-line
-          hide-details
-        ></v-text-field>
-      </v-sheet>
-    </v-card-title>
-    <!-- 表格 -->
-    <v-data-table
-      class="elevation-0"
-      :headers="headers"
-      :items="value"
-      item-key="count"
-      hide-default-footer
-      disable-sort
-      :search="search"
-      no-results-text="没有找到匹配项"
-      :items-per-page="itemsPerPage"
-      :page.sync="page"
-      @page-count="pageCount = $event"
-      :loading="loading"
-      fixed-header
-    >
-      <!-- header.btns插槽 -->
-      <template v-slot:header.btns>
-        <button-play
-          :id="value.map((res) => res.id)"
-          :disable="loading"
-          tip="播放所有"
-        />
-      </template>
-      <!-- item.count、item.btns插槽 -->
-      <template v-slot:item.count="{ item }">
-        <div>{{ value.indexOf(item) + 1 }}</div>
-      </template>
-      <template v-slot:item.btns="{ item }">
-        <div class="d-flex justify-end">
-          <button-delete v-if="own" :id="item.id" @success="delValueItem" />
-          <button-add v-else :id="item.id" />
-          <button-play :id="item.id" />
-        </div>
-      </template>
-    </v-data-table>
-    <!-- 分页按键 -->
-    <v-pagination
-      v-if="pageCount > 1"
-      v-model="page"
-      :length="pageCount"
-      :total-visible="7"
-      circle
-      color="blue lighten-2"
-      class="my-3"
-    ></v-pagination>
-  </v-card>
+  <v-data-table
+    class="elevation-0"
+    :headers="headers"
+    :items="value"
+    :item-class="playItemStyle"
+    hide-default-footer
+    disable-sort
+    :search="search"
+    no-results-text="没有找到匹配项"
+    :items-per-page="itemsPerPage"
+    :page.sync="page"
+    @page-count="pageCount = $event"
+    :loading="loading"
+    fixed-header
+  >
+    <!-- top插槽 -->
+    <template v-slot:top>
+      <div class="d-flex align-end pb-3 blue--text" id="tableTop">
+        <span class="text--lighten-1 text-h5">
+          {{ '"' + title + '"' }}
+        </span>
+        <span
+          class="text--lighten-2 font-italic text-caption ml-4"
+          v-text="subtitle"
+        ></span>
+        <v-spacer></v-spacer>
+        <v-sheet width="200">
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            single-line
+            hide-details
+          ></v-text-field>
+        </v-sheet>
+      </div>
+    </template>
+    <!-- header.btns插槽 -->
+    <template v-slot:header.btns>
+      <button-play
+        :id="value.map((res) => res.id)"
+        :disable="loading"
+        tip="播放所有"
+      />
+    </template>
+    <!-- item.count插槽 -->
+    <template v-slot:item.count="{ item }">
+      <div>{{ value.indexOf(item) + 1 }}</div>
+    </template>
+    <!-- item.btns插槽 -->
+    <template v-slot:item.btns="{ item }">
+      <div class="d-flex justify-end">
+        <button-delete v-if="own" :id="item.id" @success="delValueItem" />
+        <button-add v-else :id="item.id" />
+        <button-play :id="item.id" />
+      </div>
+    </template>
+    <!-- footer插槽 -->
+    <template v-slot:footer>
+      <v-pagination
+        v-if="pageCount > 1"
+        v-model="page"
+        :length="pageCount"
+        :total-visible="7"
+        circle
+        color="blue lighten-2"
+        class="my-3"
+      ></v-pagination>
+    </template>
+  </v-data-table>
 </template>
 
 <script>
+import { mapState } from "vuex";
 import ButtonDelete from "components/Button/ButtonDelete.vue";
 import ButtonPlay from "components/Button/ButtonPlay.vue";
 import ButtonAdd from "components/Button/ButtonAdd.vue";
@@ -104,6 +107,11 @@ export default {
       { text: "", align: "right", value: "btns" },
     ],
   }),
+  computed: {
+    ...mapState({
+      id: (state) => state.play.music.id,
+    }),
+  },
   watch: {
     /*
      * 到达最后一页时抛出事件
@@ -115,7 +123,7 @@ export default {
         this.$emit("pageEnd", this.pageCount);
       }
       // 换页滚动到表格顶部
-      this.$vuetify.goTo("#tableHead", {
+      this.$vuetify.goTo("#tableTop", {
         duration: 600, // 动画时长
         offset: 0, // 偏移
         easing: "easeOutQuad", // 动画
@@ -123,10 +131,21 @@ export default {
     },
   },
   methods: {
+    // 删除一项
     delValueItem(id) {
       const index = this.value.findIndex((res) => res.id === id);
       this.value.splice(index, 1);
     },
+    // 设置正在播放歌曲项的类
+    playItemStyle(params) {
+      return params.id === this.id ? "playItem" : "";
+    },
   },
 };
 </script>
+
+<style lang="scss">
+.playItem {
+  color: #e65100;
+}
+</style>

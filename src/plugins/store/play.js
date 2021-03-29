@@ -1,5 +1,5 @@
 const state = {
-  isplay: false, // 正在播放
+  isplay: true, // 正在播放
   isShow: false, // 显示侧边音乐按键
   music: {
     id: 0, // ID

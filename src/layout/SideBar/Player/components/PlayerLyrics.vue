@@ -93,7 +93,7 @@ export default {
       let offset = Math.abs(params - this.lyricIndex);
       switch (offset) {
         case 0:
-          return { "font-size": "30px", color: "#6A1B9A" };
+          return { "font-size": "25px", color: "#6A1B9A" };
         case 1:
         case 2:
         case 3:
@@ -105,7 +105,7 @@ export default {
     },
     // 播放界面显示,执行一次歌词滚动
     onIntersect(entries) {
-      entries[0].isIntersecting && this.scrollGoto();
+      entries[0].isIntersecting && this.value.length !== 0 && this.scrollGoto();
     },
   },
 };

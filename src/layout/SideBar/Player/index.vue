@@ -112,8 +112,10 @@ export default {
             this.lyrics = res;
           });
         } else {
-          this.$message({ text: "暂无版权,已跳过" });
-          this.next();
+          this.$http.song.play(this.id).then((res) => {
+            this.$message({ text: "〖 " + res.name + " 〗 暂无版权" });
+            this.next();
+          });
         }
       });
     },
