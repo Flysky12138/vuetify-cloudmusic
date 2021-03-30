@@ -50,7 +50,12 @@
     <!-- item.btns插槽 -->
     <template v-slot:item.btns="{ item }">
       <div class="d-flex justify-end">
-        <button-delete v-if="own" :id="item.id" @success="delValueItem" />
+        <button-delete
+          v-if="own"
+          :id="item.id"
+          :name="item.name"
+          @success="delValueItem"
+        />
         <button-add v-else :id="item.id" />
         <button-play :id="item.id" />
       </div>
@@ -146,6 +151,6 @@ export default {
 
 <style lang="scss">
 .playItem {
-  color: #d500f9;
+  color: #f4511e;
 }
 </style>

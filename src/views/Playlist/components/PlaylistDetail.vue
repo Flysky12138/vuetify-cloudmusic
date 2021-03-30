@@ -22,7 +22,13 @@
             <span> 播放：{{ value.playCount }} </span>
             <span class="mx-2"> 分享：{{ value.shareCount }} </span>
             <span> 收藏：{{ value.subscribedCount }} </span>
-            <v-btn icon x-small class="ml-1 mb-1" @click="subscribe">
+            <v-btn
+              v-if="value.userId !== uid"
+              icon
+              x-small
+              class="ml-1 mb-1"
+              @click="subscribe"
+            >
               <v-icon>
                 {{ value.subscribed ? "mdi-check" : "mdi-plus" }}
               </v-icon>
@@ -68,6 +74,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import ImageAvatar from "components/Image/ImageAvatar.vue";
 import ImageCover from "components/Image/ImageCover.vue";
 import SongChip from "components/Song/SongChip.vue";
@@ -81,6 +88,9 @@ export default {
     isShowBtn: false,
   }),
   computed: {
+    ...mapState({
+      uid: (state) => state.user.uid,
+    }),
     // 根据介绍文字长度返回文字
     getDescription() {
       if (this.value.description !== null) {
@@ -93,7 +103,7 @@ export default {
           return this.value.description;
         }
       } else {
-        return "无";
+        return "";
       }
     },
   },
