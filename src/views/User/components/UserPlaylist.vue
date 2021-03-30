@@ -51,7 +51,7 @@
     </v-card-title>
     <!-- 歌单卡片 -->
     <v-card-text
-      class="d-flex px-1 overflow-x-auto"
+      class="d-flex px-1 overflow-x-auto scroll"
       ref="songCard"
       @mousewheel="mouseWheel"
     >
@@ -105,19 +105,14 @@ export default {
     },
     // 使用鼠标滚轮横向滚动
     mouseWheel(event) {
-      // 滚到到头或尾可上或下滚动页面
-      /* const scrollLeft = this.$refs.songCard.scrollLeft;
+      // const scrollLeft = this.$refs.songCard.scrollLeft;
       const clientWidth = this.$refs.songCard.clientWidth;
       const scrollWidth = this.$refs.songCard.scrollWidth;
-      if (
-        // 向上
-        (event.deltaY < 0 && scrollLeft !== 0) ||
-        // 向下
-        (event.deltaY > 0 && scrollLeft + clientWidth + 2 < scrollWidth)
-      ) {
+      // 可滑动
+      if (clientWidth !== scrollWidth) {
         event.preventDefault();
         this.$refs.songCard.scrollLeft += event.deltaY;
-      } */
+      }
     },
   },
 };
