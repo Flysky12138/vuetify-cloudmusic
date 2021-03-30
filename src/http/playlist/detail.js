@@ -12,12 +12,14 @@ function detail(id) {
       })
       .then(response => {
         resolve({
+          id: response.playlist.id,
           coverImgUrl: response.playlist.coverImgUrl,
           createTime: time.date(response.playlist.createTime),
           description: response.playlist.description,
           name: response.playlist.name,
           playCount: response.playlist.playCount,
           shareCount: response.playlist.shareCount,
+          subscribed: response.playlist.subscribed,
           subscribedCount: response.playlist.subscribedCount,
           tags: response.playlist.tags,
           trackIds: response.playlist.trackIds.map(res => res.id),

@@ -22,6 +22,11 @@
             <span> 播放：{{ value.playCount }} </span>
             <span class="mx-2"> 分享：{{ value.shareCount }} </span>
             <span> 收藏：{{ value.subscribedCount }} </span>
+            <v-btn icon x-small class="ml-1 mb-1" @click="subscribe">
+              <v-icon>
+                {{ value.subscribed ? "mdi-check" : "mdi-plus" }}
+              </v-icon>
+            </v-btn>
           </span>
         </v-col>
         <!-- 标签 行 -->
@@ -37,8 +42,7 @@
         <!-- 介绍 行 -->
         <v-col cols="12" class="pb-0 text-subtitle-2">
           <div style="white-space: pre-wrap">
-            <span>介绍：</span>
-            {{ getDescription() }}
+            <span>介绍：{{ getDescription }}</span>
             <v-btn
               v-if="isShowBtn"
               text
@@ -76,7 +80,7 @@ export default {
     showAllDescription: false,
     isShowBtn: false,
   }),
-  methods: {
+  computed: {
     // 根据介绍文字长度返回文字
     getDescription() {
       if (this.value.description !== null) {
@@ -91,6 +95,16 @@ export default {
       } else {
         return "无";
       }
+    },
+  },
+  methods: {
+    // 收藏/取消收藏歌单
+    subscribe() {
+      this.$http.playlist
+        .subscribe(this.value.id, !this.value.subscribed)
+        .then(() => {
+          this.value.subscribed = !this.value.subscribed;
+        });
     },
   },
 };
