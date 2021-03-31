@@ -24,10 +24,6 @@ export default {
   }),
   created() {
     this.volume = this.vuexVolume;
-    // 添加延迟,因为volume改变会改变muted的值
-    setTimeout(() => {
-      this.muted = this.vuexMuted;
-    }, 200);
   },
   watch: {
     volume(newValue) {

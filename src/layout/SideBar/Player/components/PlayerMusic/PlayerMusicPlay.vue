@@ -26,6 +26,22 @@
 import { mapState, mapMutations } from "vuex";
 export default {
   data: () => ({}),
+  created() {
+    // 快捷按键播放调整
+    document.onkeydown = (event) => {
+      switch (event.code) {
+        case "ArrowLeft":
+          this.previous();
+          break;
+        case "ArrowRight":
+          this.next();
+          break;
+        case "Space":
+          this.isplay ? this.pause() : this.play();
+          break;
+      }
+    };
+  },
   computed: {
     ...mapState({
       isplay: (state) => state.play.isplay,
