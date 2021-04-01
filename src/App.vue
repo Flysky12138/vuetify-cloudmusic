@@ -28,11 +28,7 @@
     <template v-else>
       <v-container class="fill-height">
         <strong class="mx-auto text-center">
-          非 PC 端
-          <br />&amp;<br />
-          width &lt; 960px
-          <br /><br />
-          未适配，不允显示
+          非 PC 端<br />&amp;<br />width &lt; 960px<br /><br />未适配，不允显示
         </strong>
       </v-container>
     </template>
