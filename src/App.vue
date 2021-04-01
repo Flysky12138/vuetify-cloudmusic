@@ -7,9 +7,7 @@
         :color="$vuetify.theme.isDark ? '' : 'white'"
         elevate-on-scroll
       >
-        <v-container>
-          <app-bar />
-        </v-container>
+        <app-bar />
       </v-app-bar>
       <!-- 路由显示区 -->
       <v-main :class="$vuetify.theme.isDark ? '' : 'grey lighten-3'">
@@ -28,12 +26,14 @@
       <side-bar />
     </template>
     <template v-else>
-      <v-container class="flex-column justify-center fill-height">
-        <strong>非 PC 端</strong>
-        <strong>&amp;</strong>
-        <strong>width &lt; 960px</strong>
-        <br />
-        <strong>未适配，不允显示</strong>
+      <v-container class="fill-height">
+        <strong class="mx-auto text-center">
+          非 PC 端
+          <br />&amp;<br />
+          width &lt; 960px
+          <br /><br />
+          未适配，不允显示
+        </strong>
       </v-container>
     </template>
   </v-app>

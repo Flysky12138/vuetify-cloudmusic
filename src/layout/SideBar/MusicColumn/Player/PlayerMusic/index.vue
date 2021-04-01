@@ -5,8 +5,7 @@
       <v-col cols="8" class="pb-0">
         <v-img
           :src="value.picUrl"
-          min-height="300"
-          max-width="400"
+          max-width="80%"
           class="rounded-lg mx-auto"
         ></v-img>
         <div
@@ -19,10 +18,10 @@
         ></div>
       </v-col>
       <!-- 按键 -->
-      <v-col cols="9">
+      <v-col cols="8">
         <div
           class="d-flex justify-space-between align-center pt-3 mx-auto"
-          style="max-width: 400px"
+          style="max-width: 80%; min-width: 300px"
         >
           <!-- 左边 -->
           <div>
@@ -37,7 +36,6 @@
           <div>
             <player-music-sound />
             <player-music-mode />
-            <!-- <player-music-lists /> -->
           </div>
         </div>
       </v-col>
@@ -76,7 +74,6 @@ import ButtonLove from "components/Button/ButtonLove.vue";
 import PlayerMusicPlay from "./PlayerMusicPlay.vue";
 import PlayerMusicSound from "./PlayerMusicSound.vue";
 import PlayerMusicMode from "./PlayerMusicMode.vue";
-import PlayerMusicLists from "./PlayerMusicLists.vue";
 export default {
   components: {
     ButtonAdd,
@@ -84,7 +81,6 @@ export default {
     PlayerMusicPlay,
     PlayerMusicSound,
     PlayerMusicMode,
-    PlayerMusicLists,
   },
   props: {
     value: { type: Object, required: true },

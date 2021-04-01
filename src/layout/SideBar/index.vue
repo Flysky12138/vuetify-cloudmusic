@@ -15,7 +15,7 @@
 
 <script>
 import { mapState } from "vuex";
-import MusicColumn from "./MusicColumn.vue";
+import MusicColumn from "./MusicColumn";
 import GoTop from "./GoTop.vue";
 export default {
   components: { MusicColumn, GoTop },

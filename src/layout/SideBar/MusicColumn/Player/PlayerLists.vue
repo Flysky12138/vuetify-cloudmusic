@@ -1,15 +1,11 @@
 <template>
   <v-menu
     v-model="isopen"
-    offset-y
-    top
-    left
-    nudge-top="10"
     :close-on-content-click="false"
-    transition="slide-y-transition"
+    transition="slide-x-transition"
   >
     <template v-slot:activator="{ on, attrs }">
-      <v-btn v-bind="attrs" v-on="on" icon @click="openGoto">
+      <v-btn v-bind="attrs" v-on="on" icon large tile @click="openGoto">
         <v-icon>mdi-playlist-music</v-icon>
       </v-btn>
     </template>

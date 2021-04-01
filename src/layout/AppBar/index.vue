@@ -1,12 +1,12 @@
 <template>
-  <div class="d-flex align-center">
+  <v-container class="d-flex align-center">
     <!-- 按键 -->
     <button-router />
     <!-- 搜索框 -->
     <search />
     <!-- 头像 -->
     <avatar class="ml-6" />
-  </div>
+  </v-container>
 </template>
 
 <script>

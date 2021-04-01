@@ -8,10 +8,14 @@
     <v-img class="bg" :src="music.picUrl"></v-img>
     <!-- 内容 -->
     <v-card elevation="0" height="100%" color="transparent">
-      <!-- 关闭页面按键 -->
-      <v-btn @click="$emit('close')" class="mt-2" icon absolute right>
-        <v-icon>mdi-chevron-down</v-icon>
+      <!-- 右上关闭页面按键 -->
+      <v-btn @click="$emit('close')" class="mr-n3" large icon absolute right>
+        <v-icon large>mdi-chevron-down</v-icon>
       </v-btn>
+      <!-- 右下播放列表按键 -->
+      <div style="position: absolute; bottom: 0">
+        <!-- <player-lists /> -->
+      </div>
       <v-row class="ma-0" align="center" style="height: 100%">
         <!-- 播放 -->
         <v-col cols="6">
@@ -43,11 +47,12 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
-import PlayerMusic from "./components/PlayerMusic";
-import PlayerLyrics from "./components/PlayerLyrics.vue";
-import PlayerComment from "./components/PlayerComment.vue";
+import PlayerLists from "./PlayerLists.vue";
+import PlayerMusic from "./PlayerMusic";
+import PlayerLyrics from "./PlayerLyrics.vue";
+import PlayerComment from "./PlayerComment.vue";
 export default {
-  components: { PlayerMusic, PlayerLyrics, PlayerComment },
+  components: { PlayerLists, PlayerMusic, PlayerLyrics, PlayerComment },
   data: () => ({
     music: { id: 0, picUrl: "", name: "", artists: "", duration: 0 },
     url: "",
