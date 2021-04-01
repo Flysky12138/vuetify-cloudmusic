@@ -3,6 +3,7 @@ const state = {
   isShow: false, // 显示侧边音乐按键
   music: {
     id: 0, // ID
+    listsIndex: 0, // 在lists数组中的位置
     dt: 0 // 播放进度
   },
   lists: [], // 默认播放列表ID
@@ -36,6 +37,7 @@ const mutations = {
       ];
     }
     state.music.id = state.random ? state.randomlists[0] : state.lists[0];
+    state.music.listsIndex = 0;
     state.isShow = true;
   },
   // 播放方式
@@ -57,27 +59,23 @@ const mutations = {
   },
   // 上一首
   previous(state) {
-    if (state.random) {
-      let index = state.randomlists.indexOf(state.music.id);
-      index = (index + state.randomlists.length - 1) % state.randomlists.length;
-      state.music.id = state.randomlists[index];
-    } else {
-      let index = state.lists.indexOf(state.music.id);
-      index = (index + state.lists.length - 1) % state.lists.length;
-      state.music.id = state.lists[index];
-    }
+    const arr = state.random ? state.randomlists : state.lists;
+    const index = (arr.indexOf(state.music.id) + arr.length - 1) % arr.length;
+    state.music.id = arr[index];
+    state.music.listsIndex = state.lists.indexOf(state.music.id);
   },
   // 下一首
   next(state) {
-    if (state.random) {
-      let index = state.randomlists.indexOf(state.music.id);
-      index = (index + 1) % state.randomlists.length;
-      state.music.id = state.randomlists[index];
-    } else {
-      let index = state.lists.indexOf(state.music.id);
-      index = (index + 1) % state.lists.length;
-      state.music.id = state.lists[index];
-    }
+    const arr = state.random ? state.randomlists : state.lists;
+    const index = (arr.indexOf(state.music.id) + 1) % arr.length;
+    state.music.id = arr[index];
+    state.music.listsIndex = state.lists.indexOf(state.music.id);
+  },
+  // 传入播放音乐的ID
+  playMusicId(state, id) {
+    state.music.id = id;
+    state.music.listsIndex = state.lists.indexOf(id);
+    state.music.dt = 0;
   },
   // 存放当前播放进度
   setPlayDt(state, params) {

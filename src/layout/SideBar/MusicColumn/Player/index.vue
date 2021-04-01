@@ -9,12 +9,12 @@
     <!-- 内容 -->
     <v-card elevation="0" height="100%" color="transparent">
       <!-- 右上关闭页面按键 -->
-      <v-btn @click="$emit('close')" class="mr-n3" large icon absolute right>
+      <v-btn @click="$emit('close')" class="mt-3" large icon absolute right>
         <v-icon large>mdi-chevron-down</v-icon>
       </v-btn>
-      <!-- 右下播放列表按键 -->
+      <!-- 左下播放列表按键 -->
       <div style="position: absolute; bottom: 0">
-        <!-- <player-lists /> -->
+        <player-lists />
       </div>
       <v-row class="ma-0" align="center" style="height: 100%">
         <!-- 播放 -->

@@ -14,7 +14,7 @@
           <v-icon class="audio">mdi-music-clef-treble</v-icon>
         </v-btn>
       </template>
-      <v-card tile>
+      <v-card tile dark>
         <player @close="dialog = false" />
       </v-card>
     </v-dialog>

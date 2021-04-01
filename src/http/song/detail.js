@@ -17,7 +17,7 @@ function once(ids) {
             name: element.name,
             duration: time.song(element.dt),
             artists: element.ar.map(res => res.name).join(" / "),
-            album: "《" + element.al.name + "》"
+            album: element.al.name ? "《" + element.al.name + "》" : ""
           });
         });
         resolve(arr);
