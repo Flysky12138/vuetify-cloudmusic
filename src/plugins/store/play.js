@@ -79,7 +79,6 @@ const mutations = {
   setlistsIndex(state, index) {
     state.music.id = state.lists[index].id;
     state.music.listsIndex = index;
-    state.music.dt = 0;
   },
   // 存放当前播放进度
   setPlayDt(state, params) {

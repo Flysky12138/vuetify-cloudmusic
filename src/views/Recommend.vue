@@ -26,7 +26,7 @@ export default {
   created() {
     this.loading = true;
     this.title = time.nowDate() + this.title;
-    this.$http.song.recommend().then((res) => {
+    this.$http.playlist.recommend().then((res) => {
       this.subtitle = res.length;
       this.value = res;
       this.itemsPerPage = res.length;

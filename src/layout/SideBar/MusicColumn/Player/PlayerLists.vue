@@ -2,6 +2,7 @@
   <v-menu
     :close-on-content-click="false"
     open-on-hover
+    close-delay="100"
     transition="slide-x-transition"
     dark
   >
