@@ -37,11 +37,7 @@
     </template>
     <!-- header.btns插槽 -->
     <template v-slot:header.btns>
-      <button-play
-        :id="value.map((res) => res.id)"
-        :disable="loading"
-        tip="播放所有"
-      />
+      <button-play :value="value" :disable="loading" tip="播放所有" />
     </template>
     <!-- item.count插槽 -->
     <template v-slot:item.count="{ item }">
@@ -57,7 +53,7 @@
           @success="delValueItem"
         />
         <button-add v-else :id="item.id" />
-        <button-play :id="item.id" />
+        <button-play :value="[item]" />
       </div>
     </template>
     <!-- footer插槽 -->

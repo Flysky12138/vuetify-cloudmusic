@@ -1,7 +1,7 @@
 <template>
   <v-menu
     :close-on-content-click="false"
-    :open-on-hover="listsDetail.length"
+    open-on-hover
     transition="slide-x-transition"
     dark
   >
@@ -26,14 +26,15 @@
       <v-list dense>
         <v-list-item-group :value="listsIndex" color="primary">
           <v-list-item
-            v-for="(item, index) in listsDetail"
+            v-for="(item, index) in lists"
             :key="item.id"
             :id="'songlist_' + index"
-            @click="playMusicId(item.id)"
+            @click="setlistsIndex(index)"
           >
-            <v-list-item-title class="font-weight-bold">
-              {{ item.name }}
-            </v-list-item-title>
+            <v-list-item-title
+              class="font-weight-bold"
+              v-text="item.name"
+            ></v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -44,15 +45,7 @@
 <script>
 import { mapState, mapMutations } from "vuex";
 export default {
-  data: () => ({
-    listsDetail: [],
-  }),
-  created() {
-    this.getSongDetail();
-  },
-  watch: {
-    lists: "getSongDetail",
-  },
+  data: () => ({}),
   computed: {
     ...mapState({
       // 音乐ID数组列表
@@ -62,7 +55,7 @@ export default {
     }),
   },
   methods: {
-    ...mapMutations(["playMusicId"]),
+    ...mapMutations(["setlistsIndex"]),
     // 打开菜单后滚动定位
     openGoto() {
       setTimeout(() => {
@@ -72,13 +65,7 @@ export default {
           offset: -55,
           easing: "easeOutQuad",
         });
-      }, 150);
-    },
-    // 获取播放列表歌曲详情
-    getSongDetail() {
-      this.$http.song.detail(this.lists).then((res) => {
-        this.listsDetail = res;
-      });
+      }, 120);
     },
   },
 };
