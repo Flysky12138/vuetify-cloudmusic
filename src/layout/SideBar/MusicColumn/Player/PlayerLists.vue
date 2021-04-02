@@ -25,7 +25,7 @@
       style="opacity: 0.8"
     >
       <v-list dense>
-        <v-list-item-group :value="index" color="primary">
+        <v-list-item-group v-model="index" color="primary">
           <v-list-item
             v-for="(item, index) in lists"
             :key="item.id"
