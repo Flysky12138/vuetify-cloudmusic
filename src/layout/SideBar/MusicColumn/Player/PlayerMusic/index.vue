@@ -44,7 +44,7 @@
         <v-slider
           v-model="dt"
           min="0"
-          :max="value.duration"
+          :max="value.dt"
           hide-details
           color="purple darken-3"
           track-color="purple lighten-3"
@@ -58,7 +58,7 @@
             <span class="mt-1">{{ songTime(dt) }}</span>
           </template>
           <template v-slot:append>
-            <span class="mt-1">{{ songTime(value.duration) }}</span>
+            <span class="mt-1">{{ songTime(value.dt) }}</span>
           </template>
         </v-slider>
       </v-col>
@@ -97,7 +97,7 @@ export default {
   },
   computed: {
     ...mapState({
-      playDt: (state) => state.play.music.dt, // 当前播放音乐进度
+      playDt: (state) => state.play.dt, // 当前播放音乐进度
     }),
   },
   methods: {

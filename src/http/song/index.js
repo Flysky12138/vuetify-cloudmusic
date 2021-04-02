@@ -4,7 +4,7 @@ import like from "./like";
 import likelist from "./likelist";
 import lyric from "./lyric";
 import search from "./search";
-import play from "./play";
+import url from "./url";
 
 export default {
   check,
@@ -13,5 +13,5 @@ export default {
   likelist,
   lyric,
   search,
-  play
+  url
 };

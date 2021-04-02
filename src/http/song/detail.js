@@ -15,9 +15,12 @@ function once(ids) {
           arr.push({
             id: element.id,
             name: element.name,
-            duration: time.song(element.dt),
+            picUrl: element.al.picUrl,
             artists: element.ar.map(res => res.name).join(" / "),
-            album: element.al.name ? "《" + element.al.name + "》" : ""
+            album: element.al.name ? "《" + element.al.name + "》" : "",
+            dt: element.dt,
+            duration: time.song(element.dt),
+            mv: element.mv
           });
         });
         resolve(arr);

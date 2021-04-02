@@ -52,7 +52,7 @@ export default {
       // 音乐ID数组列表
       lists: (state) => state.play.lists,
       // 正在播放的歌曲ID在lists数组中的下标
-      listsIndex: (state) => state.play.music.listsIndex,
+      listsIndex: (state) => state.play.listsIndex,
     }),
   },
   methods: {

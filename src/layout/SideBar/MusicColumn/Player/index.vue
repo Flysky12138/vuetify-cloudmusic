@@ -54,7 +54,6 @@ import PlayerComment from "./PlayerComment.vue";
 export default {
   components: { PlayerLists, PlayerMusic, PlayerLyrics, PlayerComment },
   data: () => ({
-    music: { id: 0, picUrl: "", name: "", artists: "", duration: 0 },
     url: "",
     lyrics: [],
     dtOffset: 0, // 歌曲播放的时间偏移量,部分歌曲(VIP,未登录)只会截取一段返回
@@ -63,17 +62,17 @@ export default {
     this.getMusicDetail();
   },
   mounted() {
-    this.$refs.audio.volume = this.volume / 100;
+    this.$refs.audio.volume = this.volume / 10;
   },
   watch: {
-    id: "getMusicDetail",
+    music: "getMusicDetail",
     // 播放、暂定
     isplay(newValue) {
       newValue ? this.$refs.audio.play() : this.$refs.audio.pause();
     },
     // 音量
     volume(newValue) {
-      this.$refs.audio.volume = newValue / 100;
+      this.$refs.audio.volume = newValue / 10;
     },
     // 静音
     muted(newValue) {
@@ -82,7 +81,7 @@ export default {
   },
   computed: {
     ...mapState({
-      id: (state) => state.play.music.id,
+      music: (state) => state.play.music,
       isplay: (state) => state.play.isplay,
       volume: (state) => state.play.volume,
       muted: (state) => state.play.muted,
@@ -102,25 +101,20 @@ export default {
     // 获取播放歌曲、歌词信息
     getMusicDetail() {
       this.dtOffset = 0;
-      this.$http.song.check(this.id).then((res) => {
+      this.url = "";
+      this.lyrics = [{ lyric: "加载歌词中" }];
+      this.$http.song.check(this.music.id).then((res) => {
         if (res) {
-          this.$http.song.play(this.id).then((res) => {
-            this.music.id = res.id;
-            this.music.picUrl = res.picUrl;
-            this.music.name = res.name;
-            this.music.artists = res.artists;
-            this.music.duration = res.duration;
+          this.$http.song.url(this.music.id).then((res) => {
             this.url = res.url;
             res.freeTrialInfo && (this.dtOffset = res.freeTrialInfo.start);
           });
-          this.$http.song.lyric(this.id).then((res) => {
+          this.$http.song.lyric(this.music.id).then((res) => {
             this.lyrics = res;
           });
         } else {
-          this.$http.song.play(this.id).then((res) => {
-            this.$message({ text: "〖 " + res.name + " 〗 暂无版权" });
-            this.next();
-          });
+          this.$message({ text: "〖 " + this.music.name + " 〗 暂无版权" });
+          this.next();
         }
       });
     },

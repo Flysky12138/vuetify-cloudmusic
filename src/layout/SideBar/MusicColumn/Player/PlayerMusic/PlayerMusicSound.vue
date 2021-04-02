@@ -19,7 +19,7 @@
 import { mapState, mapMutations } from "vuex";
 export default {
   data: () => ({
-    volume: 0, // 音量
+    volume: 0, // 音量 0-10
     muted: false, // 静音
   }),
   created() {
@@ -42,10 +42,10 @@ export default {
   methods: {
     ...mapMutations(["setVolume", "setMuted"]),
     mouseWheel(event) {
-      if (event.deltaY < 0 && this.volume < 100) {
-        this.volume += 5;
+      if (event.deltaY < 0 && this.volume < 10) {
+        this.volume++;
       } else if (event.deltaY > 0 && this.volume > 0) {
-        this.volume -= 5;
+        this.volume--;
       }
     },
   },

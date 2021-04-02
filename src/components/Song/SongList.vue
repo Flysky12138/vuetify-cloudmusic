@@ -83,9 +83,7 @@ export default {
     title: { type: String, required: true },
     // 描述
     subtitle: { type: [Number, String], required: true },
-    // 内容
-    // @params Array
-    // { album:String, artists:String, duration:String, id:Number, name:String }[,{...}]
+    // 每一项包含歌曲详情
     value: { type: Array, required: true },
     // 单页显示列表数
     itemsPerPage: { type: Number, default: 9 },

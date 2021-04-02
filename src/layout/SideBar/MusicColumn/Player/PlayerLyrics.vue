@@ -45,13 +45,6 @@ export default {
     },
     // 根据播放进度指定滚动的位置
     playDt(newValue) {
-      // for (let i = 0; i < this.value.length; i++) {
-      //   if (this.value[i].time <= newValue) {
-      //     this.lyricIndex = i;
-      //   } else {
-      //     return;
-      //   }
-      // }
       // 颠倒素组后查找满足条件的第一个对象索引值
       const reverseIndex = [...this.value]
         .reverse()
@@ -66,7 +59,7 @@ export default {
   },
   computed: {
     ...mapState({
-      playDt: (state) => state.play.music.dt, // 当前音乐播放进度
+      playDt: (state) => state.play.dt, // 当前音乐播放进度
     }),
   },
   methods: {
