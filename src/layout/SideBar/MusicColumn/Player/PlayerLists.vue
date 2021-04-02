@@ -10,7 +10,7 @@
       <v-responsive
         v-bind="attrs"
         v-on="on"
-        width="30"
+        width="40"
         :aspect-ratio="16 / 9"
         @mouseenter="openGoto"
       ></v-responsive>
@@ -25,12 +25,12 @@
       style="opacity: 0.8"
     >
       <v-list dense>
-        <v-list-item-group :value="listsIndex" color="primary">
+        <v-list-item-group :value="index" color="primary">
           <v-list-item
             v-for="(item, index) in lists"
             :key="item.id"
             :id="'songlist_' + index"
-            @click="setlistsIndex(index)"
+            @click="chooseMusicPlay(index)"
           >
             <v-list-item-title
               class="font-weight-bold"
@@ -46,21 +46,24 @@
 <script>
 import { mapState, mapMutations } from "vuex";
 export default {
-  data: () => ({}),
+  data: () => ({
+    index: 0,
+  }),
   computed: {
     ...mapState({
-      // 音乐ID数组列表
+      // 正在播放的歌曲
+      music: (state) => state.play.music,
+      // 音乐列表
       lists: (state) => state.play.lists,
-      // 正在播放的歌曲ID在lists数组中的下标
-      listsIndex: (state) => state.play.listsIndex,
     }),
   },
   methods: {
-    ...mapMutations(["setlistsIndex"]),
+    ...mapMutations(["chooseMusicPlay"]),
     // 打开菜单后滚动定位
     openGoto() {
+      this.index = this.lists.indexOf(this.music);
       setTimeout(() => {
-        this.$vuetify.goTo("#songlist_" + this.listsIndex, {
+        this.$vuetify.goTo("#songlist_" + this.index, {
           container: "#songlist_card",
           duration: 400,
           offset: -55,

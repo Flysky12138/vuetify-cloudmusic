@@ -2,7 +2,6 @@ const state = {
   isplay: true, // 正在播放
   isShow: false, // 显示侧边音乐按键
   music: {}, // 存放正在播放音乐的信息
-  listsIndex: 0, // 正在播放音乐在lists数组中的位置
   dt: 0, // 播放进度
   lists: [], // 默认播放列表
   randomlists: [], // 随机播放列表
@@ -34,7 +33,6 @@ const mutations = {
       ];
     }
     state.music = state.random ? state.randomlists[0] : state.lists[0];
-    state.listsIndex = 0;
     state.isShow = true;
   },
   // 播放方式
@@ -58,18 +56,15 @@ const mutations = {
   previous(state) {
     const arr = state.random ? state.randomlists : state.lists;
     state.music = arr[(arr.indexOf(state.music) + arr.length - 1) % arr.length];
-    state.listsIndex = state.lists.indexOf(state.music);
   },
   // 下一首
   next(state) {
     const arr = state.random ? state.randomlists : state.lists;
     state.music = arr[(arr.indexOf(state.music) + 1) % arr.length];
-    state.listsIndex = state.lists.indexOf(state.music);
   },
   // 选择播放的音乐
-  setlistsIndex(state, index) {
+  chooseMusicPlay(state, index) {
     state.music = state.lists[index];
-    state.listsIndex = index;
   },
   // 存放当前播放进度
   setPlayDt(state, params) {

@@ -102,7 +102,7 @@ export default {
     getMusicDetail() {
       this.dtOffset = 0;
       this.url = "";
-      this.lyrics = [{ lyric: "加载歌词中" }];
+      this.lyrics = [{ lyric: "歌词加载中" }];
       this.$http.song.check(this.music.id).then((res) => {
         if (res) {
           this.$http.song.url(this.music.id).then((res) => {
