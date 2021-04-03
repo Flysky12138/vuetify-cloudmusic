@@ -54,9 +54,9 @@ import PlayerComment from "./PlayerComment.vue";
 export default {
   components: { PlayerLists, PlayerMusic, PlayerLyrics, PlayerComment },
   data: () => ({
-    url: "",
-    lyrics: [],
-    dtOffset: 0, // 歌曲播放的时间偏移量,部分歌曲(VIP,未登录)只会截取一段返回
+    url: "", // 歌曲地址
+    lyrics: [], // 歌词
+    dtOffset: 0, // 歌曲播放的时间偏移量,因为部分歌曲(VIP,未登录)只会截取一段返回
   }),
   created() {
     this.getMusicDetail();
@@ -98,10 +98,10 @@ export default {
     changeDt(res) {
       this.$refs.audio.currentTime = Math.floor(res / 1000);
     },
-    // 获取播放歌曲、歌词信息
+    // 获取播放歌曲、歌词等信息
     getMusicDetail() {
       this.dtOffset = 0;
-      this.url = "";
+      this.url = ""; // 清空使歌曲停止播放
       this.lyrics = [{ lyric: "歌词加载中" }];
       this.$http.song.check(this.music.id).then((res) => {
         if (res) {

@@ -1,6 +1,6 @@
 <template>
   <v-row
-    class="overflow-y-auto scroll"
+    class="overflow-y-auto scroll lyricsScroll"
     style="height: 520px"
     @mousewheel="mouseWheel"
     v-intersect="onIntersect"
@@ -52,10 +52,6 @@ export default {
       this.lyricIndex =
         reverseIndex === -1 ? 0 : this.value.length - reverseIndex - 1;
     },
-    // 换歌回顶
-    value() {
-      this.lyricIndex = 0;
-    },
   },
   computed: {
     ...mapState({
@@ -66,7 +62,7 @@ export default {
     // 歌词滚动
     scrollGoto() {
       this.$vuetify.goTo("#songlyrics_" + this.lyricIndex, {
-        container: ".scroll",
+        container: ".lyricsScroll",
         duration: 400,
         offset: 132,
         easing: "easeOutQuad",

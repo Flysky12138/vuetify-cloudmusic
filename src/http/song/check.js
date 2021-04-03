@@ -10,7 +10,7 @@ function check(id) {
         }
       })
       .then(response => {
-        resolve(response.success);
+        resolve(response ? true : false);
       })
       .catch(error => reject(error));
   });

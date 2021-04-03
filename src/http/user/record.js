@@ -1,4 +1,5 @@
 import axios from "../api";
+import time from "common/time";
 
 // 获取用户播放记录
 function record(uid, type) {
@@ -21,9 +22,15 @@ function record(uid, type) {
               playCount: element.playCount === 0 ? "-" : element.playCount,
               score: element.score,
               song: {
-                name: element.song.name,
                 id: element.song.id,
-                artists: element.song.ar.map(res => res.name).join(" / ")
+                name: element.song.name,
+                picUrl: element.song.al.picUrl,
+                artists: element.song.ar.map(res => res.name).join(" / "),
+                album: element.song.al.name
+                  ? "《" + element.song.al.name + "》"
+                  : "",
+                dt: element.song.dt,
+                duration: time.song(element.song.dt)
               }
             });
           });

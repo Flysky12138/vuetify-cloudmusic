@@ -142,9 +142,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.playItem {
-  color: #f4511e;
-}
-</style>

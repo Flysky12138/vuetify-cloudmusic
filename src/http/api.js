@@ -55,7 +55,7 @@ axios.interceptors.request.use(
 // 响应拦截器
 axios.defaults.validateStatus = status => {
   // 自定义响应成功的HTTP状态码
-  return /^(2|3|5)\d{2}|404$/.test(status);
+  return /^(2|3|5)\d{2}$/.test(status);
 };
 axios.interceptors.response.use(
   response => {

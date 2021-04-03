@@ -87,4 +87,8 @@ html {
     display: none; // Chrome,Safari
   }
 }
+// 正在播放歌曲项的样式
+.playItem {
+  color: #f4511e;
+}
 </style>

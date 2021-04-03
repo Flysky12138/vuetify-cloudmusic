@@ -21,6 +21,7 @@
         <v-data-table
           :headers="headers"
           :items="value"
+          :item-class="playItemStyle"
           hide-default-footer
           class="elevation-0"
           :loading="loading"
@@ -31,11 +32,11 @@
         >
           <!-- header.btns插槽 -->
           <template v-slot:header.btns>
-            <button-play :id="value.map((res) => res.song.id)" tip="播放所有" />
+            <button-play :value="value.map((res) => res.song)" tip="播放所有" />
           </template>
           <!-- item.btns插槽 -->
           <template v-slot:item.btns="{ item }">
-            <button-play :id="item.song.id" />
+            <button-play :value="[item.song]" />
           </template>
         </v-data-table>
       </v-tab-item>
@@ -44,6 +45,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import ButtonPlay from "components/Button/ButtonPlay.vue";
 export default {
   components: { ButtonPlay },
@@ -61,5 +63,16 @@ export default {
       { text: "", align: "end", value: "btns" },
     ],
   }),
+  computed: {
+    ...mapState({
+      id: (state) => state.play.music.id,
+    }),
+  },
+  methods: {
+    // 设置正在播放歌曲项的类
+    playItemStyle(params) {
+      return params.song.id === this.id ? "playItem" : "";
+    },
+  },
 };
 </script>
