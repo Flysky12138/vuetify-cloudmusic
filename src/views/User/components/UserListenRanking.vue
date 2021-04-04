@@ -32,11 +32,11 @@
         >
           <!-- header.btns插槽 -->
           <template v-slot:header.btns>
-            <button-play :value="value.map((res) => res.song)" tip="播放所有" />
+            <button-play :id="value.map((res) => res.song.id)" tip="播放所有" />
           </template>
           <!-- item.btns插槽 -->
           <template v-slot:item.btns="{ item }">
-            <button-play :value="[item.song]" />
+            <button-play :id="[item.song.id]" />
           </template>
         </v-data-table>
       </v-tab-item>

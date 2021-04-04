@@ -1,7 +1,9 @@
+import http from "@/http";
+
 const state = {
   isplay: true, // 正在播放
   isShow: false, // 显示侧边音乐按键
-  music: {}, // 存放正在播放音乐的信息
+  music: {}, // 正在播放音乐的信息
   dt: 0, // 播放进度
   lists: [], // 默认播放列表
   randomlists: [], // 随机播放列表
@@ -20,13 +22,11 @@ const state = {
 };
 
 const mutations = {
-  // 添加歌曲到列表
-  addPlay(state, params) {
-    // lists 赋值
+  // 添加歌曲信息到列表
+  musicDetail(state, params) {
     state.lists = [...params];
-    // randomlists 赋值
     for (let i = 1; i < state.lists.length; i++) {
-      const ran = Math.floor(Math.random() * (i + 1));
+      const ran = Math.floor(Math.random() * (i + 1)); // [0,i]
       [state.randomlists[i], state.randomlists[ran]] = [
         state.lists[ran],
         state.lists[i]
@@ -92,8 +92,19 @@ const mutations = {
   }
 };
 
+const actions = {
+  // 传入ID数组，获取歌曲信息
+  addID({ commit }, ids) {
+    state.isShow = false;
+    http.song.detail(ids).then(res => {
+      commit("musicDetail", res);
+    });
+  }
+};
+
 export default {
   namespaced: false,
   state,
-  mutations
+  mutations,
+  actions
 };

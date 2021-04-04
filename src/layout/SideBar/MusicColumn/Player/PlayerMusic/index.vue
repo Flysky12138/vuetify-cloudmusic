@@ -4,17 +4,17 @@
       <!-- 封面、歌曲名、歌手 -->
       <v-col cols="8" class="pb-0">
         <v-img
-          :src="value.picUrl"
+          :src="music.picUrl"
           max-width="80%"
           class="rounded-lg mx-auto"
         ></v-img>
         <div
           class="text-center font-weight-bold text-h5 text-truncate pt-3"
-          v-text="value.name"
+          v-text="music.name"
         ></div>
         <div
           class="text-center font-weight-bold text-subtitle-2 text-truncate"
-          v-text="value.artists"
+          v-text="music.artists"
         ></div>
       </v-col>
       <!-- 按键 -->
@@ -25,8 +25,8 @@
         >
           <!-- 左边 -->
           <div>
-            <button-add :id="value.id" />
-            <button-love :id="value.id" />
+            <button-add :id="music.id" />
+            <button-love :id="music.id" />
           </div>
           <!-- 中间 -->
           <div>
@@ -44,7 +44,7 @@
         <v-slider
           v-model="dt"
           min="0"
-          :max="value.dt"
+          :max="music.dt"
           hide-details
           color="purple darken-3"
           track-color="purple lighten-3"
@@ -58,7 +58,7 @@
             <span class="mt-1">{{ songTime(dt) }}</span>
           </template>
           <template v-slot:append>
-            <span class="mt-1">{{ songTime(value.dt) }}</span>
+            <span class="mt-1">{{ songTime(music.dt) }}</span>
           </template>
         </v-slider>
       </v-col>
@@ -82,9 +82,6 @@ export default {
     PlayerMusicSound,
     PlayerMusicMode,
   },
-  props: {
-    value: { type: Object, required: true },
-  },
   data: () => ({
     dt: 0, // 播放进度
     canSetDt: false, // 鼠标是否正在滑动滑动条
@@ -97,6 +94,7 @@ export default {
   },
   computed: {
     ...mapState({
+      music: (state) => state.play.music, // 正在播放的歌曲信息
       playDt: (state) => state.play.dt, // 当前播放音乐进度
     }),
   },

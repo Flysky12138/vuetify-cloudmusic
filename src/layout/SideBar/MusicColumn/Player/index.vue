@@ -19,7 +19,7 @@
       <v-row class="ma-0" align="center" style="height: 100%">
         <!-- 播放 -->
         <v-col cols="6">
-          <player-music :value="music" @changeDt="changeDt" />
+          <player-music @changeDt="changeDt" />
         </v-col>
         <!-- 歌词 -->
         <v-col v-if="true" cols="5">
@@ -98,7 +98,7 @@ export default {
     changeDt(res) {
       this.$refs.audio.currentTime = Math.floor(res / 1000);
     },
-    // 获取播放歌曲、歌词等信息
+    // 获取播放歌曲歌词等信息
     getMusicDetail() {
       this.dtOffset = 0;
       this.url = ""; // 清空使歌曲停止播放

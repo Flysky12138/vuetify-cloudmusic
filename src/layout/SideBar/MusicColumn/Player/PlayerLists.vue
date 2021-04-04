@@ -50,10 +50,8 @@ export default {
   }),
   computed: {
     ...mapState({
-      // 正在播放的歌曲
-      music: (state) => state.play.music,
-      // 音乐列表
-      lists: (state) => state.play.lists,
+      music: (state) => state.play.music, // 正在播放的歌曲信息
+      lists: (state) => state.play.lists, // 音乐列表
     }),
   },
   methods: {
