@@ -1,5 +1,6 @@
 <template>
   <v-menu
+    v-model="dialog"
     :close-on-content-click="false"
     open-on-hover
     close-delay="100"
@@ -46,8 +47,14 @@
 import { mapState, mapMutations } from "vuex";
 export default {
   data: () => ({
+    dialog: false,
     index: 0,
   }),
+  watch: {
+    dialog(newValue) {
+      !newValue && this.closeGoto();
+    },
+  },
   computed: {
     ...mapState({
       music: (state) => state.play.music, // 正在播放的歌曲信息
@@ -66,7 +73,16 @@ export default {
           offset: -55,
           easing: "easeOutQuad",
         });
-      }, 120);
+      }, 80);
+    },
+    // 关闭菜单后滚动定位
+    closeGoto() {
+      this.$vuetify.goTo(0, {
+        container: "#songlist_card",
+        duration: 400,
+        offset: 0,
+        easing: "easeOutQuad",
+      });
     },
   },
 };
