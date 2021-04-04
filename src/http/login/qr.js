@@ -3,7 +3,8 @@ import axios from "../api";
 // 二维码key生成接口
 function key() {
   return new Promise((resolve, reject) => {
-    get("/login/qr/key")
+    axios
+      .get("/login/qr/key")
       .then(res => {
         resolve(res.data.unikey);
       })
