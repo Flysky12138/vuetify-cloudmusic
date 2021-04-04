@@ -13,7 +13,6 @@
         v-on="on"
         width="40"
         :aspect-ratio="16 / 9"
-        @mouseenter="openGoto"
       ></v-responsive>
     </template>
     <v-card
@@ -29,6 +28,7 @@
         <v-list-item-group v-model="index" color="primary">
           <v-list-item
             v-for="(item, index) in lists"
+            :key="item.id"
             :id="'songlist_' + index"
             @click="chooseMusicPlay(index)"
           >
@@ -52,6 +52,7 @@ export default {
   }),
   watch: {
     dialog(newValue) {
+      newValue && this.openGoto();
       !newValue && this.closeGoto();
     },
   },
