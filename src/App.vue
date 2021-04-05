@@ -7,7 +7,9 @@
         :color="$vuetify.theme.isDark ? '' : 'white'"
         elevate-on-scroll
       >
-        <app-bar />
+        <v-container>
+          <app-bar />
+        </v-container>
       </v-app-bar>
       <!-- 路由显示区 -->
       <v-main :class="$vuetify.theme.isDark ? '' : 'grey lighten-3'">

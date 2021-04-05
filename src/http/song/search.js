@@ -26,7 +26,7 @@ function search(keywords, offset = 0) {
               id: element.id,
               name: element.name,
               artists: element.artists.map(res => res.name).join(" / "),
-              album: "《" + element.album.name + "》",
+              album: element.album.name ? "《" + element.album.name + "》" : "",
               duration: time.song(element.duration)
             });
           });

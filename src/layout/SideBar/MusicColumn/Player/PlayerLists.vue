@@ -16,14 +16,22 @@
       ></v-responsive>
     </template>
     <v-card
-      max-height="498"
-      min-width="180"
+      max-height="493"
       max-width="300"
       rounded="lg"
       class="overflow-y-auto scroll"
       id="songlist_card"
       style="opacity: 0.8"
     >
+      <v-banner
+        sticky
+        single-line
+        color="grey darken-4"
+        class="font-weight-bold"
+      >
+        <span>{{ "ID: " + music.id }}</span>
+        <span class="pl-3">{{ index + 1 + "/" + lists.length }}</span>
+      </v-banner>
       <v-list dense>
         <v-list-item-group v-model="index" color="primary">
           <v-list-item
@@ -50,10 +58,16 @@ export default {
     dialog: false,
     index: 0,
   }),
+  created() {
+    this.index = this.lists.indexOf(this.music);
+  },
   watch: {
     dialog(newValue) {
       newValue && this.openGoto();
       !newValue && this.closeGoto();
+    },
+    music(newValue) {
+      this.index = this.lists.indexOf(newValue);
     },
   },
   computed: {
@@ -66,12 +80,11 @@ export default {
     ...mapMutations(["chooseMusicPlay"]),
     // 打开菜单后滚动定位
     openGoto() {
-      this.index = this.lists.indexOf(this.music);
       setTimeout(() => {
         this.$vuetify.goTo("#songlist_" + this.index, {
           container: "#songlist_card",
           duration: 400,
-          offset: -55,
+          offset: -20,
           easing: "easeOutQuad",
         });
       }, 80);

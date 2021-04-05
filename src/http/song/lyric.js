@@ -31,7 +31,7 @@ function lyric(id) {
               );
               arr.push({
                 time: time, // 毫秒
-                lyric: element.substring(element.indexOf("]") + 1) // 歌词
+                lyric: element.substring(element.lastIndexOf("]") + 1) // 歌词
               });
             }
           });
@@ -60,7 +60,7 @@ function lyric(id) {
               );
               const item = arr.find(res => res.time === time);
               item &&
-                (item.tlyric = element.substring(element.indexOf("]") + 1)); // 翻译
+                (item.tlyric = element.substring(element.lastIndexOf("]") + 1)); // 翻译
             }
           });
           // 翻译贡献者
