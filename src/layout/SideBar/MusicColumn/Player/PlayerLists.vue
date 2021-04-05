@@ -30,7 +30,7 @@
         class="font-weight-bold"
       >
         <span>{{ "ID: " + music.id }}</span>
-        <span class="mx-4">{{ index + 1 + "/" + lists.length }}</span>
+        <span class="mx-4">{{ index + 1 }} / {{ lists.length }}</span>
       </v-banner>
       <v-list dense>
         <v-list-item-group v-model="index" color="primary">
@@ -38,7 +38,8 @@
             v-for="(item, index) in lists"
             :key="item.id"
             :id="'songlist_' + index"
-            @click="chooseMusicPlay(index)"
+            @click="chooseMusicPlay(item.id)"
+            @contextmenu.prevent="removeMusic(item.id)"
           >
             <v-list-item-title
               class="font-weight-bold"
@@ -64,7 +65,14 @@ export default {
       !newValue && this.closeGoto();
     },
     music() {
-      this.index = this.lists.indexOf(this.music);
+      this.$nextTick(() => {
+        this.index = this.lists.indexOf(this.music);
+      });
+    },
+    lists() {
+      this.$nextTick(() => {
+        this.index = this.lists.indexOf(this.music);
+      });
     },
   },
   computed: {
@@ -74,10 +82,12 @@ export default {
     }),
   },
   methods: {
-    ...mapMutations(["chooseMusicPlay"]),
+    ...mapMutations(["chooseMusicPlay", "removeMusic"]),
     // 打开菜单后滚动定位
     openGoto() {
-      this.index = this.lists.indexOf(this.music);
+      this.$nextTick(() => {
+        this.index = this.lists.indexOf(this.music);
+      });
       setTimeout(() => {
         this.$vuetify.goTo("#songlist_" + this.index, {
           container: "#songlist_card",
