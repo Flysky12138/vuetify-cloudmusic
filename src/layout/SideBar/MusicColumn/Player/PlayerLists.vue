@@ -63,6 +63,9 @@ export default {
       newValue && this.openGoto();
       !newValue && this.closeGoto();
     },
+    music() {
+      this.index = this.lists.indexOf(this.music);
+    },
   },
   computed: {
     ...mapState({
