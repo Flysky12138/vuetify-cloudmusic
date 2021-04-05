@@ -30,7 +30,7 @@
         class="font-weight-bold"
       >
         <span>{{ "ID: " + music.id }}</span>
-        <span class="pl-3">{{ index + 1 + "/" + lists.length }}</span>
+        <span class="mx-4">{{ index + 1 + "/" + lists.length }}</span>
       </v-banner>
       <v-list dense>
         <v-list-item-group v-model="index" color="primary">
@@ -58,16 +58,10 @@ export default {
     dialog: false,
     index: 0,
   }),
-  created() {
-    this.index = this.lists.indexOf(this.music);
-  },
   watch: {
     dialog(newValue) {
       newValue && this.openGoto();
       !newValue && this.closeGoto();
-    },
-    music(newValue) {
-      this.index = this.lists.indexOf(newValue);
     },
   },
   computed: {
@@ -80,6 +74,7 @@ export default {
     ...mapMutations(["chooseMusicPlay"]),
     // 打开菜单后滚动定位
     openGoto() {
+      this.index = this.lists.indexOf(this.music);
       setTimeout(() => {
         this.$vuetify.goTo("#songlist_" + this.index, {
           container: "#songlist_card",
