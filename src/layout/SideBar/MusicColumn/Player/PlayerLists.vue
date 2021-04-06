@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   data: () => ({
     dialog: false,
@@ -65,11 +65,11 @@ export default {
       !newValue && this.closeGoto();
     },
     music() {
-      this.index = this.indexMuiscInLists;
+      this.index = this.lists.indexOf(this.music);
     },
     lists() {
       this.$nextTick(() => {
-        this.index = this.indexMuiscInLists;
+        this.index = this.lists.indexOf(this.music);
       });
     },
   },
@@ -78,13 +78,12 @@ export default {
       music: (state) => state.play.music, // 正在播放的歌曲信息
       lists: (state) => state.play.lists, // 音乐列表
     }),
-    ...mapGetters(["indexMuiscInLists"]),
   },
   methods: {
     ...mapMutations(["chooseMusicPlay", "removeMusic"]),
     // 打开菜单后滚动定位
     openGoto() {
-      this.index = this.indexMuiscInLists;
+      this.index = this.lists.indexOf(this.music);
       setTimeout(() => {
         this.$vuetify.goTo("#songlist_" + this.index, {
           container: "#songlist_card",
@@ -92,7 +91,7 @@ export default {
           offset: -20,
           easing: "easeOutQuad",
         });
-      }, 80);
+      }, 120);
     },
     // 关闭菜单后滚动定位
     closeGoto() {

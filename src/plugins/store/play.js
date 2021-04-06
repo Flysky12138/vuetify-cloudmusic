@@ -110,16 +110,9 @@ const actions = {
   }
 };
 
-const getters = {
-  indexMuiscInLists(state) {
-    return state.lists.indexOf(state.music);
-  }
-};
-
 export default {
   namespaced: false,
   state,
   mutations,
-  actions,
-  getters
+  actions
 };
