@@ -91,7 +91,7 @@ export default {
           offset: -20,
           easing: "easeOutQuad",
         });
-      }, 120);
+      }, 80);
     },
     // 关闭菜单后滚动定位
     closeGoto() {
