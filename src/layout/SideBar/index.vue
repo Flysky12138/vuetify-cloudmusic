@@ -2,7 +2,7 @@
   <div style="z-index: 5">
     <!-- 音乐按键 -->
     <v-scale-transition>
-      <div class="right" style="top: 45vh" v-show="isShow">
+      <div class="right center" v-show="isShow">
         <music-column />
       </div>
     </v-scale-transition>
@@ -15,7 +15,7 @@
 
 <script>
 import { mapState } from "vuex";
-import MusicColumn from "./MusicColumn";
+import MusicColumn from "./MusicColumn.vue";
 import GoTop from "./GoTop.vue";
 export default {
   components: { MusicColumn, GoTop },
@@ -28,32 +28,25 @@ export default {
 };
 </script>
 
-<style lang="scss">
-@mixin common($item: column) {
-  position: fixed;
-  display: flex;
-  flex-direction: $item;
-  align-items: center;
-  background-color: transparent !important;
-}
-
+<style lang="scss" scoped>
 .left {
-  @include common;
+  position: fixed;
   left: 5vw;
 }
 
 .right {
-  @include common;
+  position: fixed;
   right: 5vw;
+}
+.center {
+  top: 45vh;
 }
 
 .top {
-  @include common;
   top: 10vh;
 }
 
 .bottom {
-  @include common(column-reverse);
   bottom: 10vh;
 }
 </style>

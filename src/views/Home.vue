@@ -38,7 +38,6 @@
 <script>
 import SongCard from "components/Song/SongCard.vue";
 export default {
-  name: "home",
   components: { SongCard },
   data: () => ({
     count: 0,

@@ -12,10 +12,7 @@ const routes = [
     // 路由独享的守卫
     beforeEnter(to, from, next) {
       if (store.state.islogin) {
-        message({
-          text: "已经登录过了！",
-          color: "success"
-        });
+        message({ text: "已经登录过了！", color: "success" });
         history.back();
       } else {
         next();
@@ -25,7 +22,8 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: () => import("views/Home")
+    component: () => import("views/Home"),
+    meta: { keepAlive: true }
   },
   {
     path: "/user",
@@ -51,7 +49,7 @@ const routes = [
   {
     path: "/recommend",
     component: () => import("views/Recommend"),
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true, keepAlive: true }
   }
 ];
 

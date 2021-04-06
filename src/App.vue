@@ -17,9 +17,12 @@
           <v-sheet rounded="lg" height="100%">
             <!-- 对路由添加一个进入动画：渐显 -->
             <transition name="router">
-              <keep-alive :include="include">
-                <router-view />
+              <keep-alive>
+                <router-view v-if="$route.meta.keepAlive" />
               </keep-alive>
+            </transition>
+            <transition name="router">
+              <router-view v-if="!$route.meta.keepAlive" />
             </transition>
           </v-sheet>
         </v-container>
@@ -48,8 +51,6 @@ export default {
     isMobile: new RegExp(
       "Android|WindowsPhone|webOS|iPhone|iPod|BlackBerry|iPad"
     ).test(navigator.userAgent),
-    // keep-alive组件名
-    include: ["home", "recommend"],
   }),
   created() {
     // 获取ID,等级和头像
@@ -64,10 +65,6 @@ export default {
 </script>
 
 <style lang="scss">
-// 全局按键边框隐藏
-* {
-  outline: none;
-}
 // 路由动画
 .router-enter {
   opacity: 0;
@@ -79,6 +76,10 @@ export default {
 }
 .router-enter-active {
   transition: all 1.5s;
+}
+// 全局按键边框隐藏
+* {
+  outline: none;
 }
 // 全局预设隐藏滚动条类
 .scroll,

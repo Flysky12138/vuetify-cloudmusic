@@ -14,7 +14,6 @@
 import time from "common/time";
 import SongList from "components/Song/SongList.vue";
 export default {
-  name: "recommend",
   components: { SongList },
   data: () => ({
     title: " 日推歌曲列表",
