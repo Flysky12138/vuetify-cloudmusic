@@ -51,6 +51,7 @@ import { mapState } from "vuex";
 export default {
   props: {
     id: { type: Number, required: true },
+    nolove: { type: Boolean, default: false },
   },
   data: () => ({
     dialog: false,
@@ -73,7 +74,9 @@ export default {
     // 获取用户创建的歌单
     getCreatePlaylist() {
       this.$http.user.playlist(this.uid).then((res) => {
-        this.playlist = res.create;
+        this.playlist = this.nolove
+          ? res.create.filter((res) => !/^.+喜欢的音乐$/.test(res.name))
+          : res.create;
       });
     },
   },

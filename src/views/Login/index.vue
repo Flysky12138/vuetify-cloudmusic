@@ -54,6 +54,7 @@ export default {
     tab: 0,
     loading: false,
     overlay: false,
+    fullPath: "/", // 登陆后的跳转路由
   }),
   methods: {
     ...mapMutations({
@@ -67,10 +68,15 @@ export default {
           this.setLogin(res);
           this.overlay = false;
           this.$message({ text: "登录成功，欢迎使用！", color: "success" });
-          this.$router.replace("/");
+          this.$router.replace(this.fullPath);
         }
       });
     },
+  },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.fullPath = from.fullPath;
+    });
   },
 };
 </script>

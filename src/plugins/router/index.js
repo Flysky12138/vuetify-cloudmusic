@@ -36,15 +36,14 @@ const router = new VueRouter({
 
 // 路由全局前置守卫
 router.beforeEach((to, from, next) => {
-  if (
-    to.matched.some(record => record.meta.requiresAuth) &&
-    !store.state.islogin
-  ) {
-    message({ text: "未登录，跳转到登录界面！" });
-    location.hash = "/login";
-  } else {
-    next();
+  let params = true;
+  if (!store.state.islogin) {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+      message({ text: "未登录，跳转到登录界面！" });
+      params = { path: "/login" };
+    }
   }
+  next(params);
 });
 
 export default router;

@@ -25,7 +25,7 @@
         >
           <!-- 左边 -->
           <div>
-            <button-add :id="music.id" />
+            <button-add :id="music.id" nolove />
             <button-love :id="music.id" />
           </div>
           <!-- 中间 -->

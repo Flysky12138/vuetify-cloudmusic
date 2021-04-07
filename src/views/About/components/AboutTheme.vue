@@ -11,7 +11,16 @@
     >
       主题色
     </v-alert>
-    <v-icon color="blue lighten-2" @click="onClick">{{ theTheme }}</v-icon>
+    <v-row>
+      <v-col cols="auto">
+        <v-switch
+          v-model="value"
+          inset
+          :label="value ? '深色' : '浅色'"
+          class="ma-0 ml-1"
+        ></v-switch>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -23,18 +32,10 @@ export default {
   created() {
     this.value = this.$vuetify.theme.isDark ? true : false;
   },
-  computed: {
-    theTheme() {
-      return this.value
-        ? "mdi-moon-waxing-crescent"
-        : "mdi-white-balance-sunny";
-    },
-  },
-  methods: {
-    onClick() {
-      this.value = !this.value;
-      this.$vuetify.theme.isDark = this.value;
-      localStorage.setItem("isDark", JSON.stringify(this.value));
+  watch: {
+    value(newValue) {
+      this.$vuetify.theme.isDark = newValue;
+      localStorage.setItem("isDark", JSON.stringify(newValue));
     },
   },
 };
