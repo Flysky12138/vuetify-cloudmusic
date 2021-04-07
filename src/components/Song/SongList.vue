@@ -66,7 +66,7 @@
         v-if="pageCount > 1"
         v-model="page"
         :length="pageCount"
-        :total-visible="7"
+        :total-visible="11"
         circle
         color="blue lighten-2"
         class="my-3"

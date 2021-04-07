@@ -63,7 +63,7 @@ const mutations = {
     state.music = arr[(arr.indexOf(state.music) + 1) % arr.length];
   },
   // 选择播放的音乐
-  chooseMusicPlay(state, id) {
+  chooseMusic(state, id) {
     state.music = state.lists.find(res => res.id === id);
   },
   // 移除音乐

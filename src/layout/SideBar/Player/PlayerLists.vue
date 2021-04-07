@@ -2,19 +2,27 @@
   <v-menu
     v-model="dialog"
     :close-on-content-click="false"
-    open-on-hover
-    close-delay="100"
     transition="slide-x-transition"
     dark
   >
+    <!-- 按键 -->
     <template v-slot:activator="{ on, attrs }">
-      <v-responsive
-        v-bind="attrs"
-        v-on="on"
-        width="40"
-        :aspect-ratio="16 / 9"
-      ></v-responsive>
+      <v-scale-transition origin="center center">
+        <v-btn
+          v-show="!dialog"
+          v-bind="attrs"
+          v-on="on"
+          large
+          icon
+          absolute
+          top
+          left
+        >
+          <v-icon>mdi-playlist-music-outline</v-icon>
+        </v-btn>
+      </v-scale-transition>
     </template>
+    <!-- 内容 -->
     <v-card
       max-height="493"
       max-width="300"
@@ -23,6 +31,7 @@
       id="songlist_card"
       style="opacity: 0.8"
     >
+      <!-- 标题 -->
       <v-banner
         sticky
         single-line
@@ -32,19 +41,22 @@
         <span>ID: {{ music.id }}</span>
         <span class="mx-4">{{ index + 1 }} / {{ lists.length }}</span>
       </v-banner>
+      <!-- 列表 -->
       <v-list dense>
-        <v-list-item-group v-model="index" color="primary">
+        <v-list-item-group :value="index" color="primary">
           <v-list-item
             v-for="(item, index) in lists"
             :key="item.id"
             :id="'songlist_' + index"
-            @click="chooseMusicPlay(item.id)"
+            @click="chooseMusic(item.id)"
             @contextmenu.prevent="removeMusic(item.id)"
           >
-            <v-list-item-title
-              class="font-weight-bold"
-              v-text="item.name"
-            ></v-list-item-title>
+            <v-list-item-content>
+              <v-list-item-title
+                class="font-weight-bold"
+                v-text="item.name"
+              ></v-list-item-title>
+            </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -80,10 +92,11 @@ export default {
     }),
   },
   methods: {
-    ...mapMutations(["chooseMusicPlay", "removeMusic"]),
+    ...mapMutations(["chooseMusic", "removeMusic"]),
     // 打开菜单后滚动定位
     openGoto() {
       this.index = this.lists.indexOf(this.music);
+      const timeout = this.lists.length > 80 ? this.lists.length * 0.7 : 80;
       setTimeout(() => {
         this.$vuetify.goTo("#songlist_" + this.index, {
           container: "#songlist_card",
@@ -91,7 +104,7 @@ export default {
           offset: -20,
           easing: "easeOutQuad",
         });
-      }, 80);
+      }, timeout);
     },
     // 关闭菜单后滚动定位
     closeGoto() {

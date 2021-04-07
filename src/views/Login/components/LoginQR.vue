@@ -54,10 +54,6 @@ export default {
             break;
           case 2: // 等待确认
             this.$emit("loading", true);
-            this.$message({
-              text: "二维码扫描成功，等待确认",
-              color: "primary",
-            });
             break;
           case 3: // 扫码成功
             this.$emit("loading", false);
