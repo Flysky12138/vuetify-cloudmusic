@@ -28,7 +28,8 @@
         <v-sheet width="200">
           <v-text-field
             v-model="search"
-            append-icon="mdi-magnify"
+            clearable
+            :append-icon="search ? '' : 'mdi-magnify'"
             single-line
             hide-details
           ></v-text-field>

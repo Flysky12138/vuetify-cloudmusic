@@ -39,11 +39,11 @@
         class="font-weight-bold"
       >
         <span>ID: {{ music.id }}</span>
-        <span class="mx-4">{{ index + 1 }} / {{ lists.length }}</span>
+        <span class="mx-6">{{ index + 1 }} / {{ lists.length }}</span>
       </v-banner>
       <!-- 列表 -->
       <v-list dense>
-        <v-list-item-group :value="index" color="primary">
+        <v-list-item-group v-model="index" color="primary">
           <v-list-item
             v-for="(item, index) in lists"
             :key="item.id"
@@ -76,9 +76,7 @@ export default {
       newValue && this.openGoto();
       !newValue && this.closeGoto();
     },
-    music() {
-      this.index = this.lists.indexOf(this.music);
-    },
+    music: "openGoto",
     lists() {
       this.$nextTick(() => {
         this.index = this.lists.indexOf(this.music);

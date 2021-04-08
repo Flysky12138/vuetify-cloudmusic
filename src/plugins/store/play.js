@@ -25,7 +25,8 @@ const mutations = {
   // 添加歌曲信息到列表
   musicDetail(state, params) {
     state.lists = [...params];
-    for (let i = 1; i < state.lists.length; i++) {
+    state.randomlists = [];
+    for (let i = 0; i < state.lists.length; i++) {
       const ran = Math.floor(Math.random() * (i + 1)); // [0,i]
       [state.randomlists[i], state.randomlists[ran]] = [
         state.lists[ran],
