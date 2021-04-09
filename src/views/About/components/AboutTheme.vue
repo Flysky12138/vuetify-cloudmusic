@@ -1,27 +1,25 @@
 <template>
-  <v-container>
-    <v-alert
-      border="left"
-      colored-border
-      elevation="1"
-      dense
-      color="cyan"
-      colored-border
-      icon="mdi-theme-light-dark"
-    >
-      主题色
-    </v-alert>
+  <v-alert
+    border="left"
+    colored-border
+    elevation="1"
+    dense
+    color="cyan"
+    colored-border
+    icon="mdi-theme-light-dark"
+  >
     <v-row>
-      <v-col cols="auto">
+      <v-col cols="auto">夜间模式</v-col>
+      <v-col>
         <v-switch
           v-model="value"
           inset
-          :label="value ? '深色' : '浅色'"
-          class="ma-0 ml-1"
+          class="ma-0 pa-0"
+          hide-details
         ></v-switch>
       </v-col>
     </v-row>
-  </v-container>
+  </v-alert>
 </template>
 
 <script>

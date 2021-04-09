@@ -1,19 +1,19 @@
 <template>
   <v-app>
-    <template v-if="$vuetify.breakpoint.mdAndUp && !isMobile">
+    <template v-if="$vuetify.breakpoint.mdAndUp">
       <!-- 顶部导航栏 -->
       <v-app-bar
         app
         :color="$vuetify.theme.isDark ? '' : 'white'"
         elevate-on-scroll
       >
-        <v-container>
+        <v-container style="width: 75vw">
           <app-bar />
         </v-container>
       </v-app-bar>
       <!-- 路由显示区 -->
       <v-main :class="$vuetify.theme.isDark ? '' : 'grey lighten-3'">
-        <v-container style="height: 100%">
+        <v-container style="height: 100%; width: 75vw">
           <v-sheet rounded="lg" height="100%">
             <!-- 对路由添加一个进入动画：渐显 -->
             <transition name="router">
@@ -33,7 +33,9 @@
     <template v-else>
       <v-container class="fill-height">
         <strong class="mx-auto text-center">
-          非 PC 端<br />&amp;<br />width &lt; 960px<br /><br />未适配，不允显示
+          非 PC 端<br />&amp;<br />
+          width &lt; {{ $vuetify.breakpoint.thresholds.sm }}px<br /><br />
+          未适配，不允显示
         </strong>
       </v-container>
     </template>
@@ -46,12 +48,7 @@ import AppBar from "./layout/AppBar";
 import SideBar from "./layout/SideBar";
 export default {
   components: { AppBar, SideBar },
-  data: () => ({
-    // 判断是否是非PC端
-    isMobile: new RegExp(
-      "Android|WindowsPhone|webOS|iPhone|iPod|BlackBerry|iPad"
-    ).test(navigator.userAgent),
-  }),
+  data: () => ({}),
   created() {
     // 获取ID,等级和头像
     this.$http.login.status().then((res) => {
