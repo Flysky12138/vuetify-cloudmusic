@@ -5,7 +5,7 @@ import axios from "axios";
 switch (process.env.NODE_ENV) {
   case "production":
     const defaultApi = "https://music.api.flysky.xyz";
-    const api = localStorage.getItem("api");
+    const api = JSON.parse(localStorage.getItem("api"));
     axios.defaults.baseURL = api ? api : defaultApi;
     break;
   default:
