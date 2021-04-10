@@ -56,21 +56,21 @@ workbox.routing.registerRoute(
 );
 
 // 缓存其他域名上的图片资源，需要支持跨域
-workbox.routing.registerRoute(
-  /^http(s)?:\/\/.+\.(jpe?g|png|gif|svg)$/,
-  workbox.strategies.staleWhileRevalidate({
-    cacheName: "cloudmusic-images",
-    plugins: [
-      new workbox.expiration.Plugin({
-        maxEntries: 60,
-        maxAgeSeconds: 5 * 24 * 60 * 60 // 设置缓存有效期为5天
-      })
-    ],
-    fetchOptions: {
-      credentials: "include" // 支持跨域
-    }
-  })
-);
+// workbox.routing.registerRoute(
+//   /^http(s)?:\/\/.+\.(jpe?g|png|gif|svg)$/,
+//   workbox.strategies.staleWhileRevalidate({
+//     cacheName: "cloudmusic-images",
+//     plugins: [
+//       new workbox.expiration.Plugin({
+//         maxEntries: 60,
+//         maxAgeSeconds: 5 * 24 * 60 * 60 // 设置缓存有效期为5天
+//       })
+//     ],
+//     fetchOptions: {
+//       credentials: "include" // 支持跨域
+//     }
+//   })
+// );
 
 // 缓存get api请求的数据
 // workbox.routing.registerRoute(
