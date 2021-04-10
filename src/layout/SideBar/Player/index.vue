@@ -8,12 +8,12 @@
     <v-img class="bg" :src="music.picUrl"></v-img>
     <!-- 内容 -->
     <v-card elevation="0" height="100%" color="transparent">
+      <!-- 左上播放列表按键 -->
+      <player-lists />
       <!-- 右上关闭页面按键 -->
       <v-btn @click="$emit('close')" large icon absolute top right>
         <v-icon large>mdi-chevron-down</v-icon>
       </v-btn>
-      <!-- 左下播放列表按键 -->
-      <player-lists />
       <v-row class="ma-0" align="center" style="height: 100%">
         <!-- 播放 -->
         <v-col cols="6">
@@ -101,12 +101,10 @@ export default {
       this.dtOffset = 0;
       this.url = ""; // 清空使歌曲停止播放
       this.lyrics = [{ lyric: "歌词加载中" }];
-      this.$http.song.check(this.music.id).then((res) => {
-        if (res) {
-          this.$http.song.url(this.music.id).then((res) => {
-            this.url = res.url;
-            res.freeTrialInfo && (this.dtOffset = res.freeTrialInfo.start);
-          });
+      this.$http.song.url(this.music.id).then((res) => {
+        if (res.url) {
+          this.url = res.url;
+          res.freeTrialInfo && (this.dtOffset = res.freeTrialInfo.start);
           this.$http.song.lyric(this.music.id).then((res) => {
             this.lyrics = res;
           });
