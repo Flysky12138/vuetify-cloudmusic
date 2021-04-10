@@ -55,17 +55,6 @@ workbox.routing.registerRoute(
   })
 );
 
-// 缓存其他域名上的歌曲资源，需要支持跨域
-workbox.routing.registerRoute(
-  /^http(s)?:\/\/.+\.(mp3|flac)$/,
-  workbox.strategies.cacheFirst({
-    cacheName: "cloudmusic-songs",
-    fetchOptions: {
-      credentials: "include" // 支持跨域
-    }
-  })
-);
-
 // 缓存其他域名上的图片资源，需要支持跨域
 workbox.routing.registerRoute(
   /^http(s)?:\/\/.+\.(jpe?g|png|gif|svg)$/,

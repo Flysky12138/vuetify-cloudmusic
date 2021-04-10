@@ -53,7 +53,10 @@ axios.defaults.validateStatus = status => {
 };
 axios.interceptors.response.use(
   response => {
-    return response.data;
+    // 把请求结果中的http转https。避免浏览器的混合提示
+    return JSON.parse(
+      JSON.stringify(response.data).replace(/http:\/\//g, "https://")
+    );
   },
   error => {
     let { response } = error;
