@@ -17,6 +17,9 @@ module.exports = {
     name: "Vuetify CloudMusic",
     themeColor: "#272727",
     msTileColor: "#000000",
+    manifestOptions: {
+      display: "minimal-ui"
+    },
     appleMobileWebAppCapable: "yes",
     appleMobileWebAppStatusBarStyle: "black",
     // configure the workbox plugin (GenerateSW or InjectManifest)

@@ -42,35 +42,46 @@ workbox.routing.registerRoute(
 );
 
 // 缓存web的图片资源
-// workbox.routing.registerRoute(
-//   /\.(?:png|gif|jpg|jpeg|svg)$/,
-//   workbox.strategies.staleWhileRevalidate({
-//     cacheName: "images",
-//     plugins: [
-//       new workbox.expiration.Plugin({
-//         maxEntries: 60,
-//         maxAgeSeconds: 30 * 24 * 60 * 60 // 设置缓存有效期为30天
-//       })
-//     ]
-//   })
-// );
+workbox.routing.registerRoute(
+  /\.(?:png|gif|jpg|jpeg|svg)$/,
+  workbox.strategies.staleWhileRevalidate({
+    cacheName: "images",
+    plugins: [
+      new workbox.expiration.Plugin({
+        maxEntries: 60,
+        maxAgeSeconds: 30 * 24 * 60 * 60 // 设置缓存有效期为30天
+      })
+    ]
+  })
+);
 
-// 很多资源在其他域名上，比如cdn、oss等，这里做单独处理，需要支持跨域
-// workbox.routing.registerRoute(
-//   /^https:\/\/.+\.(jpe?g|png|gif|svg)$/,
-//   workbox.strategies.staleWhileRevalidate({
-//     cacheName: "cloudmusic-images",
-//     plugins: [
-//       new workbox.expiration.Plugin({
-//         maxEntries: 60,
-//         maxAgeSeconds: 5 * 24 * 60 * 60 // 设置缓存有效期为5天
-//       })
-//     ],
-//     fetchOptions: {
-//       credentials: "include" // 支持跨域
-//     }
-//   })
-// );
+// 缓存其他域名上的歌曲资源，需要支持跨域
+workbox.routing.registerRoute(
+  /^http(s)?:\/\/.+\.(mp3|flac)$/,
+  workbox.strategies.cacheFirst({
+    cacheName: "cloudmusic-songs",
+    fetchOptions: {
+      credentials: "include" // 支持跨域
+    }
+  })
+);
+
+// 缓存其他域名上的图片资源，需要支持跨域
+workbox.routing.registerRoute(
+  /^http(s)?:\/\/.+\.(jpe?g|png|gif|svg)$/,
+  workbox.strategies.staleWhileRevalidate({
+    cacheName: "cloudmusic-images",
+    plugins: [
+      new workbox.expiration.Plugin({
+        maxEntries: 60,
+        maxAgeSeconds: 5 * 24 * 60 * 60 // 设置缓存有效期为5天
+      })
+    ],
+    fetchOptions: {
+      credentials: "include" // 支持跨域
+    }
+  })
+);
 
 // 缓存get api请求的数据
 // workbox.routing.registerRoute(
@@ -86,7 +97,7 @@ workbox.routing.registerRoute(
 // });
 // workbox.routing.registerRoute(
 //   /.*\/api\/.*/,
-//   new workbox.strategies.NetworkOnly({
+//   new workbox.strategies.networkOnly({
 //     plugins: [bgSyncPlugin]
 //   }),
 //   'POST'
