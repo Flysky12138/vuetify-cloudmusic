@@ -1,14 +1,9 @@
 <template>
   <v-card elevation="1" rounded="lg">
     <!-- 标题 -->
-    <div
-      class="d-flex align-end"
-      style="height: 40px; position: absolute; z-index: 1"
-    >
+    <div class="d-flex align-end" style="height: 40px; position: absolute; z-index: 1">
       <v-card-title class="pa-0 mx-4">听歌排行</v-card-title>
-      <v-card-subtitle class="pa-0">
-        实际播放时间过短的歌曲将不纳入计算
-      </v-card-subtitle>
+      <v-card-subtitle class="pa-0">实际播放时间过短的歌曲将不纳入计算</v-card-subtitle>
     </div>
     <!-- 选项卡 -->
     <v-tabs v-model="tab" @change="$emit('change', tab)" right>
@@ -51,7 +46,7 @@ export default {
   components: { ButtonPlay },
   props: {
     value: { type: Array, required: true },
-    loading: { type: Boolean, default: false, required: true },
+    loading: { type: Boolean, default: false, required: true }
   },
   data: () => ({
     tab: 0,
@@ -60,19 +55,19 @@ export default {
       { text: "", value: "" },
       { text: "歌曲标题", value: "song.name" },
       { text: "歌手", value: "song.artists" },
-      { text: "", align: "end", value: "btns" },
-    ],
+      { text: "", align: "end", value: "btns" }
+    ]
   }),
   computed: {
     ...mapState({
-      id: (state) => state.play.music.id,
-    }),
+      id: state => state.play.music.id
+    })
   },
   methods: {
     // 设置正在播放歌曲项的类
     playItemStyle(params) {
       return params.song.id === this.id ? "playItem" : "";
-    },
-  },
+    }
+  }
 };
 </script>

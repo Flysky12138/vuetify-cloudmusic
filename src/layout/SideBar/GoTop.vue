@@ -1,13 +1,6 @@
 <template>
   <v-fab-transition>
-    <v-btn
-      fab
-      dark
-      color="blue lighten-2"
-      v-scroll="onScroll"
-      @click="$vuetify.goTo(target, options)"
-      v-show="!isScrollTop"
-    >
+    <v-btn fab dark color="blue lighten-2" v-scroll="onScroll" @click="$vuetify.goTo(target, options)" v-show="!isScrollTop">
       <v-icon>mdi-chevron-up</v-icon>
     </v-btn>
   </v-fab-transition>
@@ -16,7 +9,7 @@
 <script>
 export default {
   data: () => ({
-    isScrollTop: true,
+    isScrollTop: true
   }),
   computed: {
     target() {
@@ -26,9 +19,9 @@ export default {
       return {
         duration: 400,
         offset: 0,
-        easing: "easeOutQuad",
+        easing: "easeOutQuad"
       };
-    },
+    }
   },
   methods: {
     onScroll(e) {
@@ -37,7 +30,7 @@ export default {
       } else {
         this.isScrollTop = true;
       }
-    },
-  },
+    }
+  }
 };
 </script>

@@ -21,7 +21,7 @@
 export default {
   data: () => ({
     isFocus: false,
-    value: "",
+    value: ""
   }),
   methods: {
     search() {
@@ -29,11 +29,11 @@ export default {
         this.$router.push({
           path: "/search",
           query: {
-            keywords: this.value,
-          },
+            keywords: this.value
+          }
         });
       }
-    },
-  },
+    }
+  }
 };
 </script>

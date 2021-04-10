@@ -13,14 +13,7 @@
             <!-- 左侧 -->
             <v-col cols="9">
               <span class="text-h3">{{ value.profile.nickname }}</span>
-              <v-chip
-                small
-                class="mx-3 text-subtitle-1 font-weight-bold font-italic"
-                color="red"
-                outlined
-              >
-                {{ "Lv." + value.level }}
-              </v-chip>
+              <v-chip small class="mx-3 text-subtitle-1 font-weight-bold font-italic" color="red" outlined>{{ "Lv." + value.level }}</v-chip>
               <v-icon :color="theGenderColor()">{{ theGender() }}</v-icon>
             </v-col>
             <!-- 右侧 -->
@@ -36,8 +29,8 @@
           <v-row>
             <!-- 左侧 -->
             <v-col cols="9">
-              <span
-                >所在地区：{{ value.profile.province }} -
+              <span>
+                所在地区：{{ value.profile.province }} -
                 {{ value.profile.city }}
               </span>
               <span class="ml-5">生日：{{ value.profile.birthday }}</span>
@@ -61,7 +54,7 @@ import ImageCover from "components/Image/ImageCover.vue";
 export default {
   components: { ImageCover },
   props: {
-    value: { type: Object, required: true },
+    value: { type: Object, required: true }
   },
   methods: {
     // 返回性别图标
@@ -83,7 +76,7 @@ export default {
         default:
           return "#29A7E4";
       }
-    },
-  },
+    }
+  }
 };
 </script>

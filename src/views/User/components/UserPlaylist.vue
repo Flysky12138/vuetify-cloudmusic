@@ -20,41 +20,19 @@
           style="width: 200px"
         ></v-slider>
         <!-- 左 -->
-        <v-btn
-          small
-          icon
-          @click="page--"
-          :disabled="page === 1"
-          color="primary"
-        >
+        <v-btn small icon @click="page--" :disabled="page === 1" color="primary">
           <v-icon>mdi-pan-left</v-icon>
         </v-btn>
         <!-- 中 -->
-        <v-btn
-          small
-          text
-          color="success"
-          v-text="page + ' / ' + maxPage"
-          @click="sliderShow = !sliderShow"
-        ></v-btn>
+        <v-btn small text color="success" v-text="page + ' / ' + maxPage" @click="sliderShow = !sliderShow"></v-btn>
         <!-- 右 -->
-        <v-btn
-          small
-          icon
-          @click="page++"
-          :disabled="page === maxPage"
-          color="primary"
-        >
+        <v-btn small icon @click="page++" :disabled="page === maxPage" color="primary">
           <v-icon>mdi-pan-right</v-icon>
         </v-btn>
       </div>
     </v-card-title>
     <!-- 歌单卡片 -->
-    <v-card-text
-      class="d-flex px-1 overflow-x-auto scroll"
-      ref="songCard"
-      @mousewheel="mouseWheel"
-    >
+    <v-card-text class="d-flex px-1 overflow-x-auto scroll" ref="songCard" @mousewheel="mouseWheel">
       <song-card v-for="item in lists" :key="item.id" :value="item" />
     </v-card-text>
   </v-card>
@@ -66,14 +44,14 @@ export default {
   components: { SongCard },
   props: {
     value: { type: Array, required: true },
-    title: { type: String, required: true },
+    title: { type: String, required: true }
   },
   data: () => ({
     page: 1, // 当前浏览页数
     maxPage: 1, // 最大页数
     count: 20, // 单页显示数量
     lists: [], // 显示的列表
-    sliderShow: false, // 滑块换页显示
+    sliderShow: false // 滑块换页显示
   }),
   created() {
     this.init();
@@ -86,7 +64,7 @@ export default {
     page() {
       this.getLists();
       this.$refs.songCard.scrollLeft = 0;
-    },
+    }
   },
   methods: {
     // 初始化
@@ -113,7 +91,7 @@ export default {
         event.preventDefault();
         this.$refs.songCard.scrollLeft += event.deltaY;
       }
-    },
-  },
+    }
+  }
 };
 </script>

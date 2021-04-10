@@ -3,14 +3,7 @@
     <v-dialog v-model="dialog" fullscreen transition="dialog-bottom-transition">
       <template v-slot:activator="{ on, attrs }">
         <!-- 跳转播放器界面按键 -->
-        <v-btn
-          v-bind="attrs"
-          v-on="on"
-          fab
-          dark
-          color="blue lighten-2"
-          elevation="0"
-        >
+        <v-btn v-bind="attrs" v-on="on" fab dark color="blue lighten-2" elevation="0">
           <v-icon class="audio">mdi-music-clef-treble</v-icon>
         </v-btn>
       </template>
@@ -42,16 +35,16 @@ import Player from "./Player";
 export default {
   components: { Player },
   data: () => ({
-    dialog: false,
+    dialog: false
   }),
   computed: {
     ...mapState({
-      isShow: (state) => state.play.isShow,
-    }),
+      isShow: state => state.play.isShow
+    })
   },
   methods: {
-    ...mapMutations(["previous", "next"]),
-  },
+    ...mapMutations(["previous", "next"])
+  }
 };
 </script>
 

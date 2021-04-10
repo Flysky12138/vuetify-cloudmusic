@@ -5,7 +5,7 @@
 <script>
 export default {
   props: {
-    value: { type: String, required: true },
+    value: { type: String, required: true }
   },
   data: () => ({}),
   methods: {
@@ -13,10 +13,10 @@ export default {
       this.$router.push({
         path: "/discover/playlist",
         query: {
-          cat: this.value,
-        },
+          cat: this.value
+        }
       });
-    },
-  },
+    }
+  }
 };
 </script>

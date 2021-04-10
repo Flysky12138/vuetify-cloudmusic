@@ -2,12 +2,7 @@
   <div>
     <v-row class="py-8">
       <v-col cols="auto">
-        <v-skeleton-loader
-          width="140"
-          height="140"
-          class="ml-3 mt-2"
-          type="image"
-        ></v-skeleton-loader>
+        <v-skeleton-loader width="140" height="140" class="ml-3 mt-2" type="image"></v-skeleton-loader>
       </v-col>
       <v-col cols="5">
         <v-skeleton-loader type="card-heading"></v-skeleton-loader>
@@ -24,6 +19,6 @@
 
 <script>
 export default {
-  data: () => ({}),
+  data: () => ({})
 };
 </script>

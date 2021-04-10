@@ -15,11 +15,11 @@ export default {
   props: {
     id: { type: Array, required: true },
     tip: { type: String, default: "" },
-    disable: { type: Boolean, default: false },
+    disable: { type: Boolean, default: false }
   },
   data: () => ({}),
   methods: {
-    ...mapActions(["addID"]),
-  },
+    ...mapActions(["addID"])
+  }
 };
 </script>

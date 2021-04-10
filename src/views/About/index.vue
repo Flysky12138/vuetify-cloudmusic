@@ -15,7 +15,7 @@ import AboutError from "./components/AboutError.vue";
 export default {
   components: { AboutApi, AboutTheme, AboutError },
   data: () => ({
-    components: ["AboutError", "AboutApi", "AboutTheme"],
-  }),
+    components: ["AboutError", "AboutApi", "AboutTheme"]
+  })
 };
 </script>

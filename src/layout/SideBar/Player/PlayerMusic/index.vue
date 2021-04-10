@@ -3,26 +3,13 @@
     <v-row justify="center">
       <!-- 封面、歌曲名、歌手 -->
       <v-col cols="8" class="pb-0">
-        <v-img
-          :src="music.picUrl"
-          max-width="80%"
-          class="rounded-lg mx-auto"
-        ></v-img>
-        <div
-          class="text-center font-weight-bold text-h5 text-truncate pt-3"
-          v-text="music.name"
-        ></div>
-        <div
-          class="text-center font-weight-bold text-subtitle-2 text-truncate"
-          v-text="music.artists"
-        ></div>
+        <v-img :src="music.picUrl" max-width="80%" class="rounded-lg mx-auto"></v-img>
+        <div class="text-center font-weight-bold text-h5 text-truncate pt-3" v-text="music.name"></div>
+        <div class="text-center font-weight-bold text-subtitle-2 text-truncate" v-text="music.artists"></div>
       </v-col>
       <!-- 按键 -->
       <v-col cols="8">
-        <div
-          class="d-flex justify-space-between align-center pt-3 mx-auto"
-          style="max-width: 80%; min-width: 300px"
-        >
+        <div class="d-flex justify-space-between align-center pt-3 mx-auto" style="max-width: 80%; min-width: 300px">
           <!-- 左边 -->
           <div>
             <button-add :id="music.id" nolove />
@@ -80,28 +67,28 @@ export default {
     ButtonLove,
     PlayerMusicPlay,
     PlayerMusicSound,
-    PlayerMusicMode,
+    PlayerMusicMode
   },
   data: () => ({
     dt: 0, // 播放进度
-    canSetDt: false, // 鼠标是否正在滑动滑动条
+    canSetDt: false // 鼠标是否正在滑动滑动条
   }),
   watch: {
     // 手动滑动时不赋值
     playDt(newValue) {
       !this.canSetDt && (this.dt = newValue);
-    },
+    }
   },
   computed: {
     ...mapState({
-      music: (state) => state.play.music, // 正在播放的歌曲信息
-      playDt: (state) => state.play.dt, // 当前播放音乐进度
-    }),
+      music: state => state.play.music, // 正在播放的歌曲信息
+      playDt: state => state.play.dt // 当前播放音乐进度
+    })
   },
   methods: {
     songTime(params) {
       return time.song(params);
-    },
-  },
+    }
+  }
 };
 </script>

@@ -1,26 +1,10 @@
 <template>
-  <v-alert
-    border="left"
-    colored-border
-    elevation="1"
-    dense
-    color="cyan"
-    colored-border
-    icon="mdi-api"
-  >
+  <v-alert border="left" colored-border elevation="1" dense color="cyan" icon="mdi-api">
     <div>
       <span>提供的默认接口搭建在</span>
-      <a href="https://vercel.com" target="_blank" class="text-decoration-none">
-        Vercel
-      </a>
+      <a href="https://vercel.com" target="_blank" class="text-decoration-none">Vercel</a>
       <span>上，访问速度不理想，建议本地运行接口Api。接口下载地址：</span>
-      <a
-        href="https://github.com/Binaryify/NeteaseCloudMusicApi"
-        target="_blank"
-        class="text-decoration-none"
-      >
-        NeteaseCloudMusicApi
-      </a>
+      <a href="https://github.com/Binaryify/NeteaseCloudMusicApi" target="_blank" class="text-decoration-none">NeteaseCloudMusicApi</a>
     </div>
     <div class="mt-3 mb-2">
       <v-text-field
@@ -42,7 +26,7 @@
 <script>
 export default {
   data: () => ({
-    api: "",
+    api: ""
   }),
   created() {
     this.api = JSON.parse(localStorage.getItem("api"));
@@ -53,9 +37,9 @@ export default {
       localStorage.setItem("api", JSON.stringify(this.api));
       this.$message({
         text: "保存成功！手动刷新网页后生效",
-        color: "success",
+        color: "success"
       });
-    },
-  },
+    }
+  }
 };
 </script>

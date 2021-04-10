@@ -1,13 +1,6 @@
 <template>
   <v-container>
-    <song-list
-      :title="keywords"
-      :subtitle="songCount"
-      :value="songs"
-      :loading="loading"
-      @pageEnd="getMoreSongs"
-      ref="songlist"
-    />
+    <song-list :title="keywords" :subtitle="songCount" :value="songs" :loading="loading" @pageEnd="getMoreSongs" ref="songlist" />
   </v-container>
 </template>
 
@@ -20,7 +13,7 @@ export default {
     songCount: 0,
     songs: [],
     hasMore: false,
-    loading: false,
+    loading: false
   }),
   created() {
     this.keywords = this.$route.query.keywords;
@@ -30,7 +23,7 @@ export default {
     // 获取歌曲列表
     searchSongs(offset = 0, push = false) {
       this.loading = true;
-      this.$http.song.search(this.keywords, offset).then((res) => {
+      this.$http.song.search(this.keywords, offset).then(res => {
         if (push) {
           this.songs.push.apply(this.songs, res.songs);
         } else {
@@ -46,7 +39,7 @@ export default {
       if (this.hasMore) {
         this.searchSongs(page * 9, true);
       }
-    },
+    }
   },
   beforeRouteUpdate(to, from, next) {
     this.keywords = to.query.keywords;
@@ -54,7 +47,7 @@ export default {
     this.$refs.songlist.page = 1;
     this.searchSongs();
     next();
-  },
+  }
 };
 </script>
 

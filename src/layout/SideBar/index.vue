@@ -22,9 +22,9 @@ export default {
   data: () => ({}),
   computed: {
     ...mapState({
-      isShow: (state) => state.play.isShow,
-    }),
-  },
+      isShow: state => state.play.isShow
+    })
+  }
 };
 </script>
 

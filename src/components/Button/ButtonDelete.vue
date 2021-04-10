@@ -19,21 +19,21 @@
 export default {
   props: {
     id: { type: Number, required: true },
-    name: { type: String, required: true },
+    name: { type: String, required: true }
   },
   data: () => ({
-    dialog: false,
+    dialog: false
   }),
   methods: {
     // 从歌单删除歌曲
     delSong() {
       this.$http.playlist
         .tracks(this.$route.query.id, this.id, false)
-        .then((res) => {
+        .then(res => {
           this.$emit("success", this.id);
           this.dialog = false;
         });
-    },
-  },
+    }
+  }
 };
 </script>

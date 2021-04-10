@@ -3,16 +3,10 @@
     <v-card :loading="loading" width="600" rounded="lg" class="overflow-hidden">
       <!-- Card顶部进度条插槽 -->
       <template slot="progress">
-        <v-progress-linear
-          color="green"
-          height="8"
-          indeterminate
-        ></v-progress-linear>
+        <v-progress-linear color="green" height="8" indeterminate></v-progress-linear>
       </template>
       <!-- 标题 -->
-      <v-card-title class="justify-center font-weight-bold text-h4 blue--text">
-        登录
-      </v-card-title>
+      <v-card-title class="justify-center font-weight-bold text-h4 blue--text">登录</v-card-title>
       <v-divider></v-divider>
       <!-- 切换选项卡 -->
       <v-tabs v-model="tab" color="basil" grow>
@@ -25,20 +19,12 @@
           <component is="LoginPhone" @login="login"></component>
         </v-tab-item>
         <v-tab-item class="py-8">
-          <component
-            is="LoginQR"
-            @login="login"
-            @loading="(res) => (loading = res)"
-          ></component>
+          <component is="LoginQR" @login="login" @loading="(res) => (loading = res)"></component>
         </v-tab-item>
       </v-tabs-items>
       <!-- 加载提示圈 -->
       <v-overlay :value="overlay" opacity="0.75">
-        <v-progress-circular
-          indeterminate
-          size="64"
-          width="8"
-        ></v-progress-circular>
+        <v-progress-circular indeterminate size="64" width="8"></v-progress-circular>
       </v-overlay>
     </v-card>
   </v-container>
@@ -54,16 +40,16 @@ export default {
     tab: 0,
     loading: false,
     overlay: false,
-    fullPath: "/", // 登陆后的跳转路由
+    fullPath: "/" // 登陆后的跳转路由
   }),
   methods: {
     ...mapMutations({
-      setLogin: "login",
+      setLogin: "login"
     }),
     login() {
       this.overlay = true;
       // 获取ID,等级和头像
-      this.$http.login.status().then((res) => {
+      this.$http.login.status().then(res => {
         if (res.islogin) {
           this.setLogin(res);
           this.overlay = false;
@@ -71,12 +57,12 @@ export default {
           this.$router.replace(this.fullPath);
         }
       });
-    },
+    }
   },
   beforeRouteEnter(to, from, next) {
-    next((vm) => {
+    next(vm => {
       vm.fullPath = from.fullPath;
     });
-  },
+  }
 };
 </script>

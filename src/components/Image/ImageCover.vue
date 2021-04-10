@@ -20,8 +20,8 @@
 export default {
   props: {
     src: { type: String, required: true },
-    size: { type: Number, default: 140 },
+    size: { type: Number, default: 140 }
   },
-  data: () => ({}),
+  data: () => ({})
 };
 </script>

@@ -9,7 +9,7 @@ import { mapState, mapMutations } from "vuex";
 export default {
   data: () => ({
     // 播放方式图标显示: 单曲、顺序、随机
-    mode: 0,
+    mode: 0
   }),
   created() {
     if (this.loop) {
@@ -23,12 +23,12 @@ export default {
   watch: {
     mode(newValue) {
       this.playmode(newValue);
-    },
+    }
   },
   computed: {
     ...mapState({
-      loop: (state) => state.play.loop,
-      random: (state) => state.play.random,
+      loop: state => state.play.loop,
+      random: state => state.play.random
     }),
     theIcon() {
       switch (this.mode) {
@@ -39,10 +39,10 @@ export default {
         case 2:
           return "mdi-shuffle";
       }
-    },
+    }
   },
   methods: {
-    ...mapMutations(["playmode"]),
-  },
+    ...mapMutations(["playmode"])
+  }
 };
 </script>

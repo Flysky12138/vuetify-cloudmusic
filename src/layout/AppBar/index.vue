@@ -15,6 +15,6 @@ import Search from "./Search.vue";
 import Avatar from "./Avatar.vue";
 export default {
   components: { ButtonRouter, Search, Avatar },
-  data: () => ({}),
+  data: () => ({})
 };
 </script>

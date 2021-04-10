@@ -16,11 +16,7 @@
       </v-col>
       <!-- 听歌排行 -->
       <v-col cols="12" v-if="userListenRanking.items.length !== 0">
-        <user-listen-ranking
-          :value="userListenRanking.items"
-          :loading="userListenRanking.loading"
-          @change="getUserListenRanking"
-        />
+        <user-listen-ranking :value="userListenRanking.items" :loading="userListenRanking.loading" @change="getUserListenRanking" />
       </v-col>
     </v-row>
   </v-container>
@@ -49,17 +45,17 @@ export default {
         gender: 0,
         nickname: "",
         province: "",
-        signature: "",
-      },
+        signature: ""
+      }
     },
     userPlaylist: {
       create: [],
-      collect: [],
+      collect: []
     },
     userListenRanking: {
       items: [],
-      loading: false,
-    },
+      loading: false
+    }
   }),
   created() {
     this.uid = this.$route.query.uid;
@@ -70,14 +66,14 @@ export default {
   methods: {
     // 获取用户信息
     getUserDetail() {
-      this.$http.user.detail(this.uid).then((res) => {
+      this.$http.user.detail(this.uid).then(res => {
         this.userDetail = res;
         this.count++;
       });
     },
     // 获取用户歌单
     getUserPlaylist() {
-      this.$http.user.playlist(this.uid).then((res) => {
+      this.$http.user.playlist(this.uid).then(res => {
         this.userPlaylist.create = res.create;
         this.userPlaylist.collect = res.collect;
         this.count++;
@@ -86,11 +82,11 @@ export default {
     // 获取用户听歌排行
     getUserListenRanking(param = 0) {
       this.userListenRanking.loading = true;
-      this.$http.user.record(this.uid, param === 0 ? 1 : 0).then((res) => {
+      this.$http.user.record(this.uid, param === 0 ? 1 : 0).then(res => {
         this.userListenRanking.items = res;
         this.userListenRanking.loading = false;
       });
-    },
+    }
   },
   beforeRouteUpdate(to, from, next) {
     this.uid = to.query.uid;
@@ -99,7 +95,7 @@ export default {
     this.getUserPlaylist();
     this.getUserListenRanking();
     next();
-  },
+  }
 };
 </script>
 

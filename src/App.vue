@@ -2,11 +2,7 @@
   <v-app>
     <template v-if="$vuetify.breakpoint.mdAndUp">
       <!-- 顶部导航栏 -->
-      <v-app-bar
-        app
-        :color="$vuetify.theme.isDark ? '' : 'white'"
-        elevate-on-scroll
-      >
+      <v-app-bar app :color="$vuetify.theme.isDark ? '' : 'white'" elevate-on-scroll>
         <v-container style="width: 75vw">
           <app-bar />
         </v-container>
@@ -33,9 +29,12 @@
     <template v-else>
       <v-container class="fill-height">
         <strong class="mx-auto text-center">
-          非 PC 端<br />&amp;<br />
-          width &lt; {{ $vuetify.breakpoint.thresholds.sm }}px<br /><br />
-          未适配，不允显示
+          非 PC 端
+          <br />&amp;
+          <br />
+          width &lt; {{ $vuetify.breakpoint.thresholds.sm }}px
+          <br />
+          <br />未适配，不允显示
         </strong>
       </v-container>
     </template>
@@ -51,13 +50,13 @@ export default {
   data: () => ({}),
   created() {
     // 获取ID,等级和头像
-    this.$http.login.status().then((res) => {
+    this.$http.login.status().then(res => {
       res.islogin ? this.login(res) : this.logout();
     });
   },
   methods: {
-    ...mapMutations(["login", "logout"]),
-  },
+    ...mapMutations(["login", "logout"])
+  }
 };
 </script>
 

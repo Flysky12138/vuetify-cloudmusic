@@ -5,7 +5,7 @@ import store from "./plugins/store";
 import vuetify from "./plugins/vuetify";
 import http from "./http";
 import message from "./common/message";
-import './registerServiceWorker'
+import "./registerServiceWorker";
 
 Vue.config.productionTip = false;
 Vue.prototype.$http = http;

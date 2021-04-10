@@ -1,21 +1,13 @@
 <template>
-  <v-row
-    class="overflow-y-auto scroll lyricsScroll"
-    style="height: 520px"
-    @mousewheel="mouseWheel"
-    v-intersect="onIntersect"
-  >
+  <v-row class="overflow-y-auto scroll lyricsScroll" style="height: 520px" @mousewheel="mouseWheel" v-intersect="onIntersect">
     <v-col cols="12" class="text-center">
       <v-responsive height="160"></v-responsive>
-      <div
-        v-for="(item, index) in value"
-        :key="item.id"
-        :id="'songlyrics_' + index"
-        class="my-6 font-weight-bold"
-        :style="lyricsStyle(index)"
-      >
+      <div v-for="(item, index) in value" :key="item.id" :id="'songlyrics_' + index" class="my-6 font-weight-bold" :style="lyricsStyle(index)">
         <span>{{ item.lyric }}</span>
-        <span v-if="item.tlyric"><br />{{ item.tlyric }}</span>
+        <span v-if="item.tlyric">
+          <br />
+          {{ item.tlyric }}
+        </span>
       </div>
       <v-responsive height="160"></v-responsive>
     </v-col>
@@ -26,15 +18,15 @@
 import { mapState } from "vuex";
 export default {
   props: {
-    value: { type: Array, required: true },
+    value: { type: Array, required: true }
   },
   data: () => ({
     lyricIndex: 0, // 指定正在播放的歌词
     // 鼠标滚动了歌词
     scroll: {
       onMouse: false,
-      setTimeout: {},
-    },
+      setTimeout: {}
+    }
   }),
   watch: {
     // 滚动到指定歌词位置
@@ -48,15 +40,15 @@ export default {
       // 颠倒素组后查找满足条件的第一个对象索引值
       const reverseIndex = [...this.value]
         .reverse()
-        .findIndex((res) => res.time <= newValue);
+        .findIndex(res => res.time <= newValue);
       this.lyricIndex =
         reverseIndex === -1 ? 0 : this.value.length - reverseIndex - 1;
-    },
+    }
   },
   computed: {
     ...mapState({
-      playDt: (state) => state.play.dt, // 当前音乐播放进度
-    }),
+      playDt: state => state.play.dt // 当前音乐播放进度
+    })
   },
   methods: {
     // 歌词滚动
@@ -65,7 +57,7 @@ export default {
         container: ".lyricsScroll",
         duration: 400,
         offset: 132,
-        easing: "easeOutQuad",
+        easing: "easeOutQuad"
       });
     },
     // 鼠标滚动了歌词.3S后才会自动滚动歌词
@@ -95,7 +87,7 @@ export default {
     // 播放界面显示,执行一次歌词滚动
     onIntersect(entries) {
       entries[0].isIntersecting && this.value.length !== 0 && this.scrollGoto();
-    },
-  },
+    }
+  }
 };
 </script>

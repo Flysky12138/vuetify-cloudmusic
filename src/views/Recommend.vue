@@ -1,12 +1,6 @@
 <template>
   <v-container>
-    <song-list
-      :title="title"
-      :subtitle="subtitle"
-      :value="value"
-      :loading="loading"
-      :itemsPerPage="itemsPerPage"
-    />
+    <song-list :title="title" :subtitle="subtitle" :value="value" :loading="loading" :itemsPerPage="itemsPerPage" />
   </v-container>
 </template>
 
@@ -20,18 +14,18 @@ export default {
     subtitle: 0,
     value: [],
     itemsPerPage: 1,
-    loading: false,
+    loading: false
   }),
   created() {
     this.loading = true;
     this.title = time.nowDate() + this.title;
-    this.$http.playlist.recommend().then((res) => {
+    this.$http.playlist.recommend().then(res => {
       this.subtitle = res.length;
       this.value = res;
       this.itemsPerPage = res.length;
       this.loading = false;
     });
-  },
+  }
 };
 </script>
 

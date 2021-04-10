@@ -1,16 +1,8 @@
 <template>
   <div v-if="islogin" class="d-flex">
-    <image-avatar
-      :uid="user.uid"
-      :src="user.avatarUrl"
-      @contextmenu.native.prevent="logout"
-    ></image-avatar>
+    <image-avatar :uid="user.uid" :src="user.avatarUrl" @contextmenu.native.prevent="logout"></image-avatar>
     <!-- 等级显示 -->
-    <span
-      class="mb-n1 align-self-end green--text text-caption font-weight-black font-italic"
-    >
-      {{ "Lv." + user.level }}
-    </span>
+    <span class="mb-n1 align-self-end green--text text-caption font-weight-black font-italic">{{ "Lv." + user.level }}</span>
   </div>
   <v-avatar v-else color="grey lighten-2" size="38">
     <v-btn icon to="/login">
@@ -27,13 +19,13 @@ export default {
   data: () => ({}),
   computed: {
     ...mapState({
-      islogin: (state) => state.islogin,
-      user: (state) => state.user,
-    }),
+      islogin: state => state.islogin,
+      user: state => state.user
+    })
   },
   methods: {
     ...mapMutations({
-      setLogout: "logout",
+      setLogout: "logout"
     }),
     logout() {
       this.$http.logout().then(() => {
@@ -41,7 +33,7 @@ export default {
         this.$message({ text: "退出登录成功！", color: "primary" });
         this.$route.path !== "/" && this.$router.replace("/");
       });
-    },
-  },
+    }
+  }
 };
 </script>

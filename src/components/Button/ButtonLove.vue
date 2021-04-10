@@ -9,28 +9,28 @@
 import { mapState } from "vuex";
 export default {
   props: {
-    id: { type: Number, required: true },
+    id: { type: Number, required: true }
   },
   data: () => ({
-    islove: false,
+    islove: false
   }),
   created() {
     this.isLove();
   },
   watch: {
-    id: "isLove",
+    id: "isLove"
   },
   computed: {
     ...mapState({
-      islogin: (state) => state.islogin,
-      uid: (state) => state.user.uid,
-    }),
+      islogin: state => state.islogin,
+      uid: state => state.user.uid
+    })
   },
   methods: {
     // 是否已添加喜欢音乐列表
     isLove() {
       this.islove = false;
-      this.$http.song.likelist(this.uid).then((res) => {
+      this.$http.song.likelist(this.uid).then(res => {
         this.islove = res.indexOf(this.id) === -1 ? false : true;
       });
     },
@@ -39,7 +39,7 @@ export default {
       this.$http.song.like(this.id, !this.islove).then(() => {
         this.islove = !this.islove;
       });
-    },
-  },
+    }
+  }
 };
 </script>

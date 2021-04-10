@@ -5,13 +5,7 @@
       <v-icon>mdi-skip-previous</v-icon>
     </v-btn>
     <!-- 播放,暂停 -->
-    <v-btn
-      icon
-      large
-      class="mx-5"
-      style="background-color: rgba(90, 90, 90, 0.1)"
-      @click="onPlay"
-    >
+    <v-btn icon large class="mx-5" style="background-color: rgba(90, 90, 90, 0.1)" @click="onPlay">
       <v-icon v-if="isplay">mdi-pause</v-icon>
       <v-icon v-else>mdi-play</v-icon>
     </v-btn>
@@ -28,7 +22,7 @@ export default {
   data: () => ({}),
   created() {
     // 快捷按键播放调整
-    document.onkeydown = (event) => {
+    document.onkeydown = event => {
       switch (event.code) {
         case "ArrowLeft":
           this.previous();
@@ -44,14 +38,14 @@ export default {
   },
   computed: {
     ...mapState({
-      isplay: (state) => state.play.isplay,
-    }),
+      isplay: state => state.play.isplay
+    })
   },
   methods: {
     ...mapMutations(["previous", "next", "play", "pause"]),
     onPlay() {
       this.isplay ? this.pause() : this.play();
-    },
-  },
+    }
+  }
 };
 </script>

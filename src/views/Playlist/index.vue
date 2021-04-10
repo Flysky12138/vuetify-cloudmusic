@@ -42,12 +42,12 @@ export default {
       trackIds: [],
       userId: 0,
       avatarUrl: "",
-      nickname: "",
+      nickname: ""
     },
     songlistDetail: {
       songlist: [],
-      loading: false,
-    },
+      loading: false
+    }
   }),
   created() {
     this.id = this.$route.query.id;
@@ -55,13 +55,13 @@ export default {
   },
   computed: {
     ...mapState({
-      uid: (state) => state.user.uid,
-    }),
+      uid: state => state.user.uid
+    })
   },
   methods: {
     // 获取歌单信息
     getPlaylistDetail() {
-      this.$http.playlist.detail(this.id).then((res) => {
+      this.$http.playlist.detail(this.id).then(res => {
         this.playlistDetail = res;
         this.getSonglistDetail(res.trackIds);
         this.count++;
@@ -70,17 +70,17 @@ export default {
     // 获取歌单歌曲列表
     getSonglistDetail(idsArr) {
       this.songlistDetail.loading = true;
-      this.$http.song.detail(idsArr).then((res) => {
+      this.$http.song.detail(idsArr).then(res => {
         this.songlistDetail.songlist = res;
         this.songlistDetail.loading = false;
       });
-    },
+    }
   },
   beforeRouteUpdate(to, from, next) {
     this.id = to.query.id;
     this.count = 0;
     this.getPlaylistDetail();
     next();
-  },
+  }
 };
 </script>

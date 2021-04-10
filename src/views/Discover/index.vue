@@ -9,12 +9,7 @@
     <!-- 歌单刷新前的骨架图 -->
     <v-row v-if="loading" justify="space-around">
       <v-col cols="auto" v-for="item in 30" :key="item" class="px-6">
-        <v-skeleton-loader
-          class="mb-12"
-          width="120"
-          height="120"
-          type="image"
-        ></v-skeleton-loader>
+        <v-skeleton-loader class="mb-12" width="120" height="120" type="image"></v-skeleton-loader>
       </v-col>
     </v-row>
     <!-- 歌单 -->
@@ -26,13 +21,7 @@
     <!-- 分页 -->
     <v-row>
       <v-col cols="12" class="pb-6" v-if="total > params.limit">
-        <v-pagination
-          v-model="page"
-          :length="Math.ceil(total / params.limit)"
-          :total-visible="7"
-          circle
-          @input="clickChangePage"
-        ></v-pagination>
+        <v-pagination v-model="page" :length="Math.ceil(total / params.limit)" :total-visible="7" circle @input="clickChangePage"></v-pagination>
       </v-col>
     </v-row>
   </v-container>
@@ -53,13 +42,13 @@ export default {
       cat: "全部",
       limit: 30,
       offset: 0,
-      order: "hot",
+      order: "hot"
     },
-    loading: false,
+    loading: false
   }),
   created() {
     // 获取歌单分类
-    this.$http.playlist.catlist().then((res) => {
+    this.$http.playlist.catlist().then(res => {
       this.catlist = res;
     });
     // 获取歌单列表
@@ -77,7 +66,7 @@ export default {
       this.$vuetify.goTo("#playlistHead", {
         duration: 300, // 动画时长
         offset: 80, // 偏移
-        easing: "easeOutQuad", // 动画
+        easing: "easeOutQuad" // 动画
       });
       // 改变路由，数据请求由 beforeRouteUpdate() 获取
       this.params.offset = (page - 1) * this.params.limit;
@@ -85,8 +74,8 @@ export default {
         path: this.$route.path,
         query: {
           cat: this.params.cat,
-          page: this.page,
-        },
+          page: this.page
+        }
       });
     },
     // 获取歌单
@@ -99,12 +88,12 @@ export default {
           this.params.offset,
           this.params.order
         )
-        .then((res) => {
+        .then(res => {
           this.playlists = res.playlists;
           this.total = res.total;
           this.loading = false;
         });
-    },
+    }
   },
   beforeRouteUpdate(to, from, next) {
     to.query.cat && (this.params.cat = to.query.cat);
@@ -116,6 +105,6 @@ export default {
     }
     this.getPlatlist();
     next();
-  },
+  }
 };
 </script>

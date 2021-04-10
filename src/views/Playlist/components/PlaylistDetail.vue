@@ -15,35 +15,20 @@
         <v-col cols="12" class="py-0">
           <image-avatar :uid="value.userId" :src="value.avatarUrl" />
           <span class="ml-2 text-subtitle-1">{{ value.nickname }}</span>
-          <span class="mx-10 text-subtitle-2 text--secondary">
-            创建于：{{ value.createTime }}
-          </span>
+          <span class="mx-10 text-subtitle-2 text--secondary">创建于：{{ value.createTime }}</span>
           <span class="text-subtitle-2 text--secondary">
-            <span> 播放：{{ value.playCount }} </span>
-            <span class="mx-2"> 分享：{{ value.shareCount }} </span>
-            <span> 收藏：{{ value.subscribedCount }} </span>
-            <v-btn
-              v-if="value.userId !== uid"
-              icon
-              x-small
-              class="ml-1 mb-1"
-              @click="subscribe"
-            >
-              <v-icon>
-                {{ value.subscribed ? "mdi-check" : "mdi-plus" }}
-              </v-icon>
+            <span>播放：{{ value.playCount }}</span>
+            <span class="mx-2">分享：{{ value.shareCount }}</span>
+            <span>收藏：{{ value.subscribedCount }}</span>
+            <v-btn v-if="value.userId !== uid" icon x-small class="ml-1 mb-1" @click="subscribe">
+              <v-icon>{{ value.subscribed ? "mdi-check" : "mdi-plus" }}</v-icon>
             </v-btn>
           </span>
         </v-col>
         <!-- 标签 行 -->
         <v-col cols="12" class="pb-0">
           <span class="text-subtitle-2">标签：</span>
-          <song-chip
-            v-for="item in value.tags"
-            :key="item.id"
-            :value="item"
-            class="mr-2"
-          />
+          <song-chip v-for="item in value.tags" :key="item.id" :value="item" class="mr-2" />
         </v-col>
         <!-- 介绍 行 -->
         <v-col cols="12" class="pb-0 text-subtitle-2">
@@ -63,9 +48,7 @@
                     easing: 'easeOutQuad',
                   });
               "
-            >
-              {{ showAllDescription ? "收起" : "展开" }}
-            </v-btn>
+            >{{ showAllDescription ? "收起" : "展开" }}</v-btn>
           </div>
         </v-col>
       </v-row>
@@ -81,15 +64,15 @@ import SongChip from "components/Song/SongChip.vue";
 export default {
   components: { ImageAvatar, ImageCover, SongChip },
   props: {
-    value: { type: Object, required: true },
+    value: { type: Object, required: true }
   },
   data: () => ({
     showAllDescription: false,
-    isShowBtn: false,
+    isShowBtn: false
   }),
   computed: {
     ...mapState({
-      uid: (state) => state.user.uid,
+      uid: state => state.user.uid
     }),
     // 根据介绍文字长度返回文字
     getDescription() {
@@ -105,7 +88,7 @@ export default {
       } else {
         return "";
       }
-    },
+    }
   },
   methods: {
     // 收藏/取消收藏歌单
@@ -115,7 +98,7 @@ export default {
         .then(() => {
           this.value.subscribed = !this.value.subscribed;
         });
-    },
-  },
+    }
+  }
 };
 </script>
