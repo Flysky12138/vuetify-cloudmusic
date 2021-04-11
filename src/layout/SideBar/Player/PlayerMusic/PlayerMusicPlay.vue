@@ -18,23 +18,20 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
+import key from 'keymaster'
 export default {
   data: () => ({}),
   created() {
     // 快捷按键播放调整
-    document.onkeydown = event => {
-      switch (event.code) {
-        case 'ArrowLeft':
-          this.previous()
-          break
-        case 'ArrowRight':
-          this.next()
-          break
-        case 'Space':
-          this.isplay ? this.pause() : this.play()
-          break
-      }
-    }
+    key('left', () => {
+      this.previous()
+    })
+    key('right', () => {
+      this.next()
+    })
+    key('space', () => {
+      this.onPlay()
+    })
   },
   computed: {
     ...mapState({

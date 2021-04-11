@@ -35,6 +35,7 @@ export default {
   },
   methods: {
     ...mapMutations(['setVolume', 'setMuted']),
+    // 控制音量
     mouseWheel(event) {
       if (event.deltaY < 0 && this.volume < 10) {
         this.volume++
