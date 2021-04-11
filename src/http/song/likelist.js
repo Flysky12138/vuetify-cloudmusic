@@ -1,19 +1,19 @@
-import axios from "../api";
+import axios from '../api'
 
 // 喜欢音乐列表
 function likelist(uid) {
   return new Promise((resolve, reject) => {
     axios
-      .get("/likelist", {
+      .get('/likelist', {
         params: {
           uid
         }
       })
       .then(response => {
-        resolve(response.ids);
+        resolve(response.ids)
       })
-      .catch(error => reject(error));
-  });
+      .catch(error => reject(error))
+  })
 }
 
-export default likelist;
+export default likelist

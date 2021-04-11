@@ -1,41 +1,41 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import play from "./play";
+import Vue from 'vue'
+import Vuex from 'vuex'
+import play from './play'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 const store = {
   modules: { play },
   state: {
     // 登录状态
     get islogin() {
-      return JSON.parse(localStorage.getItem("islogin"));
+      return JSON.parse(localStorage.getItem('islogin'))
     },
     set islogin(params) {
-      localStorage.setItem("islogin", JSON.stringify(params));
+      localStorage.setItem('islogin', JSON.stringify(params))
     },
     // 用户信息
     get user() {
-      return JSON.parse(localStorage.getItem("user"));
+      return JSON.parse(localStorage.getItem('user'))
     },
     set user(params) {
-      localStorage.setItem("user", JSON.stringify(params));
+      localStorage.setItem('user', JSON.stringify(params))
     }
   },
   mutations: {
     login(state, params) {
-      state.islogin = true;
+      state.islogin = true
       state.user = {
         uid: params.uid,
         level: params.level,
         avatarUrl: params.avatarUrl
-      };
+      }
     },
     logout(state) {
-      state.islogin = false;
-      state.user = {};
+      state.islogin = false
+      state.user = {}
     }
   }
-};
+}
 
-export default new Vuex.Store(store);
+export default new Vuex.Store(store)

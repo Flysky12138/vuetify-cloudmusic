@@ -1,19 +1,19 @@
 <template>
-  <div v-if="islogin" class="d-flex">
-    <image-avatar :uid="user.uid" :src="user.avatarUrl" @contextmenu.native.prevent="logout"></image-avatar>
+  <div v-if='islogin' class='d-flex'>
+    <image-avatar :uid='user.uid' :src='user.avatarUrl' @contextmenu.native.prevent='logout'></image-avatar>
     <!-- 等级显示 -->
-    <span class="mb-n1 align-self-end green--text text-caption font-weight-black font-italic">{{ "Lv." + user.level }}</span>
+    <span class='mb-n1 align-self-end green--text text-caption font-weight-black font-italic'>{{ "Lv." + user.level }}</span>
   </div>
-  <v-avatar v-else color="grey lighten-2" size="38">
-    <v-btn icon to="/login">
+  <v-avatar v-else color='grey lighten-2' size='38'>
+    <v-btn icon to='/login'>
       <v-icon>mdi-account-outline</v-icon>
     </v-btn>
   </v-avatar>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
-import ImageAvatar from "components/Image/ImageAvatar.vue";
+import { mapState, mapMutations } from 'vuex'
+import ImageAvatar from 'components/Image/ImageAvatar.vue'
 export default {
   components: { ImageAvatar },
   data: () => ({}),
@@ -25,15 +25,15 @@ export default {
   },
   methods: {
     ...mapMutations({
-      setLogout: "logout"
+      setLogout: 'logout'
     }),
     logout() {
       this.$http.logout().then(() => {
-        this.setLogout();
-        this.$message({ text: "退出登录成功！", color: "primary" });
-        this.$route.path !== "/" && this.$router.replace("/");
-      });
+        this.setLogout()
+        this.$message({ text: '退出登录成功！', color: 'primary' })
+        this.$route.path !== '/' && this.$router.replace('/')
+      })
     }
   }
-};
+}
 </script>

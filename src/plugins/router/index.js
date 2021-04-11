@@ -1,17 +1,17 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import routes from "./routes";
-import store from "../store";
-import goTo from "vuetify/es5/services/goto";
-import message from "common/message";
+import message from 'common/message'
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import goTo from 'vuetify/es5/services/goto'
+import store from '../store'
+import routes from './routes'
 
 // 解决报错问题：Error: Avoided redundant navigation to current location
-const original = VueRouter.prototype.push;
+const original = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
-  return original.call(this, location).catch(err => err);
-};
+  return original.call(this, location).catch(err => err)
+}
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const router = new VueRouter({
   routes,
@@ -19,31 +19,31 @@ const router = new VueRouter({
   scrollBehavior: (to, from, savedPosition) => {
     // path不同才滚动
     if (to.path !== from.path) {
-      let scrollTo = 0;
+      let scrollTo = 0
       if (to.hash) {
-        scrollTo = to.hash;
+        scrollTo = to.hash
       } else if (savedPosition) {
-        scrollTo = savedPosition.y;
+        scrollTo = savedPosition.y
       }
       return goTo(scrollTo, {
         duration: 400,
         offset: 0,
-        easing: "easeOutQuad"
-      });
+        easing: 'easeOutQuad'
+      })
     }
   }
-});
+})
 
 // 路由全局前置守卫
 router.beforeEach((to, from, next) => {
-  let params = true;
+  let params = true
   if (!store.state.islogin) {
     if (to.matched.some(record => record.meta.requiresAuth)) {
-      message({ text: "未登录，跳转到登录界面！" });
-      params = { path: "/login" };
+      message({ text: '未登录，跳转到登录界面！' })
+      params = { path: '/login' }
     }
   }
-  next(params);
-});
+  next(params)
+})
 
-export default router;
+export default router

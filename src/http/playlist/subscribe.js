@@ -1,20 +1,20 @@
-import axios from "../api";
+import axios from '../api'
 
 // 收藏/取消收藏歌单
 function subscribe(id, t = true) {
   return new Promise((resolve, reject) => {
     axios
-      .get("/playlist/subscribe", {
+      .get('/playlist/subscribe', {
         params: {
           id,
           t: t ? 1 : 2
         }
       })
       .then(response => {
-        resolve(response);
+        resolve(response)
       })
-      .catch(error => reject(error));
-  });
+      .catch(error => reject(error))
+  })
 }
 
-export default subscribe;
+export default subscribe

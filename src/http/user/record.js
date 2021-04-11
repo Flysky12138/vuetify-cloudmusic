@@ -1,37 +1,37 @@
-import axios from "../api";
+import axios from '../api'
 
 // 获取用户播放记录
 function record(uid, type) {
   return new Promise((resolve, reject) => {
     axios
-      .get("/user/record", {
+      .get('/user/record', {
         params: {
           uid,
           type
         }
       })
       .then(response => {
-        let arr = [];
+        let arr = []
         // 用户是否允许他人预览
-        if (typeof response !== "undefined") {
-          let key;
-          type === 0 ? (key = "allData") : (key = "weekData");
+        if (typeof response !== 'undefined') {
+          let key
+          type === 0 ? (key = 'allData') : (key = 'weekData')
           response[key].forEach(element => {
             arr.push({
-              playCount: element.playCount === 0 ? "-" : element.playCount,
+              playCount: element.playCount === 0 ? '-' : element.playCount,
               score: element.score,
               song: {
                 id: element.song.id,
                 name: element.song.name,
-                artists: element.song.ar.map(res => res.name).join(" / ")
+                artists: element.song.ar.map(res => res.name).join(' / ')
               }
-            });
-          });
+            })
+          })
         }
-        resolve(arr);
+        resolve(arr)
       })
-      .catch(error => reject(error));
-  });
+      .catch(error => reject(error))
+  })
 }
 
-export default record;
+export default record

@@ -1,14 +1,14 @@
 // 设置缓存的前缀和后缀
 workbox.core.setCacheNameDetails({
-  prefix: "com.vuetify.cloudmusic",
-  suffix: "v0.1.0"
-});
+  prefix: 'com.vuetify.cloudmusic',
+  suffix: 'v0.1.0'
+})
 // 强制等待中的 Service Worker 被激活
-workbox.core.skipWaiting();
+workbox.core.skipWaiting()
 // Service Worker 被激活后使其立即获得页面控制权
-workbox.core.clientsClaim();
+workbox.core.clientsClaim()
 // 设置预加载
-workbox.precaching.precacheAndRoute(self.__precacheManifest || []);
+workbox.precaching.precacheAndRoute(self.__precacheManifest || [])
 
 /*
  * 设置资源缓存策略 workbox主要提供了以下几种缓存策略
@@ -26,9 +26,9 @@ workbox.routing.registerRoute(
   // 使用缓存，但尽快在后台更新
   workbox.strategies.staleWhileRevalidate({
     // 使用自定义缓存名称
-    cacheName: "css-cache"
+    cacheName: 'css-cache'
   })
-);
+)
 
 // 缓存web的js资源
 workbox.routing.registerRoute(
@@ -37,15 +37,15 @@ workbox.routing.registerRoute(
   // 使用缓存，但尽快在后台更新
   workbox.strategies.staleWhileRevalidate({
     // 使用自定义缓存名称
-    cacheName: "js-cache"
+    cacheName: 'js-cache'
   })
-);
+)
 
 // 缓存web的图片资源
 workbox.routing.registerRoute(
   /\.(?:png|gif|jpg|jpeg|svg)$/,
   workbox.strategies.staleWhileRevalidate({
-    cacheName: "images",
+    cacheName: 'images',
     plugins: [
       new workbox.expiration.Plugin({
         maxEntries: 60,
@@ -53,7 +53,7 @@ workbox.routing.registerRoute(
       })
     ]
   })
-);
+)
 
 // 缓存其他域名上的图片资源，需要支持跨域
 // workbox.routing.registerRoute(

@@ -1,25 +1,25 @@
 <template>
   <v-container>
-    <v-row justify="center">
+    <v-row justify='center'>
       <!-- 手机号输入 -->
-      <v-col cols="7" sm="4">
-        <v-text-field label="手机号" prefix="+86" counter="11" maxlength="11" clearable autofocus v-model="phone.value" :success="phone.inputTrue"></v-text-field>
+      <v-col cols='7' sm='4'>
+        <v-text-field label='手机号' prefix='+86' counter='11' maxlength='11' clearable autofocus v-model='phone.value' :success='phone.inputTrue'></v-text-field>
       </v-col>
       <!-- 布局占位 -->
-      <v-col cols="1" class="hidden-xs-only"></v-col>
+      <v-col cols='1' class='hidden-xs-only'></v-col>
       <!-- 密码输入 -->
-      <v-col cols="7" sm="4">
+      <v-col cols='7' sm='4'>
         <v-text-field
-          label="密码"
-          hint="回车确认登录"
-          ref="Code"
+          label='密码'
+          hint='回车确认登录'
+          ref='Code'
           counter
-          :append-icon="password.isShow ? 'mdi-eye' : 'mdi-eye-off'"
-          @click:append="password.isShow = !password.isShow"
-          :type="password.isShow ? 'text' : 'password'"
-          :disabled="password.disabled"
-          v-model="password.value"
-          @keyup.13="login"
+          :append-icon='password.isShow ? "mdi-eye" : "mdi-eye-off"'
+          @click:append='password.isShow = !password.isShow'
+          :type='password.isShow ? "text" : "password"'
+          :disabled='password.disabled'
+          v-model='password.value'
+          @keyup.13='login'
         ></v-text-field>
       </v-col>
     </v-row>
@@ -29,65 +29,63 @@
 <script>
 export default {
   data: () => ({
-    phone: { value: "", inputTrue: false },
-    password: { value: "", isShow: false, disabled: true },
-    rules: new RegExp("^(13[0-9]|14[5|7]|15[0-9]|18[0-3|5-9])\\d{8}$")
+    phone: { value: '', inputTrue: false },
+    password: { value: '', isShow: false, disabled: true },
+    rules: new RegExp('^(13[0-9]|14[5|7]|15[0-9]|18[0-3|5-9])\\d{8}$')
   }),
   watch: {
-    "phone.value"(newValue) {
+    'phone.value'(newValue) {
       // 号码正确
       if (this.rules.test(newValue)) {
         // 且已注册
         this.$http.login.check(newValue).then(res => {
           if (res) {
-            this.phone.inputTrue = true;
+            this.phone.inputTrue = true
           } else {
             this.$message({
-              text: "该手机号未注册 【 " + this.phone.value + " 】",
-              color: "primary"
-            });
+              text: '该手机号未注册 【 ' + this.phone.value + ' 】',
+              color: 'primary'
+            })
           }
-        });
+        })
       } else {
-        this.phone.inputTrue = false;
+        this.phone.inputTrue = false
       }
     },
-    "phone.inputTrue"(newValue) {
+    'phone.inputTrue'(newValue) {
       if (newValue) {
-        this.password.disabled = false;
+        this.password.disabled = false
         setTimeout(() => {
-          this.$refs.Code.focus();
-        }, 500);
+          this.$refs.Code.focus()
+        }, 500)
       } else {
-        this.password.value = "";
-        this.password.disabled = true;
+        this.password.value = ''
+        this.password.disabled = true
       }
     }
   },
   methods: {
     login() {
-      if (this.password.value !== "") {
-        this.$http.login
-          .cellphone(this.phone.value, this.password.value)
-          .then(res => {
-            switch (res) {
-              case 0:
-                this.$message({ text: "密码错误" });
-                this.password.value = "";
-                break;
-              case 1: // 登录成功
-                this.$emit("login");
-                break;
-              case 2:
-                this.$message({ text: "当前登录失败，请稍后再试" });
-                break;
-              case 3:
-                this.$message({ text: "密码错误超过限制，请换二维码登录" });
-                break;
-            }
-          });
+      if (this.password.value !== '') {
+        this.$http.login.cellphone(this.phone.value, this.password.value).then(res => {
+          switch (res) {
+            case 0:
+              this.$message({ text: '密码错误' })
+              this.password.value = ''
+              break
+            case 1: // 登录成功
+              this.$emit('login')
+              break
+            case 2:
+              this.$message({ text: '当前登录失败，请稍后再试' })
+              break
+            case 3:
+              this.$message({ text: '密码错误超过限制，请换二维码登录' })
+              break
+          }
+        })
       }
     }
   }
-};
+}
 </script>

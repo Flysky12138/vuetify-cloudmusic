@@ -1,5 +1,5 @@
 <template>
-  <v-chip small v-text="value" @click="toRouter"></v-chip>
+  <v-chip small v-text='value' @click='toRouter'></v-chip>
 </template>
 
 <script>
@@ -11,12 +11,12 @@ export default {
   methods: {
     toRouter() {
       this.$router.push({
-        path: "/discover/playlist",
+        path: '/discover/playlist',
         query: {
           cat: this.value
         }
-      });
+      })
     }
   }
-};
+}
 </script>

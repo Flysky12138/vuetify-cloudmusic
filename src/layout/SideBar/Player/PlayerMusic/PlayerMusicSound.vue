@@ -1,8 +1,8 @@
 <template>
-  <v-hover v-slot="{ hover }" open-delay="300">
-    <v-badge left overlap color="cyan" :value="hover && volume !== 0 && !muted" :content="volume">
-      <v-btn icon @click="muted = !muted" @mousewheel="mouseWheel">
-        <v-icon v-if="muted">mdi-volume-mute</v-icon>
+  <v-hover v-slot='{ hover }' open-delay='300'>
+    <v-badge left overlap color='cyan' :value='hover && volume !== 0 && !muted' :content='volume'>
+      <v-btn icon @click='muted = !muted' @mousewheel='mouseWheel'>
+        <v-icon v-if='muted'>mdi-volume-mute</v-icon>
         <v-icon v-else>mdi-volume-high</v-icon>
       </v-btn>
     </v-badge>
@@ -10,22 +10,22 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations } from 'vuex'
 export default {
   data: () => ({
     volume: 0, // 音量 0-10
     muted: false // 静音
   }),
   created() {
-    this.volume = this.vuexVolume;
+    this.volume = this.vuexVolume
   },
   watch: {
     volume(newValue) {
-      this.muted = newValue === 0 ? true : false;
-      this.setVolume(newValue);
+      this.muted = newValue === 0 ? true : false
+      this.setVolume(newValue)
     },
     muted(newValue) {
-      this.setMuted(newValue);
+      this.setMuted(newValue)
     }
   },
   computed: {
@@ -34,14 +34,14 @@ export default {
     })
   },
   methods: {
-    ...mapMutations(["setVolume", "setMuted"]),
+    ...mapMutations(['setVolume', 'setMuted']),
     mouseWheel(event) {
       if (event.deltaY < 0 && this.volume < 10) {
-        this.volume++;
+        this.volume++
       } else if (event.deltaY > 0 && this.volume > 0) {
-        this.volume--;
+        this.volume--
       }
     }
   }
-};
+}
 </script>

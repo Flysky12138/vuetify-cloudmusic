@@ -1,53 +1,53 @@
 <template>
   <v-container>
-    <song-list :title="keywords" :subtitle="songCount" :value="songs" :loading="loading" @pageEnd="getMoreSongs" ref="songlist" />
+    <song-list :title='keywords' :subtitle='songCount' :value='songs' :loading='loading' @pageEnd='getMoreSongs' ref='songlist' />
   </v-container>
 </template>
 
 <script>
-import SongList from "components/Song/SongList.vue";
+import SongList from 'components/Song/SongList.vue'
 export default {
   components: { SongList },
   data: () => ({
-    keywords: "",
+    keywords: '',
     songCount: 0,
     songs: [],
     hasMore: false,
     loading: false
   }),
   created() {
-    this.keywords = this.$route.query.keywords;
-    this.searchSongs();
+    this.keywords = this.$route.query.keywords
+    this.searchSongs()
   },
   methods: {
     // 获取歌曲列表
     searchSongs(offset = 0, push = false) {
-      this.loading = true;
+      this.loading = true
       this.$http.song.search(this.keywords, offset).then(res => {
         if (push) {
-          this.songs.push.apply(this.songs, res.songs);
+          this.songs.push.apply(this.songs, res.songs)
         } else {
-          this.songs = res.songs;
+          this.songs = res.songs
         }
-        this.songCount = res.songCount;
-        this.hasMore = res.hasMore;
-        this.loading = false;
-      });
+        this.songCount = res.songCount
+        this.hasMore = res.hasMore
+        this.loading = false
+      })
     },
     // 获取更多歌曲列表
     getMoreSongs(page) {
       if (this.hasMore) {
-        this.searchSongs(page * 9, true);
+        this.searchSongs(page * 9, true)
       }
     }
   },
   beforeRouteUpdate(to, from, next) {
-    this.keywords = to.query.keywords;
+    this.keywords = to.query.keywords
     // 更换搜索内容跳转到第一页
-    this.$refs.songlist.page = 1;
-    this.searchSongs();
-    next();
+    this.$refs.songlist.page = 1
+    this.searchSongs()
+    next()
   }
-};
+}
 </script>
 

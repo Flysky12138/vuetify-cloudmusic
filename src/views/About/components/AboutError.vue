@@ -1,5 +1,5 @@
 <template>
-  <v-alert border="left" colored-border elevation="1" dense color="error" icon="mdi-alert-circle-outline">
+  <v-alert border='left' colored-border elevation='1' dense color='error' icon='mdi-alert-circle-outline'>
     <span>
       Chrome登录不成功：访问
       <code>chrome://flags</code> 修改
@@ -12,5 +12,5 @@
 <script>
 export default {
   data: () => ({})
-};
+}
 </script>

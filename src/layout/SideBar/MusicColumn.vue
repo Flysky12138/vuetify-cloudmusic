@@ -1,28 +1,28 @@
 <template>
-  <div class="d-flex justify-center align-center">
-    <v-dialog v-model="dialog" fullscreen transition="dialog-bottom-transition">
-      <template v-slot:activator="{ on, attrs }">
+  <div class='d-flex justify-center align-center'>
+    <v-dialog v-model='dialog' fullscreen transition='dialog-bottom-transition'>
+      <template v-slot:activator='{ on, attrs }'>
         <!-- 跳转播放器界面按键 -->
-        <v-btn v-bind="attrs" v-on="on" fab dark color="blue lighten-2" elevation="0">
-          <v-icon class="audio">mdi-music-clef-treble</v-icon>
+        <v-btn v-bind='attrs' v-on='on' fab dark color='blue lighten-2' elevation='0'>
+          <v-icon class='audio'>mdi-music-clef-treble</v-icon>
         </v-btn>
       </template>
       <v-card tile dark>
-        <player @close="dialog = false" />
+        <player @close='dialog = false' />
       </v-card>
     </v-dialog>
     <!-- 上下按键 -->
-    <div style="position: absolute; z-index: -1">
+    <div style='position: absolute; z-index: -1'>
       <!-- 上一首 -->
-      <v-btn icon @click="previous">
+      <v-btn icon @click='previous'>
         <v-icon>mdi-chevron-up</v-icon>
       </v-btn>
       <!-- 按键动画调整 -->
-      <transition name="elongate">
-        <div class="box" v-show="isShow"></div>
+      <transition name='elongate'>
+        <div class='box' v-show='isShow'></div>
       </transition>
       <!-- 下一首 -->
-      <v-btn icon @click="next">
+      <v-btn icon @click='next'>
         <v-icon>mdi-chevron-down</v-icon>
       </v-btn>
     </div>
@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
-import Player from "./Player";
+import { mapState, mapMutations } from 'vuex'
+import Player from './Player'
 export default {
   components: { Player },
   data: () => ({
@@ -43,20 +43,22 @@ export default {
     })
   },
   methods: {
-    ...mapMutations(["previous", "next"])
+    ...mapMutations(['previous', 'next'])
   }
-};
+}
 </script>
 
 <style lang="scss">
 .box {
   height: 70px;
 }
-.elongate-enter {
-  height: 0;
-}
-.elongate-enter-active {
-  transition: height 0.3s cubic-bezier(0.62, 0.14, 0.48, 0.78);
+.elongate {
+  &-enter {
+    height: 0;
+  }
+  &-enter-active {
+    transition: height 0.3s cubic-bezier(0.62, 0.14, 0.48, 0.78);
+  }
 }
 @keyframes rotate {
   0% {

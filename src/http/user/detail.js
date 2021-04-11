@@ -1,20 +1,20 @@
-import axios from "../api";
-import time from "common/time";
-import province from "common/province-city-china/province.json";
-import city from "common/province-city-china/city.json";
+import city from 'common/province-city-china/city.json'
+import province from 'common/province-city-china/province.json'
+import time from 'common/time'
+import axios from '../api'
 
 // 获取用户详情
 function detail(uid) {
   return new Promise((resolve, reject) => {
     axios
-      .get("/user/detail", {
+      .get('/user/detail', {
         params: {
           uid
         }
       })
       .then(response => {
-        const p = province.find(res => res.code == response.profile.province);
-        const c = city.find(res => res.code == response.profile.city);
+        const p = province.find(res => res.code == response.profile.province)
+        const c = city.find(res => res.code == response.profile.city)
         resolve({
           level: response.level,
           listenSongs: response.listenSongs,
@@ -24,8 +24,8 @@ function detail(uid) {
             vipType: response.profile.vipType,
             birthday: time.date(response.profile.birthday).substring(0, 10),
             gender: response.profile.gender,
-            province: p ? p.name : "-",
-            city: c ? c.name : "-",
+            province: p ? p.name : '-',
+            city: c ? c.name : '-',
             backgroundUrl: response.profile.backgroundUrl,
             nickname: response.profile.nickname,
             avatarUrl: response.profile.avatarUrl,
@@ -33,10 +33,10 @@ function detail(uid) {
             followeds: response.profile.followeds,
             follows: response.profile.follows
           }
-        });
+        })
       })
-      .catch(error => reject(error));
-  });
+      .catch(error => reject(error))
+  })
 }
 
-export default detail;
+export default detail

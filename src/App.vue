@@ -1,24 +1,24 @@
 <template>
   <v-app>
-    <template v-if="$vuetify.breakpoint.mdAndUp">
+    <template v-if='$vuetify.breakpoint.mdAndUp && isPC'>
       <!-- 顶部导航栏 -->
-      <v-app-bar app :color="$vuetify.theme.isDark ? '' : 'white'" elevate-on-scroll>
-        <v-container style="width: 75vw">
+      <v-app-bar app :color='$vuetify.theme.isDark ? "" : "white"' elevate-on-scroll>
+        <v-container style='width: 75vw'>
           <app-bar />
         </v-container>
       </v-app-bar>
       <!-- 路由显示区 -->
-      <v-main :class="$vuetify.theme.isDark ? '' : 'grey lighten-3'">
-        <v-container style="height: 100%; width: 75vw">
-          <v-sheet rounded="lg" height="100%">
+      <v-main :class='$vuetify.theme.isDark ? "" : "grey lighten-3"'>
+        <v-container style='height: 100%; width: 75vw'>
+          <v-sheet rounded='lg' height='100%'>
             <!-- 对路由添加一个进入动画：渐显 -->
-            <transition name="router">
+            <transition name='router'>
               <keep-alive>
-                <router-view v-if="$route.meta.keepAlive" />
+                <router-view v-if='$route.meta.keepAlive' />
               </keep-alive>
             </transition>
-            <transition name="router">
-              <router-view v-if="!$route.meta.keepAlive" />
+            <transition name='router'>
+              <router-view v-if='!$route.meta.keepAlive' />
             </transition>
           </v-sheet>
         </v-container>
@@ -27,8 +27,8 @@
       <side-bar />
     </template>
     <template v-else>
-      <v-container class="fill-height">
-        <strong class="mx-auto text-center">
+      <v-container class='fill-height'>
+        <strong class='mx-auto text-center'>
           非 PC 端
           <br />&amp;
           <br />
@@ -42,36 +42,40 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
-import AppBar from "./layout/AppBar";
-import SideBar from "./layout/SideBar";
+import { mapMutations } from 'vuex'
+import AppBar from './layout/AppBar'
+import SideBar from './layout/SideBar'
 export default {
   components: { AppBar, SideBar },
-  data: () => ({}),
+  data: () => ({
+    // 判断是否是非PC端
+    isPC: !/Android|WindowsPhone|webOS|iPhone|iPod|BlackBerry|iPad/.test(navigator.userAgent)
+  }),
   created() {
     // 获取ID,等级和头像
     this.$http.login.status().then(res => {
-      res.islogin ? this.login(res) : this.logout();
-    });
+      res.islogin ? this.login(res) : this.logout()
+    })
   },
   methods: {
-    ...mapMutations(["login", "logout"])
+    ...mapMutations(['login', 'logout'])
   }
-};
+}
 </script>
 
 <style lang="scss">
 // 路由动画
-.router-enter {
-  opacity: 0;
-  // transform: scale(0.97);
-}
-.router-leave,
-.router-leave-to {
-  display: none;
-}
-.router-enter-active {
-  transition: all 1.5s;
+.router {
+  &-enter {
+    opacity: 0;
+    // transform: scale(0.97);
+  }
+  &-leave {
+    display: none;
+  }
+  &-enter-active {
+    transition: all 1.5s;
+  }
 }
 // 全局按键边框隐藏
 * {

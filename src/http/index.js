@@ -1,9 +1,9 @@
-import login from "./login";
-import playlist from "./playlist";
-import song from "./song";
-import user from "./user";
-import logout from "./logout";
-import personalized from "./personalized";
+import login from './login'
+import logout from './logout'
+import personalized from './personalized'
+import playlist from './playlist'
+import song from './song'
+import user from './user'
 
 export default {
   login,
@@ -12,4 +12,4 @@ export default {
   user,
   logout,
   personalized
-};
+}

@@ -1,18 +1,18 @@
 <template>
-  <v-dialog max-width="80vmin" overlay-opacity="0.9">
-    <template v-slot:activator="{ on, attrs }">
+  <v-dialog max-width='80vmin' overlay-opacity='0.9'>
+    <template v-slot:activator='{ on, attrs }'>
       <v-img
-        v-bind="attrs"
-        v-on="on"
-        :src="src"
-        :width="size"
-        :height="size"
-        transition="fade-transition"
-        style="box-shadow: #80d8ff 0 0 5px"
-        class="rounded-xl"
+        v-bind='attrs'
+        v-on='on'
+        :src='src'
+        :width='size'
+        :height='size'
+        transition='fade-transition'
+        style='box-shadow: #80d8ff 0 0 5px'
+        class='rounded-xl'
       ></v-img>
     </template>
-    <v-img :src="src"></v-img>
+    <v-img :src='src'></v-img>
   </v-dialog>
 </template>
 
@@ -23,5 +23,5 @@ export default {
     size: { type: Number, default: 140 }
   },
   data: () => ({})
-};
+}
 </script>

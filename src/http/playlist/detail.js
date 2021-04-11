@@ -1,11 +1,11 @@
-import axios from "../api";
-import time from "common/time";
+import time from 'common/time'
+import axios from '../api'
 
 // 获取歌单详情
 function detail(id) {
   return new Promise((resolve, reject) => {
     axios
-      .get("/playlist/detail", {
+      .get('/playlist/detail', {
         params: {
           id
         }
@@ -26,10 +26,10 @@ function detail(id) {
           userId: response.playlist.userId,
           avatarUrl: response.playlist.creator.avatarUrl,
           nickname: response.playlist.creator.nickname
-        });
+        })
       })
-      .catch(error => reject(error));
-  });
+      .catch(error => reject(error))
+  })
 }
 
-export default detail;
+export default detail

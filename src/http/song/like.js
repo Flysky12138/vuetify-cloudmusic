@@ -1,20 +1,20 @@
-import axios from "../api";
+import axios from '../api'
 
 // 添加移除喜欢音乐
 function like(id, like) {
   return new Promise((resolve, reject) => {
     axios
-      .get("/like", {
+      .get('/like', {
         params: {
           id,
           like
         }
       })
       .then(response => {
-        resolve(response);
+        resolve(response)
       })
-      .catch(error => reject(error));
-  });
+      .catch(error => reject(error))
+  })
 }
 
-export default like;
+export default like
