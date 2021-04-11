@@ -1,6 +1,6 @@
 <template>
   <v-card max-width='150' elevation='0'>
-    <v-img :src='value.coverImgUrl' class='ma-3 my-0 mt-1 text-end rounded-lg' transition='fade-transition' width='126' height='126' @click='toPlaylist'>
+    <v-img :src='value.coverImgUrl' class='mx-3 my-1 text-end rounded-lg' transition='fade-transition' width='126' height='126' @click='toPlaylist'>
       <!-- 图片加载前显示 -->
       <template v-slot:placeholder>
         <v-row class='fill-height ma-0' align='center' justify='center'>
@@ -12,7 +12,7 @@
         <v-chip color='rgba(88, 89, 93, .45)' class='ma-1 px-2 white--text' x-small v-text='theplayCount'></v-chip>
       </template>
     </v-img>
-    <v-card-text class='text-caption py-1' v-text='value.name'></v-card-text>
+    <v-card-text class='text-caption py-0' v-text='value.name'></v-card-text>
   </v-card>
 </template>
 

@@ -6,7 +6,7 @@
       <v-card-subtitle class='pa-0'>实际播放时间过短的歌曲将不纳入计算</v-card-subtitle>
     </div>
     <!-- 选项卡 -->
-    <v-tabs v-model='tab' @change='$emit('change', tab)' right>
+    <v-tabs v-model='tab' @change='$emit("change", tab)' right>
       <v-tab>最近一周</v-tab>
       <v-tab>所有时间</v-tab>
     </v-tabs>
