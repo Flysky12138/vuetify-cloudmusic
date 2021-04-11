@@ -1,3 +1,4 @@
+// 歌单播放数
 function playCount(params) {
   if (params < 1e4) {
     return params

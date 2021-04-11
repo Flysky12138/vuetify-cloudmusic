@@ -1,7 +1,9 @@
+// 个位数补0
 function addZero(param) {
-  return param < 10 ? '0' + param : param
+  return String(param).padStart(2, '0')
 }
 
+// 歌单创建时间
 function date(timestamp) {
   const date = new Date(timestamp)
   const Y = date.getFullYear()
@@ -13,6 +15,7 @@ function date(timestamp) {
   return Y + '-' + M + '-' + D + ' ' + h + ':' + m + ':' + s // 输出结果：2021-02-20 17:01:15
 }
 
+// 日推标题时间
 function nowDate() {
   const date = new Date()
   const M = addZero(date.getMonth() + 1)
@@ -20,6 +23,7 @@ function nowDate() {
   return M + '/' + D // 输出结果：02/20
 }
 
+// 歌曲时长
 function song(params) {
   const m = addZero(Math.floor(params / 1000 / 60))
   const s = addZero(Math.floor(params / 1000 - m * 60))
