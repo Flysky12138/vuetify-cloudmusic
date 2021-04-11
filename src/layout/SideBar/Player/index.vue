@@ -113,6 +113,6 @@ export default {
   left: 0;
   top: 0;
   transform: scale(1.3);
-  filter: blur(200px);
+  filter: blur(70px) brightness(70%);
 }
 </style>

@@ -48,7 +48,7 @@ import SideBar from './layout/SideBar'
 export default {
   components: { AppBar, SideBar },
   data: () => ({
-    // 判断是否是非PC端
+    // 判断是否是PC端
     isPC: !/Android|WindowsPhone|webOS|iPhone|iPod|BlackBerry|iPad/.test(navigator.userAgent)
   }),
   created() {

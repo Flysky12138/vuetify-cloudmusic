@@ -26,7 +26,7 @@ workbox.routing.registerRoute(
   // 使用缓存，但尽快在后台更新
   workbox.strategies.staleWhileRevalidate({
     // 使用自定义缓存名称
-    cacheName: 'css-cache'
+    cacheName: 'css'
   })
 )
 
@@ -37,7 +37,7 @@ workbox.routing.registerRoute(
   // 使用缓存，但尽快在后台更新
   workbox.strategies.staleWhileRevalidate({
     // 使用自定义缓存名称
-    cacheName: 'js-cache'
+    cacheName: 'js'
   })
 )
 

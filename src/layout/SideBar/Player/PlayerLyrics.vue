@@ -71,14 +71,9 @@ export default {
       let offset = Math.abs(params - this.lyricIndex)
       switch (offset) {
         case 0:
-          return { 'font-size': '25px', color: '#6A1B9A' }
-        case 1:
-        case 2:
-        case 3:
-        case 4:
-          return { opacity: (10 - offset) * 0.1 }
+          return { 'font-size': '25px' }
         default:
-          return { opacity: 0.3 }
+          return { 'font-size': '16px', opacity: 0.3 }
       }
     },
     // 播放界面显示,执行一次歌词滚动
