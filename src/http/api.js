@@ -10,7 +10,6 @@ switch (process.env.NODE_ENV) {
     break
   default:
     axios.defaults.baseURL = 'http://localhost:3000'
-    break
 }
 
 // 设置超时时间和跨域是否允许携带Cookie凭证

@@ -13,7 +13,7 @@
             <!-- 左侧 -->
             <v-col cols='9'>
               <span class='text-h3'>{{ value.profile.nickname }}</span>
-              <v-chip small class='mx-3 text-subtitle-1 font-weight-bold font-italic' color='red' outlined>{{ 'Lv.' + value.level }}</v-chip>
+              <v-chip small class='mx-3 text-subtitle-1 font-weight-bold font-italic' color='red' outlined>Lv.{{ value.level }}</v-chip>
               <v-icon :color='theGenderColor()'>{{ theGender() }}</v-icon>
             </v-col>
             <!-- 右侧 -->

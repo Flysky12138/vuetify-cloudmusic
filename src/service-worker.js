@@ -1,7 +1,7 @@
 // 设置缓存的前缀和后缀
 workbox.core.setCacheNameDetails({
   prefix: 'com.vuetify.cloudmusic',
-  suffix: 'v0.1.0'
+  suffix: 'v1.0.0'
 })
 // 强制等待中的 Service Worker 被激活
 workbox.core.skipWaiting()

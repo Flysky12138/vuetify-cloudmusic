@@ -36,7 +36,7 @@ import PlayerComment from './PlayerComment.vue'
 export default {
   components: { PlayerLists, PlayerMusic, PlayerLyrics, PlayerComment },
   props: {
-    picUrl: { type: String, default: '', required: true }
+    picUrl: { type: String, required: true }
   },
   data: () => ({})
 }

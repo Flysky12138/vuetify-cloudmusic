@@ -20,13 +20,13 @@
           style='width: 200px'
         ></v-slider>
         <!-- 左 -->
-        <v-btn small icon @click='page--' :disabled='page === 1' color='primary'>
+        <v-btn small icon @click='page--' :disabled='page <= 1' color='primary'>
           <v-icon>mdi-pan-left</v-icon>
         </v-btn>
         <!-- 中 -->
         <v-btn small text color='success' v-text='page + " / " + maxPage' @click='sliderShow = !sliderShow'></v-btn>
         <!-- 右 -->
-        <v-btn small icon @click='page++' :disabled='page === maxPage' color='primary'>
+        <v-btn small icon @click='page++' :disabled='page >= maxPage' color='primary'>
           <v-icon>mdi-pan-right</v-icon>
         </v-btn>
       </div>
