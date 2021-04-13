@@ -33,7 +33,6 @@ export default {
   position: fixed;
   left: 5vw;
 }
-
 .right {
   position: fixed;
   right: 5vw;
@@ -41,7 +40,6 @@ export default {
 .center {
   top: 45vh;
 }
-
 .top {
   top: 10vh;
 }
