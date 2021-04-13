@@ -1,7 +1,7 @@
 import axios from '../api'
 
 // 获取用户播放记录
-function record(uid, type = 1) {
+function record(uid, type = 0) {
   return new Promise((resolve, reject) => {
     axios
       .get('/user/record', {
@@ -11,9 +11,8 @@ function record(uid, type = 1) {
         }
       })
       .then(response => {
-        let arr = [],
-          key
-        type === 0 ? (key = 'allData') : (key = 'weekData')
+        let arr = []
+        const key = type === 0 ? 'allData' : 'weekData'
         response[key].forEach(element => {
           arr.push({
             playCount: element.playCount === 0 ? '-' : element.playCount,

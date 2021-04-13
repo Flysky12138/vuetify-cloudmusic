@@ -55,6 +55,7 @@ export default {
     // 获取ID,等级和头像
     this.$http.login.status().then(res => {
       res.islogin ? this.login(res) : this.logout()
+      res.islogin && this.$http.siginin() // 签到
     })
   },
   methods: {

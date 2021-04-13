@@ -42,8 +42,8 @@ function detail(ids) {
     // 开始请求
     axios
       .all(funcHttp)
-      .then(res => {
-        res.forEach(element => {
+      .then(response => {
+        response.forEach(element => {
           arr = arr.concat(element)
         })
         resolve(arr)

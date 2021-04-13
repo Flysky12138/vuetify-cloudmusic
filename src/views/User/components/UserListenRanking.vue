@@ -7,8 +7,8 @@
     </div>
     <!-- 选项卡 -->
     <v-tabs v-model='tab' @change='$emit("change", tab)' right>
-      <v-tab>最近一周</v-tab>
       <v-tab>所有时间</v-tab>
+      <v-tab>最近一周</v-tab>
     </v-tabs>
     <v-tabs-items v-model='tab'>
       <v-tab-item v-for='item in 2' :key='item'>
@@ -22,7 +22,7 @@
           :loading='loading'
           disable-sort
           fixed-header
-          :items-per-page='value.length'
+          :items-per-page='value.length + 1'
           no-data-text='暂无听歌记录 或 用户设置了隐私权限'
         >
           <!-- header.btns插槽 -->
@@ -49,7 +49,7 @@ export default {
     loading: { type: Boolean, default: false, required: true }
   },
   data: () => ({
-    tab: 0,
+    tab: 1,
     headers: [
       { text: '#', align: 'end', value: 'playCount' },
       { text: '', value: '' },
