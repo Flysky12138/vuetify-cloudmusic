@@ -21,7 +21,7 @@
     <!-- 分页 -->
     <v-row>
       <v-col cols='12' class='pb-6' v-if='total > params.limit'>
-        <v-pagination v-model='page' :length='Math.ceil(total / params.limit)' :total-visible='7' circle @input='clickChangePage'></v-pagination>
+        <v-pagination v-model='page' :length='Math.ceil(total / params.limit)' :total-visible='11' circle @input='clickChangePage'></v-pagination>
       </v-col>
     </v-row>
   </v-container>
