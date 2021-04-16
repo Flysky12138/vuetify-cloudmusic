@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation='1' rounded='lg'>
+  <v-card elevation='1' rounded='lg' class='overflow-hidden'>
     <!-- 标题 -->
     <div class='d-flex align-end' style='height: 40px; position: absolute; z-index: 1'>
       <v-card-title class='pa-0 mx-4'>听歌排行</v-card-title>

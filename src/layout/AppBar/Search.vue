@@ -26,12 +26,16 @@ export default {
   methods: {
     search() {
       if (this.value !== '') {
-        this.$router.push({
-          path: '/search',
-          query: {
-            keywords: this.value
-          }
-        })
+        this.$router
+          .push({
+            path: '/search',
+            query: {
+              keywords: this.value
+            }
+          })
+          .then(() => {
+            this.value = ''
+          })
       }
     }
   }

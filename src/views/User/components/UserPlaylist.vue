@@ -1,40 +1,36 @@
 <template>
-  <v-card elevation='1' rounded='lg'>
+  <v-card elevation='0' rounded='lg'>
     <!-- 标题 -->
-    <v-card-title>
+    <v-card-title class='pt-0'>
       {{ title + '（' + value.length + '）' }}
       <v-spacer></v-spacer>
-      <!-- 切换按键 -->
-      <div class='d-flex mr-2 align-end' v-if='maxPage !== 1'>
-        <!-- 分页选择滑块 -->
-        <v-slider
-          v-show='sliderShow'
-          v-model='page'
-          :min='1'
-          :max='maxPage'
-          thumb-label='always'
-          thumb-size='24'
-          ticks='always'
-          tick-size='4'
-          class='mr-3 my-n6'
-          style='width: 200px'
-        ></v-slider>
-        <!-- 左 -->
+      <!-- 换页按键 -->
+      <div class='d-flex align-center mr-2' v-if='maxPage !== 1'>
         <v-btn small icon @click='page--' :disabled='page <= 1' color='primary'>
           <v-icon>mdi-pan-left</v-icon>
         </v-btn>
-        <!-- 中 -->
-        <v-btn small text color='success' v-text='page + " / " + maxPage' @click='sliderShow = !sliderShow'></v-btn>
-        <!-- 右 -->
+        <v-card-subtitle class='green--text py-0' v-text='page + " / " + maxPage'></v-card-subtitle>
         <v-btn small icon @click='page++' :disabled='page >= maxPage' color='primary'>
           <v-icon>mdi-pan-right</v-icon>
         </v-btn>
       </div>
     </v-card-title>
     <!-- 歌单卡片 -->
-    <v-card-text class='d-flex px-1 overflow-x-auto scroll' ref='songCard' @mousewheel='mouseWheel'>
-      <song-card v-for='item in lists' :key='item.id' :value='item' />
-    </v-card-text>
+    <v-hover v-slot='{ hover }'>
+      <v-card-text class='d-flex px-1 overflow-x-auto scroll' ref='songCard'>
+        <div class='userPlaylist_left' v-show='hover && scrollButton.left'>
+          <v-btn dark icon class='userPlaylist_btn' @click='onScrollButton(-1)'>
+            <v-icon large>mdi-chevron-left</v-icon>
+          </v-btn>
+        </div>
+        <song-card v-for='item in lists' :key='item.id' :value='item' />
+        <div class='userPlaylist_right' v-show='hover && scrollButton.right'>
+          <v-btn dark icon class='userPlaylist_btn' @click='onScrollButton(1)'>
+            <v-icon large>mdi-chevron-right</v-icon>
+          </v-btn>
+        </div>
+      </v-card-text>
+    </v-hover>
   </v-card>
 </template>
 
@@ -51,44 +47,85 @@ export default {
     maxPage: 1, // 最大页数
     count: 20, // 单页显示数量
     lists: [], // 显示的列表
-    sliderShow: false // 滑块换页显示
+    // 滚动按键显示
+    scrollButton: {
+      left: false,
+      right: true
+    }
   }),
   created() {
     this.init()
   },
+  mounted() {
+    this.scrollButtonShow()
+  },
   watch: {
-    value() {
-      this.init()
-    },
+    value: 'init',
     // 换页回顶
     page() {
       this.getLists()
       this.$refs.songCard.scrollLeft = 0
+      this.scrollButton.left = false
+      this.scrollButtonShow()
     }
   },
   methods: {
     // 初始化
     init() {
       this.page = 1
-      // 向上取整
-      this.maxPage = Math.ceil(this.value.length / this.count)
+      this.maxPage = Math.ceil(this.value.length / this.count) // 向上取整
       this.getLists()
     },
     // 获取需要显示的一段数据
     getLists() {
       this.lists = this.value.slice(this.count * (this.page - 1), this.count * this.page)
     },
-    // 使用鼠标滚轮横向滚动
-    mouseWheel(event) {
-      // const scrollLeft = this.$refs.songCard.scrollLeft;
+    // 按键是否显示
+    scrollButtonShow() {
       const clientWidth = this.$refs.songCard.clientWidth
       const scrollWidth = this.$refs.songCard.scrollWidth
-      // 可滑动
-      if (clientWidth !== scrollWidth) {
-        event.preventDefault()
-        this.$refs.songCard.scrollLeft += event.deltaY
+      this.scrollButton.left = this.$refs.songCard.scrollLeft === 0 ? false : true
+      this.scrollButton.right = this.$refs.songCard.scrollLeft + clientWidth >= scrollWidth ? false : true
+    },
+    // 横向滚动
+    onScrollButton(params) {
+      const speed = 40 // 每个帧内滚动条移动的距离
+      let frames = Math.ceil((this.$refs.songCard.clientWidth - 120) / speed) // 帧数
+      const f = () => {
+        if (frames <= 0) {
+          this.scrollButtonShow()
+        } else {
+          this.$refs.songCard.scrollLeft += speed * params
+          frames--
+          requestAnimationFrame(f)
+        }
       }
+      requestAnimationFrame(f)
     }
   }
 }
 </script>
+
+<style lang="scss">
+@mixin userPlaylist {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  margin-top: 4px;
+  height: 126px;
+  pointer-events: none;
+}
+.userPlaylist_left {
+  @include userPlaylist;
+  left: 16px;
+}
+.userPlaylist_right {
+  @include userPlaylist;
+  right: 16px;
+}
+.userPlaylist_btn {
+  pointer-events: auto;
+  background-color: rgba(90, 90, 90, 0.75);
+}
+</style>
