@@ -11,20 +11,24 @@ function record(uid, type = 0) {
         }
       })
       .then(response => {
-        let arr = []
-        const key = type === 0 ? 'allData' : 'weekData'
-        response[key].forEach(element => {
-          arr.push({
-            playCount: element.playCount === 0 ? '-' : element.playCount,
-            score: element.score,
-            song: {
-              id: element.song.id,
-              name: element.song.name,
-              artists: element.song.ar.map(res => res.name).join(' / ')
-            }
+        if (response) {
+          let arr = []
+          const key = type === 0 ? 'allData' : 'weekData'
+          response[key].forEach(element => {
+            arr.push({
+              playCount: element.playCount === 0 ? '-' : element.playCount,
+              score: element.score,
+              song: {
+                id: element.song.id,
+                name: element.song.name,
+                artists: element.song.ar.map(res => res.name).join(' / ')
+              }
+            })
           })
-        })
-        resolve(arr)
+          resolve(arr)
+        } else {
+          resolve(false)
+        }
       })
       .catch(error => reject(error))
   })

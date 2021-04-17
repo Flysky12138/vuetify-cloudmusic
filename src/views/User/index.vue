@@ -15,7 +15,7 @@
         <user-playlist :value='userPlaylist.collect' title='收藏的歌单' />
       </v-col>
       <!-- 听歌排行 -->
-      <v-col cols='12'>
+      <v-col cols='12' v-if='userListenRanking.isShow'>
         <user-listen-ranking :value='userListenRanking.items' :loading='userListenRanking.loading' @change='getUserListenRanking' />
       </v-col>
     </v-row>
@@ -53,6 +53,7 @@ export default {
       collect: []
     },
     userListenRanking: {
+      isShow: false,
       items: [],
       loading: false
     }
@@ -83,7 +84,10 @@ export default {
     getUserListenRanking(param = 1) {
       this.userListenRanking.loading = true
       this.$http.user.record(this.uid, param).then(res => {
-        this.userListenRanking.items = res
+        if (res) {
+          this.userListenRanking.isShow = true
+          this.userListenRanking.items = res
+        }
         this.userListenRanking.loading = false
       })
     }

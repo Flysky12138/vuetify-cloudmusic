@@ -23,7 +23,7 @@
           disable-sort
           fixed-header
           :items-per-page='value.length + 1'
-          no-data-text='暂无听歌记录 或 用户设置了隐私权限'
+          no-data-text='暂无听歌记录'
         >
           <!-- header.btns插槽 -->
           <template v-slot:header.btns>
