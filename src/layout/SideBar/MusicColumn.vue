@@ -90,6 +90,7 @@ export default {
           this.$http.song.lyric(this.music.id).then(res => {
             this.lyrics = res
           })
+          document.getElementsByTagName('title')[0].innerText = this.music.name + ' - ' + this.music.artists // 修改标题
         } else {
           this.$message({ text: '〖 ' + this.music.name + ' 〗 暂无版权' })
           this.next()
