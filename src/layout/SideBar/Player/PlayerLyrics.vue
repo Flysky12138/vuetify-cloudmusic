@@ -1,7 +1,7 @@
 <template>
-  <v-row class='overflow-y-auto scroll lyricsScroll' style='height: 520px' @mousewheel='mouseWheel' v-intersect='onIntersect'>
+  <v-row class='overflow-y-auto scroll lyricsScroll' style='height: 580px' @mousewheel='mouseWheel' v-intersect='onIntersect'>
     <v-col cols='12' class='text-center'>
-      <v-responsive height='160'></v-responsive>
+      <v-responsive height='220'></v-responsive>
       <div v-for='(item, index) in $attrs.lyrics' :key='item.id' :id='"songlyrics_" + index' class='my-6 font-weight-bold' :style='lyricsStyle(index)'>
         <span>{{ item.lyric }}</span>
         <span v-if='item.tlyric'>
@@ -9,7 +9,7 @@
           {{ item.tlyric }}
         </span>
       </div>
-      <v-responsive height='160'></v-responsive>
+      <v-responsive height='251'></v-responsive>
     </v-col>
   </v-row>
 </template>
@@ -49,8 +49,8 @@ export default {
     scrollGoto() {
       this.$vuetify.goTo('#songlyrics_' + this.lyricIndex, {
         container: '.lyricsScroll',
-        duration: 400,
-        offset: 132,
+        duration: 250,
+        offset: 192,
         easing: 'easeOutQuad'
       })
     },

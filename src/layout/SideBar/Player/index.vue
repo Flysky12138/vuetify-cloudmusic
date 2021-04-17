@@ -49,7 +49,7 @@ export default {
   position: absolute;
   left: 0;
   top: 0;
-  transform: scale(1.3);
+  transform: scale(1.5);
   filter: blur(70px) brightness(70%);
 }
 </style>
