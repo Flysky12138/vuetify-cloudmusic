@@ -36,8 +36,14 @@ export default {
       this.$refs.AboutApi.blur()
       localStorage.setItem('api', JSON.stringify(this.api))
       this.$message({
-        text: '保存成功！手动刷新网页后生效',
-        color: 'success'
+        text: '保存成功！刷新页面后生效',
+        color: 'success',
+        button: {
+          text: '刷新',
+          f: () => {
+            window.location.reload()
+          }
+        }
       })
     }
   }

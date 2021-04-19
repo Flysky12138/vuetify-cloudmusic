@@ -16,7 +16,8 @@ const createMessage = options => {
         props: {
           text: options.text,
           color: options.color,
-          time: options.time
+          timeout: options.timeout,
+          button: options.button
         }
       })
   }).$mount('#message')

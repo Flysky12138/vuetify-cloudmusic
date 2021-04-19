@@ -1,7 +1,7 @@
 // 设置缓存的前缀和后缀
 workbox.core.setCacheNameDetails({
   prefix: 'com.vuetify.cloudmusic',
-  suffix: 'v1.0.0'
+  suffix: 'v1.0.2'
 })
 // 强制等待中的 Service Worker 被激活
 workbox.core.skipWaiting()
@@ -21,23 +21,17 @@ workbox.precaching.precacheAndRoute(self.__precacheManifest || [])
 
 //缓存web的css资源
 workbox.routing.registerRoute(
-  // Cache CSS files
-  /.*\.css/,
-  // 使用缓存，但尽快在后台更新
+  /.*\.css/, // 缓存CSS文件
   workbox.strategies.staleWhileRevalidate({
-    // 使用自定义缓存名称
-    cacheName: 'css'
+    cacheName: 'css' // 使用自定义缓存名称
   })
 )
 
 // 缓存web的js资源
 workbox.routing.registerRoute(
-  // 缓存JS文件
-  /.*\.js/,
-  // 使用缓存，但尽快在后台更新
+  /.*\.js/, // 缓存JS文件
   workbox.strategies.staleWhileRevalidate({
-    // 使用自定义缓存名称
-    cacheName: 'js'
+    cacheName: 'js' // 使用自定义缓存名称
   })
 )
 
