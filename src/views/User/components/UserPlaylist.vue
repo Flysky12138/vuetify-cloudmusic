@@ -80,7 +80,7 @@ export default {
     getLists() {
       this.lists = this.value.slice(this.count * (this.page - 1), this.count * this.page)
     },
-    // 按键是否显示
+    // 左右按键是否显示
     scrollButtonShow() {
       const clientWidth = this.$refs.songCard.clientWidth
       const scrollWidth = this.$refs.songCard.scrollWidth
@@ -89,7 +89,7 @@ export default {
     },
     // 横向滚动
     onScrollButton(params) {
-      const speed = 40 // 每个帧内滚动条移动的距离
+      const speed = 40 // 每帧滚动条移动的距离
       let frames = Math.ceil((this.$refs.songCard.clientWidth - 120) / speed) // 帧数
       const f = () => {
         if (frames <= 0) {
