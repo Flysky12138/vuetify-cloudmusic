@@ -23,7 +23,6 @@ function cellphone(phone, password, countrycode = '86') {
             break
           case 509: // 密码错误超过限制
             code = 3
-            break
         }
         resolve(code)
       })

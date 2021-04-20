@@ -27,12 +27,12 @@ axios.interceptors.request.use(
     if (config.method == 'post') {
       config.data = {
         ...config.data,
-        timerstamp: new Date().getTime()
+        t: new Date().getTime()
       }
     } else if (config.method == 'get') {
       config.params = {
         ...config.params,
-        timerstamp: new Date().getTime()
+        t: new Date().getTime()
       }
     }
     // 添加Token
@@ -65,7 +65,6 @@ axios.interceptors.response.use(
         case 403: // 服务器拒绝请求（token过期）
           break
         case 404: // 找不到页面
-          break
       }
     } else {
       // 断网处理：可以跳转到断网页面
