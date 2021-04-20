@@ -95,7 +95,10 @@ export default {
         if (frames-- === 0) {
           this.scrollButtonShow()
         } else {
-          this.$refs.songCard.scrollLeft += speed * params
+          const scrollBefore = this.$refs.songCard.scrollLeft
+          this.$refs.songCard.scrollLeft = scrollBefore + speed * params
+          const scrollAfter = this.$refs.songCard.scrollLeft
+          scrollBefore === scrollAfter && (frames = 0) // 在指定帧数内滚动到一端后，提前结束递归，避免滚动按键隐藏延迟
           requestAnimationFrame(f)
         }
       }

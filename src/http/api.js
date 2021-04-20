@@ -27,12 +27,12 @@ axios.interceptors.request.use(
     if (config.method == 'post') {
       config.data = {
         ...config.data,
-        t: new Date().getTime()
+        timestamp: new Date().getTime()
       }
     } else if (config.method == 'get') {
       config.params = {
         ...config.params,
-        t: new Date().getTime()
+        timestamp: new Date().getTime()
       }
     }
     // 添加Token
