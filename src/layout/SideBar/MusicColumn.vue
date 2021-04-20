@@ -42,7 +42,7 @@ export default {
     // 听歌打卡，setTimeOut函数&打卡延迟时间（S）
     scrobble: {
       setTimeout: {},
-      timeout: 20000
+      timeout: 60000
     }
   }),
   mounted() {
