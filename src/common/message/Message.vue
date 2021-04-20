@@ -1,5 +1,5 @@
 <template>
-  <v-snackbar v-model='isShowMessage' transition='slide-x-reverse-transition' vertical right bottom class='mb-8 mr-8' elevation='12' :timeout='timeout'>
+  <v-snackbar v-model='isShow' transition='slide-x-reverse-transition' vertical right bottom class='mb-8 mr-8' elevation='12' :timeout='timeout'>
     {{ text }}
     <template v-slot:action='{ attrs }'>
       <v-btn v-bind='attrs' :color='color' @click='onClick()'>{{ button.text }}</v-btn>
@@ -24,16 +24,16 @@ export default {
     }
   },
   data: () => ({
-    isShowMessage: false
+    isShow: false
   }),
   // 写在 created 中没有动画
   mounted() {
-    this.isShowMessage = true
+    this.isShow = true
   },
   methods: {
     onClick() {
       this.button.f()
-      this.isShowMessage = false
+      this.isShow = false
     }
   }
 }

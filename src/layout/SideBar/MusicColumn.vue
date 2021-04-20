@@ -42,7 +42,7 @@ export default {
     // 听歌打卡，setTimeOut函数&打卡延迟时间（S）
     scrobble: {
       setTimeout: {},
-      timeout: 20
+      timeout: 20000
     }
   }),
   mounted() {
@@ -101,7 +101,7 @@ export default {
           this.scrobble.setTimeout = setTimeout(() => {
             this.$http.song.scrobble(this.music.id, this.music.albumID)
           }, this.scrobble.timeout)
-          document.getElementsByTagName('title')[0].innerText = this.music.name + ' - ' + this.music.artists // 修改标题
+          document.title = this.music.name + ' - ' + this.music.artists // 修改标题
         } else {
           this.$message({ text: '〖 ' + this.music.name + ' 〗 暂无版权' })
           this.next()
