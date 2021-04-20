@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <song-list :title='keywords' :subtitle='songCount' :value='songs' :loading='loading' @pageEnd='getMoreSongs' ref='songlist' />
+    <song-list :title='keywords' :subtitle='songCount' :value='songs' :loading='loading' :itemsPerPage='itemsPerPage' @pageEnd='getMoreSongs' ref='songlist' />
   </v-container>
 </template>
 
@@ -12,11 +12,13 @@ export default {
     keywords: '',
     songCount: 0,
     songs: [],
+    itemsPerPage: 9,
     hasMore: false,
     loading: false
   }),
   created() {
     this.keywords = this.$route.query.keywords
+    this.itemsPerPage = Math.floor((this.$vuetify.breakpoint.height - 280) / 50) // 单页显示数
     this.searchSongs()
   },
   methods: {
