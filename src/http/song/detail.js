@@ -17,6 +17,7 @@ function once(ids) {
             name: element.name,
             picUrl: element.al.picUrl,
             artists: element.ar.map(res => res.name).join(' / '),
+            albumID: element.al.id,
             album: element.al.name ? '《' + element.al.name + '》' : '',
             dt: element.dt,
             duration: time.song(element.dt)

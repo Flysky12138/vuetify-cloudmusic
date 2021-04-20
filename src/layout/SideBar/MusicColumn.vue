@@ -38,7 +38,12 @@ export default {
     dialog: false, // 播放界面显示
     url: '', // 歌曲地址
     lyrics: [], // 歌词
-    dtOffset: 0 // 歌曲播放的时间偏移量,因为部分歌曲(VIP,未登录)只会截取一段返回
+    dtOffset: 0, // 歌曲播放的时间偏移量,因为部分歌曲(VIP,未登录)只会截取一段返回
+    // 听歌打卡，setTimeOut函数&打卡延迟时间（S）
+    scrobble: {
+      setTimeout: {},
+      timeout: 20
+    }
   }),
   mounted() {
     this.$refs.audio.volume = this.volume / 10
@@ -87,9 +92,15 @@ export default {
         if (res.url) {
           this.url = res.url
           res.freeTrialInfo && (this.dtOffset = res.freeTrialInfo.start)
+          // 获取歌词
           this.$http.song.lyric(this.music.id).then(res => {
             this.lyrics = res
           })
+          // 听歌打卡
+          clearTimeout(this.scrobble.setTimeout)
+          this.scrobble.setTimeout = setTimeout(() => {
+            this.$http.song.scrobble(this.music.id, this.music.albumID)
+          }, this.scrobble.timeout)
           document.getElementsByTagName('title')[0].innerText = this.music.name + ' - ' + this.music.artists // 修改标题
         } else {
           this.$message({ text: '〖 ' + this.music.name + ' 〗 暂无版权' })

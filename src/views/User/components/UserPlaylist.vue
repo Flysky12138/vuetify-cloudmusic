@@ -85,18 +85,17 @@ export default {
       const clientWidth = this.$refs.songCard.clientWidth
       const scrollWidth = this.$refs.songCard.scrollWidth
       this.scrollButton.left = this.$refs.songCard.scrollLeft === 0 ? false : true
-      this.scrollButton.right = this.$refs.songCard.scrollLeft + clientWidth >= scrollWidth ? false : true
+      this.scrollButton.right = this.$refs.songCard.scrollLeft + clientWidth + 1 >= scrollWidth ? false : true
     },
     // 横向滚动
     onScrollButton(params) {
       const speed = 40 // 每帧滚动条移动的距离
-      let frames = Math.ceil((this.$refs.songCard.clientWidth - 120) / speed) // 帧数
+      let frames = Math.ceil((this.$refs.songCard.clientWidth - 120) / speed) // 帧数=滚动宽度/一帧宽度
       const f = () => {
-        if (frames <= 0) {
+        if (frames-- === 0) {
           this.scrollButtonShow()
         } else {
           this.$refs.songCard.scrollLeft += speed * params
-          frames--
           requestAnimationFrame(f)
         }
       }
