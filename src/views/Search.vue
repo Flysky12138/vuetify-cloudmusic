@@ -23,14 +23,10 @@ export default {
   },
   methods: {
     // 获取歌曲列表
-    searchSongs(offset = 0, push = false) {
+    searchSongs(offset = 0) {
       this.loading = true
-      this.$http.song.search(this.keywords, offset).then(res => {
-        if (push) {
-          this.songs.push.apply(this.songs, res.songs)
-        } else {
-          this.songs = res.songs
-        }
+      this.$http.song.search(this.keywords, offset, this.itemsPerPage * 4).then(res => {
+        this.songs = this.songs.concat(res.songs)
         this.songCount = res.songCount
         this.hasMore = res.hasMore
         this.loading = false
@@ -39,12 +35,13 @@ export default {
     // 获取更多歌曲列表
     getMoreSongs(page) {
       if (this.hasMore) {
-        this.searchSongs(page * 9, true)
+        this.searchSongs(page * this.itemsPerPage)
       }
     }
   },
   beforeRouteUpdate(to, from, next) {
     this.keywords = to.query.keywords
+    this.songs = []
     // 更换搜索内容跳转到第一页
     this.$refs.songlist.page = 1
     this.searchSongs()
