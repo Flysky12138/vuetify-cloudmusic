@@ -73,7 +73,7 @@ export default {
           return { 'font-size': '16px', transition: 'all 0.3s', opacity: 0.3 }
       }
     },
-    // 播放界面显示,执行一次歌词滚动
+    // 播放界面显示，执行一次歌词滚动
     onIntersect(entries) {
       entries[0].isIntersecting && this.$attrs.lyrics.length !== 0 && this.scrollGoto()
     }
