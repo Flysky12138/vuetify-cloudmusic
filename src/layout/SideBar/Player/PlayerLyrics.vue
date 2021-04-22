@@ -37,10 +37,12 @@ export default {
       // 颠倒素组后查找满足条件的第一个对象索引值
       const reverseIndex = [...this.$attrs.lyrics].reverse().findIndex(res => res.time <= newValue)
       this.lyricIndex = reverseIndex === -1 ? 0 : this.$attrs.lyrics.length - reverseIndex - 1
+      document.title = '〖 ' + this.$attrs.lyrics[this.lyricIndex].lyric + ' 〗 ' + this.music.name + ' - ' + this.music.artists // 修改标题
     }
   },
   computed: {
     ...mapState({
+      music: state => state.play.music, // 当前音乐播放进度
       playDt: state => state.play.dt // 当前音乐播放进度
     })
   },
