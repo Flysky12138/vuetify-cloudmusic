@@ -9,11 +9,14 @@
       </v-scale-transition>
     </template>
     <!-- 内容 -->
-    <v-card max-height='493' max-width='300' rounded='lg' class='overflow-y-auto scroll' id='songlist_card' style='opacity: 0.8'>
+    <v-card max-height='492' max-width='310' rounded='lg' class='overflow-y-auto scroll' id='songlist_card' style='opacity: 0.8'>
       <!-- 标题 -->
       <v-banner sticky single-line color='grey darken-4' class='font-weight-bold'>
         <span>ID: {{ music.id }}</span>
         <span class='mx-6'>{{ index + 1 }} / {{ lists.length }}</span>
+        <v-btn class='mr-3' color='cyan darken-4' x-small :to='route' @click='$emit("close")'>
+          <v-icon small>mdi-call-made</v-icon>
+        </v-btn>
       </v-banner>
       <!-- 列表 -->
       <v-list dense>
@@ -45,6 +48,7 @@ export default {
   watch: {
     dialog(newValue) {
       newValue && this.openGoto()
+      !newValue && this.closeGoto()
     },
     music: 'indexMusicInLists',
     lists: 'indexMusicInLists'
@@ -52,7 +56,8 @@ export default {
   computed: {
     ...mapState({
       music: state => state.play.music, // 正在播放的歌曲信息
-      lists: state => state.play.lists // 音乐列表
+      lists: state => state.play.lists, // 音乐列表
+      route: state => state.play.route // 添加歌曲列表时的路由地址
     })
   },
   methods: {
@@ -74,6 +79,15 @@ export default {
           easing: 'easeOutQuad'
         })
       }, timeout)
+    },
+    // 关闭菜单后滚动定位
+    closeGoto() {
+      this.$vuetify.goTo(0, {
+        container: '#songlist_card',
+        duration: 400,
+        offset: 0,
+        easing: 'linear'
+      })
     }
   }
 }

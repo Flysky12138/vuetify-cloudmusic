@@ -5,7 +5,7 @@
     <!-- 内容 -->
     <v-card elevation='0' height='100%' color='transparent'>
       <!-- 左上播放列表按键 -->
-      <player-lists />
+      <player-lists v-on='$listeners' />
       <!-- 右上关闭页面按键 -->
       <v-btn @click='$emit("close")' large icon absolute top right>
         <v-icon large>mdi-chevron-down</v-icon>

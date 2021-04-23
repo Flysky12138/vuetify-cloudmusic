@@ -8,7 +8,7 @@
         </v-btn>
       </template>
       <v-card tile dark>
-        <player @contextmenu.native.prevent @close='dialog = false' :lyrics='lyrics' :picUrl='music.picUrl' @changeDt='setDt' />
+        <player @contextmenu.native.prevent @close='dialog = false' @changeDt='setDt' :lyrics='lyrics' :picUrl='music.picUrl' />
       </v-card>
     </v-dialog>
     <!-- 音乐播放标签 autoplay:换歌后继续播放 -->

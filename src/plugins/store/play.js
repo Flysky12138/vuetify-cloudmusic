@@ -5,6 +5,7 @@ const state = {
   isShow: false, // 显示侧边音乐按键
   music: {}, // 正在播放音乐的信息
   dt: 0, // 播放进度
+  route: '', // 路由地址
   lists: [], // 默认播放列表
   randomlists: [], // 随机播放列表
   random: false, // 随机播放
@@ -22,6 +23,10 @@ const state = {
 }
 
 const mutations = {
+  // 保存添加歌曲列表时的完整路由地址
+  saveRoute(state, params) {
+    state.route = params
+  },
   // 添加歌曲信息到列表
   musicDetail(state, params) {
     state.lists = [...params]
