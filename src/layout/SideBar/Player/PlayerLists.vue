@@ -12,12 +12,12 @@
     <v-card max-height='492' max-width='280' rounded='lg' class='overflow-y-auto scroll' id='songlist_card' style='opacity: 0.8'>
       <!-- 标题 -->
       <v-banner sticky single-line color='grey darken-4' class='font-weight-bold'>
-        <v-row>
+        <v-row align='center'>
           <v-col>
             <span>当前播放({{ index + 1 }}/{{ lists.length }})</span>
           </v-col>
           <v-col cols='auto'>
-            <v-btn class='mr-4' color='cyan darken-4' x-small :to='route' @click='$emit("close")'>
+            <v-btn class='mx-4' color='cyan darken-4' x-small :to='route' @click='$emit("close")'>
               <v-icon small>mdi-near-me</v-icon>
             </v-btn>
           </v-col>
