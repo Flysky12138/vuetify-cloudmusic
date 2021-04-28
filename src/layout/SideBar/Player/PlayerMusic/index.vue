@@ -3,7 +3,7 @@
     <v-row justify='center'>
       <!-- 封面、歌曲名、歌手 -->
       <v-col cols='8' class='pb-0'>
-        <v-img :src='music.picUrl' max-width='80%' class='rounded-lg mx-auto'></v-img>
+        <v-img :src='music.picUrl' max-width='80%' class='rounded-lg mx-auto music-cover'></v-img>
         <div class='text-center font-weight-bold text-h5 text-truncate pt-3' v-text='music.name'></div>
         <div class='text-center font-weight-bold text-subtitle-2 text-truncate' v-text='music.artists'></div>
       </v-col>
@@ -56,6 +56,7 @@
 <script>
 import { mapState } from 'vuex'
 import time from 'common/time'
+import VanillaTilt from 'vanilla-tilt'
 import ButtonAdd from 'components/Button/ButtonAdd.vue'
 import ButtonLove from 'components/Button/ButtonLove.vue'
 import PlayerMusicPlay from './PlayerMusicPlay.vue'
@@ -73,6 +74,16 @@ export default {
     dt: 0, // 播放进度
     canSetDt: false // 鼠标是否正在滑动滑动条
   }),
+  mounted() {
+    // 平滑3D倾斜
+    VanillaTilt.init(document.querySelector('.music-cover'), {
+      reverse: true,
+      max: 20,
+      speed: 400,
+      glare: true,
+      'max-glare': 0.6
+    })
+  },
   watch: {
     // 手动滑动时不赋值
     playDt(newValue) {

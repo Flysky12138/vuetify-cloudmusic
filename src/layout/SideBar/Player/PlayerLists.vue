@@ -52,8 +52,7 @@ export default {
   }),
   watch: {
     dialog(newValue) {
-      newValue && this.openGoto()
-      !newValue && this.closeGoto()
+      newValue ? this.openGoto() : this.closeGoto()
     },
     music: 'indexMusicInLists',
     lists: 'indexMusicInLists'
@@ -80,7 +79,7 @@ export default {
         this.$vuetify.goTo('#songlist_' + this.index, {
           container: '#songlist_card',
           duration: 400,
-          offset: -20,
+          offset: -18,
           easing: 'easeOutQuad'
         })
       }, timeout)

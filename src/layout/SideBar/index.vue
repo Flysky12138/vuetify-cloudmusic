@@ -43,7 +43,6 @@ export default {
 .top {
   top: 10vh;
 }
-
 .bottom {
   bottom: 10vh;
 }
