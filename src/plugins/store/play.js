@@ -41,18 +41,17 @@ const mutations = {
   // 播放方式
   playmode(state, params) {
     switch (params) {
-      case 0:
+      case 0: // 单曲播放
         state.loop = true
         state.random = false
         break
-      case 1:
+      case 1: // 顺序播放
         state.loop = false
         state.random = false
         break
-      case 2:
+      case 2: // 随机播放
         state.loop = false
         state.random = true
-        break
     }
   },
   // 上一首

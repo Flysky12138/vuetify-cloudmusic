@@ -24,7 +24,7 @@
         </v-row>
       </v-banner>
       <!-- 列表 -->
-      <v-list dense>
+      <v-list dense v-intersect='onIntersect'>
         <v-list-item-group :value='index' color='primary' mandatory>
           <v-list-item
             v-for='(item, index) in lists'
@@ -52,7 +52,7 @@ export default {
   }),
   watch: {
     dialog(newValue) {
-      newValue ? this.openGoto() : this.closeGoto()
+      newValue || this.closeGoto()
     },
     music: 'indexMusicInLists',
     lists: 'indexMusicInLists'
@@ -74,15 +74,12 @@ export default {
     // 打开菜单后滚动定位
     openGoto() {
       this.indexMusicInLists()
-      const timeout = this.lists.length > 80 ? this.lists.length * 0.7 : 80
-      setTimeout(() => {
-        this.$vuetify.goTo('#songlist_' + this.index, {
-          container: '#songlist_card',
-          duration: 400,
-          offset: -18,
-          easing: 'easeOutQuad'
-        })
-      }, timeout)
+      this.$vuetify.goTo('#songlist_' + this.index, {
+        container: '#songlist_card',
+        duration: 400,
+        offset: -18,
+        easing: 'easeOutQuad'
+      })
     },
     // 关闭菜单后滚动定位
     closeGoto() {
@@ -92,6 +89,10 @@ export default {
         offset: 0,
         easing: 'linear'
       })
+    },
+    // 列表显示时回调
+    onIntersect(entries) {
+      entries[0].isIntersecting && this.openGoto()
     }
   }
 }
