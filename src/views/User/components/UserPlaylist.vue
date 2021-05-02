@@ -82,10 +82,11 @@ export default {
     },
     // 左右按键是否显示
     scrollButtonShow() {
+      const scrollLeft = this.$refs.songCard.scrollLeft
       const clientWidth = this.$refs.songCard.clientWidth
       const scrollWidth = this.$refs.songCard.scrollWidth
-      this.scrollButton.left = this.$refs.songCard.scrollLeft === 0 ? false : true
-      this.scrollButton.right = this.$refs.songCard.scrollLeft + clientWidth + 1 >= scrollWidth ? false : true
+      this.scrollButton.left = scrollLeft === 0 ? false : true
+      this.scrollButton.right = scrollLeft + clientWidth + 1 >= scrollWidth ? false : true
     },
     // 横向滚动
     onScrollButton(params) {
