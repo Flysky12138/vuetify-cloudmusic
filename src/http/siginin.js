@@ -10,6 +10,7 @@ function daily(type = 0) {
         }
       })
       .then(response => {
+        console.log(type === 0 ? 'Android端签到，' : 'Web/PC端签到，', response ? '获得经验：' + response.point : '今日已签到！')
         resolve(response)
       })
       .catch(error => reject(error))
@@ -22,6 +23,7 @@ function yunbei() {
     axios
       .get('/yunbei/sign')
       .then(response => {
+        console.log('云贝签到，', response ? '获得云贝：' + response.point : '今日已签到！')
         resolve(response)
       })
       .catch(error => reject(error))
