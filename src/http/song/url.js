@@ -1,12 +1,13 @@
 import axios from '../api'
 
 // 获取音乐 url
-function url(id) {
+function url(id, br = 320000) {
   return new Promise((resolve, reject) => {
     axios
       .get('/song/url', {
         params: {
-          id
+          id,
+          br
         }
       })
       .then(response => {
