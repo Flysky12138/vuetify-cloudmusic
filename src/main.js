@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
+import './common/main.scss'
 import message from './common/message'
 import http from './http'
 import router from './plugins/router'

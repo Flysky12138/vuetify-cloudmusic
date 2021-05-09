@@ -1,5 +1,5 @@
 <template>
-  <v-row class='overflow-y-auto scroll lyricsScroll' style='height: 580px' @mousewheel='mouseWheel' v-intersect='onIntersect'>
+  <v-row class='overflow-y-auto scrollbar-hidden lyricsScroll' style='height: 580px' @mousewheel='mouseWheel' v-intersect='onIntersect'>
     <v-col cols='12' class='text-center'>
       <v-responsive height='220'></v-responsive>
       <div v-for='(item, index) in $attrs.lyrics' :key='item.id' :id='"songlyrics_" + index' class='my-6 font-weight-bold' :style='lyricsStyle(index)'>

@@ -1,0 +1,17 @@
+// 按键边框隐藏
+* {
+  outline: none;
+}
+// 隐藏滚动条类
+.scrollbar-hidden,
+html {
+  scrollbar-width: none; // Firefox
+  -ms-overflow-style: none; // IE10+
+  &::-webkit-scrollbar {
+    display: none; // Chrome,Safari
+  }
+}
+// 正在播放歌曲项的样式
+.playItem {
+  color: #f4511e;
+}

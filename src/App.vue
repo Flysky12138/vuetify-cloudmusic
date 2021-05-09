@@ -64,7 +64,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 // 路由动画
 .router {
   &-enter {
@@ -77,22 +77,5 @@ export default {
   &-enter-active {
     transition: all 1.5s;
   }
-}
-// 全局按键边框隐藏
-* {
-  outline: none;
-}
-// 全局预设隐藏滚动条类
-.scroll,
-html {
-  scrollbar-width: none; // Firefox
-  -ms-overflow-style: none; // IE10+
-  &::-webkit-scrollbar {
-    display: none; // Chrome,Safari
-  }
-}
-// 正在播放歌曲项的样式
-.playItem {
-  color: #f4511e;
 }
 </style>
