@@ -4,10 +4,9 @@ import Message from './Message.vue'
 
 // 右下角消息提示
 const createMessage = options => {
-  const app = document.getElementById('app')
   const tip = document.createElement('div')
-  tip.setAttribute('id', 'message')
-  app.appendChild(tip)
+  tip.id = 'message'
+  document.getElementById('app').appendChild(tip)
   new Vue({
     vuetify,
     render: h =>

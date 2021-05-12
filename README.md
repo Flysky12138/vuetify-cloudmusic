@@ -1,24 +1,5 @@
 # com.vuetify.cloudmusic
 
-## Project setup
-```
-yarn
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+![GitHub last commit](https://img.shields.io/github/last-commit/Flysky12138/com.vuetify.cloudmusic)
+![GitHub repo size](https://img.shields.io/github/repo-size/Flysky12138/com.vuetify.cloudmusic)
+![GitHub](https://img.shields.io/github/license/Flysky12138/com.vuetify.cloudmusic)
