@@ -1,5 +1,5 @@
 <template>
-  <v-app style='min-width: 900px'>
+  <v-app>
     <!-- 顶部导航栏 -->
     <v-app-bar app :color='$vuetify.theme.isDark ? "" : "white"' elevate-on-scroll>
       <v-container class='width-size'>
