@@ -20,7 +20,7 @@
             <span>播放：{{ value.playCount }}</span>
             <span class='mx-2'>分享：{{ value.shareCount }}</span>
             <span>收藏：{{ value.subscribedCount }}</span>
-            <v-btn v-if='value.userId !== uid' icon x-small class='ml-1 mb-1' @click='subscribe'>
+            <v-btn v-if='uid && value.userId !== uid' icon x-small class='ml-1 mb-1' @click='subscribe'>
               <v-icon :color='value.subscribed ? "success":""'>{{ value.subscribed ? 'mdi-check' : 'mdi-plus' }}</v-icon>
             </v-btn>
           </span>
