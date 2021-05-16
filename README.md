@@ -24,6 +24,7 @@ $ yarn serve
 
 - [Binaryify/NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
 - [madrobby/keymaster](https://github.com/madrobby/keymaster)
+- [uiwjs/province-city-china](https://github.com/uiwjs/province-city-china)
 
 ### License
 

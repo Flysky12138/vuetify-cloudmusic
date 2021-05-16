@@ -1,29 +1,39 @@
 <template>
-  <v-app style='min-width: 900px'>
-    <!-- 顶部导航栏 -->
-    <v-app-bar app :color='$vuetify.theme.isDark ? "" : "white"' elevate-on-scroll>
-      <v-container class='width-size'>
-        <app-bar />
+  <v-app>
+    <template v-if='isPc'>
+      <!-- 顶部导航栏 -->
+      <v-app-bar app :color='$vuetify.theme.isDark ? "" : "white"' elevate-on-scroll>
+        <v-container class='width-size'>
+          <app-bar />
+        </v-container>
+      </v-app-bar>
+      <!-- 路由显示区 -->
+      <v-main :class='$vuetify.theme.isDark ? "" : "grey lighten-3"'>
+        <v-container class='width-size' style='height: 100%'>
+          <v-sheet rounded='lg' height='100%'>
+            <!-- 对路由添加一个进入动画：渐显 -->
+            <transition name='router'>
+              <keep-alive>
+                <router-view v-if='$route.meta.keepAlive' />
+              </keep-alive>
+            </transition>
+            <transition name='router'>
+              <router-view v-if='!$route.meta.keepAlive' />
+            </transition>
+          </v-sheet>
+        </v-container>
+      </v-main>
+      <!-- 侧边固定栏 -->
+      <side-bar />
+    </template>
+    <template v-else>
+      <v-container class='fill-height'>
+        <strong class='mx-auto text-center'>
+          非 PC 端
+          <br />未适配，不允显示
+        </strong>
       </v-container>
-    </v-app-bar>
-    <!-- 路由显示区 -->
-    <v-main :class='$vuetify.theme.isDark ? "" : "grey lighten-3"'>
-      <v-container class='width-size' style='height: 100%'>
-        <v-sheet rounded='lg' height='100%'>
-          <!-- 对路由添加一个进入动画：渐显 -->
-          <transition name='router'>
-            <keep-alive>
-              <router-view v-if='$route.meta.keepAlive' />
-            </keep-alive>
-          </transition>
-          <transition name='router'>
-            <router-view v-if='!$route.meta.keepAlive' />
-          </transition>
-        </v-sheet>
-      </v-container>
-    </v-main>
-    <!-- 侧边固定栏 -->
-    <side-bar />
+    </template>
   </v-app>
 </template>
 
@@ -33,9 +43,11 @@ import AppBar from './layout/AppBar'
 import SideBar from './layout/SideBar'
 export default {
   components: { AppBar, SideBar },
-  data: () => ({}),
+  data: () => ({
+    isPc: !/Android|WindowsPhone|webOS|iPhone|iPod|BlackBerry|iPad/.test(navigator.userAgent)
+  }),
   created() {
-    // 获取ID,等级和头像
+    // 获取ID、等级和头像；签到
     this.$http.login.status().then(res => {
       res.islogin ? this.login(res) & this.$http.siginin() : this.logout()
     })
