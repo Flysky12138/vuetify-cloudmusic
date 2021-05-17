@@ -30,10 +30,11 @@ const mutations = {
   // 添加歌曲信息到列表
   musicDetail(state, params) {
     state.lists = [...params]
-    state.randomlists = []
-    for (let i = 0; i < state.lists.length; i++) {
+    state.randomlists = [...params]
+    // Fisher-Yates Shuffle 洗牌算法
+    for (let i = 1; i < state.randomlists.length; i++) {
       const ran = Math.floor(Math.random() * (i + 1)) // [0,i]
-      ;[state.randomlists[i], state.randomlists[ran]] = [state.lists[ran], state.lists[i]]
+      ;[state.randomlists[i], state.randomlists[ran]] = [state.randomlists[ran], state.randomlists[i]]
     }
     state.music = state.random ? state.randomlists[0] : state.lists[0]
     state.isShow = true
@@ -70,11 +71,16 @@ const mutations = {
   },
   // 移除音乐
   removeMusic(state, id) {
-    id !== state.music.id &&
+    if (id !== state.music.id) {
       state.lists.splice(
         state.lists.findIndex(res => res.id === id),
         1
       )
+      state.randomlists.splice(
+        state.randomlists.findIndex(res => res.id === id),
+        1
+      )
+    }
   },
   // 存放当前播放进度
   setPlayDt(state, params) {

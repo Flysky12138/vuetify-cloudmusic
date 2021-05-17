@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class='pa-0 overflow-hidden' style='position: relative; height: 100vh'>
+  <v-container fluid class='pa-0 overflow-hidden' style='position: relative; height: 100vh; min-width: 900px'>
     <!-- 虚化背景 -->
     <v-img class='bg' :src='picUrl'></v-img>
     <!-- 内容 -->
