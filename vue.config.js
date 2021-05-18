@@ -18,7 +18,7 @@ module.exports = {
     themeColor: '#272727',
     msTileColor: '#000000',
     manifestOptions: {
-      display: 'minimal-ui'
+      display: 'standalone'
     },
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black',
