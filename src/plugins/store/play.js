@@ -118,9 +118,16 @@ const actions = {
   }
 }
 
+const getters = {
+  indexMusicInLists(state) {
+    return state.lists.indexOf(state.music)
+  }
+}
+
 export default {
   namespaced: false,
   state,
   mutations,
+  getters,
   actions
 }

@@ -51,8 +51,7 @@ export default {
   data: () => ({
     tab: 1,
     headers: [
-      { text: '#', align: 'end', value: 'playCount' },
-      { text: '', value: '' },
+      { text: '#', align: 'center', value: 'playCount', width: 60 },
       { text: '歌曲标题', value: 'song.name' },
       { text: '歌手', value: 'song.artists' },
       { text: '', align: 'end', value: 'btns' }

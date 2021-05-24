@@ -27,9 +27,9 @@
       <v-list dense v-intersect='onIntersect'>
         <v-list-item-group :value='index' color='primary' mandatory>
           <v-list-item
-            v-for='(item, index) in lists'
-            :key='item.id'
-            :id='"songlist_" + index'
+            v-for='(item, _index) in lists'
+            :key='_index'
+            :id='"songlist_" + _index'
             @click='chooseMusic(item.id)'
             @contextmenu.prevent='removeMusic(item.id)'
           >
@@ -44,36 +44,29 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 export default {
   data: () => ({
-    dialog: false,
-    index: 0
+    dialog: false
   }),
   watch: {
     dialog(newValue) {
       newValue || this.closeGoto()
-    },
-    music: 'indexMusicInLists',
-    lists: 'indexMusicInLists'
+    }
   },
   computed: {
     ...mapState({
-      music: state => state.play.music, // 正在播放的歌曲信息
       lists: state => state.play.lists, // 音乐列表
       route: state => state.play.route // 添加歌曲列表时的路由地址
+    }),
+    ...mapGetters({
+      index: 'indexMusicInLists'
     })
   },
   methods: {
     ...mapMutations(['chooseMusic', 'removeMusic']),
-    indexMusicInLists() {
-      this.$nextTick(() => {
-        this.index = this.lists.indexOf(this.music)
-      })
-    },
     // 打开菜单后滚动定位
     openGoto() {
-      this.indexMusicInLists()
       this.$vuetify.goTo('#songlist_' + this.index, {
         container: '#songlist_card',
         duration: 400,

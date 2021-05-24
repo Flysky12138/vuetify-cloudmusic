@@ -13,6 +13,8 @@
     @page-count='pageCount = $event'
     :loading='loading'
     fixed-header
+    ref='dataTable'
+    @current-items='getFilteredItems'
   >
     <!-- top插槽 -->
     <template v-slot:top>
@@ -27,7 +29,7 @@
     </template>
     <!-- header.btns插槽 -->
     <template v-slot:header.btns>
-      <button-play :id='value.map((res) => res.id)' :disable='loading' tip='播放所有' />
+      <button-play :id='filteredItems.map((res) => res.id)' :disable='filteredItems.length === 0' tip='播放所有' />
     </template>
     <!-- item.count插槽 -->
     <template v-slot:item.count='{ item }'>
@@ -80,8 +82,10 @@ export default {
       { text: '歌手', value: 'artists' },
       { text: '专辑', value: 'album' },
       { text: '时长', value: 'duration' },
-      { text: '', align: 'right', value: 'btns' }
-    ]
+      { text: '', align: 'end', value: 'btns' }
+    ],
+    // 过滤后的列表数据
+    filteredItems: []
   }),
   computed: {
     ...mapState({
@@ -115,6 +119,12 @@ export default {
     // 设置正在播放歌曲项的类
     playItemStyle(params) {
       return params.id === this.id ? 'playItem' : ''
+    },
+    // 获取过滤后的列表数据
+    getFilteredItems() {
+      this.$nextTick(() => {
+        this.filteredItems = this.$refs.dataTable.$children[0].filteredItems
+      })
     }
   }
 }
