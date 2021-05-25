@@ -1,15 +1,15 @@
-# com.vuetify.cloudmusic
+# vuetify-cloudmusic
 
-[![GitHub last commit](https://img.shields.io/github/last-commit/Flysky12138/com.vuetify.cloudmusic)](https://github.com/Flysky12138/com.vuetify.cloudmusic/commits/master)
-![GitHub repo size](https://img.shields.io/github/repo-size/Flysky12138/com.vuetify.cloudmusic)
-[![GitHub](https://img.shields.io/github/license/Flysky12138/com.vuetify.cloudmusic)](https://github.com/Flysky12138/com.vuetify.cloudmusic/blob/master/LICENSE)
+[![GitHub last commit](https://img.shields.io/github/last-commit/Flysky12138/vuetify-cloudmusic)](https://github.com/Flysky12138/vuetify-cloudmusic/commits/master)
+![GitHub repo size](https://img.shields.io/github/repo-size/Flysky12138/vuetify-cloudmusic)
+[![GitHub](https://img.shields.io/github/license/Flysky12138/vuetify-cloudmusic)](https://github.com/Flysky12138/vuetify-cloudmusic/blob/master/LICENSE)
 
 ### 安装
 
 ```
-$ git clone https://github.com/Flysky12138/com.vuetify.cloudmusic.git
+$ git clone https://github.com/Flysky12138/vuetify-cloudmusic.git
 
-$ cd com.vuetify.cloudmusic
+$ cd vuetify-cloudmusic
 
 $ yarn
 ```
@@ -28,4 +28,4 @@ $ yarn serve
 
 ### License
 
-[MIT](https://github.com/Flysky12138/com.vuetify.cloudmusic/blob/master/LICENSE)
+[MIT](https://github.com/Flysky12138/vuetify-cloudmusic/blob/master/LICENSE)
