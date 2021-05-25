@@ -1,8 +1,8 @@
-# vuetify-cloudmusic
+# Vuetify CloudMusic
 
 [![GitHub last commit](https://img.shields.io/github/last-commit/Flysky12138/vuetify-cloudmusic)](https://github.com/Flysky12138/vuetify-cloudmusic/commits/master)
 ![GitHub repo size](https://img.shields.io/github/repo-size/Flysky12138/vuetify-cloudmusic)
-[![GitHub](https://img.shields.io/github/license/Flysky12138/vuetify-cloudmusic)](https://github.com/Flysky12138/vuetify-cloudmusic/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/Flysky12138/vuetify-cloudmusic)](https://github.com/Flysky12138/vuetify-cloudmusic/blob/master/LICENSE)
 
 ### 安装
 
