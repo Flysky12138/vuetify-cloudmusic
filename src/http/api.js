@@ -12,9 +12,10 @@ switch (process.env.NODE_ENV) {
     axios.defaults.baseURL = 'http://localhost:3000'
 }
 
-// 设置超时时间和跨域是否允许携带Cookie凭证
-axios.defaults.timeout = 10000
-axios.defaults.withCredentials = true
+axios.defaults.timeout = 10000 // 超时时间
+axios.defaults.retry = 5 // 超时重复请求次数
+axios.defaults.retryDelay = 1000 // 超时重复请求的间隙
+axios.defaults.withCredentials = true // 跨域是否允许携带Cookie凭证
 
 // 设置Post请求传递数据的格式（看服务器要求什么格式）
 // axios.defaults.headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -40,25 +41,20 @@ axios.interceptors.request.use(
     // token && (config.headers.Authorization = token);
     return config
   },
-  error => {
-    return Promise.reject(error)
-  }
+  error => Promise.reject(error)
 )
 
+// 自定义响应成功的HTTP状态码
+axios.defaults.validateStatus = status => /^(2|3|5)\d{2}$/.test(status)
+
 // 响应拦截器
-axios.defaults.validateStatus = status => {
-  // 自定义响应成功的HTTP状态码
-  return /^(2|3|5)\d{2}$/.test(status)
-}
 axios.interceptors.response.use(
-  response => {
-    // 把请求结果中的http转https。避免浏览器的混合提示
-    return JSON.parse(JSON.stringify(response.data).replace(/http:\/\//g, 'https://'))
-  },
+  // 把请求结果中的http转https。避免浏览器的混合提示
+  response => JSON.parse(JSON.stringify(response.data).replace(/http:\/\//g, 'https://')),
   error => {
-    let { response } = error
+    const { response, config } = error
+    // 根据错误状态进行对应处理
     if (response) {
-      // 服务器返回了非2\3\5状态码的结果
       switch (response.status) {
         case 401: // 当前请求需要权限（一般是未登录）
           break
@@ -67,11 +63,18 @@ axios.interceptors.response.use(
         case 404: // 找不到页面
       }
     } else {
-      // 断网处理：可以跳转到断网页面
-      if (!window.navigator.onLine) {
-        return
-      }
-      return Promise.reject(error)
+      // 断网处理：可以设置跳转到断网页面
+      if (!window.navigator.onLine) return Promise.reject(error)
+      // 请求延迟，重新请求
+      config.__retryCount = config.__retryCount || 0
+      if (!config || !config.retry || config.__retryCount >= config.retry) return Promise.reject(error)
+      config.__retryCount += 1
+      const backoff = new Promise(resolve => {
+        setTimeout(() => {
+          resolve()
+        }, config.retryDelay || 1)
+      })
+      return backoff.then(() => axios(config))
     }
   }
 )
