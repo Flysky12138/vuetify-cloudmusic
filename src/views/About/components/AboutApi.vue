@@ -2,7 +2,7 @@
   <v-alert border='left' colored-border elevation='1' dense color='cyan' icon='mdi-api'>
     <div>
       <span>提供的默认接口搭建在</span>
-      <a href='https://vercel.com' target='_blank' class='text-decoration-none'>Vercel</a>
+      <a href='https://vercel.com' target='_blank' class='text-decoration-none'>&nbsp;Vercel&nbsp;</a>
       <span>上，访问速度不理想，建议本地运行接口Api。接口下载地址：</span>
       <a href='https://github.com/Binaryify/NeteaseCloudMusicApi' target='_blank' class='text-decoration-none'>NeteaseCloudMusicApi</a>
     </div>

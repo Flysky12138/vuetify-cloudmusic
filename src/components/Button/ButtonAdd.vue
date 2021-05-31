@@ -1,22 +1,18 @@
 <template>
-  <v-dialog v-model='dialog' width='400' content-class='scroll'>
+  <v-dialog v-model='dialog' width='400'>
     <template v-slot:activator='{ on, attrs }'>
       <v-btn v-bind='attrs' v-on='on' icon :disabled='!islogin' @click='getCreatePlaylist'>
         <v-icon>mdi-plus-circle-outline</v-icon>
       </v-btn>
     </template>
-    <v-card max-height='400' class='overflow-y-auto scroll' rounded='lg'>
-      <v-list>
-        <v-list-item-group>
-          <v-list-item v-for='item in playlist' :key='item.id' @click='addSong(item.id)' class='py-2'>
-            <v-img :src='item.coverImgUrl' max-width='60' class='mr-4 rounded-lg'></v-img>
-            <div class='d-flex flex-column justify-space-between py-1' style='height: 60px'>
-              <div class='font-weight-bold text-truncate' style='max-width: 250px'>{{ item.name }}</div>
-              <div class='font-weight-bold text-subtitle-1'>{{ item.trackCount }} 首</div>
-            </div>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
+    <v-card max-height='400' class='overflow-y-auto scrollbar-hidden' rounded='lg'>
+      <v-list-item v-for='item in playlist' :key='item.id' @click='addSong(item.id)' class='py-2'>
+        <v-img :src='item.coverImgUrl' max-width='60' class='mr-4 rounded-lg'></v-img>
+        <div class='d-flex flex-column justify-space-between py-1' style='height: 60px'>
+          <div class='font-weight-bold text-truncate' style='max-width: 250px'>{{ item.name }}</div>
+          <div class='font-weight-bold text-subtitle-1'>{{ item.trackCount }} 首</div>
+        </div>
+      </v-list-item>
     </v-card>
   </v-dialog>
 </template>

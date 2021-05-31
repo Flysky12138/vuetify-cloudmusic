@@ -9,12 +9,12 @@
       </v-scale-transition>
     </template>
     <!-- 内容 -->
-    <v-card max-height='492' max-width='280' rounded='lg' class='overflow-y-auto scrollbar-hidden' id='songlist_card' style='opacity: 0.8'>
+    <v-card max-width='280' rounded='lg' style='opacity: 0.8'>
       <!-- 标题 -->
-      <v-banner sticky single-line color='grey darken-4' class='font-weight-bold'>
+      <v-banner sticky single-line class='font-weight-bold'>
         <v-row align='center'>
           <v-col>
-            <span>当前播放({{ index + 1 }}/{{ lists.length }})</span>
+            <span>当前播放({{ playIndex + 1 }}/{{ lists.length }})</span>
           </v-col>
           <v-col cols='auto'>
             <v-btn class='mx-4' color='cyan darken-4' x-small :to='route' @click='$emit("close")'>
@@ -23,22 +23,18 @@
           </v-col>
         </v-row>
       </v-banner>
-      <!-- 列表 -->
-      <v-list dense v-intersect='onIntersect'>
-        <v-list-item-group :value='index' color='primary' mandatory>
-          <v-list-item
-            v-for='(item, _index) in lists'
-            :key='_index'
-            :id='"songlist_" + _index'
-            @click='chooseMusic(item.id)'
-            @contextmenu.prevent='removeMusic(item.id)'
-          >
-            <v-list-item-content>
-              <v-list-item-title class='font-weight-bold' v-text='item.name'></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
+      <!-- 播放列表 - 虚拟滚动 -->
+      <v-virtual-scroll :items='lists' bench='3' max-height='440px' item-height='40' class='scrollbar-hidden' ref='playerlists'>
+        <template v-slot:default='{ item }'>
+          <v-list :class='{"playItem": item.id === music.id}' dense class='py-0 d-flex align-center'>
+            <v-list-item @click='chooseMusic(item.id)' @contextmenu.prevent='removeMusic(item.id)'>
+              <v-list-item-content>
+                <v-list-item-title class='font-weight-bold' :class='{"cyan--text": item.id === music.id}' v-text='item.name'></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </template>
+      </v-virtual-scroll>
     </v-card>
   </v-menu>
 </template>
@@ -51,42 +47,33 @@ export default {
   }),
   watch: {
     dialog(newValue) {
-      newValue || this.closeGoto()
+      newValue && this.locateItem()
     }
   },
   computed: {
     ...mapState({
+      music: state => state.play.music, // 当前播放的音乐
       lists: state => state.play.lists, // 音乐列表
       route: state => state.play.route // 添加歌曲列表时的路由地址
     }),
     ...mapGetters({
-      index: 'indexMusicInLists'
+      playIndex: 'indexMusicInLists'
     })
   },
   methods: {
     ...mapMutations(['chooseMusic', 'removeMusic']),
-    // 打开菜单后滚动定位
-    openGoto() {
-      this.$vuetify.goTo('#songlist_' + this.index, {
-        container: '#songlist_card',
-        duration: 400,
-        offset: -18,
-        easing: 'easeOutQuad'
-      })
-    },
-    // 关闭菜单后滚动定位
-    closeGoto() {
-      this.$vuetify.goTo(0, {
-        container: '#songlist_card',
-        duration: 400,
-        offset: 0,
-        easing: 'linear'
-      })
-    },
-    // 列表显示时回调
-    onIntersect(entries) {
-      entries[0].isIntersecting && this.openGoto()
+    // 当前播放音乐置顶
+    locateItem() {
+      setTimeout(() => {
+        this.$refs.playerlists.$el.scrollTop = this.playIndex * 40
+      }, 50)
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.playItem {
+  background-color: rgba($color: cyan, $alpha: 0.1);
+}
+</style>
