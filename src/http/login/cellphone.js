@@ -16,6 +16,7 @@ function cellphone(phone, password, countrycode = '86') {
             code = 0
             break
           case 200: // 登录成功
+            localStorage.setItem('cookie', response.cookie)
             code = 1
             break
           case 250: // 登录失败

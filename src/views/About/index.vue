@@ -10,13 +10,12 @@
 
 <script>
 import AboutApi from './components/AboutApi.vue'
-import AboutTheme from './components/AboutTheme.vue'
 import AboutGithub from './components/AboutGithub.vue'
-import AboutError from './components/AboutError.vue'
+import AboutTheme from './components/AboutTheme.vue'
 export default {
-  components: { AboutApi, AboutTheme, AboutGithub, AboutError },
+  components: { AboutApi, AboutTheme, AboutGithub },
   data: () => ({
-    components: ['AboutError', 'AboutGithub', 'AboutApi', 'AboutTheme']
+    components: ['AboutGithub', 'AboutApi', 'AboutTheme']
   })
 }
 </script>

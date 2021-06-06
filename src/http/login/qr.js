@@ -49,6 +49,7 @@ function check(key) {
             code = 2
             break
           case 803: // 授权成功
+            localStorage.setItem('cookie', response.cookie)
             code = 3
             break
         }
