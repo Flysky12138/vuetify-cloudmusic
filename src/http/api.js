@@ -1,5 +1,4 @@
 import axios from 'axios'
-// import qs from "qs";
 
 // 根据环境变量区分接口的默认地址
 switch (process.env.NODE_ENV) {
@@ -17,30 +16,22 @@ axios.defaults.retry = 5 // 超时重复请求次数
 axios.defaults.retryDelay = 1000 // 超时重复请求的间隙
 axios.defaults.withCredentials = true // 跨域是否允许携带Cookie凭证
 
-// 设置Post请求传递数据的格式（看服务器要求什么格式）
-// axios.defaults.headers["Content-Type"] = "application/x-www-form-urlencoded";
-// axios.defaults.transformRequest = data => qs.stringify(data);
-
 // 设置请求拦截器
 axios.interceptors.request.use(
   config => {
-    // 添加时间戳
-    if (config.method == 'post') {
+    if (config.method === 'post') {
       config.data = {
         ...config.data,
-        timestamp: new Date().getTime(),
-        cookie: localStorage.getItem('cookie')
+        timestamp: new Date().getTime(), // 添加时间戳
+        cookie: localStorage.getItem('cookie') // Chrome v91开始浏览器默认SameSite=Lax无法修改，导致跨域不携带Cookie
       }
-    } else if (config.method == 'get') {
+    } else if (config.method === 'get') {
       config.params = {
         ...config.params,
         timestamp: new Date().getTime(),
-        cookie: localStorage.getItem('cookie')
+        cookie: localStorage.getItem('cookie') // 手动携带Cookie
       }
     }
-    // 添加Token
-    // const token = localStorage.getItem("token");
-    // token && (config.headers.Authorization = token);
     return config
   },
   error => Promise.reject(error)
@@ -55,7 +46,6 @@ axios.interceptors.response.use(
   response => JSON.parse(JSON.stringify(response.data).replace(/http:\/\//g, 'https://')),
   error => {
     const { response, config } = error
-    // 根据错误状态进行对应处理
     if (response) {
       switch (response.status) {
         case 401: // 当前请求需要权限（一般是未登录）

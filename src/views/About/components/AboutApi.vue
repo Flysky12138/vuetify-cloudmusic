@@ -7,18 +7,24 @@
       <a href='https://github.com/Binaryify/NeteaseCloudMusicApi' target='_blank' class='text-decoration-none'>NeteaseCloudMusicApi</a>
     </div>
     <div class='mt-3 mb-2'>
-      <v-text-field
+      <v-autocomplete
         label='自定义接口地址'
         placeholder='http(s)://xxx[:port]'
         outlined
         dense
         hide-details
+        hide-no-data
         clearable
         v-model='api'
+        :items='items'
         @blur='save'
         @keyup.13='save'
         ref='AboutApi'
-      ></v-text-field>
+      >
+        <template v-slot:item='{ item }'>
+          <v-list-item-content v-text='item'></v-list-item-content>
+        </template>
+      </v-autocomplete>
     </div>
   </v-alert>
 </template>
@@ -26,7 +32,8 @@
 <script>
 export default {
   data: () => ({
-    api: ''
+    api: '',
+    items: ['http://localhost:3000']
   }),
   created() {
     this.api = JSON.parse(localStorage.getItem('api'))

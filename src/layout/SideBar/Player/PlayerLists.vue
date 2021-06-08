@@ -24,7 +24,7 @@
         </v-row>
       </v-banner>
       <!-- 播放列表 - 虚拟滚动 -->
-      <v-virtual-scroll :items='lists' bench='3' max-height='440px' item-height='40' class='scrollbar-hidden' ref='playerlists'>
+      <v-virtual-scroll :items='lists' :bench='bench' @mousewheel='setBench' max-height='440' item-height='40' class='scrollbar-hidden' ref='playerlists'>
         <template v-slot:default='{ item }'>
           <v-list :class='{"playItem": item.id === music.id}' dense class='py-0 d-flex align-center'>
             <v-list-item @click='chooseMusic(item.id)' @contextmenu.prevent='removeMusic(item.id)'>
@@ -43,7 +43,8 @@
 import { mapState, mapMutations, mapGetters } from 'vuex'
 export default {
   data: () => ({
-    dialog: false
+    dialog: false,
+    bench: 11 // 首次加载需加载可见的11项
   }),
   watch: {
     dialog(newValue) {
@@ -67,6 +68,9 @@ export default {
       setTimeout(() => {
         this.$refs.playerlists.$el.scrollTop = this.playIndex * 40
       }, 50)
+    },
+    setBench() {
+      this.bench !== 3 && (this.bench = 3)
     }
   }
 }
