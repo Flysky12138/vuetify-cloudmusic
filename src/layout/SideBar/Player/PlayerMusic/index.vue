@@ -35,9 +35,9 @@
           hide-details
           color='purple darken-3'
           track-color='purple lighten-3'
-          @mousedown='canSetDt = true'
+          @mousedown='canSetDt = false'
           @mouseup='
-            canSetDt = false;
+            canSetDt = true;
             $emit("changeDt", dt);
           '
         >
@@ -71,12 +71,12 @@ export default {
   },
   data: () => ({
     dt: 0, // 播放进度
-    canSetDt: false // 鼠标是否正在滑动滑动条
+    canSetDt: true // 鼠标是否正在滑动滑动条
   }),
   watch: {
     // 手动滑动时不赋值
     playDt(newValue) {
-      !this.canSetDt && (this.dt = newValue)
+      this.canSetDt && (this.dt = newValue)
     }
   },
   computed: {

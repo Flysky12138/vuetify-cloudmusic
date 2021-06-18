@@ -12,7 +12,7 @@
       </v-card>
     </v-dialog>
     <!-- 音乐播放标签 autoplay:换歌后继续播放 -->
-    <audio :src='url' :autoplay='isplay' :loop='loop ? true : false' @timeupdate='playDt' @ended='next' crossorigin='anonymous' preload='auto' ref='audio'></audio>
+    <audio :src='url' :autoplay='isplay' :loop='loop' @timeupdate='timeUpdate' @ended='next' crossorigin='anonymous' preload='auto' ref='audio'></audio>
     <!-- 上下按键 -->
     <div style='position: absolute; z-index: -1'>
       <v-btn icon @click='previous'>
@@ -70,14 +70,24 @@ export default {
     })
   },
   methods: {
-    ...mapMutations(['setPlayDt', 'previous', 'next']),
-    // 存放当前播放进度到Vuex
+    ...mapMutations(['saveCache', 'setPlayDt', 'previous', 'next']),
+    // 播放音乐时每250毫秒回调一次
+    timeUpdate(res) {
+      this.playDt(res)
+      this.cacheProgress()
+    },
+    // 获取播放进度
     playDt(res) {
       this.setPlayDt((res.target.currentTime + this.dtOffset) * 1000)
     },
     // 调整播放进度
     setDt(res) {
       this.$refs.audio.currentTime = Math.floor(res / 1000)
+    },
+    // 获取缓存进度
+    cacheProgress() {
+      const timeRanges = this.$refs.audio.buffered
+      timeRanges.length !== 0 && this.saveCache(parseInt((timeRanges.end(timeRanges.length - 1) / (this.music.dt / 1000)) * 100))
     },
     // 获取播放歌曲歌词等信息
     getMusicDetail() {
