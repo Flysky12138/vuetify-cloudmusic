@@ -27,8 +27,7 @@ const routes = [
   },
   {
     path: '/user',
-    component: () => import('views/User'),
-    meta: { requiresAuth: true }
+    component: () => import('views/User')
   },
   {
     path: '/search',
