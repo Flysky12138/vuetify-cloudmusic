@@ -21,6 +21,12 @@ export default {
     value(newValue) {
       this.$vuetify.theme.isDark = newValue
       localStorage.setItem('isDark', JSON.stringify(newValue))
+      newValue ? this.setMeta('#272727') : this.setMeta('#ffffff')
+    }
+  },
+  methods: {
+    setMeta(content) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', content)
     }
   }
 }

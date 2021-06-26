@@ -15,7 +15,7 @@ module.exports = {
   },
   pwa: {
     name: 'Vuetify CloudMusic',
-    themeColor: '#272727',
+    themeColor: '#ffffff',
     msTileColor: '#000000',
     manifestOptions: {
       display: 'standalone'
