@@ -3,7 +3,7 @@
     <v-row justify='center'>
       <!-- 封面、歌曲名、歌手 -->
       <v-col cols='8' class='pb-0'>
-        <v-img :src='music.picUrl' max-width='80%' class='rounded-lg mx-auto'></v-img>
+        <v-img :src='music.picUrl' width='80%' aspect-ratio='1' class='rounded-lg mx-auto'></v-img>
         <div class='text-center font-weight-bold text-h5 text-truncate pt-3' v-text='music.name'></div>
         <div class='text-center font-weight-bold text-subtitle-2 text-truncate' v-text='music.artists'></div>
       </v-col>
