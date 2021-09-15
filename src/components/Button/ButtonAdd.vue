@@ -6,7 +6,7 @@
       </v-btn>
     </template>
     <v-card max-height='400' class='overflow-y-auto scrollbar-hidden' rounded='lg'>
-      <template v-if='showlists'>
+      <template v-if='showDialog'>
         <v-overlay :value='dialog'>
           <v-progress-circular indeterminate size='64' width='10'></v-progress-circular>
         </v-overlay>
@@ -35,7 +35,7 @@ export default {
   },
   data: () => ({
     dialog: false,
-    showlists: false,
+    showDialog: false,
     // 创建的歌单 {coverImgUrl:String, id:Number, name:String, playCount:Number}
     playlist: []
   }),
@@ -54,17 +54,15 @@ export default {
     },
     // 获取用户创建的歌单
     getCreatePlaylist() {
-      this.showlists = true
-      const startTime = new Date()
+      if (!JSON.parse(sessionStorage.getItem('userPlaylistsCached'))) {
+        this.showDialog = true
+      }
       this.$http.user.playlist(this.uid).then(res => {
         this.playlist = this.nolove ? res.create.filter(res => !/喜欢的音乐$/.test(res.name)) : res.create
-        const delay = new Date() - startTime
-        setTimeout(
-          () => {
-            this.showlists = false
-          },
-          delay < 500 ? 500 : 0
-        )
+        setTimeout(() => {
+          this.showDialog = false
+          sessionStorage.setItem('userPlaylistsCached', true)
+        }, 600)
       })
     }
   }

@@ -4,10 +4,12 @@ import axios from '../api'
 function cellphone(phone, password, countrycode = '86') {
   return new Promise((resolve, reject) => {
     axios
-      .post('/login/cellphone', {
-        phone,
-        password,
-        countrycode
+      .get('/login/cellphone', {
+        params: {
+          phone,
+          password,
+          countrycode
+        }
       })
       .then(response => {
         let code = 2
