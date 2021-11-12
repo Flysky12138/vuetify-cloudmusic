@@ -34,9 +34,13 @@ export default {
     },
     // 根据播放进度指定滚动的位置
     playDt(newValue) {
-      // 颠倒素组后查找满足条件的第一个对象索引值
-      const reverseIndex = [...this.$attrs.lyrics].reverse().findIndex(res => res.time <= newValue)
-      this.lyricIndex = reverseIndex === -1 ? 0 : this.$attrs.lyrics.length - reverseIndex - 1
+      // 查找当前时间对应歌词在数组中的索引值
+      const index = [...this.$attrs.lyrics].findIndex(res => res.time > newValue)
+      if (index === -1) {
+        this.lyricIndex = this.$attrs.lyrics.length - 1
+      } else if (index > 0) {
+        this.lyricIndex = index - 1
+      }
     }
   },
   computed: {
