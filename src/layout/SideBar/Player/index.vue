@@ -1,9 +1,9 @@
 <template>
   <v-container fluid class='pa-0 overflow-hidden' style='position: relative; height: 100vh; min-width: 900px'>
-    <!-- 虚化背景 -->
+    <!-- 背景 -->
     <v-img class='bg' :src='picUrl'></v-img>
     <!-- 内容 -->
-    <v-card elevation='0' height='100%' color='transparent'>
+    <v-card elevation='0' height='100%' color='transparent' style='backdrop-filter: blur(70px) brightness(70%)'>
       <!-- 左上播放列表按键 -->
       <player-lists v-on='$listeners' />
       <!-- 右上关闭页面按键 -->
@@ -47,9 +47,6 @@ export default {
   width: 100%;
   height: 100%;
   position: absolute;
-  left: 0;
-  top: 0;
-  transform: scale(1.5);
-  filter: blur(70px) brightness(70%);
+  transform: translateZ(0); // 开启硬件加速
 }
 </style>
