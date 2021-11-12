@@ -47,6 +47,5 @@ export default {
   width: 100%;
   height: 100%;
   position: absolute;
-  transform: translateZ(0); // 开启硬件加速
 }
 </style>
