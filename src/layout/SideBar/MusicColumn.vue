@@ -70,7 +70,7 @@ export default {
     })
   },
   methods: {
-    ...mapMutations(['saveCache', 'setPlayDt', 'previous', 'next']),
+    ...mapMutations(['saveCache', 'setPlayDt', 'previous', 'next', 'removeMusic']),
     // 播放音乐时每250毫秒回调一次
     timeUpdate(res) {
       this.playDt(res)
@@ -109,8 +109,10 @@ export default {
           }, this.music.dt * 0.75)
           document.title = this.music.name + ' - ' + this.music.artists // 修改标题
         } else {
+          const id = this.music.id
           this.$message({ text: '〖 ' + this.music.name + ' 〗 暂无版权' })
           this.next()
+          this.removeMusic(id)
         }
       })
     }

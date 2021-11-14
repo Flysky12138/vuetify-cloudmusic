@@ -76,16 +76,14 @@ const mutations = {
   },
   // 移除音乐
   removeMusic(state, id) {
-    if (id !== state.music.id) {
-      state.lists.splice(
-        state.lists.findIndex(res => res.id === id),
-        1
-      )
-      state.randomlists.splice(
-        state.randomlists.findIndex(res => res.id === id),
-        1
-      )
-    }
+    state.lists.splice(
+      state.lists.findIndex(res => res.id === id),
+      1
+    )
+    state.randomlists.splice(
+      state.randomlists.findIndex(res => res.id === id),
+      1
+    )
   },
   // 存放当前播放进度
   setPlayDt(state, params) {
