@@ -137,6 +137,9 @@ export default {
         this.filteredItems = this.$refs.dataTable.$children[0].filteredItems
       })
     }
+  },
+  destroyed() {
+    EventBus.$off('locateMusicEvent')
   }
 }
 </script>
