@@ -1,6 +1,6 @@
 <template>
   <v-fab-transition>
-    <v-btn fab dark color='blue lighten-2' v-scroll='onScroll' @click='goTo()' v-show='scrollTop >= 200'>
+    <v-btn fab dark color='blue lighten-2' v-scroll='onScroll' @click='goTop()' v-show='scrollTop >= 200'>
       <v-icon large>mdi-chevron-up</v-icon>
     </v-btn>
   </v-fab-transition>
@@ -15,7 +15,7 @@ export default {
     onScroll(e) {
       this.scrollTop = e.target.documentElement.scrollTop
     },
-    goTo() {
+    goTop() {
       this.$vuetify.goTo(0, {
         duration: 400,
         offset: 0,

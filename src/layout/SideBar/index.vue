@@ -10,6 +10,9 @@
     <div class='right bottom'>
       <go-top />
     </div>
+    <div class='right top'>
+      <locate-music />
+    </div>
   </div>
 </template>
 
@@ -17,8 +20,9 @@
 import { mapState } from 'vuex'
 import MusicColumn from './MusicColumn.vue'
 import GoTop from './GoTop.vue'
+import LocateMusic from './LocateMusic.vue'
 export default {
-  components: { MusicColumn, GoTop },
+  components: { MusicColumn, GoTop, LocateMusic },
   data: () => ({}),
   computed: {
     ...mapState({

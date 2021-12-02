@@ -55,6 +55,7 @@ import { mapState } from 'vuex'
 import ButtonDelete from 'components/Button/ButtonDelete.vue'
 import ButtonPlay from 'components/Button/ButtonPlay.vue'
 import ButtonAdd from 'components/Button/ButtonAdd.vue'
+import { EventBus } from 'common/eventBus.js'
 export default {
   components: { ButtonDelete, ButtonPlay, ButtonAdd },
   props: {
@@ -85,8 +86,16 @@ export default {
       { text: '', align: 'end', value: 'btns' }
     ],
     // 过滤后的列表数据
-    filteredItems: []
+    filteredItems: [],
+    autoPage: false // 是否是为了定位歌曲而自动换页
   }),
+  mounted() {
+    // 为了定位播放歌曲而换页
+    EventBus.$on('locateMusicEvent', () => {
+      this.autoPage = true
+      this.page = Math.ceil(this.value.findIndex(res => res.id === this.id) / this.itemsPerPage)
+    })
+  },
   computed: {
     ...mapState({
       id: state => state.play.music.id
@@ -103,11 +112,13 @@ export default {
         this.$emit('pageEnd', this.pageCount)
       }
       // 换页滚动到表格顶部
-      this.$vuetify.goTo('#tableTop', {
-        duration: 600, // 动画时长
-        offset: 0, // 偏移
-        easing: 'easeOutQuad' // 动画
-      })
+      this.autoPage ||
+        this.$vuetify.goTo('#tableTop', {
+          duration: 600, // 动画时长
+          offset: 0, // 偏移
+          easing: 'easeOutQuad' // 动画
+        })
+      this.autoPage = false
     }
   },
   methods: {
