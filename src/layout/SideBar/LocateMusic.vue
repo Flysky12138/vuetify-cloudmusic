@@ -1,9 +1,7 @@
 <template>
-  <v-fab-transition>
-    <v-btn fab dark color='blue lighten-2' v-show='isShow' @click='locateMusic()'>
-      <v-icon>mdi-crosshairs-gps</v-icon>
-    </v-btn>
-  </v-fab-transition>
+  <v-btn small fab elevation='0' :color='$vuetify.theme.isDark ? "#1E1E1E" : "white"' @click='locateMusic()'>
+    <v-icon size='20'>mdi-adjust</v-icon>
+  </v-btn>
 </template>
 
 <script>
@@ -13,17 +11,11 @@ export default {
   data: () => ({}),
   computed: {
     ...mapState({
-      route: state => state.play.route,
       id: state => state.play.music.id
-    }),
-    isShow() {
-      return ['/recommend', '/playlist'].includes(this.$route.path) && this.route === this.$route.fullPath
-    }
+    })
   },
   watch: {
-    id() {
-      this.isShow && this.locateMusic()
-    }
+    id: 'locateMusic'
   },
   methods: {
     locateMusic() {

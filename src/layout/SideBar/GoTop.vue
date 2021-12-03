@@ -1,7 +1,7 @@
 <template>
   <v-fab-transition>
-    <v-btn fab dark color='blue lighten-2' v-scroll='onScroll' @click='goTop()' v-show='scrollTop >= 200'>
-      <v-icon large>mdi-chevron-up</v-icon>
+    <v-btn small fab elevation='0' :color='$vuetify.theme.isDark ? "#1E1E1E" : "white"' v-scroll='onScroll' @click='goTop()' v-show='scrollTop >= 200'>
+      <v-icon>mdi-chevron-up</v-icon>
     </v-btn>
   </v-fab-transition>
 </template>

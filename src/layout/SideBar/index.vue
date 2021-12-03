@@ -7,11 +7,9 @@
       </div>
     </v-scale-transition>
     <!-- 回顶按键 -->
-    <div class='right bottom'>
-      <go-top />
-    </div>
-    <div class='right top'>
-      <locate-music />
+    <div class='right bottom mr-2'>
+      <locate-music v-if='isShowLocate' />
+      <go-top v-else />
     </div>
   </div>
 </template>
@@ -26,13 +24,25 @@ export default {
   data: () => ({}),
   computed: {
     ...mapState({
-      isShow: state => state.play.isShow
-    })
+      isShow: state => state.play.isShow,
+      route: state => state.play.route
+    }),
+    isShowLocate() {
+      return ['/recommend', '/playlist'].includes(this.$route.path) && this.route === this.$route.fullPath
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.left,
+.right {
+  display: flex;
+  align-items: center;
+}
+.bottom {
+  flex-direction: column-reverse;
+}
 .left {
   position: fixed;
   left: 5vw;
