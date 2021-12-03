@@ -1,7 +1,7 @@
 <template>
   <v-tooltip left open-delay='500' :disabled='tip === ""'>
     <template v-slot:activator='{ on }'>
-      <v-btn icon v-on='on' @click='addID(id);saveRoute($route.fullPath)' :disabled='disable'>
+      <v-btn icon v-on='on' @click='addID(id);saveRoute($route.fullPath)' :disabled='disable' style='color: inherit'>
         <v-icon>mdi-motion-play-outline</v-icon>
       </v-btn>
     </template>

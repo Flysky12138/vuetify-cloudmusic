@@ -5,12 +5,17 @@ const state = {
   isShow: false, // 显示侧边音乐按键
   music: {}, // 正在播放音乐的信息
   dt: 0, // 播放进度
-  cache: 0, // 缓存进度 0-100
+  cache: 0, // 缓存进度 0-100（暂时只获取，没使用）
   route: '', // 路由地址
   lists: [], // 默认播放列表
   randomlists: [], // 随机播放列表
-  random: false, // 随机播放
-  loop: false, // 单曲循环播放
+  // 播放模式：单曲0、顺序1、随机2
+  get mode() {
+    return JSON.parse(localStorage.getItem('mode'))
+  },
+  set mode(params) {
+    localStorage.setItem('mode', JSON.stringify(params))
+  },
   // 音量 0-10
   get volume() {
     const data = JSON.parse(localStorage.getItem('volume'))
@@ -41,33 +46,21 @@ const mutations = {
       const ran = Math.floor(Math.random() * (i + 1)) // [0,i]
       ;[state.randomlists[i], state.randomlists[ran]] = [state.randomlists[ran], state.randomlists[i]]
     }
-    state.music = state.random ? state.randomlists[0] : state.lists[0]
+    state.music = state.mode === 2 ? state.randomlists[0] : state.lists[0]
     state.isShow = true
   },
   // 播放方式
   playmode(state, params) {
-    switch (params) {
-      case 0: // 单曲播放
-        state.loop = true
-        state.random = false
-        break
-      case 1: // 顺序播放
-        state.loop = false
-        state.random = false
-        break
-      case 2: // 随机播放
-        state.loop = false
-        state.random = true
-    }
+    state.mode = params
   },
   // 上一首
   previous(state) {
-    const arr = state.random ? state.randomlists : state.lists
+    const arr = state.mode === 2 ? state.randomlists : state.lists
     state.music = arr[(arr.indexOf(state.music) + arr.length - 1) % arr.length]
   },
   // 下一首
   next(state) {
-    const arr = state.random ? state.randomlists : state.lists
+    const arr = state.mode === 2 ? state.randomlists : state.lists
     state.music = arr[(arr.indexOf(state.music) + 1) % arr.length]
   },
   // 选择播放的音乐

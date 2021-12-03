@@ -12,7 +12,7 @@
       </v-card>
     </v-dialog>
     <!-- 音乐播放标签 autoplay:换歌后继续播放 -->
-    <audio :src='url' :autoplay='isplay' :loop='loop' @timeupdate='timeUpdate' @ended='next' crossorigin='anonymous' preload='auto' ref='audio'></audio>
+    <audio :src='url' :autoplay='isplay' :loop='!!!mode' @timeupdate='timeUpdate' @ended='next' crossorigin='anonymous' preload='auto' ref='audio'></audio>
     <!-- 上下按键 -->
     <div style='position: absolute; z-index: -1'>
       <v-btn icon @click='previous'>
@@ -66,7 +66,7 @@ export default {
       isplay: state => state.play.isplay,
       volume: state => state.play.volume,
       muted: state => state.play.muted,
-      loop: state => state.play.loop
+      mode: state => state.play.mode
     })
   },
   methods: {

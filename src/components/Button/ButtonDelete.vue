@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model='dialog' max-width='290'>
     <template v-slot:activator='{ on, attrs }'>
-      <v-btn v-bind='attrs' v-on='on' icon>
+      <v-btn v-bind='attrs' v-on='on' icon style='color: inherit'>
         <v-icon>mdi-close-circle-outline</v-icon>
       </v-btn>
     </template>
@@ -9,7 +9,7 @@
       <v-card-title>{{ name }}</v-card-title>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color='green darken-1' text @click='delSong'>确定删除</v-btn>
+        <v-btn color='green darken-1' text @click='delSong' ref='btnDel' @keyup.13='delSong'>确定删除</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -24,6 +24,16 @@ export default {
   data: () => ({
     dialog: false
   }),
+  watch: {
+    // 按键获取焦点
+    dialog(newValue) {
+      if (newValue) {
+        setTimeout(() => {
+          this.$refs.btnDel.$el.focus()
+        }, 50)
+      }
+    }
+  },
   methods: {
     // 从歌单删除歌曲
     delSong() {

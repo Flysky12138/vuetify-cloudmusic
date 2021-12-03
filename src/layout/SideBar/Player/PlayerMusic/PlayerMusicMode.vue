@@ -1,6 +1,6 @@
 <template>
   <v-btn icon text>
-    <v-icon @click='mode = (mode + 1) % 3'>{{ theIcon }}</v-icon>
+    <v-icon @click='playMode = (playMode + 1) % 3'>{{ theIcon }}</v-icon>
   </v-btn>
 </template>
 
@@ -8,36 +8,28 @@
 import { mapState, mapMutations } from 'vuex'
 export default {
   data: () => ({
-    // 播放方式图标显示: 单曲、顺序、随机
-    mode: 0
+    playMode: 0 // 播放模式：单曲0、顺序1、随机2
   }),
   created() {
-    if (this.loop) {
-      this.mode = 0
-    } else if (this.random) {
-      this.mode = 2
-    } else {
-      this.mode = 1
-    }
+    this.playMode = this.mode
   },
   watch: {
-    mode(newValue) {
+    playMode(newValue) {
       this.playmode(newValue)
     }
   },
   computed: {
     ...mapState({
-      loop: state => state.play.loop,
-      random: state => state.play.random
+      mode: state => state.play.mode
     }),
     theIcon() {
       switch (this.mode) {
-        case 0:
-          return 'mdi-repeat-once'
         case 1:
           return 'mdi-shuffle-disabled'
         case 2:
           return 'mdi-shuffle'
+        default:
+          return 'mdi-repeat-once'
       }
     }
   },

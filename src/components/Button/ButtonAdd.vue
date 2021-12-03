@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model='dialog' width='400'>
     <template v-slot:activator='{ on, attrs }'>
-      <v-btn v-bind='attrs' v-on='on' icon :disabled='!islogin' @click='getCreatePlaylist'>
+      <v-btn v-bind='attrs' v-on='on' icon :disabled='!islogin' @click='getCreatePlaylist' style='color: inherit'>
         <v-icon>mdi-plus-circle-outline</v-icon>
       </v-btn>
     </template>

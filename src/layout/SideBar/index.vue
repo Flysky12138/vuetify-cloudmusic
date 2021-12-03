@@ -2,12 +2,12 @@
   <div style='z-index: 5'>
     <!-- 音乐按键 -->
     <v-scale-transition>
-      <div class='right center' v-show='isShow'>
+      <div class='right center mr-n2' v-show='isShow'>
         <music-column />
       </div>
     </v-scale-transition>
     <!-- 回顶按键 -->
-    <div class='right bottom mr-2'>
+    <div class='right bottom'>
       <locate-music v-if='isShowLocate' />
       <go-top v-else />
     </div>
@@ -45,11 +45,11 @@ export default {
 }
 .left {
   position: fixed;
-  left: 5vw;
+  left: 6vw;
 }
 .right {
   position: fixed;
-  right: 5vw;
+  right: 6vw;
 }
 .center {
   top: 45vh;
