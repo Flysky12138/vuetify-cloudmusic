@@ -1,5 +1,9 @@
 <template>
-  <div style='z-index: 5'>
+  <div>
+    <!-- 歌词 -->
+    <div class='left center' style='transform: translateY(-40%)'>
+      <lyrics />
+    </div>
     <!-- 音乐按键 -->
     <v-scale-transition>
       <div class='right center mr-n2' v-show='isShow'>
@@ -19,8 +23,9 @@ import { mapState } from 'vuex'
 import MusicColumn from './MusicColumn.vue'
 import GoTop from './GoTop.vue'
 import LocateMusic from './LocateMusic.vue'
+import Lyrics from './Lyrics.vue'
 export default {
-  components: { MusicColumn, GoTop, LocateMusic },
+  components: { MusicColumn, GoTop, LocateMusic, Lyrics },
   data: () => ({}),
   computed: {
     ...mapState({

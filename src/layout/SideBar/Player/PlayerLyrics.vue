@@ -16,6 +16,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { EventBus } from 'common/eventBus.js'
 export default {
   data: () => ({
     lyricIndex: 0, // 指定正在播放的歌词
@@ -27,7 +28,8 @@ export default {
   }),
   watch: {
     // 滚动到指定歌词位置
-    lyricIndex() {
+    lyricIndex(newValue) {
+      EventBus.$emit('nowLyrics', this.$attrs.lyrics[newValue].lyric)
       setTimeout(() => {
         !this.scroll.onMouse && this.scrollGoto()
       }, 100)
