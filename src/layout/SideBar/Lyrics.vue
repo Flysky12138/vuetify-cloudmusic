@@ -27,6 +27,5 @@ export default {
   width: 0;
   font-size: 1.8rem;
   font-family: 'Zhi Mang Xing', cursive;
-  word-wrap: break-word;
 }
 </style>
