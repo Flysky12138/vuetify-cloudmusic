@@ -26,10 +26,20 @@ export default {
       setTimeout: {}
     }
   }),
+  created() {
+    // 抛出当前播放歌词
+    this.$watch(
+      () => this.$attrs.lyrics[this.lyricIndex],
+      (newValue, oldValue) => {
+        if (newValue !== oldValue && newValue) {
+          EventBus.$emit('nowLyrics', newValue.lyric)
+        }
+      }
+    )
+  },
   watch: {
     // 滚动到指定歌词位置
-    lyricIndex(newValue) {
-      EventBus.$emit('nowLyrics', this.$attrs.lyrics[newValue].lyric)
+    lyricIndex() {
       setTimeout(() => {
         !this.scroll.onMouse && this.scrollGoto()
       }, 100)
