@@ -25,6 +25,10 @@
       </v-main>
       <!-- 侧边固定栏 -->
       <side-bar />
+      <!-- 右下角消息栏 -->
+      <div>
+        <div id='message'></div>
+      </div>
     </template>
     <template v-else>
       <v-container class='fill-height'>

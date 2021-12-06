@@ -9,6 +9,7 @@
     class='mb-8 mr-8'
     elevation='12'
     :timeout='timeout'
+    id='message'
   >
     {{ text }}
     <template v-slot:action='{ attrs }'>
@@ -25,12 +26,10 @@ export default {
     timeout: { type: Number, default: 3000 },
     button: {
       type: Object,
-      default: function () {
-        return {
-          text: 'Close',
-          f: () => {}
-        }
-      }
+      default: () => ({
+        text: 'Close',
+        f: () => {}
+      })
     }
   },
   data: () => ({

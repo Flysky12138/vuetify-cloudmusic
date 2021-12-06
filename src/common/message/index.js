@@ -2,11 +2,7 @@ import vuetify from '@/plugins/vuetify'
 import Vue from 'vue'
 import Message from './Message.vue'
 
-// 右下角消息提示
 const createMessage = options => {
-  const tip = document.createElement('div')
-  tip.id = 'message'
-  document.getElementById('app').appendChild(tip)
   new Vue({
     vuetify,
     render: h =>
