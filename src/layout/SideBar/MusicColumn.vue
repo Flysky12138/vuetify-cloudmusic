@@ -107,7 +107,7 @@ export default {
           this.setTimeout = setTimeout(() => {
             this.$http.song.scrobble(this.music.id, this.music.albumID)
           }, this.music.dt * 0.75)
-          document.title = this.music.name + ' - ' + this.music.artists // 修改标题
+          document.title = this.music.name + ' - ' + this.music.artists.map(res => res.name).join('/') // 修改标题
         } else {
           const id = this.music.id
           this.$message({ text: '〖 ' + this.music.name + ' 〗 暂无版权' })
