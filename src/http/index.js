@@ -1,3 +1,4 @@
+import artists from './artists'
 import login from './login'
 import logout from './logout'
 import personalized from './personalized'
@@ -11,6 +12,7 @@ export default {
   playlist,
   song,
   user,
+  artists,
   logout,
   personalized,
   siginin

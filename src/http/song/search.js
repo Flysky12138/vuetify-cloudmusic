@@ -25,7 +25,10 @@ function search(keywords, offset = 0, limit = 36, type = 1) {
             obj.songs.push({
               id: element.id,
               name: element.name,
-              artists: element.artists.map(res => res.name).join(' / '),
+              artists: element.artists.map(res => ({
+                id: res.id,
+                name: res.name
+              })),
               album: element.album.name ? '《' + element.album.name + '》' : '',
               duration: time.song(element.duration)
             })

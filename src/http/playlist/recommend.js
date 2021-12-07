@@ -12,7 +12,10 @@ function recommend() {
           arr.push({
             id: element.id,
             name: element.name,
-            artists: element.ar.map(res => res.name).join(' / '),
+            artists: element.ar.map(res => ({
+              id: res.id,
+              name: res.name
+            })),
             album: element.al.name ? '《' + element.al.name + '》' : '',
             duration: time.song(element.dt)
           })

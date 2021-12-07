@@ -29,6 +29,13 @@
           <template v-slot:header.btns>
             <button-play :id='value.map((res) => res.song.id)' tip='播放所有' />
           </template>
+          <!-- item.artists插槽 -->
+          <template v-slot:item.song.artists='{ item }'>
+            <span v-for='(_item, index) in item.song.artists' :key='_item.id'>
+              <span v-if='index !== 0'>&nbsp;/&nbsp;</span>
+              <button @click='lookArtists(_item.id)'>{{ _item.name }}</button>
+            </span>
+          </template>
           <!-- item.btns插槽 -->
           <template v-slot:item.btns='{ item }'>
             <button-play :id='[item.song.id]' />
@@ -66,6 +73,15 @@ export default {
     // 设置正在播放歌曲项的类
     playItemStyle(params) {
       return params.song.id === this.id ? 'playItem' : ''
+    },
+    // 查看歌手
+    lookArtists(params) {
+      this.$router.push({
+        path: '/artists',
+        query: {
+          id: params
+        }
+      })
     }
   }
 }

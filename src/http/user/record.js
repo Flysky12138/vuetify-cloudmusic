@@ -21,7 +21,10 @@ function record(uid, type = 0) {
               song: {
                 id: element.song.id,
                 name: element.song.name,
-                artists: element.song.ar.map(res => res.name).join(' / ')
+                artists: element.song.ar.map(res => ({
+                  id: res.id,
+                  name: res.name
+                }))
               }
             })
           })

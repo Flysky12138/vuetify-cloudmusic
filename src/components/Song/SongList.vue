@@ -35,6 +35,13 @@
     <template v-slot:item.count='{ item }'>
       <div>{{ value.indexOf(item) + 1 }}</div>
     </template>
+    <!-- item.artists插槽 -->
+    <template v-slot:item.artists='{ item }'>
+      <span v-for='(_item, index) in item.artists' :key='_item.id'>
+        <span v-if='index !== 0'>&nbsp;/&nbsp;</span>
+        <button @click='lookArtists(_item.id)'>{{ _item.name }}</button>
+      </span>
+    </template>
     <!-- item.btns插槽 -->
     <template v-slot:item.btns='{ item }'>
       <div class='d-flex justify-end'>
@@ -136,6 +143,17 @@ export default {
       this.$nextTick(() => {
         this.filteredItems = this.$refs.dataTable.$children[0].filteredItems
       })
+    },
+    // 查看歌手
+    lookArtists(params) {
+      if (this.$route.query.id !== params) {
+        this.$router.push({
+          path: '/artists',
+          query: {
+            id: params
+          }
+        })
+      }
     }
   },
   destroyed() {

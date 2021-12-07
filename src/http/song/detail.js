@@ -16,7 +16,10 @@ function once(ids) {
             id: element.id,
             name: element.name,
             picUrl: element.al.picUrl,
-            artists: element.ar.map(res => res.name).join(' / '),
+            artists: element.ar.map(res => ({
+              id: res.id,
+              name: res.name
+            })),
             albumID: element.al.id,
             album: element.al.name ? '《' + element.al.name + '》' : '',
             dt: element.dt,

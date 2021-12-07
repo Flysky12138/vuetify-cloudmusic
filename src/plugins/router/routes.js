@@ -49,6 +49,10 @@ const routes = [
     path: '/recommend',
     component: () => import('views/Recommend'),
     meta: { requiresAuth: true, keepAlive: true }
+  },
+  {
+    path: '/artists',
+    component: () => import('views/Artists')
   }
 ]
 
