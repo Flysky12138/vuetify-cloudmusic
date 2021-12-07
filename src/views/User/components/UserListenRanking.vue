@@ -31,7 +31,7 @@
           </template>
           <!-- item.artists插槽 -->
           <template v-slot:item.song.artists='{ item }'>
-            <span v-for='(_item, index) in item.song.artists' :key='_item.id'>
+            <span v-for='(_item, index) in item.song.artists' :key='index'>
               <span v-if='index !== 0'>&nbsp;/&nbsp;</span>
               <button @click='lookArtists(_item.id)'>{{ _item.name }}</button>
             </span>
