@@ -15,6 +15,7 @@
     fixed-header
     ref='dataTable'
     @current-items='getFilteredItems'
+    :custom-filter='customFilter'
   >
     <!-- top插槽 -->
     <template v-slot:top>
@@ -154,6 +155,11 @@ export default {
           }
         })
       }
+    },
+    // 自定义过滤器
+    customFilter(value, search, item) {
+      const reg = new RegExp(search)
+      return [item.name, ...item.artists.map(_res => _res.name), item.album, item.duration].findIndex(res => reg.test(res)) === -1 ? false : true
     }
   },
   destroyed() {

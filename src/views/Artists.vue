@@ -7,7 +7,7 @@
       <v-col class='text-subtitle-2'>
         <div class='d-flex align-center'>
           <image-avatar :uid='value.accountId' :src='value.img1v1Url' />
-          <span class='ml-5'>化名：{{ value.alias.join("/") }}</span>
+          <span v-if='value.alias.length > 0' class='ml-5'>化名：{{ value.alias.join("/") }}</span>
           <span class='ml-9'>歌曲：{{ value.musicSize }}</span>
           <span class='ml-9'>专辑：{{ value.albumSize }}</span>
           <span class='ml-9'>视频：{{ value.mvSize }}</span>
