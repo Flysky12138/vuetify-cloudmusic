@@ -26,7 +26,7 @@ if ('serviceWorker' in window.navigator && process.env.NODE_ENV === 'production'
         button: {
           text: '刷新',
           f: () => {
-            window.location.reload()
+            window.history.go()
           }
         }
       })

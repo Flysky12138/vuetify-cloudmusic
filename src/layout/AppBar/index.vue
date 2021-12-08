@@ -2,10 +2,12 @@
   <v-container class='d-flex align-center'>
     <!-- 按键 -->
     <button-router />
+    <!-- 前进后退刷新 -->
+    <history />
     <!-- 搜索框 -->
-    <search />
+    <search class='mx-6' />
     <!-- 头像 -->
-    <avatar class='ml-6' />
+    <avatar />
   </v-container>
 </template>
 
@@ -13,8 +15,9 @@
 import ButtonRouter from './ButtonRouter.vue'
 import Search from './Search.vue'
 import Avatar from './Avatar.vue'
+import History from './History.vue'
 export default {
-  components: { ButtonRouter, Search, Avatar },
+  components: { ButtonRouter, Search, Avatar, History },
   data: () => ({})
 }
 </script>
