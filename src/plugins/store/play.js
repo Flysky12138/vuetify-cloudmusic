@@ -37,8 +37,8 @@ const mutations = {
   saveRoute(state, params) {
     state.route = params
   },
-  // 添加歌曲信息到列表
-  musicDetail(state, params) {
+  // 添加歌曲
+  addMusic(state, params) {
     state.lists = [...params]
     state.randomlists = [...params]
     // Fisher-Yates Shuffle 洗牌算法
@@ -48,6 +48,12 @@ const mutations = {
     }
     state.music = state.mode === 2 ? state.randomlists[0] : state.lists[0]
     state.isShow = true
+  },
+  // 添加稍后播放歌曲
+  addLaterMusic(state, params) {
+    this.commit('removeMusic', params[0].id)
+    state.lists.splice(state.lists.findIndex(res => res === state.music) + 1, 0, ...params)
+    state.randomlists.splice(state.randomlists.findIndex(res => res === state.music) + 1, 0, ...params)
   },
   // 播放方式
   playmode(state, params) {
@@ -69,14 +75,10 @@ const mutations = {
   },
   // 移除音乐
   removeMusic(state, id) {
-    state.lists.splice(
-      state.lists.findIndex(res => res.id === id),
-      1
-    )
-    state.randomlists.splice(
-      state.randomlists.findIndex(res => res.id === id),
-      1
-    )
+    const index = state.lists.findIndex(res => res.id === id)
+    const _index = state.randomlists.findIndex(res => res.id === id)
+    index !== -1 && state.lists.splice(index, 1)
+    _index !== -1 && state.randomlists.splice(_index, 1)
   },
   // 存放当前播放进度
   setPlayDt(state, params) {
@@ -106,10 +108,15 @@ const mutations = {
 
 const actions = {
   // 传入ID数组，获取歌曲信息
-  addID({ commit }, ids) {
+  addID({ commit }, id) {
+    http.song.detail(id).then(res => {
+      commit('addLaterMusic', res)
+    })
+  },
+  addIDs({ commit }, ids) {
     state.isShow = false
     http.song.detail(ids).then(res => {
-      commit('musicDetail', res)
+      commit('addMusic', res)
     })
   }
 }
