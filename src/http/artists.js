@@ -16,10 +16,10 @@ function artists(id) {
           musicSize: response.artist.musicSize,
           albumSize: response.artist.albumSize,
           mvSize: response.artist.mvSize,
-          briefDesc: response.artist.briefDesc ? response.artist.briefDesc : '',
+          briefDesc: response.artist.briefDesc || '',
           img1v1Url: response.artist.img1v1Url,
           name: response.artist.name,
-          accountId: response.artist.accountId ? response.artist.accountId : 0,
+          accountId: response.artist.accountId || 0,
           hotSongs: []
         }
         response.hotSongs.forEach(element => {

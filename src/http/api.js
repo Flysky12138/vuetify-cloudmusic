@@ -3,9 +3,7 @@ import axios from 'axios'
 // 根据环境变量区分接口的默认地址
 switch (process.env.NODE_ENV) {
   case 'production':
-    const defaultApi = 'https://netease-cloud-music-api-gamma.vercel.app'
-    const api = JSON.parse(localStorage.getItem('api'))
-    axios.defaults.baseURL = api ? api : defaultApi
+    axios.defaults.baseURL = JSON.parse(localStorage.getItem('api')) || 'https://netease-cloud-music-api-gamma.vercel.app'
     break
   default:
     axios.defaults.baseURL = 'http://localhost:3000'
