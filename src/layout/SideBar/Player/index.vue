@@ -1,9 +1,9 @@
 <template>
-  <v-container fluid class='pa-0 overflow-hidden' style='position: relative; height: 100vh; min-width: 900px'>
+  <v-container fluid class='pa-0 overflow-hidden' style='position: relative; height: 100vh; min-width: 900px' @mousewheel='mouseWheel'>
     <!-- 背景 -->
     <v-img class='bg' :src='picUrl'></v-img>
     <!-- 内容 -->
-    <v-card elevation='0' height='100%' color='transparent' style='backdrop-filter: blur(70px) brightness(70%)'>
+    <v-card elevation='0' height='100%' color='transparent' :style='`backdrop-filter: blur(${blur}px) brightness(70%)`'>
       <!-- 左上播放列表按键 -->
       <player-lists v-on='$listeners' />
       <!-- 右上关闭页面按键 -->
@@ -38,7 +38,23 @@ export default {
   props: {
     picUrl: { type: String, required: true }
   },
-  data: () => ({})
+  data: () => ({
+    blur: 70
+  }),
+  created() {
+    const _blur = JSON.parse(localStorage.getItem('blur'))
+    this.blur = _blur !== null ? _blur : 70
+  },
+  methods: {
+    mouseWheel(event) {
+      if (event.clientX === 0) {
+        // 动态设置背景模糊程度 [10,100]
+        const _blur = this.blur + Math.sign(event.wheelDelta) * 5
+        this.blur = Math.min(Math.max(10, _blur), 100)
+        localStorage.setItem('blur', JSON.stringify(this.blur))
+      }
+    }
+  }
 }
 </script>
 
