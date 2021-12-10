@@ -5,9 +5,8 @@
       <v-icon>mdi-skip-previous</v-icon>
     </v-btn>
     <!-- 播放,暂停 -->
-    <v-btn icon large class='mx-5' style='background-color: rgba(90, 90, 90, 0.1)' @click='onPlay'>
-      <v-icon v-if='isplay'>mdi-pause</v-icon>
-      <v-icon v-else>mdi-play</v-icon>
+    <v-btn icon large class='mx-5' style='background-color: rgba(90, 90, 90, 0.1)' @click='playORpause'>
+      <v-icon>{{ isplay ? 'mdi-pause' : 'mdi-play' }}</v-icon>
     </v-btn>
     <!-- 下一首 -->
     <v-btn icon @click='next'>
@@ -18,31 +17,15 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import key from 'keymaster'
 export default {
   data: () => ({}),
-  created() {
-    // 快捷按键播放调整
-    key('left', () => {
-      this.previous()
-    })
-    key('right', () => {
-      this.next()
-    })
-    key('space', () => {
-      this.onPlay()
-    })
-  },
   computed: {
     ...mapState({
       isplay: state => state.play.isplay
     })
   },
   methods: {
-    ...mapMutations(['previous', 'next', 'play', 'pause']),
-    onPlay() {
-      this.isplay ? this.pause() : this.play()
-    }
+    ...mapMutations(['previous', 'next', 'playORpause'])
   }
 }
 </script>
