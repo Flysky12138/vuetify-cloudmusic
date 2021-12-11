@@ -62,7 +62,7 @@ export default {
     // 获取歌单信息
     getPlaylistDetail() {
       this.$http.playlist.detail(this.id).then(res => {
-        this.playlistDetail = res
+        Object.assign(this.playlistDetail, res)
         this.getSonglistDetail(res.trackIds)
         this.count++
       })

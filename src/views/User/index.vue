@@ -68,7 +68,7 @@ export default {
     // 获取用户信息
     getUserDetail() {
       this.$http.user.detail(this.uid).then(res => {
-        this.userDetail = res
+        Object.assign(this.userDetail, res)
         this.count++
       })
     },

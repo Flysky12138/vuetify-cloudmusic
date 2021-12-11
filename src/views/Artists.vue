@@ -12,7 +12,7 @@
           <span class='ml-9'>专辑：{{ value.albumSize }}</span>
           <span class='ml-9'>视频：{{ value.mvSize }}</span>
         </div>
-        <div style='white-space: pre-wrap' class='mt-3'>{{ value.briefDesc.replaceAll('\n','\n\n').trim() }}</div>
+        <div style='white-space: pre-wrap' class='mt-3'>{{ value.briefDesc.replace(/(\r?\n)+/g,'\n\n').trim() }}</div>
       </v-col>
     </v-row>
     <song-list :title='value.name' :subtitle='`热门歌曲 ${value.hotSongs.length} 首`' :value='value.hotSongs' :loading='loading' :itemsPerPage='10' ref='songlist' />
