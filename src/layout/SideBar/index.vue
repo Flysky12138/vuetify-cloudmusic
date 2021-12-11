@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style='z-index: 5'>
     <!-- 歌词 -->
     <div class='left center' style='transform: translateY(-40%)'>
       <lyrics />

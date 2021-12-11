@@ -112,8 +112,10 @@ export default {
           const id = this.music.id
           this.$message({ text: '〖 ' + this.music.name + ' 〗 暂无版权' })
           console.log('暂无版权：', this.music.name, '-', this.music.artists.map(res => res.name).join('/'))
-          this.next()
-          this.removeMusic(id)
+          setTimeout(() => {
+            this.next()
+            this.removeMusic(id)
+          }, 1000)
         }
       })
     }

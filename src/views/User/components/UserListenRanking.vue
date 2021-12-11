@@ -38,7 +38,7 @@
           </template>
           <!-- item.btns插槽 -->
           <template v-slot:item.btns='{ item }'>
-            <button-play :id='[item.song.id]' />
+            <button-play :id='[item.song.id]' :name='item.song.name' :disable='item.song.id === id' />
           </template>
         </v-data-table>
       </v-tab-item>
