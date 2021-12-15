@@ -48,7 +48,7 @@
       <div class='d-flex justify-end'>
         <button-delete v-if='own' :id='item.id' :name='item.name' @success='delValueItem' />
         <button-add v-else :id='item.id' />
-        <button-play :id='[item.id]' :name='item.name' :disable='item.id === id' />
+        <button-play :id='[item.id]' :name='item.name' :disable='item.id === id || (item.privileges && item.privileges.st < 0 && !item.privileges.cs)' />
       </div>
     </template>
     <!-- footer插槽 -->
@@ -137,7 +137,16 @@ export default {
     },
     // 设置正在播放歌曲项的类
     playItemStyle(params) {
-      return params.id === this.id ? 'playItem' : ''
+      let _class = ''
+      if (params.id === this.id) {
+        _class = 'playItem'
+      }
+      if (params.privileges) {
+        if (params.privileges.st < 0 && !params.privileges.cs) {
+          _class += ' text--disabled'
+        }
+      }
+      return _class
     },
     // 获取过滤后的列表数据
     getFilteredItems() {

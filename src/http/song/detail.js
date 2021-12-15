@@ -11,7 +11,7 @@ function once(ids) {
       })
       .then(response => {
         let arr = []
-        response.songs.forEach(element => {
+        response.songs.forEach((element, index) => {
           arr.push({
             id: element.id,
             name: element.name,
@@ -23,7 +23,13 @@ function once(ids) {
             albumID: element.al.id,
             album: element.al.name ? '《' + element.al.name + '》' : '',
             dt: element.dt,
-            duration: time.song(element.dt)
+            duration: time.song(element.dt),
+            // https://github.com/Binaryify/NeteaseCloudMusicApi/issues/899#issuecomment-680002883
+            privileges: {
+              fee: response.privileges[index].fee, // 0、8：免费；4：所在专辑需单独付费；1：VIP可听
+              cs: response.privileges[index].cs, // boolean：云盘
+              st: response.privileges[index].st // -200：无版权
+            }
           })
         })
         resolve(arr)
