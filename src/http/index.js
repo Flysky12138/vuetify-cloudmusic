@@ -1,4 +1,5 @@
 import artists from './artists'
+import cloud from './cloud'
 import login from './login'
 import logout from './logout'
 import personalized from './personalized'
@@ -15,5 +16,6 @@ export default {
   artists,
   logout,
   personalized,
-  siginin
+  siginin,
+  cloud
 }

@@ -1,12 +1,8 @@
 <template>
-  <v-alert border='left' colored-border elevation='1' dense color='cyan' icon='mdi-theme-light-dark'>
-    <v-row>
-      <v-col cols='auto'>夜间模式</v-col>
-      <v-col>
-        <v-switch v-model='value' inset class='ma-0 pa-0' hide-details></v-switch>
-      </v-col>
-    </v-row>
-  </v-alert>
+  <div class='d-flex align-center'>
+    <span class='mr-2'>夜间模式：</span>
+    <v-switch v-model='value' inset class='ma-0 pa-0' hide-details></v-switch>
+  </div>
 </template>
 
 <script>

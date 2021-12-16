@@ -53,6 +53,11 @@ const routes = [
   {
     path: '/artists',
     component: () => import('views/Artists')
+  },
+  {
+    path: '/cloud',
+    component: () => import('views/Cloud'),
+    meta: { requiresAuth: true, keepAlive: true }
   }
 ]
 

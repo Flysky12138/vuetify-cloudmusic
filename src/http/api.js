@@ -17,18 +17,10 @@ axios.defaults.withCredentials = true // 跨域是否允许携带Cookie凭证
 // 设置请求拦截器
 axios.interceptors.request.use(
   config => {
-    if (config.method === 'post') {
-      config.data = {
-        ...config.data,
-        timestamp: new Date().getTime(), // 添加时间戳
-        cookie: localStorage.getItem('cookie') // Chrome v91开始浏览器默认SameSite=Lax无法修改，导致跨域不携带Cookie
-      }
-    } else if (config.method === 'get') {
-      config.params = {
-        ...config.params,
-        timestamp: new Date().getTime(),
-        cookie: localStorage.getItem('cookie') // 手动携带Cookie
-      }
+    config.params = {
+      ...config.params,
+      timestamp: new Date().getTime(), // 添加时间戳
+      cookie: localStorage.getItem('cookie') // 手动携带Cookie；Chrome v91开始浏览器默认SameSite=Lax无法修改，导致跨域不携带Cookie
     }
     return config
   },

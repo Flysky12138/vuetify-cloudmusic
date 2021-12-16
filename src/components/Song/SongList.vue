@@ -21,7 +21,8 @@
     <template v-slot:top>
       <div class='d-flex align-end pb-4 px-3 blue--text' id='tableTop'>
         <span class='text--lighten-1 text-h5'>{{ '"' + title + '"' }}</span>
-        <span class='text--lighten-2 font-italic text-caption ml-4' v-text='subtitle'></span>
+        <span class='text--lighten-2 font-italic text-caption mx-4' v-text='subtitle'></span>
+        <slot />
         <v-spacer></v-spacer>
         <v-sheet width='200'>
           <v-text-field v-model='search' clearable :append-icon='search ? "" : "mdi-magnify"' single-line hide-details></v-text-field>
@@ -46,7 +47,7 @@
     <!-- item.btns插槽 -->
     <template v-slot:item.btns='{ item }'>
       <div class='d-flex justify-end'>
-        <button-delete v-if='own' :id='item.id' :name='item.name' @success='delValueItem' />
+        <button-delete v-if='own' :id='item.id' :name='item.name' @success='delValueItem' :cloud='cloud' />
         <button-add v-else :id='item.id' />
         <button-play :id='[item.id]' :name='item.name' :disable='item.id === id || (item.privileges && item.privileges.st < 0 && !item.privileges.cs)' />
       </div>
@@ -78,7 +79,9 @@ export default {
     // 是否正在加载
     loading: { type: Boolean, default: false },
     // 是否是自己的歌单
-    own: { type: Boolean, default: false }
+    own: { type: Boolean, default: false },
+    // 云盘
+    cloud: { type: Boolean, default: false }
   },
   data: () => ({
     search: '',

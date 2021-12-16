@@ -11,11 +11,11 @@
 <script>
 import AboutApi from './components/AboutApi.vue'
 import AboutGithub from './components/AboutGithub.vue'
-import AboutTheme from './components/AboutTheme.vue'
+import Tools from './components/Tools'
 export default {
-  components: { AboutApi, AboutTheme, AboutGithub },
+  components: { AboutApi, Tools, AboutGithub },
   data: () => ({
-    components: ['AboutGithub', 'AboutApi', 'AboutTheme']
+    components: ['AboutGithub', 'AboutApi', 'Tools']
   })
 }
 </script>

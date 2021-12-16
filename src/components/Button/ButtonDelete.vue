@@ -19,7 +19,8 @@
 export default {
   props: {
     id: { type: Number, required: true },
-    name: { type: String, required: true }
+    name: { type: String, required: true },
+    cloud: { type: Boolean, default: false }
   },
   data: () => ({
     dialog: false
@@ -35,12 +36,20 @@ export default {
     }
   },
   methods: {
-    // 从歌单删除歌曲
     delSong() {
-      this.$http.playlist.tracks(this.$route.query.id, this.id, false).then(res => {
-        this.$emit('success', this.id)
-        this.dialog = false
-      })
+      if (this.cloud) {
+        // 从云盘删除歌曲
+        this.$http.cloud.del(this.id).then(res => {
+          res && this.$emit('success', this.id)
+          this.dialog = false
+        })
+      } else {
+        // 从歌单删除歌曲
+        this.$http.playlist.tracks(this.$route.query.id, this.id, false).then(res => {
+          res.body.code === 200 && this.$emit('success', this.id)
+          this.dialog = false
+        })
+      }
     }
   }
 }
