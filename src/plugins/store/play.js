@@ -62,12 +62,16 @@ const mutations = {
   // 上一首
   previous(state) {
     const arr = state.mode === 2 ? state.randomlists : state.lists
-    state.music = arr[(arr.indexOf(state.music) + arr.length - 1) % arr.length]
+    if (arr.length > 1) {
+      state.music = arr[(arr.indexOf(state.music) + arr.length - 1) % arr.length]
+    }
   },
   // 下一首
   next(state) {
     const arr = state.mode === 2 ? state.randomlists : state.lists
-    state.music = arr[(arr.indexOf(state.music) + 1) % arr.length]
+    if (arr.length > 1) {
+      state.music = arr[(arr.indexOf(state.music) + 1) % arr.length]
+    }
   },
   // 选择播放的音乐
   chooseMusic(state, id) {
