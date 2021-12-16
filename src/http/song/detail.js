@@ -1,6 +1,7 @@
 import time from 'common/time'
 import axios from '../api'
 
+// 获取歌曲详情
 function once(ids) {
   return new Promise((resolve, reject) => {
     axios
@@ -38,7 +39,6 @@ function once(ids) {
   })
 }
 
-// 获取歌曲详情
 function detail(ids) {
   return new Promise((resolve, reject) => {
     // 每500首请求一次，数量过多会报错

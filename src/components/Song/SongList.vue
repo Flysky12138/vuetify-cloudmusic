@@ -156,7 +156,7 @@ export default {
     },
     // 查看歌手
     lookArtists(params) {
-      if (this.$route.query.id !== params) {
+      if (this.$route.query.id !== params && !!params) {
         this.$router.push({
           path: '/artists',
           query: {
