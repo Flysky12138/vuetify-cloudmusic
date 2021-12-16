@@ -48,15 +48,11 @@ function detail(ids) {
     for (let i = 0; i < count; i++) {
       funcHttp.push(once(ids.slice(500 * i, 500 * (i + 1))))
     }
-    let arr = []
     // 开始请求
     axios
       .all(funcHttp)
       .then(response => {
-        response.forEach(element => {
-          arr = arr.concat(element)
-        })
-        resolve(arr)
+        resolve(response.flat())
       })
       .catch(error => reject(error))
   })
