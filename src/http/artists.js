@@ -1,4 +1,3 @@
-import time from 'common/time'
 import axios from './api'
 
 // 歌手部分信息和热门歌曲
@@ -32,8 +31,7 @@ function artists(id) {
             })),
             albumID: element.al.id,
             album: element.al.name ? '《' + element.al.name + '》' : '',
-            dt: element.dt,
-            duration: time.song(element.dt)
+            dt: element.dt
           })
         })
         resolve(obj)

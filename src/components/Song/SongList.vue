@@ -44,6 +44,10 @@
         <button @click='lookArtists(_item.id)'>{{ _item.name }}</button>
       </span>
     </template>
+    <!-- item.dt插槽 -->
+    <template v-slot:item.dt='{ item }'>
+      <div>{{ songTime(item.dt) }}</div>
+    </template>
     <!-- item.btns插槽 -->
     <template v-slot:item.btns='{ item }'>
       <div class='d-flex justify-end'>
@@ -65,6 +69,7 @@ import ButtonDelete from 'components/Button/ButtonDelete.vue'
 import ButtonPlay from 'components/Button/ButtonPlay.vue'
 import ButtonAdd from 'components/Button/ButtonAdd.vue'
 import { EventBus } from 'common/eventBus.js'
+import time from 'common/time'
 export default {
   components: { ButtonDelete, ButtonPlay, ButtonAdd },
   props: {
@@ -93,7 +98,7 @@ export default {
       { text: '歌曲标题', value: 'name' },
       { text: '歌手', value: 'artists' },
       { text: '专辑', value: 'album' },
-      { text: '时长', value: 'duration' },
+      { text: '时长', value: 'dt' },
       { text: '', align: 'end', value: 'btns' }
     ],
     // 过滤后的列表数据
@@ -171,7 +176,11 @@ export default {
     // 自定义过滤器
     customFilter(value, search, item) {
       const reg = new RegExp(search)
-      return [item.name, ...item.artists.map(_res => _res.name), item.album, item.duration].findIndex(res => reg.test(res)) === -1 ? false : true
+      return [item.name, ...item.artists.map(_res => _res.name), item.album, this.songTime(item.dt)].findIndex(res => reg.test(res)) === -1 ? false : true
+    },
+    // 歌曲时间戳转正常时间
+    songTime(params) {
+      return time.song(params)
     }
   },
   destroyed() {

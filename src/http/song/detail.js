@@ -1,4 +1,3 @@
-import time from 'common/time'
 import axios from '../api'
 
 // 获取歌曲详情
@@ -24,7 +23,6 @@ function once(ids) {
             albumID: element.al.id,
             album: element.al.name ? '《' + element.al.name + '》' : '',
             dt: element.dt,
-            duration: time.song(element.dt),
             // https://github.com/Binaryify/NeteaseCloudMusicApi/issues/899#issuecomment-680002883
             privileges: {
               fee: response.privileges[index].fee, // 0、8：免费；4：所在专辑需单独付费；1：VIP可听

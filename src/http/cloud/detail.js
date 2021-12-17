@@ -1,4 +1,3 @@
-import time from 'common/time'
 import axios from '../api'
 
 // 获取云盘数据
@@ -27,7 +26,7 @@ function once(offset = 0) {
                 }))
               : [{ id: 0, name: '' }],
             album: element.simpleSong.al ? (element.simpleSong.al.name ? '《' + element.simpleSong.al.name + '》' : '') : '',
-            duration: time.song(element.simpleSong.dt)
+            dt: element.simpleSong.dt
           })
         })
         resolve(obj)

@@ -1,4 +1,3 @@
-import time from 'common/time'
 import axios from '../api'
 
 // 日推
@@ -17,7 +16,7 @@ function recommend() {
               name: res.name
             })),
             album: element.al.name ? '《' + element.al.name + '》' : '',
-            duration: time.song(element.dt)
+            dt: element.dt
           })
         })
         resolve(arr)
