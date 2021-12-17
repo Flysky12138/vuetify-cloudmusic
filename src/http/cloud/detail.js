@@ -20,12 +20,12 @@ function once(offset = 0) {
           obj.data.push({
             id: element.simpleSong.id,
             name: element.simpleSong.name,
-            artists:
-              element.simpleSong.ar &&
-              element.simpleSong.ar.map(res => ({
-                id: res.id,
-                name: res.name
-              })),
+            artists: element.simpleSong.ar
+              ? element.simpleSong.ar.map(res => ({
+                  id: res.id,
+                  name: res.name
+                }))
+              : [{ id: 0, name: '' }],
             album: element.simpleSong.al ? (element.simpleSong.al.name ? '《' + element.simpleSong.al.name + '》' : '') : '',
             duration: time.song(element.simpleSong.dt)
           })
