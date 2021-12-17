@@ -111,7 +111,7 @@ const actions = {
       commit('addLaterMusic', res)
     })
   },
-  addIDs({ commit }, ids) {
+  addIDs({ state, commit }, ids) {
     state.isShow = false
     http.song.detail(ids).then(res => {
       commit('addMusic', res)

@@ -5,7 +5,7 @@
         icon
         v-on='on'
         @click='addIDs(id);saveRoute($route.fullPath)'
-        @contextmenu.prevent='tip === "" && addID(id) & hint()'
+        @contextmenu.prevent='tip === "" && isShow && addID(id) & hint()'
         :disabled='disable'
         style='color: inherit'
       >
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapMutations, mapActions } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   props: {
     id: { type: Array, required: true },
@@ -26,6 +26,11 @@ export default {
     disable: { type: Boolean, default: false }
   },
   data: () => ({}),
+  computed: {
+    ...mapState({
+      isShow: state => state.play.isShow
+    })
+  },
   methods: {
     ...mapActions(['addID', 'addIDs']),
     ...mapMutations(['saveRoute']),
