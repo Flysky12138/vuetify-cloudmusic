@@ -35,7 +35,8 @@
     </template>
     <!-- item.count插槽 -->
     <template v-slot:item.count='{ item }'>
-      <div>{{ value.indexOf(item) + 1 }}</div>
+      <span v-if='[1, 4].includes(item.privilege.fee)' class='text-caption red--text'>vip</span>
+      <span v-else>{{ value.indexOf(item) + 1 }}</span>
     </template>
     <!-- item.artists插槽 -->
     <template v-slot:item.artists='{ item }'>
@@ -46,14 +47,14 @@
     </template>
     <!-- item.dt插槽 -->
     <template v-slot:item.dt='{ item }'>
-      <div>{{ songTime(item.dt) }}</div>
+      <span>{{ songTime(item.dt) }}</span>
     </template>
     <!-- item.btns插槽 -->
     <template v-slot:item.btns='{ item }'>
       <div class='d-flex justify-end'>
         <button-delete v-if='own' :id='item.id' :name='item.name' @success='delValueItem' :cloud='cloud' />
         <button-add v-else :id='item.id' />
-        <button-play :id='[item.id]' :name='item.name' :disable='item.id === id || (item.privileges && item.privileges.st < 0 && !item.privileges.cs)' />
+        <button-play :id='[item.id]' :name='item.name' :disable='item.id === id || (item.privilege && item.privilege.st < 0 && !item.privilege.cs)' />
       </div>
     </template>
     <!-- footer插槽 -->
@@ -149,8 +150,8 @@ export default {
       if (params.id === this.id) {
         _class = 'playItem'
       }
-      if (params.privileges) {
-        if (params.privileges.st < 0 && !params.privileges.cs) {
+      if (params.privilege) {
+        if (params.privilege.st < 0 && !params.privilege.cs) {
           _class += ' text--disabled'
         }
       }

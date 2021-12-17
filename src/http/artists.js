@@ -31,7 +31,12 @@ function artists(id) {
             })),
             albumID: element.al.id,
             album: element.al.name ? '《' + element.al.name + '》' : '',
-            dt: element.dt
+            dt: element.dt,
+            privilege: {
+              fee: element.privilege.fee, // 0、8：免费；4：所在专辑需单独付费；1：VIP可听
+              cs: element.privilege.cs, // boolean：云盘
+              st: element.privilege.st // -200：无版权
+            }
           })
         })
         resolve(obj)

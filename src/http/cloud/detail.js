@@ -26,7 +26,12 @@ function once(offset = 0) {
                 }))
               : [{ id: 0, name: '' }],
             album: element.simpleSong.al ? (element.simpleSong.al.name ? '《' + element.simpleSong.al.name + '》' : '') : '',
-            dt: element.simpleSong.dt
+            dt: element.simpleSong.dt,
+            privilege: {
+              fee: element.simpleSong.privilege.fee, // 0、8：免费；4：所在专辑需单独付费；1：VIP可听
+              cs: element.simpleSong.privilege.cs, // boolean：云盘
+              st: element.simpleSong.privilege.st // -200：无版权
+            }
           })
         })
         resolve(obj)
