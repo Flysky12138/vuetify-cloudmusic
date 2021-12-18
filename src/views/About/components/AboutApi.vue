@@ -67,7 +67,7 @@ export default {
     },
     b: {
       api: '',
-      items: ['http://localhost:3001']
+      items: ['http://localhost:3001', 'https://unblock-netease-music-api.vercel.app']
     }
   }),
   created() {

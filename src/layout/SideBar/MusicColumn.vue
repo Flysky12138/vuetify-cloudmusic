@@ -32,7 +32,6 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import Player from './Player'
-import unblockNeteaseMusicApi from 'common/unblockNeteaseMusicApi.js'
 export default {
   components: { Player },
   data: () => ({
@@ -101,17 +100,20 @@ export default {
       this.lyrics = await this.$http.song.lyric(this.music.id)
       // 获取URL
       try {
+        // (有版权 且 免费) 或 云盘有
         if ((this.music.privilege.st >= 0 && [0, 8].includes(this.music.privilege.fee)) || this.music.privilege.cs) {
           this.httpSuccess(await this.$http.song.url(this.music.id))
+        } else if (!!JSON.parse(localStorage.getItem('_api'))) {
+          this.httpSuccess({ url: `${JSON.parse(localStorage.getItem('_api'))}/?id=${this.music.id}` })
         } else {
-          this.httpSuccess(await unblockNeteaseMusicApi(this.music.id))
+          throw null
         }
       } catch (error) {
         this.httpError()
       }
     },
     httpSuccess(res) {
-      this.url = res.url
+      this.url = res.url || this.httpError()
       res.freeTrialInfo && (this.dtOffset = res.freeTrialInfo.start)
       // 听歌打卡，播放歌曲长度的3/4才执行。
       clearTimeout(this.setTimeout)
