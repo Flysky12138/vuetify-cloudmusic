@@ -32,6 +32,7 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import Player from './Player'
+import unblockNeteaseMusicApi from 'common/unblockNeteaseMusicApi.js'
 export default {
   components: { Player },
   data: () => ({
@@ -90,34 +91,42 @@ export default {
       timeRanges.length !== 0 && this.saveCache(parseInt((timeRanges.end(timeRanges.length - 1) / (this.music.dt / 1000)) * 100))
     },
     // 获取播放歌曲歌词等信息
-    getMusicDetail() {
+    async getMusicDetail() {
       this.dtOffset = 0
       this.url = '' // 清空使歌曲停止播放
       this.lyrics = [{ lyric: '歌词加载中' }]
-      this.$http.song.url(this.music.id).then(res => {
-        if (res.url) {
-          this.url = res.url
-          res.freeTrialInfo && (this.dtOffset = res.freeTrialInfo.start)
-          // 获取歌词
-          this.$http.song.lyric(this.music.id).then(res => {
-            this.lyrics = res
-          })
-          // 听歌打卡，播放歌曲长度的3/4才执行。
-          clearTimeout(this.setTimeout)
-          this.setTimeout = setTimeout(() => {
-            this.$http.song.scrobble(this.music.id, this.music.albumID)
-          }, this.music.dt * 0.75)
-          document.title = this.music.name + ' - ' + this.music.artists.map(res => res.name).join('/') // 修改标题
+      // 修改标题
+      document.title = this.music.name + ' - ' + this.music.artists.map(res => res.name).join('/')
+      // 获取歌词
+      this.lyrics = await this.$http.song.lyric(this.music.id)
+      // 获取URL
+      try {
+        if ((this.music.privilege.st >= 0 && [0, 8].includes(this.music.privilege.fee)) || this.music.privilege.cs) {
+          this.httpSuccess(await this.$http.song.url(this.music.id))
         } else {
-          const id = this.music.id
-          this.$message({ text: '〖 ' + this.music.name + ' 〗 暂无版权' })
-          console.log('暂无版权：', this.music.name, '-', this.music.artists.map(res => res.name).join('/'))
-          setTimeout(() => {
-            this.next()
-            this.removeMusic(id)
-          }, 1000)
+          this.httpSuccess(await unblockNeteaseMusicApi(this.music.id))
         }
-      })
+      } catch (error) {
+        this.httpError()
+      }
+    },
+    httpSuccess(res) {
+      this.url = res.url
+      res.freeTrialInfo && (this.dtOffset = res.freeTrialInfo.start)
+      // 听歌打卡，播放歌曲长度的3/4才执行。
+      clearTimeout(this.setTimeout)
+      this.setTimeout = setTimeout(() => {
+        this.$http.song.scrobble(this.music.id, this.music.albumID)
+      }, this.music.dt * 0.75)
+    },
+    httpError() {
+      this.$message({ text: '〖 ' + this.music.name + ' 〗 暂无版权' })
+      console.log('暂无版权:', this.music.name, '-', this.music.artists.map(res => res.name).join('/'), '; ID:', this.music.id)
+      setTimeout(() => {
+        const id = this.music.id
+        this.next()
+        this.removeMusic(id)
+      }, 1000)
     }
   }
 }
