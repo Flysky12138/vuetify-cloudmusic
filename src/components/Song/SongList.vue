@@ -54,7 +54,7 @@
       <div class='d-flex justify-end'>
         <button-delete v-if='own' :id='item.id' :name='item.name' @success='delValueItem' :cloud='cloud' />
         <button-add v-else :id='item.id' />
-        <button-play :id='[item.id]' :name='item.name' :disable='item.id === id' />
+        <button-play :id='[item.id]' :name='item.name' :disable='item.id === id || (item.privilege && item.privilege.st < 0 && !item.privilege.cs)' />
       </div>
     </template>
     <!-- footer插槽 -->
