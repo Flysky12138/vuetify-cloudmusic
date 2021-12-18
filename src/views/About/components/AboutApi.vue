@@ -11,7 +11,7 @@
         <div class='mt-n3 pb-3'>
           <a href='https://github.com/Binaryify/NeteaseCloudMusicApi' target='_blank' class='text-decoration-none'>NeteaseCloudMusicApi</a>
         </div>
-        <v-autocomplete
+        <v-combobox
           label='自定义接口地址'
           placeholder='http(s)://xxx[:port]'
           outlined
@@ -19,23 +19,22 @@
           hide-details
           hide-no-data
           clearable
-          v-model='a.api'
-          :items='a.items'
+          v-model='api'
+          :search-input.sync='api'
+          :items='items'
           @blur='save'
-          @keyup.13='save'
-          ref='AboutApi'
         >
           <template v-slot:item='{ item }'>
             <v-list-item-content v-text='item'></v-list-item-content>
           </template>
-        </v-autocomplete>
+        </v-combobox>
       </v-col>
       <!-- UnblockNeteaseMusicApi -->
       <v-col cols='6'>
         <div class='mt-n3 pb-3'>
           <a href='https://github.com/Flysky12138/UnblockNeteaseMusicApi' target='_blank' class='text-decoration-none'>UnblockNeteaseMusicApi</a>
         </div>
-        <v-autocomplete
+        <v-combobox
           label='自定义接口地址'
           placeholder='http(s)://xxx[:port]'
           outlined
@@ -43,16 +42,15 @@
           hide-details
           hide-no-data
           clearable
-          v-model='b.api'
-          :items='b.items'
+          v-model='api_b'
+          :search-input.sync='api_b'
+          :items='items_b'
           @blur='save'
-          @keyup.13='save'
-          ref='AboutApi'
         >
           <template v-slot:item='{ item }'>
             <v-list-item-content v-text='item'></v-list-item-content>
           </template>
-        </v-autocomplete>
+        </v-combobox>
       </v-col>
     </v-row>
   </v-alert>
@@ -61,24 +59,19 @@
 <script>
 export default {
   data: () => ({
-    a: {
-      api: '',
-      items: ['http://localhost:3000']
-    },
-    b: {
-      api: '',
-      items: ['http://localhost:3001', 'https://unblock-netease-music-api.vercel.app']
-    }
+    api: '',
+    items: ['http://localhost:3000'],
+    api_b: '',
+    items_b: ['http://localhost:3001', 'https://unblock-netease-music-api.vercel.app']
   }),
   created() {
-    this.a.api = JSON.parse(localStorage.getItem('api'))
-    this.b.api = JSON.parse(localStorage.getItem('_api'))
+    this.api = JSON.parse(localStorage.getItem('api'))
+    this.api_b = JSON.parse(localStorage.getItem('_api'))
   },
   methods: {
     save() {
-      this.$refs.AboutApi.blur()
-      localStorage.setItem('api', JSON.stringify(this.a.api))
-      localStorage.setItem('_api', JSON.stringify(this.b.api))
+      localStorage.setItem('api', JSON.stringify(this.api))
+      localStorage.setItem('_api', JSON.stringify(this.api_b))
       this.$message({
         text: '保存成功！刷新页面后生效',
         color: 'success',
