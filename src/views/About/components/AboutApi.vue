@@ -2,15 +2,17 @@
   <v-alert border='left' colored-border elevation='1' dense color='cyan' icon='mdi-api'>
     <v-row align='center'>
       <v-col cols='12'>
-        <span>提供的默认接口搭建在</span>
+        <span>1、提供的默认接口搭建在</span>
         <a href='https://vercel.com' target='_blank' class='text-decoration-none'>&nbsp;Vercel&nbsp;</a>
-        <span>上，访问速度不理想，建议本地运行接口 Api。</span>
+        <span>上，访问速度不理想，建议本地运行接口&nbsp;</span>
         <a href='https://github.com/Binaryify/NeteaseCloudMusicApi' target='_blank' class='text-decoration-none'>NeteaseCloudMusicApi</a>
+        <br />
+        <span>2、已内置解锁VIP和无版权歌曲功能，速度较慢，接口&nbsp;</span>
+        <a href='https://github.com/Flysky12138/UnblockNeteaseMusicApi' target='_blank' class='text-decoration-none'>UnblockNeteaseMusicApi</a>
       </v-col>
-      <!-- NeteaseCloudMusicApi -->
       <v-col>
         <v-combobox
-          label='自定义接口地址'
+          label='自定义 NeteaseCloudMusicApi 接口地址'
           placeholder='http(s)://xxx[:port]'
           outlined
           dense

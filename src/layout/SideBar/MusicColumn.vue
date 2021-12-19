@@ -100,7 +100,7 @@ export default {
       this.lyrics = await this.$http.song.lyric(this.music.id)
       // 获取URL
       try {
-        if (this.music.privilege.st >= 0 || this.music.privilege.cs) {
+        if ((this.music.privilege.st >= 0 && [0, 8].includes(this.music.privilege.fee)) || this.music.privilege.cs) {
           const res = await this.$http.song.url(this.music.id)
           this.url = res.url
           res.freeTrialInfo && (this.dtOffset = res.freeTrialInfo.start)
@@ -110,17 +110,25 @@ export default {
             this.$http.song.scrobble(this.music.id, this.music.albumID)
           }, this.music.dt * 0.75)
         } else {
-          throw null
+          const unapi = await fetch('/unapi/test').then(_res => _res.ok)
+          if (unapi) {
+            this.url = '/unapi/?id=' + this.music.id
+          } else {
+            this.httpError()
+          }
         }
       } catch (error) {
-        this.$message({ text: '〖 ' + this.music.name + ' 〗 暂无版权' })
-        console.log('暂无版权:', this.music.name, '-', this.music.artists.map(res => res.name).join('/'), '; ID:', this.music.id)
-        setTimeout(() => {
-          const id = this.music.id
-          this.next()
-          this.removeMusic(id)
-        }, 1500)
+        this.httpError()
       }
+    },
+    httpError() {
+      this.$message({ text: '〖 ' + this.music.name + ' 〗 暂无版权' })
+      console.log('暂无版权:', this.music.name, '-', this.music.artists.map(res => res.name).join('/'), '; ID:', this.music.id)
+      setTimeout(() => {
+        const id = this.music.id
+        this.next()
+        this.removeMusic(id)
+      }, 1500)
     }
   }
 }
