@@ -39,7 +39,7 @@ export default {
     url: '', // 歌曲地址
     lyrics: [], // 歌词
     dtOffset: 0, // 歌曲播放的时间偏移量,因为部分歌曲(VIP,未登录)只会截取一段返回
-    setTimeout: {} // 听歌打卡，setTimeOut函数
+    playTime: 0 // 记录单首歌曲的播放时间
   }),
   mounted() {
     this.$refs.audio.volume = this.volume / 10
@@ -75,6 +75,7 @@ export default {
     timeUpdate(res) {
       this.playDt(res)
       this.cacheProgress()
+      this.scrobble(res)
     },
     // 获取播放进度
     playDt(res) {
@@ -89,33 +90,27 @@ export default {
       const timeRanges = this.$refs.audio.buffered
       timeRanges.length !== 0 && this.saveCache(parseInt((timeRanges.end(timeRanges.length - 1) / (this.music.dt / 1000)) * 100))
     },
+    // 听歌打卡，播放时间大于歌曲时间的3/4才执行。
+    scrobble(res) {
+      this.playTime += res.target.duration || 0
+      this.playTime > this.music.dt * 0.75 && this.$http.song.scrobble(this.music.id, this.music.albumID)
+    },
     // 获取播放歌曲歌词等信息
     async getMusicDetail() {
-      this.dtOffset = 0
+      this.dtOffset = this.playTime = 0
       this.url = '' // 清空使歌曲停止播放
-      this.lyrics = [{ lyric: '歌词加载中' }]
-      // 修改标题
-      document.title = this.music.name + ' - ' + this.music.artists.map(res => res.name).join('/')
-      // 获取歌词
-      this.lyrics = await this.$http.song.lyric(this.music.id)
-      // 获取URL
+      this.lyrics = [{ lyric: '歌词加载中' }] // 修改标题
+      document.title = this.music.name + ' - ' + this.music.artists.map(res => res.name).join('/') // 获取歌词
+      this.lyrics = await this.$http.song.lyric(this.music.id) // 获取URL
       try {
         if ((this.music.privilege.st >= 0 && [0, 8].includes(this.music.privilege.fee)) || this.music.privilege.cs) {
           const res = await this.$http.song.url(this.music.id)
           this.url = res.url
           res.freeTrialInfo && (this.dtOffset = res.freeTrialInfo.start)
-          // 听歌打卡，播放歌曲长度的3/4才执行。
-          clearTimeout(this.setTimeout)
-          this.setTimeout = setTimeout(() => {
-            this.$http.song.scrobble(this.music.id, this.music.albumID)
-          }, this.music.dt * 0.75)
+        } else if (await fetch('/unapi/test').then(_res => _res.ok)) {
+          this.url = '/unapi/?id=' + this.music.id
         } else {
-          const unapi = await fetch('/unapi/test').then(_res => _res.ok)
-          if (unapi) {
-            this.url = '/unapi/?id=' + this.music.id
-          } else {
-            this.httpError()
-          }
+          this.httpError()
         }
       } catch (error) {
         this.httpError()

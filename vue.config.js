@@ -1,17 +1,17 @@
 module.exports = {
   transpileDependencies: ['vuetify'],
-  devServer: {
-    port: 8888,
-    proxy: {
-      '/unapi': {
-        target: 'https://unblock-netease-music-api.vercel.app/',
-        changeOrigin: true,
-        pathRewrite: {
-          '/unapi': '/'
-        }
-      }
-    }
-  },
+  // devServer: {
+  //   port: 8888,
+  //   proxy: {
+  //     '/unapi': {
+  //       target: 'https://unblock-netease-music-api.vercel.app/',
+  //       changeOrigin: true,
+  //       pathRewrite: {
+  //         '/unapi': '/'
+  //       }
+  //     }
+  //   }
+  // },
   configureWebpack: {
     resolve: {
       alias: {
