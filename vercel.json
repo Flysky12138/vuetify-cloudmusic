@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/unapi/(.*)",
+      "destination": "/api/proxy"
+    }
+  ]
+}
