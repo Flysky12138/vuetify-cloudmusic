@@ -7,7 +7,7 @@
         <span>上，访问速度不理想，建议本地运行接口&nbsp;</span>
         <a href='https://github.com/Binaryify/NeteaseCloudMusicApi' target='_blank' class='text-decoration-none'>NeteaseCloudMusicApi</a>
         <br />
-        <span>2、已内置解锁VIP和无版权歌曲功能，速度较慢，接口&nbsp;</span>
+        <span>2、已内置解锁VIP和无版权歌曲功能（由于跨域问题，只有在本地运行该项目才生效，默认3001端口），接口&nbsp;</span>
         <a href='https://github.com/Flysky12138/UnblockNeteaseMusicApi' target='_blank' class='text-decoration-none'>UnblockNeteaseMusicApi</a>
       </v-col>
       <v-col>

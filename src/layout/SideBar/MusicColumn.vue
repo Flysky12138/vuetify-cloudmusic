@@ -103,7 +103,7 @@ export default {
       document.title = this.music.name + ' - ' + this.music.artists.map(res => res.name).join('/') // 获取歌词
       this.lyrics = await this.$http.song.lyric(this.music.id) // 获取URL
       try {
-        if ((this.music.privilege.st >= 0 && [0, 8].includes(this.music.privilege.fee)) || this.music.privilege.cs) {
+        if ((this.music.privilege.st >= 0 && ([0, 8].includes(this.music.privilege.fee) || process.env.NODE_ENV === 'production')) || this.music.privilege.cs) {
           const res = await this.$http.song.url(this.music.id)
           this.url = res.url
           res.freeTrialInfo && (this.dtOffset = res.freeTrialInfo.start)
