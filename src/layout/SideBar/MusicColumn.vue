@@ -92,8 +92,13 @@ export default {
     },
     // 听歌打卡，播放时间大于歌曲时间的3/4才执行。
     scrobble(res) {
-      this.playTime += res.target.duration || 0
-      this.playTime > this.music.dt * 0.75 && this.$http.song.scrobble(this.music.id, this.music.albumID)
+      if (this.playTime !== -1) {
+        this.playTime += res.target.duration || 0
+      }
+      if (this.playTime > this.music.dt * 0.75) {
+        this.playTime = -1
+        this.$http.song.scrobble(this.music.id, this.music.albumID)
+      }
     },
     // 获取播放歌曲歌词等信息
     async getMusicDetail() {
