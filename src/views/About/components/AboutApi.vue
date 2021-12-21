@@ -40,21 +40,26 @@ export default {
     items: ['http://localhost:3000']
   }),
   created() {
-    this.api = JSON.parse(localStorage.getItem('api'))
+    this.api = this.get('api')
   },
   methods: {
     save() {
-      localStorage.setItem('api', JSON.stringify(this.api))
-      this.$message({
-        text: '保存成功！刷新页面后生效',
-        color: 'success',
-        button: {
-          text: '刷新',
-          f: () => {
-            window.location.reload()
+      if (this.get('api') !== this.api) {
+        localStorage.setItem('api', JSON.stringify(this.api))
+        this.$message({
+          text: '保存成功！刷新页面后生效',
+          color: 'success',
+          button: {
+            text: '刷新',
+            f: () => {
+              window.location.reload()
+            }
           }
-        }
-      })
+        })
+      }
+    },
+    get(item) {
+      return JSON.parse(localStorage.getItem(item))
     }
   }
 }

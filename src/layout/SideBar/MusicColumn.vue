@@ -107,7 +107,7 @@ export default {
           const res = await this.$http.song.url(this.music.id)
           this.url = res.url
           res.freeTrialInfo && (this.dtOffset = res.freeTrialInfo.start)
-        } else if (await fetch('/unapi/test').then(_res => _res.ok)) {
+        } else if ((await fetch('/unapi/test').then(_res => _res.statusText)) === 'OK') {
           this.url = '/unapi/?id=' + this.music.id
         } else {
           this.httpError()
