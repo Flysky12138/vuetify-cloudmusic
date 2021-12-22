@@ -104,14 +104,13 @@ export default {
     async getMusicDetail() {
       this.dtOffset = this.playTime = 0
       this.url = '' // 清空使歌曲停止播放
-      this.lyrics = [{ lyric: '歌词加载中' }] // 修改标题
-      document.title = this.music.name + ' - ' + this.music.artists.map(res => res.name).join('/') // 获取歌词
-      this.lyrics = await this.$http.song.lyric(this.music.id) // 获取URL
+      this.lyrics = [{ lyric: '歌词加载中' }]
+      document.title = this.music.name + ' - ' + this.music.artists.map(res => res.name).join('/') // 修改标题
+      this.lyrics = await this.$http.song.lyric(this.music.id) // 获取歌词
+      // 获取URL
       try {
         if ((this.music.privilege.st >= 0 && [0, 8].includes(this.music.privilege.fee)) || this.music.privilege.cs) {
-          const res = await this.$http.song.url(this.music.id)
-          this.url = res.url
-          res.freeTrialInfo && (this.dtOffset = res.freeTrialInfo.start)
+          this.url = await this.$http.song.url(this.music.id).then(_res => _res.url)
         } else {
           const unApi = JSON.parse(localStorage.getItem('unApi')) || '/'
           if ((await fetch(unApi + '/test').then(_res => _res.statusText)) === 'OK') {
