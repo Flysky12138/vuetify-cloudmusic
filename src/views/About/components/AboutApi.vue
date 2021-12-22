@@ -12,7 +12,7 @@
         <p class='text-caption red--text text--lighten-2 ma-0' style='text-indent: 25px'>
           UnblockNeteaseMusicApi 获取到的歌曲链接不能跨域，由于 Vercel 不能反代理单次超过5M的数据，而歌曲基本都超过5M，所以我提供不了线上接口。
           若像 NeteaseCloudMusicApi 一样使用本地接口方式，会因为&nbsp;MIXED CONTENT&nbsp;原因造成&nbsp;HTTP&nbsp;强转&nbsp;HTTPS&nbsp;而获取不到资源。
-          所以要么本地运行该项目要么自己搭建线上接口。
+          因此你需要更改网站的设置：地址栏左侧的锁按键&nbsp;>&nbsp;网站设置&nbsp;>&nbsp;不安全内容（允许）
         </p>
       </v-col>
       <v-col cols='6'>
