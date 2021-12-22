@@ -1,16 +1,7 @@
 module.exports = {
   transpileDependencies: ['vuetify'],
   devServer: {
-    port: 8888,
-    proxy: {
-      '/unapi': {
-        target: ' http://127.0.0.1:3001/',
-        changeOrigin: true,
-        pathRewrite: {
-          '/unapi': '/'
-        }
-      }
-    }
+    port: 8888
   },
   configureWebpack: {
     resolve: {
