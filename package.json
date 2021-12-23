@@ -10,7 +10,6 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.9.1",
-    "http-proxy-middleware": "^2.0.1",
     "keymaster": "^1.6.2",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",
