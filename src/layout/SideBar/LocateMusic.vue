@@ -5,18 +5,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import { EventBus } from 'common/eventBus.js'
 export default {
   data: () => ({}),
-  computed: {
-    ...mapState({
-      id: state => state.play.music.id
-    })
-  },
-  watch: {
-    id: 'locateMusic'
-  },
   methods: {
     locateMusic() {
       EventBus.$emit('locateMusicEvent')
