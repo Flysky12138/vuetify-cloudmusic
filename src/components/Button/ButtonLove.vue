@@ -36,8 +36,13 @@ export default {
     },
     // 从喜欢音乐列表添加、移除
     love() {
-      this.$http.song.like(this.id, !this.islove).then(() => {
+      this.$http.song.like(this.id, !this.islove).then(res => {
         this.islove = !this.islove
+        if (res.code !== 200) {
+          setTimeout(() => {
+            this.islove = !this.islove
+          }, 1000)
+        }
       })
     }
   }

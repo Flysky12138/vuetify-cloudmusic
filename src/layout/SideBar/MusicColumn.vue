@@ -128,7 +128,7 @@ export default {
       }
     },
     httpError() {
-      this.$message({ text: '〖 ' + this.music.name + ' 〗 暂无版权' })
+      this.$message({ text: '〖 ' + this.music.name + ' 〗 暂无版权', timeout: 1200 })
       console.log('暂无版权:', this.music.name, '-', this.music.artists.map(res => res.name).join('/'), '; ID:', this.music.id)
       setTimeout(() => {
         const id = this.music.id
