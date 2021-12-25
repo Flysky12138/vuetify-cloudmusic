@@ -59,8 +59,30 @@ export default {
     // 注册快捷键
     keymaster.run()
   },
+  mounted() {
+    this.lastRouter()
+  },
   methods: {
-    ...mapMutations(['login', 'logout'])
+    ...mapMutations(['login', 'logout']),
+    // 前往上次离开的页面
+    lastRouter() {
+      const lastAddress = localStorage.getItem('lastAddress')
+      setTimeout(() => {
+        if (this.$route.fullPath !== lastAddress) {
+          this.$message({
+            text: '是否前往上次离开的页面',
+            color: 'primary',
+            timeout: 10000,
+            button: {
+              text: '前往',
+              f: () => {
+                this.$router.replace(lastAddress)
+              }
+            }
+          })
+        }
+      }, 2000)
+    }
   }
 }
 </script>

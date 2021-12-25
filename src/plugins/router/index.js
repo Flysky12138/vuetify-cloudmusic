@@ -36,12 +36,12 @@ const router = new VueRouter({
 
 // 路由全局前置守卫
 router.beforeEach((to, from, next) => {
+  // 首次加载时from.fullPath=to.fullPath
+  from.fullPath !== to.fullPath && localStorage.setItem('lastAddress', to.fullPath)
   let params = true
-  if (!store.state.islogin) {
-    if (to.matched.some(record => record.meta.requiresAuth)) {
-      message({ text: '未登录，跳转到登录界面！' })
-      params = { path: '/login' }
-    }
+  if (!store.state.islogin && to.matched.some(record => record.meta.requiresAuth)) {
+    message({ text: '未登录，跳转到登录界面！' })
+    params = { path: '/login' }
   }
   next(params)
 })
