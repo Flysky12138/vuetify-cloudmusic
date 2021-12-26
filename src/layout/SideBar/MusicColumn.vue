@@ -12,7 +12,17 @@
       </v-card>
     </v-dialog>
     <!-- 音乐播放标签 autoplay:换歌后继续播放 -->
-    <audio :src='url' :autoplay='isplay' :loop='!!!mode' @timeupdate='timeUpdate' @ended='next' crossorigin='anonymous' preload='auto' ref='audio'></audio>
+    <audio
+      :src='url'
+      :autoplay='isplay'
+      :loop='!!!mode'
+      @timeupdate='timeUpdate'
+      @ended='next'
+      @error='httpError'
+      crossorigin='anonymous'
+      preload='auto'
+      ref='audio'
+    ></audio>
     <!-- 上下按键 -->
     <div style='position: absolute; z-index: -1'>
       <v-btn icon @click='previous'>
@@ -31,16 +41,32 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
+import { EventBus } from 'common/eventBus.js'
 import Player from './Player'
 export default {
   components: { Player },
   data: () => ({
     dialog: false, // 播放界面显示
     url: '', // 歌曲地址
-    lyrics: [], // 歌词
+    // 歌词
+    lyrics: {
+      data: [],
+      index: 0
+    },
     dtOffset: 0, // 歌曲播放的时间偏移量,因为部分歌曲(VIP,未登录)只会截取一段返回
     playTime: 0 // 记录单首歌曲的播放时间
   }),
+  created() {
+    // 抛出当前播放歌词
+    this.$watch(
+      () => this.lyrics.data[this.lyrics.index],
+      (newValue, oldValue) => {
+        if (newValue && newValue !== oldValue) {
+          EventBus.$emit('nowLyrics', newValue.tlyric || newValue.lyric)
+        }
+      }
+    )
+  },
   mounted() {
     this.$refs.audio.volume = this.volume / 10
   },
@@ -57,6 +83,15 @@ export default {
     // 静音
     muted(newValue) {
       this.$refs.audio.muted = newValue
+    },
+    // 查找当前时间对应歌词在数组中的索引值
+    dt(newValue) {
+      const index = [...this.lyrics.data].findIndex(res => res.time > newValue)
+      if (index === -1) {
+        this.lyrics.index = this.lyrics.data.length - 1
+      } else if (index > 0) {
+        this.lyrics.index = index - 1
+      }
     }
   },
   computed: {
@@ -66,7 +101,8 @@ export default {
       isplay: state => state.play.isplay,
       volume: state => state.play.volume,
       muted: state => state.play.muted,
-      mode: state => state.play.mode
+      mode: state => state.play.mode,
+      dt: state => state.play.dt
     })
   },
   methods: {
@@ -102,11 +138,10 @@ export default {
     },
     // 获取播放歌曲歌词等信息
     async getMusicDetail() {
-      this.dtOffset = this.playTime = 0
-      this.url = '' // 清空使歌曲停止播放
-      this.lyrics = [{ lyric: '歌词加载中' }]
+      this.dtOffset = 0
+      Object.assign(this.lyrics, { data: [{ lyric: '歌词加载中' }], index: 0 }) // 歌词加载中
       document.title = this.music.name + ' - ' + this.music.artists.map(res => res.name).join('/') // 修改标题
-      this.lyrics = await this.$http.song.lyric(this.music.id) // 获取歌词
+      this.lyrics.data = await this.$http.song.lyric(this.music.id) // 获取歌词
       // 获取URL
       try {
         if ((this.music.privilege.st >= 0 && [0, 8].includes(this.music.privilege.fee)) || this.music.privilege.cs) {
@@ -126,15 +161,20 @@ export default {
           this.httpError()
         }
       }
+      this.playTime = 0
+      this.setDt(0) // 从头开始播放
     },
+    // 加载歌曲错误
     httpError() {
-      this.$message({ text: '〖 ' + this.music.name + ' 〗 暂无版权', timeout: 1200 })
-      console.log('暂无版权:', this.music.name, '-', this.music.artists.map(res => res.name).join('/'), '; ID:', this.music.id)
-      setTimeout(() => {
-        const id = this.music.id
-        this.next()
-        this.removeMusic(id)
-      }, 1500)
+      if (this.music.name) {
+        this.$message({ text: '〖 ' + this.music.name + ' 〗 暂无版权', timeout: 2000 })
+        console.log('暂无版权:', this.music.name, '-', this.music.artists.map(res => res.name).join('/'), '; ID:', this.music.id)
+        setTimeout(() => {
+          const id = this.music.id
+          this.next()
+          this.removeMusic(id)
+        }, 2500)
+      }
     }
   }
 }
