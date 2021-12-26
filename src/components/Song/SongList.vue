@@ -176,7 +176,11 @@ export default {
     // 自定义过滤器
     customFilter(value, search, item) {
       const reg = new RegExp(search)
-      return [item.name, ...item.artists.map(_res => _res.name), item.album, this.songTime(item.dt)].findIndex(res => reg.test(res)) === -1 ? false : true
+      return [this.value.indexOf(item) + 1, item.name, ...item.artists.map(_res => _res.name), item.album, this.songTime(item.dt)].findIndex(res =>
+        reg.test(res)
+      ) === -1
+        ? false
+        : true
     },
     // 歌曲时间戳转正常时间
     songTime(params) {
