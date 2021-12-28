@@ -4,6 +4,7 @@ import login from './login'
 import logout from './logout'
 import personalized from './personalized'
 import playlist from './playlist'
+import search from './search'
 import siginin from './siginin'
 import song from './song'
 import user from './user'
@@ -17,5 +18,6 @@ export default {
   logout,
   personalized,
   siginin,
-  cloud
+  cloud,
+  search
 }

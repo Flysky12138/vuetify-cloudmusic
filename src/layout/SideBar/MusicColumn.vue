@@ -153,13 +153,7 @@ export default {
           }
         }
       } catch (error) {
-        if (this.music.privilege.fee === 1) {
-          const res = await this.$http.song.url(this.music.id)
-          this.url = res.url
-          res.freeTrialInfo && (this.dtOffset = res.freeTrialInfo.start)
-        } else {
-          this.httpError()
-        }
+        this.httpError()
       }
       this.playTime = 0
       this.setDt(0) // 从头开始播放
@@ -167,13 +161,20 @@ export default {
     // 加载歌曲错误
     httpError() {
       if (this.music.name) {
-        this.$message({ text: '〖 ' + this.music.name + ' 〗 暂无版权', timeout: 2000 })
-        console.log('暂无版权:', this.music.name, '-', this.music.artists.map(res => res.name).join('/'), '; ID:', this.music.id)
-        setTimeout(() => {
-          const id = this.music.id
-          this.next()
-          this.removeMusic(id)
-        }, 2500)
+        if (this.music.privilege.fee === 1) {
+          this.$http.song.url(this.music.id).then(res => {
+            this.url = res.url
+            res.freeTrialInfo && (this.dtOffset = res.freeTrialInfo.start)
+          })
+        } else {
+          this.$message({ text: '〖 ' + this.music.name + ' 〗 暂无版权', timeout: 2000 })
+          console.log('暂无版权:', this.music.name, '-', this.music.artists.map(res => res.name).join('/'), '; ID:', this.music.id)
+          setTimeout(() => {
+            const id = this.music.id
+            this.next()
+            this.removeMusic(id)
+          }, 2500)
+        }
       }
     }
   }
