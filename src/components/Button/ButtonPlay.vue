@@ -1,11 +1,11 @@
 <template>
-  <v-tooltip left open-delay='500' :disabled='tip === ""'>
+  <v-tooltip left open-delay='1000' color='blue-grey' :disabled='tip === ""' transition='slide-x-reverse-transition'>
     <template v-slot:activator='{ on }'>
       <v-btn
         icon
         v-on='on'
         @click='addIDs(id);saveRoute($route.fullPath)'
-        @contextmenu.prevent='tip === "" && isShow && addID(id) & hint()'
+        @contextmenu.prevent='rClick && isShow && addID(id) & hint()'
         :disabled='disable'
         style='color: inherit'
       >
@@ -23,7 +23,8 @@ export default {
     id: { type: Array, required: true },
     name: { type: String, default: '' },
     tip: { type: String, default: '' },
-    disable: { type: Boolean, default: false }
+    disable: { type: Boolean, default: false },
+    rClick: { type: Boolean, default: false }
   },
   data: () => ({}),
   computed: {

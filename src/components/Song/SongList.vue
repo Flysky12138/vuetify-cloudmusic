@@ -54,7 +54,7 @@
       <div class='d-flex justify-end'>
         <button-delete v-if='own' :id='item.id' :name='item.name' @success='delValueItem' :cloud='cloud' />
         <button-add v-else :id='item.id' />
-        <button-play :id='[item.id]' :name='item.name' :disable='item.id === id' />
+        <button-play :id='[item.id]' :name='item.name' :disable='item.id === id' rClick tip='右键添加到下一首播放' />
       </div>
     </template>
     <!-- footer插槽 -->

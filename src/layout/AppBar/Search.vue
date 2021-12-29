@@ -7,7 +7,6 @@
       hide-details
       placeholder='search'
       :background-color='$vuetify.theme.isDark ? "" : "grey lighten-2"'
-      :flat='!isFocus'
       @focus='isFocus = true'
       @blur='isFocus = false'
       v-model='value'
@@ -17,10 +16,10 @@
       :rounded='!items.length'
     ></v-text-field>
     <v-slide-y-transition hide-on-leave>
-      <v-list class='list elevation-2 rounded-b-lg' dense v-show='!!items.length'>
-        <v-list-item v-for='item in items' :key='item.id'>
+      <v-list class='elevation-1 py-0 mt-1' dense v-show='!!items.length'>
+        <v-list-item v-for='item in items' :key='item.id' @click='search(item)'>
           <v-list-item-content>
-            <v-list-item-title v-text='item' @click='search(item)'></v-list-item-title>
+            <v-list-item-title v-text='item'></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -77,11 +76,17 @@ export default {
 
 
 <style lang="scss" scoped>
-.list {
+.v-list {
   position: absolute;
   width: 100%;
   overflow: hidden;
-  z-index: -1;
   user-select: none;
+  border-radius: 4px !important;
+}
+.v-list-item {
+  border-bottom: 1px solid rgba(128, 128, 128, 0.466);
+  &:last-child {
+    border-bottom: none;
+  }
 }
 </style>

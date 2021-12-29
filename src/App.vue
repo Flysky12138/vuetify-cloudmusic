@@ -72,9 +72,9 @@ export default {
           this.$message({
             text: '是否前往上次离开的页面',
             color: 'primary',
-            timeout: 10000,
+            timeout: 5000,
             button: {
-              text: '前往',
+              text: 'GO',
               f: () => {
                 this.$router.replace(lastAddress)
               }

@@ -38,7 +38,7 @@
           </template>
           <!-- item.btns插槽 -->
           <template v-slot:item.btns='{ item }'>
-            <button-play :id='[item.song.id]' :name='item.song.name' :disable='item.song.id === id' />
+            <button-play :id='[item.song.id]' :name='item.song.name' :disable='item.song.id === id' rClick tip='右键添加到下一首播放' />
           </template>
         </v-data-table>
       </v-tab-item>
