@@ -1,4 +1,4 @@
-import artists from './artists'
+import artist from './artist'
 import cloud from './cloud'
 import login from './login'
 import logout from './logout'
@@ -14,7 +14,7 @@ export default {
   playlist,
   song,
   user,
-  artists,
+  artist,
   logout,
   personalized,
   siginin,

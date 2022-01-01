@@ -1,28 +1,24 @@
-import axios from './api'
+import axios from '../api'
 
-// 歌手部分信息和热门歌曲
-function artists(id) {
+// 歌手全部歌曲
+function once(id, page = 0) {
   return new Promise((resolve, reject) => {
     axios
-      .get('/artists', {
+      .get('/artist/songs', {
         params: {
-          id
+          id,
+          order: 'hot',
+          limit: 200,
+          offset: page * 200
         }
       })
       .then(response => {
-        let obj = {
-          alias: response.artist.alias,
-          musicSize: response.artist.musicSize,
-          albumSize: response.artist.albumSize,
-          mvSize: response.artist.mvSize,
-          briefDesc: response.artist.briefDesc || '',
-          img1v1Url: response.artist.img1v1Url,
-          name: response.artist.name,
-          accountId: response.artist.accountId || 0,
-          hotSongs: []
+        let data = {
+          songs: [],
+          hasMore: response.more
         }
-        response.hotSongs.forEach(element => {
-          obj.hotSongs.push({
+        response.songs.forEach(element => {
+          data.songs.push({
             id: element.id,
             name: element.name,
             artists: element.ar.map(res => ({
@@ -39,10 +35,24 @@ function artists(id) {
             }
           })
         })
-        resolve(obj)
+        resolve(data)
       })
       .catch(error => reject(error))
   })
 }
 
-export default artists
+async function songs(id) {
+  let data = {
+    songs: [],
+    i: 0,
+    hasMore: false
+  }
+  do {
+    const res = await once(id, data.i++)
+    data.hasMore = res.hasMore
+    data.songs = data.songs.concat(res.songs)
+  } while (data.hasMore)
+  return data.songs
+}
+
+export default songs

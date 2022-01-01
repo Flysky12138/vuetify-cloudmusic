@@ -7,7 +7,7 @@
       <v-col class='text-subtitle-2'>
         <div class='d-flex align-center'>
           <image-avatar :uid='value.accountId' :src='value.img1v1Url' />
-          <span v-if='value.alias.length > 0' class='ml-5'>化名：{{ value.alias.join("/") }}</span>
+          <span v-if='value.alias.length > 0' class='ml-5'>艺名：{{ value.alias.join("/") }}</span>
           <span class='ml-9'>歌曲：{{ value.musicSize }}</span>
           <span class='ml-9'>专辑：{{ value.albumSize }}</span>
           <span class='ml-9'>视频：{{ value.mvSize }}</span>
@@ -15,7 +15,7 @@
         <div style='white-space: pre-wrap' class='mt-3'>{{ value.briefDesc.replace(/(\r?\n)+/g,'\n\n').trim() }}</div>
       </v-col>
     </v-row>
-    <song-list :title='value.name' :subtitle='`热门歌曲 ${value.hotSongs.length} 首`' :value='value.hotSongs' :loading='loading' :itemsPerPage='10' ref='songlist' />
+    <song-list :title='value.name' :subtitle='`全部歌曲 ${songs.length} 首`' :value='songs' :loading='loading' :itemsPerPage='10' ref='songlist' />
   </v-container>
 </template>
 
@@ -33,28 +33,35 @@ export default {
       albumSize: '',
       mvSize: '',
       briefDesc: '',
-      hotSongs: [],
       name: '',
       img1v1Url: ''
     },
+    songs: [],
     loading: false
   }),
   created() {
-    this.getData(this.$route.query.id)
+    this.getDetail(this.$route.query.id)
+    this.getSongs(this.$route.query.id)
   },
   methods: {
-    getData(id) {
-      this.loading = true
-      this.$http.artists(id).then(res => {
+    getDetail(id) {
+      this.$http.artist.detail(id).then(res => {
         Object.assign(this.value, res)
+      })
+    },
+    getSongs(id) {
+      this.loading = true
+      this.$http.artist.songs(id).then(res => {
+        this.songs = res
         this.loading = false
-        // 更换搜索内容跳转到第一页
-        this.$refs.songlist.page = 1
+        this.$refs.songlist.page = 1 // 更换搜索内容跳转到第一页
       })
     }
   },
   beforeRouteUpdate(to, from, next) {
-    this.getData(to.query.id)
+    this.songs = []
+    this.getDetail(to.query.id)
+    this.getSongs(to.query.id)
     next()
   }
 }
