@@ -25,7 +25,7 @@ export default {
     // 获取歌曲列表
     searchSongs(offset = 0) {
       this.loading = true
-      this.$http.search.search(this.keywords, offset, this.itemsPerPage * 4).then(res => {
+      this.$http.search.search(this.keywords, offset, this.itemsPerPage * 8).then(res => {
         this.songs = this.songs.concat(res.songs)
         this.songCount = res.songCount
         this.hasMore = res.hasMore

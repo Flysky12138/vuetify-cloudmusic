@@ -1,24 +1,33 @@
-import axios from '../api'
+import axios from './api'
 
-// 歌手全部歌曲
-function once(id, page = 0) {
+// 获取专辑内容
+function personalized(id) {
   return new Promise((resolve, reject) => {
     axios
-      .get('/artist/songs', {
+      .get('/album', {
         params: {
-          id,
-          order: 'hot',
-          limit: 200,
-          offset: page * 200
+          id
         }
       })
       .then(response => {
-        let data = {
+        let obj = {
           songs: [],
-          hasMore: response.more
+          info: {
+            artist: {
+              name: response.album.artist.name,
+              alias: response.album.artist.alias,
+              img1v1Url: response.album.artist.img1v1Url
+            },
+            id: response.album.id,
+            name: response.album.name,
+            picUrl: response.album.picUrl,
+            publishTime: response.album.publishTime,
+            company: response.album.company,
+            description: response.album.description
+          }
         }
         response.songs.forEach(element => {
-          data.songs.push({
+          obj.songs.push({
             id: element.id,
             name: element.name,
             artists: element.ar.map(res => ({
@@ -37,24 +46,10 @@ function once(id, page = 0) {
             }
           })
         })
-        resolve(data)
+        resolve(obj)
       })
       .catch(error => reject(error))
   })
 }
 
-async function songs(id) {
-  let data = {
-    songs: [],
-    i: 0,
-    hasMore: false
-  }
-  do {
-    const res = await once(id, data.i++)
-    data.hasMore = res.hasMore
-    data.songs = data.songs.concat(res.songs)
-  } while (data.hasMore)
-  return data.songs
-}
-
-export default songs
+export default personalized

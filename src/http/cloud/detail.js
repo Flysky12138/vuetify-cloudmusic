@@ -1,13 +1,13 @@
 import axios from '../api'
 
 // 获取云盘数据
-function once(offset = 0) {
+function once(page = 0) {
   return new Promise((resolve, reject) => {
     axios
       .get('/user/cloud', {
         params: {
           limit: 200,
-          offset: 200 * offset
+          offset: 200 * page
         }
       })
       .then(response => {
@@ -25,7 +25,15 @@ function once(offset = 0) {
                   name: res.name
                 }))
               : [{ id: 0, name: '' }],
-            album: element.simpleSong.al ? (element.simpleSong.al.name ? '《' + element.simpleSong.al.name + '》' : '') : '',
+            album: element.simpleSong.al
+              ? {
+                  id: element.simpleSong.al.id,
+                  name: element.simpleSong.al.name
+                }
+              : {
+                  id: 0,
+                  name: ''
+                },
             dt: element.simpleSong.dt,
             privilege: {
               fee: element.simpleSong.privilege.fee, // 0、8：免费；4：所在专辑需单独付费；1：VIP可听

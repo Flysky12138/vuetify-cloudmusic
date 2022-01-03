@@ -45,6 +45,10 @@
         <button @click='lookArtists(_item.id)'>{{ _item.name }}</button>
       </span>
     </template>
+    <!-- item.album插槽 -->
+    <template v-slot:item.album='{ item: { album } }'>
+      <button @click='lookAlbum(album.id)' v-if='album.id'>{{ '《' + album.name + '》' }}</button>
+    </template>
     <!-- item.dt插槽 -->
     <template v-slot:item.dt='{ item }'>
       <span>{{ songTime(item.dt) }}</span>
@@ -173,11 +177,22 @@ export default {
         })
       }
     },
+    // 查看专辑
+    lookAlbum(params) {
+      if (this.$route.query.id !== params && !!params) {
+        this.$router.push({
+          path: '/album',
+          query: {
+            id: params
+          }
+        })
+      }
+    },
     // 自定义过滤器
     customFilter(value, search, item) {
-      const reg = new RegExp(search)
-      return [this.value.indexOf(item) + 1, item.name, ...item.artists.map(_res => _res.name), item.album, this.songTime(item.dt)].findIndex(res =>
-        reg.test(res)
+      const reg = new RegExp(search.toLowerCase())
+      return [this.value.indexOf(item) + 1, item.name, ...item.artists.map(_res => _res.name), item.album.name, this.songTime(item.dt)].findIndex(res =>
+        reg.test(String.prototype.toLowerCase.call(res))
       ) === -1
         ? false
         : true

@@ -29,29 +29,14 @@ export default {
   components: { SkeletonLoader, PlaylistDetail, SongList },
   data: () => ({
     count: 0,
-    id: 0,
-    playlistDetail: {
-      coverImgUrl: '',
-      createTime: '',
-      description: null,
-      name: '',
-      playCount: 0,
-      shareCount: 0,
-      subscribedCount: 0,
-      tags: [],
-      trackIds: [],
-      userId: 0,
-      avatarUrl: '',
-      nickname: ''
-    },
+    playlistDetail: {},
     songlistDetail: {
       songlist: [],
       loading: false
     }
   }),
   created() {
-    this.id = this.$route.query.id
-    this.getPlaylistDetail()
+    this.getPlaylistDetail(this.$route.query.id)
   },
   computed: {
     ...mapState({
@@ -60,8 +45,8 @@ export default {
   },
   methods: {
     // 获取歌单信息
-    getPlaylistDetail() {
-      this.$http.playlist.detail(this.id).then(res => {
+    getPlaylistDetail(id) {
+      this.$http.playlist.detail(id).then(res => {
         Object.assign(this.playlistDetail, res)
         this.getSonglistDetail(res.trackIds)
         this.count++
@@ -77,9 +62,8 @@ export default {
     }
   },
   beforeRouteUpdate(to, from, next) {
-    this.id = to.query.id
     this.count = 0
-    this.getPlaylistDetail()
+    this.getPlaylistDetail(to.query.id)
     next()
   }
 }

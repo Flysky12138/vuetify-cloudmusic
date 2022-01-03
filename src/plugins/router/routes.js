@@ -55,6 +55,10 @@ const routes = [
     component: () => import('views/Artists')
   },
   {
+    path: '/album',
+    component: () => import('views/Album')
+  },
+  {
     path: '/cloud',
     component: () => import('views/Cloud'),
     meta: { requiresAuth: true, keepAlive: true }

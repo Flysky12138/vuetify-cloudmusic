@@ -20,8 +20,10 @@ function once(ids) {
               id: res.id,
               name: res.name
             })),
-            albumID: element.al.id,
-            album: element.al.name ? '《' + element.al.name + '》' : '',
+            album: {
+              id: element.al.id,
+              name: element.al.name
+            },
             dt: element.dt,
             // https://github.com/Binaryify/NeteaseCloudMusicApi/issues/899#issuecomment-680002883
             privilege: {

@@ -28,7 +28,10 @@ function search(keywords, offset = 0, limit = 36, type = 1) {
                 id: res.id,
                 name: res.name
               })),
-              album: element.album.name ? '《' + element.album.name + '》' : '',
+              album: {
+                id: element.album.id,
+                name: element.album.name
+              },
               dt: element.duration,
               privilege: {
                 fee: element.fee, // 0、8：免费；4：所在专辑需单独付费；1：VIP可听

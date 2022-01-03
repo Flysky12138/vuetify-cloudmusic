@@ -15,7 +15,10 @@ function recommend() {
               id: res.id,
               name: res.name
             })),
-            album: element.al.name ? '《' + element.al.name + '》' : '',
+            album: {
+              id: element.al.id,
+              name: element.al.name
+            },
             dt: element.dt,
             privilege: {
               fee: element.privilege.fee, // 0、8：免费；4：所在专辑需单独付费；1：VIP可听

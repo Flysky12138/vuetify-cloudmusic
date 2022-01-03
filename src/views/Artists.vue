@@ -1,21 +1,25 @@
 <template>
   <v-container>
-    <v-row class='pa-3'>
-      <v-col cols='auto'>
-        <image-cover :src='value.img1v1Url' :size='180' />
+    <v-row>
+      <v-col cols='12' class='d-flex'>
+        <v-col cols='auto'>
+          <image-cover :src='value.img1v1Url' :size='180' />
+        </v-col>
+        <v-col class='text-subtitle-2'>
+          <div class='d-flex align-center'>
+            <image-avatar :uid='value.accountId' :src='value.img1v1Url' />
+            <span v-if='value.alias.length > 0' class='ml-5'>艺名：{{ value.alias.join("/") }}</span>
+            <span class='ml-9'>歌曲：{{ value.musicSize }}</span>
+            <span class='ml-9'>专辑：{{ value.albumSize }}</span>
+            <span class='ml-9'>视频：{{ value.mvSize }}</span>
+          </div>
+          <div style='white-space: pre-wrap' class='mt-3'>{{ value.briefDesc.replace(/(\r?\n)+/g,'\n\n').trim() }}</div>
+        </v-col>
       </v-col>
-      <v-col class='text-subtitle-2'>
-        <div class='d-flex align-center'>
-          <image-avatar :uid='value.accountId' :src='value.img1v1Url' />
-          <span v-if='value.alias.length > 0' class='ml-5'>艺名：{{ value.alias.join("/") }}</span>
-          <span class='ml-9'>歌曲：{{ value.musicSize }}</span>
-          <span class='ml-9'>专辑：{{ value.albumSize }}</span>
-          <span class='ml-9'>视频：{{ value.mvSize }}</span>
-        </div>
-        <div style='white-space: pre-wrap' class='mt-3'>{{ value.briefDesc.replace(/(\r?\n)+/g,'\n\n').trim() }}</div>
+      <v-col cols='12'>
+        <song-list :title='value.name' :subtitle='`全部歌曲 ${songs.length} 首`' :value='songs' :loading='loading' :itemsPerPage='10' ref='songlist' />
       </v-col>
     </v-row>
-    <song-list :title='value.name' :subtitle='`全部歌曲 ${songs.length} 首`' :value='songs' :loading='loading' :itemsPerPage='10' ref='songlist' />
   </v-container>
 </template>
 
