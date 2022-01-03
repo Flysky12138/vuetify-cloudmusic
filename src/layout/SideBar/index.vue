@@ -33,7 +33,7 @@ export default {
       route: state => state.play.route
     }),
     isShowLocate() {
-      return ['/recommend', '/playlist', '/artists', '/search', '/cloud'].includes(this.$route.path) && this.route === this.$route.fullPath
+      return this.$route.path !== '/user' && this.route === this.$route.fullPath
     }
   }
 }

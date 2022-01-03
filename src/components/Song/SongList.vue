@@ -114,7 +114,10 @@ export default {
     // 为了定位播放歌曲而换页
     EventBus.$on('locateMusicEvent', () => {
       this.autoPage = true
-      this.page = Math.ceil((this.value.findIndex(res => res.id === this.id) + 1) / this.itemsPerPage)
+      const index = this.value.findIndex(res => res.id === this.id)
+      if (index !== -1) {
+        this.page = Math.ceil((index + 1) / this.itemsPerPage)
+      }
     })
   },
   computed: {

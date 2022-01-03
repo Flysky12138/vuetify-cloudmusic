@@ -13,11 +13,13 @@ export default {
       EventBus.$emit('locateMusicEvent')
       setTimeout(
         () => {
-          this.$vuetify.goTo('.playItem', {
-            duration: 400,
-            offset: 13,
-            easing: 'easeOutQuad'
-          })
+          if (document.querySelector('.playItem')) {
+            this.$vuetify.goTo('.playItem', {
+              duration: 400,
+              offset: 13,
+              easing: 'easeOutQuad'
+            })
+          }
         },
         document.querySelector('.playItem') ? 0 : 500
       )
