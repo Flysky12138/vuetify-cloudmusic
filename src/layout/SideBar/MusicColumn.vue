@@ -15,7 +15,7 @@
     <audio
       :src='url'
       :autoplay='isplay'
-      :loop='!!!mode'
+      :loop='!mode'
       @timeupdate='timeUpdate'
       @ended='next'
       @error='httpError'
@@ -51,7 +51,8 @@ export default {
     // 歌词
     lyrics: {
       data: [],
-      index: 0
+      index: 0,
+      settimeout: null
     },
     dtOffset: 0, // 歌曲播放的时间偏移量,因为部分歌曲(VIP,未登录)只会截取一段返回
     playTime: 0 // 记录单首歌曲的播放时间
@@ -119,7 +120,7 @@ export default {
     },
     // 调整播放进度
     setDt(res) {
-      this.$refs.audio.currentTime = Math.floor(res / 1000)
+      this.$refs.audio.currentTime = res / 1000
     },
     // 获取缓存进度
     cacheProgress() {
@@ -139,9 +140,13 @@ export default {
     // 获取播放歌曲歌词等信息
     async getMusicDetail() {
       this.dtOffset = 0
-      Object.assign(this.lyrics, { data: [{ lyric: '歌词加载中' }], index: 0 }) // 歌词加载中
       document.title = this.music.name + ' - ' + this.music.artists.map(res => res.name).join('/') // 修改标题
-      this.lyrics.data = await this.$http.song.lyric(this.music.id) // 获取歌词
+      // 获取歌词
+      Object.assign(this.lyrics, { data: [{ lyric: '歌词加载中' }], index: 0 }) // 歌词加载中
+      clearTimeout(this.lyrics.settimeout)
+      this.lyrics.settimeout = setTimeout(async () => {
+        this.lyrics.data = await this.$http.song.lyric(this.music.id)
+      }, 500)
       // 获取URL
       try {
         if ((this.music.privilege.st >= 0 && [0, 8].includes(this.music.privilege.fee)) || this.music.privilege.cs) {

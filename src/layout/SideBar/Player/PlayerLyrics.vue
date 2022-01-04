@@ -1,15 +1,15 @@
 <template>
-  <v-row class='overflow-y-auto scrollbar-hidden lyricsScroll' style='height: 580px' @mousewheel='mouseWheel' v-intersect='onIntersect'>
-    <v-col cols='12' class='text-center'>
-      <v-responsive height='220'></v-responsive>
-      <div v-for='(item, index) in $attrs.lyrics.data' :key='item.id' :id='"songlyrics_" + index' class='my-6 font-weight-bold' :style='lyricsStyle(index)'>
+  <v-row class='overflow-y-auto scrollbar-hidden lyricsScroll ma-0' :style='`height:${view.height}px`' @mousewheel='mouseWheel' v-intersect='onIntersect'>
+    <v-col cols='12' class='text-center' @contextmenu='contextMenu'>
+      <v-responsive :height='spaceHeight(-1)'></v-responsive>
+      <div v-for='(item, index) in $attrs.lyrics.data' :key='item.id' :id='"songlyrics_" + index' class='py-4 font-weight-bold' :style='lyricsStyle(index)'>
         <span>{{ item.lyric }}</span>
         <span v-if='item.tlyric'>
           <br />
           {{ item.tlyric }}
         </span>
       </div>
-      <v-responsive height='251'></v-responsive>
+      <v-responsive :height='spaceHeight(1)'></v-responsive>
     </v-col>
   </v-row>
 </template>
@@ -17,7 +17,12 @@
 <script>
 export default {
   data: () => ({
-    // 鼠标滚动了歌词
+    // 歌词视窗
+    view: {
+      height: 580,
+      offset: 40
+    },
+    // 标记鼠标滚动了歌词
     scroll: {
       onMouse: false,
       setTimeout: {}
@@ -29,18 +34,22 @@ export default {
       () => this.$attrs.lyrics.index,
       () => {
         setTimeout(() => {
-          !this.scroll.onMouse && this.scrollGoto()
+          !this.scroll.onMouse && this.scrollGoto(46)
         }, 100)
       }
     )
   },
   methods: {
+    // 歌词上下空白块高度
+    spaceHeight(sign) {
+      return this.view.height / 2 + sign * this.view.offset - 20 * 2
+    },
     // 歌词滚动
-    scrollGoto() {
+    scrollGoto(offset = 52) {
       this.$vuetify.goTo('#songlyrics_' + this.$attrs.lyrics.index, {
         container: '.lyricsScroll',
         duration: 250,
-        offset: 192,
+        offset: this.spaceHeight(-1) - offset,
         easing: 'easeOutQuad'
       })
     },
@@ -49,16 +58,26 @@ export default {
       clearTimeout(this.scroll.setTimeout)
       this.scroll.onMouse = true
       this.scroll.setTimeout = setTimeout(() => {
+        this.scroll.onMouse && this.scrollGoto()
         this.scroll.onMouse = false
-        this.scrollGoto()
       }, 3000)
+    },
+    // 右击歌词
+    contextMenu(event) {
+      if (event.target.nodeName.toLowerCase() === 'span') {
+        this.$emit('rClickIndex', event.target.parentNode.id.match(/songlyrics_(\d+)/)[1])
+        this.scroll.onMouse = false
+        setTimeout(() => {
+          this.scrollGoto()
+        }, 100)
+      }
     },
     // 返回歌词样式
     lyricsStyle(params) {
       let offset = Math.abs(params - this.$attrs.lyrics.index)
       switch (offset) {
         case 0:
-          return { 'font-size': '25px' }
+          return { 'font-size': '26px' }
         default:
           return { 'font-size': '16px', transition: 'all 0.3s', opacity: 0.3 }
       }

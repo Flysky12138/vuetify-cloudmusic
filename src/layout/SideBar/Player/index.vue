@@ -17,7 +17,7 @@
         </v-col>
         <!-- 歌词 -->
         <v-col v-if='true' cols='5'>
-          <player-lyrics v-bind='$attrs' />
+          <player-lyrics v-bind='$attrs' @rClickIndex='changeDt' />
         </v-col>
         <!-- 评论 -->
         <v-col v-else cols='5'>
@@ -53,6 +53,9 @@ export default {
         this.blur = Math.min(Math.max(10, _blur), 100)
         localStorage.setItem('blur', JSON.stringify(this.blur))
       }
+    },
+    changeDt(e) {
+      this.$emit('changeDt', this.$attrs.lyrics.data[e].time)
     }
   }
 }
