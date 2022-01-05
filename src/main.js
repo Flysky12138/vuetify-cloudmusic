@@ -1,3 +1,4 @@
+import time from 'common/time'
 import Vue from 'vue'
 import App from './App.vue'
 import './common/main.scss'
@@ -11,6 +12,7 @@ import './registerServiceWorker'
 Vue.config.productionTip = false
 Vue.prototype.$http = http
 Vue.prototype.$message = message
+Vue.prototype.$time = time
 
 new Vue({
   router,

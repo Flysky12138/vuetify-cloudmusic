@@ -42,10 +42,10 @@
           '
         >
           <template v-slot:prepend>
-            <span class='mt-1'>{{ songTime(dt) }}</span>
+            <span class='mt-1'>{{ $time.song(dt) }}</span>
           </template>
           <template v-slot:append>
-            <span class='mt-1'>{{ songTime(music.dt) }}</span>
+            <span class='mt-1'>{{ $time.song(music.dt) }}</span>
           </template>
         </v-slider>
       </v-col>
@@ -55,7 +55,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import time from 'common/time'
 import ButtonAdd from 'components/Button/ButtonAdd.vue'
 import ButtonLove from 'components/Button/ButtonLove.vue'
 import PlayerMusicPlay from './PlayerMusicPlay.vue'
@@ -84,11 +83,6 @@ export default {
       music: state => state.play.music, // 正在播放的歌曲信息
       playDt: state => state.play.dt // 当前播放音乐进度
     })
-  },
-  methods: {
-    songTime(params) {
-      return time.song(params)
-    }
   }
 }
 </script>

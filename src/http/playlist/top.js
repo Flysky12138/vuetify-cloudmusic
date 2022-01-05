@@ -1,7 +1,7 @@
 import axios from '../api'
 
 // 歌单 ( 网友精选碟 )
-function top(cat = '全部', limit = 30, offset = 0, order = 'hot') {
+function top({ cat = '全部', limit = 30, offset = 0, order = 'hot' }) {
   return new Promise((resolve, reject) => {
     axios
       .get('/top/playlist', {

@@ -59,7 +59,8 @@ const routes = [
   },
   {
     path: '/album',
-    component: () => import('views/Album')
+    component: () => import('views/Album'),
+    meta: { keepAlive: true }
   },
   {
     path: '/cloud',

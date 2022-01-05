@@ -1,4 +1,3 @@
-import time from 'common/time'
 import axios from '../api'
 
 // 获取歌单详情
@@ -14,7 +13,7 @@ function detail(id) {
         resolve({
           id: response.playlist.id,
           coverImgUrl: response.playlist.coverImgUrl,
-          createTime: time.date(response.playlist.createTime),
+          createTime: response.playlist.createTime,
           description: response.playlist.description,
           name: response.playlist.name,
           playCount: response.playlist.playCount,

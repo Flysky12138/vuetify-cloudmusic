@@ -1,6 +1,5 @@
 import city from 'common/province-city-china/city.json'
 import province from 'common/province-city-china/province.json'
-import time from 'common/time'
 import axios from '../api'
 
 // 获取用户详情
@@ -18,11 +17,11 @@ function detail(uid) {
         resolve({
           level: response.level,
           listenSongs: response.listenSongs,
-          createTime: time.date(response.createTime),
+          createTime: response.createTime,
           createDays: response.createDays,
           profile: {
             vipType: response.profile.vipType,
-            birthday: time.date(response.profile.birthday).substring(0, 10),
+            birthday: response.profile.birthday,
             gender: response.profile.gender,
             province: p ? p.name : '-',
             city: c ? c.name : '-',

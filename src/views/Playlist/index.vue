@@ -35,6 +35,12 @@ export default {
       loading: false
     }
   }),
+  created() {
+    this.getPlaylistDetail(this.$route.query.id)
+  },
+  activated() {
+    this.getSongs(this.$route.query.id)
+  },
   computed: {
     ...mapState({
       uid: state => state.user.uid
@@ -56,10 +62,6 @@ export default {
         this.songlistDetail.loading = false
       })
     }
-  },
-  activated() {
-    this.getPlaylistDetail(this.$route.query.id)
-    this.getSongs(this.$route.query.id)
   }
 }
 </script>

@@ -33,7 +33,7 @@
                 所在地区：{{ value.profile.province }} -
                 {{ value.profile.city }}
               </span>
-              <span class='ml-5'>生日：{{ value.profile.birthday }}</span>
+              <span class='ml-5'>生日：{{ $time.dateSort(value.profile.birthday) }}</span>
               <div class='mt-1'>个人介绍：{{ value.profile.signature }}</div>
             </v-col>
             <!-- 右侧 -->

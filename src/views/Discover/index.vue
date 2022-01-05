@@ -21,7 +21,7 @@
     <!-- 分页 -->
     <v-row>
       <v-col cols='12' class='pb-6' v-if='total > params.limit'>
-        <v-pagination v-model='page' :length='Math.ceil(total / params.limit)' :total-visible='11' circle @input='clickChangePage'></v-pagination>
+        <v-pagination :value='Number($route.query.page)' :length='Math.ceil(total / params.limit)' :total-visible='11' circle @input='clickChangePage'></v-pagination>
       </v-col>
     </v-row>
   </v-container>
@@ -36,7 +36,6 @@ export default {
     catlist: [],
     playlists: [], // 显示的歌单列表
     total: 0, // 歌单总数
-    page: 1, // 当前浏览页数
     // 歌单请求参数
     params: {
       cat: '全部',
@@ -46,6 +45,14 @@ export default {
     },
     loading: true
   }),
+  created() {
+    Object.assign(this.params, {
+      cat: this.$route.query.cat,
+      offset: (this.$route.query.page - 1) * this.params.limit
+    })
+    this.getCatlist()
+    this.getPlatlist()
+  },
   methods: {
     // 点击分页组件换页
     clickChangePage(page) {
@@ -55,31 +62,21 @@ export default {
         offset: 80, // 偏移
         easing: 'easeOutQuad' // 动画
       })
-      // 改变路由
-      this.$router.push(`${this.$route.path}?cat=${this.params.cat}&page=${page}`)
+      this.$router.push(`${this.$route.path}?cat=${this.params.cat}&page=${page}`) // 改变路由
     },
-    // 获取歌单
+    // 获取歌单分类
+    getCatlist() {
+      this.$http.playlist.catlist().then(res => {
+        this.catlist = res
+      })
+    },
+    // 获取歌单列表
     getPlatlist() {
       this.$http.playlist.top(this.params).then(res => {
         this.playlists = res.playlists
         this.total = res.total
         this.loading = false
       })
-    }
-  },
-  activated() {
-    this.page = Number(this.$route.query.page)
-    Object.assign(this.params, {
-      cat: this.$route.query.cat,
-      offset: (this.page - 1) * this.params.limit
-    })
-    if (!this.catlist.length) {
-      // 获取歌单分类
-      this.$http.playlist.catlist().then(res => {
-        this.catlist = res
-      })
-      // 获取歌单列表
-      this.getPlatlist()
     }
   }
 }

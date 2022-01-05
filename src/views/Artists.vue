@@ -15,7 +15,7 @@
             <span class='ml-9'>专辑：{{ value.albumSize }}</span>
             <span class='ml-9'>视频：{{ value.mvSize }}</span>
           </div>
-          <div style='white-space: pre-wrap' class='mt-3'>{{ value.briefDesc.replace(/(\r?\n)+/g,'\n\n').trim() }}</div>
+          <introduce :value='value.briefDesc' />
         </v-col>
       </v-col>
       <v-col cols='12'>
@@ -30,8 +30,9 @@ import SongList from 'components/Song/SongList.vue'
 import ImageCover from 'components/Image/ImageCover.vue'
 import ImageAvatar from 'components/Image/ImageAvatar.vue'
 import SkeletonLoader from './Playlist/components/SkeletonLoader.vue'
+import Introduce from 'components/Introduce.vue'
 export default {
-  components: { SongList, ImageCover, ImageAvatar, SkeletonLoader },
+  components: { SongList, ImageCover, ImageAvatar, SkeletonLoader, Introduce },
   data: () => ({
     skeleton: true,
     value: {
@@ -48,6 +49,12 @@ export default {
     total: 0,
     loading: false
   }),
+  created() {
+    this.getDetail(this.$route.query.id)
+  },
+  activated() {
+    this.getSongs(this.$route.query.id)
+  },
   methods: {
     getDetail(id) {
       this.$http.artist.detail(id).then(res => {
@@ -66,10 +73,6 @@ export default {
         }
       })
     }
-  },
-  activated() {
-    this.getDetail(this.$route.query.id)
-    this.getSongs(this.$route.query.id)
   }
 }
 </script>

@@ -106,8 +106,7 @@ export default {
       { text: '时长', value: 'dt' },
       { text: '', align: 'end', value: 'btns' }
     ],
-    // 过滤后的列表数据
-    filteredItems: [],
+    filteredItems: [], // 过滤后的列表数据
     autoPage: false // 是否是为了定位歌曲而自动换页
   }),
   computed: {
@@ -126,12 +125,13 @@ export default {
         this.$emit('pageEnd', this.pageCount)
       }
       // 换页滚动到表格顶部
-      this.autoPage ||
+      if (!this.autoPage) {
         this.$vuetify.goTo('#tableTop', {
           duration: 600, // 动画时长
           offset: 0, // 偏移
           easing: 'easeOutQuad' // 动画
         })
+      }
       this.autoPage = false
     }
   },
@@ -183,12 +183,11 @@ export default {
     },
     // 自定义过滤器
     customFilter(value, search, item) {
-      const reg = new RegExp(search.toLowerCase())
-      return [this.value.indexOf(item) + 1, item.name, ...item.artists.map(_res => _res.name), item.album.name, this.songTime(item.dt)].findIndex(res =>
-        reg.test(String.prototype.toLowerCase.call(res))
-      ) === -1
-        ? false
-        : true
+      return (
+        [this.value.indexOf(item) + 1, item.name, ...item.artists.map(_res => _res.name), item.album.name, this.songTime(item.dt)].findIndex(res =>
+          new RegExp(search, 'i').test(res)
+        ) !== -1
+      )
     },
     // 歌曲时间戳转正常时间
     songTime(params) {
