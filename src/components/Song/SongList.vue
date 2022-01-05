@@ -110,16 +110,6 @@ export default {
     filteredItems: [],
     autoPage: false // 是否是为了定位歌曲而自动换页
   }),
-  mounted() {
-    // 为了定位播放歌曲而换页
-    EventBus.$on('locateMusicEvent', () => {
-      this.autoPage = true
-      const index = this.value.findIndex(res => res.id === this.id)
-      if (index !== -1) {
-        this.page = Math.ceil((index + 1) / this.itemsPerPage)
-      }
-    })
-  },
   computed: {
     ...mapState({
       id: state => state.play.music.id
@@ -203,10 +193,36 @@ export default {
     // 歌曲时间戳转正常时间
     songTime(params) {
       return time.song(params)
+    },
+    // 为了定位播放歌曲而换页
+    locate() {
+      return {
+        start: () => {
+          EventBus.$on('locateMusicEvent', () => {
+            this.autoPage = true
+            const index = this.value.findIndex(res => res.id === this.id)
+            if (index !== -1) {
+              this.page = Math.ceil((index + 1) / this.itemsPerPage)
+            }
+          })
+        },
+        stop: () => {
+          EventBus.$off('locateMusicEvent')
+        }
+      }
     }
   },
+  created() {
+    this.locate().start()
+  },
   destroyed() {
-    EventBus.$off('locateMusicEvent')
+    this.locate().stop()
+  },
+  activated() {
+    this.locate().start()
+  },
+  deactivated() {
+    this.locate().stop()
   }
 }
 </script>

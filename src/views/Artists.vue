@@ -60,7 +60,10 @@ export default {
       this.$http.artist.songs(id).then(res => {
         this.songs = res
         this.loading = false
-        this.$refs.songlist.page = 1 // 更换搜索内容跳转到第一页
+        // 更换搜索内容跳转到第一页
+        if (this.$refs.songlist.pageCount > 1) {
+          this.$refs.songlist.page = 1
+        }
       })
     }
   },
