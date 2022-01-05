@@ -14,7 +14,7 @@
         <v-skeleton-loader type='card-heading'></v-skeleton-loader>
       </v-col>
       <v-col cols='12' class='px-5'>
-        <v-skeleton-loader type='image@2'></v-skeleton-loader>
+        <v-skeleton-loader type='image'></v-skeleton-loader>
       </v-col>
     </v-row>
   </div>

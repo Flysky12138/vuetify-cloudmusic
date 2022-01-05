@@ -1,6 +1,8 @@
 <template>
   <v-container>
-    <v-row>
+    <!-- 获取数据前骨架图 -->
+    <skeleton-loader v-if='skeleton' />
+    <v-row v-else>
       <v-col cols='12' class='d-flex'>
         <v-col cols='auto'>
           <image-cover :src='value.img1v1Url' :size='180' />
@@ -17,7 +19,7 @@
         </v-col>
       </v-col>
       <v-col cols='12'>
-        <song-list :title='value.name' :subtitle='`全部歌曲 ${songs.length} 首`' :value='songs' :loading='loading' :itemsPerPage='10' ref='songlist' />
+        <song-list :title='value.name' :subtitle='`全部歌曲 ${songs.length} 首`' :value='songs' :loading='loading' :itemsPerPage='30' ref='songlist' />
       </v-col>
     </v-row>
   </v-container>
@@ -27,9 +29,11 @@
 import SongList from 'components/Song/SongList.vue'
 import ImageCover from 'components/Image/ImageCover.vue'
 import ImageAvatar from 'components/Image/ImageAvatar.vue'
+import SkeletonLoader from './Playlist/components/SkeletonLoader.vue'
 export default {
-  components: { SongList, ImageCover, ImageAvatar },
+  components: { SongList, ImageCover, ImageAvatar, SkeletonLoader },
   data: () => ({
+    skeleton: true,
     value: {
       accountId: 0,
       alias: [],
@@ -41,16 +45,14 @@ export default {
       img1v1Url: ''
     },
     songs: [],
+    total: 0,
     loading: false
   }),
-  created() {
-    this.getDetail(this.$route.query.id)
-    this.getSongs(this.$route.query.id)
-  },
   methods: {
     getDetail(id) {
       this.$http.artist.detail(id).then(res => {
         Object.assign(this.value, res)
+        this.skeleton = false
       })
     },
     getSongs(id) {
@@ -62,11 +64,9 @@ export default {
       })
     }
   },
-  beforeRouteUpdate(to, from, next) {
-    this.songs = []
-    this.getDetail(to.query.id)
-    this.getSongs(to.query.id)
-    next()
+  activated() {
+    this.getDetail(this.$route.query.id)
+    this.getSongs(this.$route.query.id)
   }
 }
 </script>

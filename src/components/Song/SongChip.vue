@@ -22,7 +22,8 @@ export default {
       this.$router.push({
         path: '/discover/playlist',
         query: {
-          cat: this.value
+          cat: this.value,
+          page: 1
         }
       })
     }

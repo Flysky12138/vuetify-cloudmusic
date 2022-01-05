@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <!-- 获取数据前骨架图 -->
-    <skeleton-loader v-if='count != 1' />
+    <skeleton-loader v-if='skeleton' />
     <v-row v-else>
       <v-col cols='12'>
         <playlist-detail :value='playlistDetail' />
@@ -9,11 +9,11 @@
       <v-col cols='12'>
         <song-list
           :title='playlistDetail.name'
-          :subtitle='songlistDetail.songlist.length'
+          :subtitle='playlistDetail.trackCount'
           :value='songlistDetail.songlist'
           :loading='songlistDetail.loading'
-          :itemsPerPage='30'
           :own='playlistDetail.userId === uid'
+          :itemsPerPage='30'
         />
       </v-col>
     </v-row>
@@ -28,16 +28,13 @@ import SongList from 'components/Song/SongList'
 export default {
   components: { SkeletonLoader, PlaylistDetail, SongList },
   data: () => ({
-    count: 0,
+    skeleton: true,
     playlistDetail: {},
     songlistDetail: {
       songlist: [],
       loading: false
     }
   }),
-  created() {
-    this.getPlaylistDetail(this.$route.query.id)
-  },
   computed: {
     ...mapState({
       uid: state => state.user.uid
@@ -48,23 +45,21 @@ export default {
     getPlaylistDetail(id) {
       this.$http.playlist.detail(id).then(res => {
         Object.assign(this.playlistDetail, res)
-        this.getSonglistDetail(res.trackIds)
-        this.count++
+        this.skeleton = false
       })
     },
     // 获取歌单歌曲列表
-    getSonglistDetail(idsArr) {
+    getSongs(id) {
       this.songlistDetail.loading = true
-      this.$http.song.detail(idsArr).then(res => {
+      this.$http.playlist.all(id).then(res => {
         this.songlistDetail.songlist = res
         this.songlistDetail.loading = false
       })
     }
   },
-  beforeRouteUpdate(to, from, next) {
-    this.count = 0
-    this.getPlaylistDetail(to.query.id)
-    next()
+  activated() {
+    this.getPlaylistDetail(this.$route.query.id)
+    this.getSongs(this.$route.query.id)
   }
 }
 </script>

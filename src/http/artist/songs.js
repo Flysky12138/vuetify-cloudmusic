@@ -9,13 +9,13 @@ function once(id, page = 0) {
           id,
           order: 'hot',
           limit: 200,
-          offset: page * 200
+          offset: 200 * page
         }
       })
       .then(response => {
         let data = {
           songs: [],
-          hasMore: response.more
+          more: response.more
         }
         response.songs.forEach(element => {
           data.songs.push({
@@ -47,13 +47,13 @@ async function songs(id) {
   let data = {
     songs: [],
     i: 0,
-    hasMore: false
+    more: false
   }
   do {
     const res = await once(id, data.i++)
-    data.hasMore = res.hasMore
+    data.more = res.more
     data.songs = data.songs.concat(res.songs)
-  } while (data.hasMore)
+  } while (data.more)
   return data.songs
 }
 

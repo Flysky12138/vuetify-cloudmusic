@@ -22,7 +22,7 @@ function detail(id) {
           subscribed: response.playlist.subscribed,
           subscribedCount: response.playlist.subscribedCount,
           tags: response.playlist.tags,
-          trackIds: response.playlist.trackIds.map(res => res.id),
+          trackCount: response.playlist.trackCount,
           userId: response.playlist.userId,
           avatarUrl: response.playlist.creator.avatarUrl,
           nickname: response.playlist.creator.nickname

@@ -14,7 +14,7 @@
             <!-- 对路由添加一个进入动画：渐显 -->
             <transition name='router'>
               <keep-alive>
-                <router-view v-if='$route.meta.keepAlive' />
+                <router-view v-if='$route.meta.keepAlive' :key='$route.fullPath' />
               </keep-alive>
             </transition>
             <transition name='router'>

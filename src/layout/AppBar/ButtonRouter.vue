@@ -11,7 +11,7 @@ export default {
   data: () => ({
     items: [
       { name: '首页', link: '/' },
-      { name: '歌单', link: '/discover/playlist' },
+      { name: '歌单', link: '/discover/playlist?cat=全部&page=1' },
       { name: '日推', link: '/recommend' },
       { name: '关于', link: '/about' }
     ]

@@ -15,7 +15,7 @@
         <user-playlist :value='userPlaylist.collect' title='收藏的歌单' />
       </v-col>
       <!-- 听歌排行 -->
-      <v-col cols='12' v-if='userListenRanking.isShow'>
+      <v-col cols='12' v-if='userListenRanking.isShow' class='userListenRanking'>
         <user-listen-ranking :value='userListenRanking.items' :loading='userListenRanking.loading' @change='getUserListenRanking' />
       </v-col>
     </v-row>
@@ -62,7 +62,8 @@ export default {
     this.uid = this.$route.query.uid
     this.getUserDetail()
     this.getUserPlaylist()
-    this.getUserListenRanking()
+    this.getUserListenRanking(0)
+    this.getUserListenRanking(1)
   },
   methods: {
     // 获取用户信息
@@ -80,16 +81,15 @@ export default {
         this.count++
       })
     },
-    // 获取用户听歌排行 0、所有 1、一周
-    getUserListenRanking(param = 1) {
+    // 获取用户听歌排行
+    async getUserListenRanking(params) {
       this.userListenRanking.loading = true
-      this.$http.user.record(this.uid, param).then(res => {
-        if (res) {
-          this.userListenRanking.isShow = true
-          this.userListenRanking.items = res
-        }
-        this.userListenRanking.loading = false
-      })
+      const res = await this.$http.user.record(this.uid, params)
+      if (params === 1 && res) {
+        this.userListenRanking.isShow = true
+      }
+      this.userListenRanking.items[params] = [...res]
+      this.userListenRanking.loading = false
     }
   },
   beforeRouteUpdate(to, from, next) {
@@ -97,7 +97,8 @@ export default {
     this.count = 0
     this.getUserDetail()
     this.getUserPlaylist()
-    this.getUserListenRanking()
+    this.getUserListenRanking(0)
+    this.getUserListenRanking(1)
     next()
   }
 }

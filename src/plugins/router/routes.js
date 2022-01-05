@@ -35,11 +35,13 @@ const routes = [
   },
   {
     path: '/playlist',
-    component: () => import('views/Playlist')
+    component: () => import('views/Playlist'),
+    meta: { keepAlive: true }
   },
   {
     path: '/discover/playlist',
-    component: () => import('views/Discover')
+    component: () => import('views/Discover'),
+    meta: { keepAlive: true }
   },
   {
     path: '/about',
@@ -52,7 +54,8 @@ const routes = [
   },
   {
     path: '/artists',
-    component: () => import('views/Artists')
+    component: () => import('views/Artists'),
+    meta: { keepAlive: true }
   },
   {
     path: '/album',

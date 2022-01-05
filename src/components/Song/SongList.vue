@@ -19,9 +19,9 @@
   >
     <!-- top插槽 -->
     <template v-slot:top>
-      <div class='d-flex align-end pb-4 px-3 blue--text' id='tableTop'>
-        <span class='text--lighten-1 text-h5'>{{ '"' + title + '"' }}</span>
-        <span class='text--lighten-2 font-italic text-caption mx-4' v-text='subtitle'></span>
+      <div class='d-flex align-end pb-4 px-3' id='tableTop'>
+        <span class='light-blue--text text--accent-4 text-h5'>{{ '"' + title + '"' }}</span>
+        <span class='teal--text text--accent-4 font-italic text-caption mx-4' v-text='subtitle'></span>
         <slot />
         <v-spacer></v-spacer>
         <v-sheet width='200'>
@@ -31,7 +31,7 @@
     </template>
     <!-- header.btns插槽 -->
     <template v-slot:header.btns>
-      <button-play :id='filteredItems.map((res) => res.id)' :disable='filteredItems.length === 0' tip='播放所有' />
+      <button-play :id='filteredItems.map((res) => res.id)' :disable='loading || !filteredItems.length' tip='播放所有' />
     </template>
     <!-- item.count插槽 -->
     <template v-slot:item.count='{ item }'>
@@ -126,7 +126,7 @@ export default {
     })
   },
   watch: {
-    /*
+    /**
      * 到达最后一页时回调事件
      * 由于过滤搜索时会减少分页，因此当过滤后数据减少，可能会到最后一页，所以和oldValue比较大小，以便排除该事件
      * 效果：从数值小的一页跳转到数值更大的最后一页才会执行

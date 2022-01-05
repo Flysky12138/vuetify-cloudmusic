@@ -4,6 +4,7 @@ import recommend from './recommend'
 import subscribe from './subscribe'
 import top from './top'
 import tracks from './tracks'
+import all from './all'
 
 export default {
   catlist,
@@ -11,5 +12,6 @@ export default {
   recommend,
   subscribe,
   top,
-  tracks
+  tracks,
+  all
 }

@@ -44,21 +44,8 @@ export default {
       offset: 0,
       order: 'hot'
     },
-    loading: false
+    loading: true
   }),
-  created() {
-    // 获取歌单分类
-    this.$http.playlist.catlist().then(res => {
-      this.catlist = res
-    })
-    // 获取歌单列表
-    this.$route.query.cat && (this.params.cat = this.$route.query.cat)
-    if (this.$route.query.page) {
-      this.page = Number(this.$route.query.page)
-      this.params.offset = (this.$route.query.page - 1) * this.params.limit
-    }
-    this.getPlatlist()
-  },
   methods: {
     // 点击分页组件换页
     clickChangePage(page) {
@@ -68,36 +55,32 @@ export default {
         offset: 80, // 偏移
         easing: 'easeOutQuad' // 动画
       })
-      // 改变路由，数据请求由 beforeRouteUpdate() 获取
-      this.params.offset = (page - 1) * this.params.limit
-      this.$router.push({
-        path: this.$route.path,
-        query: {
-          cat: this.params.cat,
-          page: this.page
-        }
-      })
+      // 改变路由
+      this.$router.push(`${this.$route.path}?cat=${this.params.cat}&page=${page}`)
     },
     // 获取歌单
     getPlatlist() {
-      this.loading = true
-      this.$http.playlist.top(this.params.cat, this.params.limit, this.params.offset, this.params.order).then(res => {
+      this.$http.playlist.top(this.params).then(res => {
         this.playlists = res.playlists
         this.total = res.total
         this.loading = false
       })
     }
   },
-  beforeRouteUpdate(to, from, next) {
-    to.query.cat && (this.params.cat = to.query.cat)
-    if (to.query.page) {
-      this.page = Number(to.query.page)
-      this.params.offset = (to.query.page - 1) * this.params.limit
-    } else {
-      this.page = 1
+  activated() {
+    this.page = Number(this.$route.query.page)
+    Object.assign(this.params, {
+      cat: this.$route.query.cat,
+      offset: (this.page - 1) * this.params.limit
+    })
+    if (!this.catlist.length) {
+      // 获取歌单分类
+      this.$http.playlist.catlist().then(res => {
+        this.catlist = res
+      })
+      // 获取歌单列表
+      this.getPlatlist()
     }
-    this.getPlatlist()
-    next()
   }
 }
 </script>

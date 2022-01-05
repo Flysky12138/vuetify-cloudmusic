@@ -15,19 +15,19 @@
         <!-- 表格 -->
         <v-data-table
           :headers='headers'
-          :items='value'
+          :items='value[tab]'
           :item-class='playItemStyle'
           hide-default-footer
           class='elevation-0'
           :loading='loading'
           disable-sort
           fixed-header
-          :items-per-page='value.length + 1'
+          :items-per-page='value[tab].length + 1'
           no-data-text='暂无听歌记录'
         >
           <!-- header.btns插槽 -->
           <template v-slot:header.btns>
-            <button-play :id='value.map((res) => res.song.id)' tip='播放所有' />
+            <button-play :id='value[tab].map((res) => res.song.id)' tip='播放所有' />
           </template>
           <!-- item.artists插槽 -->
           <template v-slot:item.song.artists='{ item }'>
