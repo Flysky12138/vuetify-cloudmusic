@@ -62,8 +62,7 @@ export default {
     this.uid = this.$route.query.uid
     this.getUserDetail()
     this.getUserPlaylist()
-    this.getUserListenRanking(0)
-    this.getUserListenRanking(1)
+    this.getUserListenRanking()
   },
   methods: {
     // 获取用户信息
@@ -82,14 +81,13 @@ export default {
       })
     },
     // 获取用户听歌排行
-    async getUserListenRanking(params) {
+    getUserListenRanking(params = 1) {
       this.userListenRanking.loading = true
-      const res = await this.$http.user.record(this.uid, params)
-      if (params === 1 && res) {
+      this.$http.user.record(this.uid, params).then(res => {
         this.userListenRanking.isShow = true
-      }
-      this.userListenRanking.items[params] = [...res]
-      this.userListenRanking.loading = false
+        this.userListenRanking.items = res
+        this.userListenRanking.loading = false
+      })
     }
   },
   beforeRouteUpdate(to, from, next) {
@@ -97,8 +95,7 @@ export default {
     this.count = 0
     this.getUserDetail()
     this.getUserPlaylist()
-    this.getUserListenRanking(0)
-    this.getUserListenRanking(1)
+    this.getUserListenRanking()
     next()
   }
 }

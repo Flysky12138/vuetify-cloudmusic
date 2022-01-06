@@ -35,11 +35,8 @@ export default {
       loading: false
     }
   }),
-  created() {
-    this.getPlaylistDetail(this.$route.query.id)
-  },
   activated() {
-    this.getSongs(this.$route.query.id)
+    this.getPlaylistDetail(this.$route.query.id)
   },
   computed: {
     ...mapState({
@@ -51,13 +48,14 @@ export default {
     getPlaylistDetail(id) {
       this.$http.playlist.detail(id).then(res => {
         Object.assign(this.playlistDetail, res)
+        this.getSongs(res.trackIds)
         this.skeleton = false
       })
     },
     // 获取歌单歌曲列表
-    getSongs(id) {
+    getSongs(ids) {
       this.songlistDetail.loading = true
-      this.$http.playlist.all(id).then(res => {
+      this.$http.song.detail(ids).then(res => {
         this.songlistDetail.songlist = res
         this.songlistDetail.loading = false
       })

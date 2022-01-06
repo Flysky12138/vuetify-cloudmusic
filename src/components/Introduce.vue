@@ -1,16 +1,10 @@
 <template>
-  <div style='white-space: pre-wrap;position: relative'>
+  <div class='content' v-if='value'>
     <v-divider class='my-3'></v-divider>
-    <div :style='spanHeight()' ref='content'>{{ head + (showAllDescription && head ? '\n' : '') + value.trim() }}</div>
-    <v-btn
-      style='position: absolute;bottom: 0;right: 0'
-      v-if='isShowBtn'
-      text
-      x-small
-      color='success'
-      class='ml-4 mt-n1'
-      @click='btnClick'
-    >{{ showAllDescription ? '收起' : '展开' }}</v-btn>
+    <div :style='spanHeight()' ref='text'>{{ head + (showAllDescription && head ? '\n' : '') + value.trim() }}</div>
+    <v-btn v-if='isShowBtn' small color='cyan lighten-3' class='ml-4 mt-n1' @click='btnClick' icon>
+      <v-icon>{{ showAllDescription ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+    </v-btn>
   </div>
 </template>
 
@@ -26,9 +20,11 @@ export default {
     isShowBtn: false
   }),
   mounted() {
-    setTimeout(() => {
-      this.isShowBtn = this.$refs.content.clientHeight < this.$refs.content.scrollHeight
-    }, 300)
+    if (this.value) {
+      setTimeout(() => {
+        this.isShowBtn = this.$refs.text.clientHeight < this.$refs.text.scrollHeight
+      }, 300)
+    }
   },
   methods: {
     spanHeight() {
@@ -53,3 +49,15 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.content {
+  white-space: pre-wrap;
+  position: relative;
+  button {
+    position: absolute;
+    bottom: -24px;
+    left: 45%;
+  }
+}
+</style>

@@ -14,7 +14,7 @@ function detail(id) {
           id: response.playlist.id,
           coverImgUrl: response.playlist.coverImgUrl,
           createTime: response.playlist.createTime,
-          description: response.playlist.description,
+          description: response.playlist.description || '',
           name: response.playlist.name,
           playCount: response.playlist.playCount,
           shareCount: response.playlist.shareCount,
@@ -22,6 +22,7 @@ function detail(id) {
           subscribedCount: response.playlist.subscribedCount,
           tags: response.playlist.tags,
           trackCount: response.playlist.trackCount,
+          trackIds: response.playlist.trackIds.map(res => res.id),
           userId: response.playlist.userId,
           avatarUrl: response.playlist.creator.avatarUrl,
           nickname: response.playlist.creator.nickname
