@@ -39,7 +39,10 @@ router.beforeEach((to, from, next) => {
   let params = true
   // 首次加载时from.fullPath=to.fullPath=/
   if (to.fullPath === '/' && from.fullPath === '/') {
-    params = localStorage.getItem('lastAddress')
+    const lastAddress = localStorage.getItem('lastAddress') || '/'
+    if (lastAddress !== '/') {
+      params = lastAddress
+    }
   } else {
     localStorage.setItem('lastAddress', to.fullPath)
   }
