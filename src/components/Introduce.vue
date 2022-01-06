@@ -19,14 +19,15 @@ export default {
     showAllDescription: false,
     isShowBtn: false
   }),
-  mounted() {
-    if (this.value) {
-      setTimeout(() => {
-        this.isShowBtn = this.$refs.text.clientHeight < this.$refs.text.scrollHeight
-      }, 300)
-    }
+  watch: {
+    value: 'showBtn'
   },
   methods: {
+    showBtn() {
+      this.$nextTick(() => {
+        this.isShowBtn = this.$refs.text.clientHeight < this.$refs.text.scrollHeight
+      })
+    },
     spanHeight() {
       if (!this.showAllDescription) {
         return {
@@ -56,7 +57,7 @@ export default {
   position: relative;
   button {
     position: absolute;
-    bottom: -24px;
+    bottom: -25px;
     left: 45%;
   }
 }

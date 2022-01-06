@@ -19,7 +19,7 @@
         </v-col>
       </v-col>
       <v-col cols='12'>
-        <song-list :title='value.name' :subtitle='`全部歌曲 ${songs.length} 首`' :value='songs' :loading='loading' :itemsPerPage='30' ref='songlist' />
+        <song-list :title='value.name' :value='songs' :loading='loading' :itemsPerPage='30' ref='songlist' />
       </v-col>
     </v-row>
   </v-container>
@@ -51,8 +51,6 @@ export default {
   }),
   created() {
     this.getDetail(this.$route.query.id)
-  },
-  activated() {
     this.getSongs(this.$route.query.id)
   },
   methods: {

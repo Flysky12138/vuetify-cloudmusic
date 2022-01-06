@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <song-list title='网易云音乐云盘' :subtitle='songlist.length' :value='songlist' :loading='loading' :itemsPerPage='30' :own='true' :cloud='true'>
+    <song-list title='网易云音乐云盘' :value='songlist' :loading='loading' :itemsPerPage='30' :own='true' :cloud='true'>
       <v-file-input style='transform: translateY(3px)' prepend-icon='mdi-upload' hide-input multiple accept='audio/*' @change='upload'></v-file-input>
     </song-list>
   </v-container>

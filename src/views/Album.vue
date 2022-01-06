@@ -10,13 +10,13 @@
             <span>歌手：{{ info.artist.name }}</span>
             <span v-if='info.artist.alias.length > 0' class='ml-9'>艺名：{{ info.artist.alias.join("/") }}</span>
             <span class='ml-9'>发行时间：{{ $time.dateSort(info.publishTime) }}</span>
-            <span class='ml-9'>发行公司：{{ info.company }}</span>
+            <span class='ml-9' v-if='info.company'>发行公司：{{ info.company }}</span>
           </div>
           <introduce head='专辑介绍：' :value='info.description' />
         </v-col>
       </v-col>
       <v-col cols='12'>
-        <song-list :title='info.name' :subtitle='songs.length' :value='songs' :loading='loading' :itemsPerPage='30'></song-list>
+        <song-list :title='info.name' :value='songs' :loading='loading' :itemsPerPage='30'></song-list>
       </v-col>
     </v-row>
   </v-container>

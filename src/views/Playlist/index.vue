@@ -9,7 +9,6 @@
       <v-col cols='12'>
         <song-list
           :title='playlistDetail.name'
-          :subtitle='playlistDetail.trackCount'
           :value='songlistDetail.songlist'
           :loading='songlistDetail.loading'
           :own='playlistDetail.userId === uid'

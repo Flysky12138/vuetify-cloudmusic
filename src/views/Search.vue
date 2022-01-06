@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <song-list :title='keywords' :subtitle='songCount' :value='songs' :loading='loading' :itemsPerPage='itemsPerPage' @pageEnd='getMoreSongs' ref='songlist' />
+    <song-list :title='keywords' :value='songs' :loading='loading' :itemsPerPage='itemsPerPage' @pageEnd='getMoreSongs' ref='songlist' />
   </v-container>
 </template>
 
@@ -10,7 +10,6 @@ export default {
   components: { SongList },
   data: () => ({
     keywords: '',
-    songCount: 0,
     songs: [],
     itemsPerPage: 9,
     hasMore: false,
@@ -27,7 +26,6 @@ export default {
       this.loading = true
       this.$http.search.search(this.keywords, offset, this.itemsPerPage * 8).then(res => {
         this.songs = this.songs.concat(res.songs)
-        this.songCount = res.songCount
         this.hasMore = res.hasMore
         this.loading = false
       })

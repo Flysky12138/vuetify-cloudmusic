@@ -21,11 +21,22 @@
     <template v-slot:top>
       <div class='d-flex align-end pb-4 px-3' id='tableTop'>
         <span class='light-blue--text text--accent-4 text-h5'>{{ '"' + title + '"' }}</span>
-        <span class='teal--text text--accent-4 font-italic text-caption mx-4' v-text='subtitle'></span>
+        <span class='teal--text text--accent-4 font-italic text-caption mx-4'>
+          <span v-text='value.length'></span>
+          <span v-show='filteredItems.length !== value.length'>{{ ' • ' + filteredItems.length }}</span>
+        </span>
         <slot />
         <v-spacer></v-spacer>
         <v-sheet width='200'>
-          <v-text-field v-model='search' clearable :append-icon='search ? "" : "mdi-magnify"' single-line hide-details></v-text-field>
+          <v-text-field
+            :placeholder='value.length >= length ? "Enter or Blur..." : ""'
+            @input='searchInput'
+            @change='searchChange'
+            clearable
+            append-icon='mdi-magnify'
+            single-line
+            hide-details
+          ></v-text-field>
         </v-sheet>
       </div>
     </template>
@@ -51,7 +62,7 @@
     </template>
     <!-- item.dt插槽 -->
     <template v-slot:item.dt='{ item }'>
-      <span>{{ songTime(item.dt) }}</span>
+      <span>{{ $time.song(item.dt) }}</span>
     </template>
     <!-- item.btns插槽 -->
     <template v-slot:item.btns='{ item }'>
@@ -74,14 +85,11 @@ import ButtonDelete from 'components/Button/ButtonDelete.vue'
 import ButtonPlay from 'components/Button/ButtonPlay.vue'
 import ButtonAdd from 'components/Button/ButtonAdd.vue'
 import { EventBus } from 'common/eventBus.js'
-import time from 'common/time'
 export default {
   components: { ButtonDelete, ButtonPlay, ButtonAdd },
   props: {
     // 标题
     title: { type: String, required: true },
-    // 描述
-    subtitle: { type: [Number, String], required: true },
     // 每一项包含歌曲详情
     value: { type: Array, required: true },
     // 单页显示列表数
@@ -94,7 +102,8 @@ export default {
     cloud: { type: Boolean, default: false }
   },
   data: () => ({
-    search: '',
+    search: '', // 过滤
+    length: 800, // 过滤方法的不同触发方式分界线
     page: 1, // 当前浏览页
     pageCount: 0, // 分页数
     // 表头
@@ -136,6 +145,31 @@ export default {
     }
   },
   methods: {
+    // 过滤
+    searchChange(event) {
+      if (this.value.length >= this.length) {
+        this.search = event
+      }
+    },
+    searchInput(event) {
+      if (!event || this.value.length < this.length) {
+        this.search = event
+      }
+    },
+    // 获取过滤后的列表数据
+    getFilteredItems() {
+      this.$nextTick(() => {
+        this.filteredItems = this.$refs.dataTable.$children[0].filteredItems
+      })
+    },
+    // 自定义过滤器
+    customFilter(value, search, item) {
+      return (
+        [this.value.indexOf(item) + 1, item.name, ...item.artists.map(_res => _res.name), item.album.name, this.$time.song(item.dt)].findIndex(res =>
+          new RegExp(search, 'i').test(res)
+        ) !== -1
+      )
+    },
     // 删除一项
     delValueItem(id) {
       const index = this.value.findIndex(res => res.id === id)
@@ -152,12 +186,6 @@ export default {
         }
       }
       return _class
-    },
-    // 获取过滤后的列表数据
-    getFilteredItems() {
-      this.$nextTick(() => {
-        this.filteredItems = this.$refs.dataTable.$children[0].filteredItems
-      })
     },
     // 查看歌手
     lookArtists(params) {
@@ -180,18 +208,6 @@ export default {
           }
         })
       }
-    },
-    // 自定义过滤器
-    customFilter(value, search, item) {
-      return (
-        [this.value.indexOf(item) + 1, item.name, ...item.artists.map(_res => _res.name), item.album.name, this.songTime(item.dt)].findIndex(res =>
-          new RegExp(search, 'i').test(res)
-        ) !== -1
-      )
-    },
-    // 歌曲时间戳转正常时间
-    songTime(params) {
-      return time.song(params)
     },
     // 为了定位播放歌曲而换页
     locate() {

@@ -23,7 +23,7 @@ function personalized(id) {
             picUrl: response.album.picUrl,
             publishTime: response.album.publishTime,
             company: response.album.company,
-            description: response.album.description
+            description: response.album.description || ''
           }
         }
         response.songs.forEach(element => {
