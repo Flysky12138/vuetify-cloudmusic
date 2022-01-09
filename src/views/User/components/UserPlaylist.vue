@@ -85,25 +85,24 @@ export default {
       const scrollLeft = this.$refs.songCard.scrollLeft
       const clientWidth = this.$refs.songCard.clientWidth
       const scrollWidth = this.$refs.songCard.scrollWidth
-      this.scrollButton.left = scrollLeft === 0 ? false : true
-      this.scrollButton.right = scrollLeft + clientWidth + 1 >= scrollWidth ? false : true
+      this.scrollButton.left = !!scrollLeft
+      this.scrollButton.right = scrollLeft + clientWidth + 1 < scrollWidth
     },
     // 横向滚动
-    onScrollButton(direction) {
+    async onScrollButton(direction) {
       const speed = 40 // 每动画帧滚动条移动的距离
       let frames = Math.ceil((this.$refs.songCard.clientWidth - 120) / speed) // 帧数=需滚动宽度/一帧滚动宽度
-      const f = () => {
-        if (frames-- === 0) {
-          this.scrollButtonShow()
-        } else {
-          const oldScrollLeft = this.$refs.songCard.scrollLeft
-          this.$refs.songCard.scrollLeft = oldScrollLeft + speed * direction
-          const newScrollLeft = this.$refs.songCard.scrollLeft
-          newScrollLeft === oldScrollLeft && (frames = 0) // 在指定帧数内滚动到一端后，提前结束递归，避免滚动按键隐藏延迟
-          requestAnimationFrame(f)
-        }
+      while (frames-- > 0) {
+        await new Promise(solve => {
+          requestAnimationFrame(() => {
+            const oldScrollLeft = this.$refs.songCard.scrollLeft
+            this.$refs.songCard.scrollLeft = oldScrollLeft + speed * direction
+            this.$refs.songCard.scrollLeft === oldScrollLeft && (frames = 0) // 在指定帧数内滚动到一端后，提前结束递归，避免滚动按键隐藏延迟
+            solve()
+          })
+        })
       }
-      requestAnimationFrame(f)
+      this.scrollButtonShow()
     }
   }
 }

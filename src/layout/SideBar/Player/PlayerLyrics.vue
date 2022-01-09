@@ -64,13 +64,12 @@ export default {
     },
     // 右击歌词
     contextMenu(event) {
-      if (event.target.nodeName.toLowerCase() === 'span') {
-        this.$emit('rClickIndex', event.target.parentNode.id.match(/songlyrics_(\d+)/)[1])
-        this.scroll.onMouse = false
-        setTimeout(() => {
-          this.scrollGoto()
-        }, 100)
-      }
+      const match = event.target.parentNode.id.match(/songlyrics_(\d+)/) || event.target.id.match(/songlyrics_(\d+)/)
+      this.$emit('rClickIndex', match[1])
+      this.scroll.onMouse = false
+      setTimeout(() => {
+        this.scrollGoto()
+      }, 100)
     },
     // 返回歌词样式
     lyricsStyle(params) {
@@ -89,3 +88,12 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+div[id*='songlyrics_'] > span {
+  cursor: default;
+  &::selection {
+    background-color: rgba(0, 255, 255, 0.473);
+  }
+}
+</style>
