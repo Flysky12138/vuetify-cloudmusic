@@ -13,8 +13,8 @@
   >
     {{ text }}
     <template v-slot:action='{ attrs }'>
-      <v-btn v-bind='attrs' color='primary' class='mr-5' @click='isShow = false' v-if='button.text !== "Close"'>Close</v-btn>
-      <v-btn v-bind='attrs' :color='color' @click='onClick()'>{{ button.text }}</v-btn>
+      <v-btn v-bind='attrs' color='primary' class='mr-5' @click='isShow = false' v-if='button.text !== "Close"' elevation='0'>Close</v-btn>
+      <v-btn v-bind='attrs' :color='color' @click='onClick()' elevation='0'>{{ button.text }}</v-btn>
     </template>
   </v-snackbar>
 </template>

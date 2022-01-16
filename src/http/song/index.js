@@ -1,4 +1,5 @@
 import detail from './detail'
+import download from './download'
 import like from './like'
 import likelist from './likelist'
 import lyric from './lyric'
@@ -11,5 +12,6 @@ export default {
   likelist,
   lyric,
   scrobble,
-  url
+  url,
+  download
 }

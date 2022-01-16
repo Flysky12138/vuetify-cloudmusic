@@ -90,9 +90,11 @@ const mutations = {
   },
   // 播放、暂停
   playORpause(state) {
-    setTimeout(() => {
-      state.isplay = !state.isplay
-    }, 100)
+    if (state.cache > 0) {
+      setTimeout(() => {
+        state.isplay = !state.isplay
+      }, 100)
+    }
   },
   // 音量
   setVolume(state, params) {

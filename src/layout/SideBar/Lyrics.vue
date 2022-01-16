@@ -27,5 +27,6 @@ export default {
   width: 0;
   font-size: 1.8rem;
   font-family: 'Zhi Mang Xing', cursive;
+  user-select: none;
 }
 </style>

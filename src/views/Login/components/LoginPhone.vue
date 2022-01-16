@@ -10,8 +10,8 @@
       <!-- 密码输入 -->
       <v-col cols='7' sm='4'>
         <v-text-field
-          label='密码'
-          hint='回车确认登录'
+          label='密码/验证码'
+          :hint='password.value ? "回车确认登录" : "此时回车可获取验证码"'
           ref='Code'
           counter
           :append-icon='password.isShow ? "mdi-eye" : "mdi-eye-off"'
@@ -19,7 +19,7 @@
           :type='password.isShow ? "text" : "password"'
           :disabled='password.disabled'
           v-model='password.value'
-          @keyup.13='login'
+          @keyup.enter='enter'
         ></v-text-field>
       </v-col>
     </v-row>
@@ -31,7 +31,7 @@ export default {
   data: () => ({
     phone: { value: '', inputTrue: false },
     password: { value: '', isShow: false, disabled: true },
-    rules: new RegExp('^(13[0-9]|14[5|7]|15[0-9]|18[0-3|5-9])\\d{8}$')
+    rules: new RegExp('^1((3[3-9])|(4[579])|(5[0-35-9])|(7[013678])|(9\\d))\\d{8}$')
   }),
   watch: {
     'phone.value'(newValue) {
@@ -48,6 +48,8 @@ export default {
             })
           }
         })
+      } else if (newValue && newValue.length === 11) {
+        this.$message({ text: '这是手机号？' })
       } else {
         this.phone.inputTrue = false
       }
@@ -65,16 +67,43 @@ export default {
     }
   },
   methods: {
-    login() {
-      if (this.password.value !== '') {
-        this.$http.login.cellphone(this.phone.value, this.password.value).then(res => {
-          switch (res) {
+    enter() {
+      if (this.password.value) {
+        ;/\d{4}/.test(this.password.value) ? this.captchaLogin() : this.phoneLogin()
+      } else {
+        this.$http.login.captcha(this.phone.value).then(res => {
+          if (res.data) {
+            this.password.disabled = false
+            this.$message({ text: '已发送验证码，请注意查收', color: 'success' })
+          } else {
+            this.$message({ text: res.message })
+          }
+        })
+      }
+    },
+    // 验证码登录
+    captchaLogin() {
+      this.$http.login.cellphone
+        .captcha(this.phone.value, this.password.value)
+        .then(res => {
+          this.$emit('login', res.cookie)
+        })
+        .catch(err => {
+          this.$message({ text: err })
+        })
+    },
+    // 手机号登陆
+    phoneLogin() {
+      this.$http.login.cellphone
+        .password(this.phone.value, this.password.value)
+        .then(res => {
+          switch (res.code) {
             case 0:
               this.$message({ text: '密码错误' })
               this.password.value = ''
               break
             case 1: // 登录成功
-              this.$emit('login')
+              this.$emit('login', res.cookie)
               break
             case 2:
               this.$message({ text: '当前登录失败，请稍后再试' })
@@ -84,7 +113,9 @@ export default {
               break
           }
         })
-      }
+        .catch(err => {
+          this.$message({ text: err + '，或换二维码登录' })
+        })
     }
   }
 }

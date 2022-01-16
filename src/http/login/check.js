@@ -1,13 +1,12 @@
 import axios from '../api'
 
 // 检测手机号码是否已注册
-function check(phone, countrycode = '86') {
+function check(phone) {
   return new Promise((resolve, reject) => {
     axios
       .get('/cellphone/existence/check', {
         params: {
-          phone,
-          countrycode
+          phone
         }
       })
       .then(response => {

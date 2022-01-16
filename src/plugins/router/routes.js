@@ -66,6 +66,15 @@ const routes = [
     path: '/cloud',
     component: () => import('views/Cloud'),
     meta: { requiresAuth: true, keepAlive: true }
+  },
+  {
+    path: '/temporary',
+    component: () => import('views/Temporary'),
+    meta: { keepAlive: true }
+  },
+  {
+    path: '/css',
+    component: () => import('views/Css')
   }
 ]
 

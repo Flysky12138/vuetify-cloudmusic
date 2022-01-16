@@ -16,7 +16,7 @@
         </v-col>
       </v-col>
       <v-col cols='12'>
-        <song-list :title='info.name' :value='songs' :loading='loading' :itemsPerPage='30'></song-list>
+        <song-list :title='info.name' :value='songs' :loading='loading'></song-list>
       </v-col>
     </v-row>
   </v-container>

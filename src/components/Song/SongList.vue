@@ -67,8 +67,9 @@
     <!-- item.btns插槽 -->
     <template v-slot:item.btns='{ item }'>
       <div class='d-flex justify-end'>
-        <button-delete v-if='own' :id='item.id' :name='item.name' @success='delValueItem' :cloud='cloud' />
-        <button-add v-else :id='item.id' />
+        <slot name='item.btn.one' v-bind='item'>
+          <button-add :id='item.id' :notHave='item.privilege.st < 0 && !item.privilege.cs' />
+        </slot>
         <button-play :id='[item.id]' :name='item.name' :disable='item.id === id' rClick tip='右键添加到下一首播放' />
       </div>
     </template>
@@ -81,25 +82,20 @@
 
 <script>
 import { mapState } from 'vuex'
-import ButtonDelete from 'components/Button/ButtonDelete.vue'
+import { EventBus } from 'common/eventBus.js'
 import ButtonPlay from 'components/Button/ButtonPlay.vue'
 import ButtonAdd from 'components/Button/ButtonAdd.vue'
-import { EventBus } from 'common/eventBus.js'
 export default {
-  components: { ButtonDelete, ButtonPlay, ButtonAdd },
+  components: { ButtonPlay, ButtonAdd },
   props: {
     // 标题
     title: { type: String, required: true },
     // 每一项包含歌曲详情
     value: { type: Array, required: true },
     // 单页显示列表数
-    itemsPerPage: { type: Number, default: 9 },
+    itemsPerPage: { type: Number, default: 30 },
     // 是否正在加载
-    loading: { type: Boolean, default: false },
-    // 是否是自己的歌单
-    own: { type: Boolean, default: false },
-    // 云盘
-    cloud: { type: Boolean, default: false }
+    loading: { type: Boolean, default: false }
   },
   data: () => ({
     search: '', // 过滤
@@ -166,14 +162,9 @@ export default {
     customFilter(value, search, item) {
       return (
         [this.value.indexOf(item) + 1, item.name, ...item.artists.map(_res => _res.name), item.album.name, this.$time.song(item.dt)].findIndex(res =>
-          new RegExp(search, 'i').test(res)
+          res.toString().includes(search)
         ) !== -1
       )
-    },
-    // 删除一项
-    delValueItem(id) {
-      const index = this.value.findIndex(res => res.id === id)
-      this.value.splice(index, 1)
     },
     // 设置正在播放歌曲项的类
     playItemStyle(params) {
@@ -230,7 +221,7 @@ export default {
   created() {
     this.locate().start()
   },
-  destroyed() {
+  beforeDestroy() {
     this.locate().stop()
   },
   activated() {

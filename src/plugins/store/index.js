@@ -25,15 +25,12 @@ const store = {
   mutations: {
     login(state, params) {
       state.islogin = true
-      state.user = {
-        uid: params.uid,
-        level: params.level,
-        avatarUrl: params.avatarUrl
-      }
+      state.user = Object.assign({}, state.user, params)
     },
     logout(state) {
       state.islogin = false
       state.user = {}
+      localStorage.removeItem('cookie')
     }
   }
 }

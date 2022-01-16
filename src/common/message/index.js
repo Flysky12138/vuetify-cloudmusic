@@ -3,6 +3,11 @@ import Vue from 'vue'
 import Message from './Message.vue'
 
 const createMessage = options => {
+  if (!document.querySelector('#message')) {
+    let div = document.createElement('div')
+    div.id = 'message'
+    document.querySelector('#app').appendChild(div)
+  }
   new Vue({
     vuetify,
     render: h =>

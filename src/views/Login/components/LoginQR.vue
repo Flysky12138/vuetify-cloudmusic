@@ -39,7 +39,7 @@ export default {
     // 检测二维码扫码状态
     checkQRCodeStatus() {
       this.$http.login.qr.check(this.unikey).then(res => {
-        switch (res) {
+        switch (res.code) {
           case 0: // 二维码过期
             this.$emit('loading', false)
             this.$message({
@@ -57,7 +57,7 @@ export default {
             break
           case 3: // 扫码成功
             this.$emit('loading', false)
-            this.$emit('login')
+            this.$emit('login', res.cookie)
             clearInterval(this.interval)
             break
         }

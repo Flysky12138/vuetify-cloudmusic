@@ -1,4 +1,5 @@
 import time from 'common/time'
+import 'common/userCss'
 import Vue from 'vue'
 import App from './App.vue'
 import './common/main.scss'

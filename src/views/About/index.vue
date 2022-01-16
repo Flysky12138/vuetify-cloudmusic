@@ -9,13 +9,12 @@
 </template>
 
 <script>
-import AboutApi from './components/AboutApi.vue'
 import AboutGithub from './components/AboutGithub.vue'
-import Tools from './components/Tools'
+import AboutApi from './components/AboutApi.vue'
 export default {
-  components: { AboutApi, Tools, AboutGithub },
+  components: { AboutGithub, AboutApi },
   data: () => ({
-    components: ['AboutGithub', 'AboutApi', 'Tools']
+    components: ['AboutGithub', 'AboutApi']
   })
 }
 </script>

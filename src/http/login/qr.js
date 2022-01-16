@@ -37,23 +37,25 @@ function check(key) {
         }
       })
       .then(response => {
-        let code = 1
+        let obj = {
+          code: 2,
+          cookie: response.cookie
+        }
         switch (response.code) {
           case 800: // 二维码过期
-            code = 0
+            obj.code = 0
             break
           case 801: // 等待扫码
-            code = 1
+            obj.code = 1
             break
           case 802: // 待确认
-            code = 2
+            obj.code = 2
             break
           case 803: // 授权成功
-            localStorage.setItem('cookie', response.cookie)
-            code = 3
+            obj.code = 3
             break
         }
-        resolve(code)
+        resolve(obj)
       })
       .catch(error => reject(error))
   })

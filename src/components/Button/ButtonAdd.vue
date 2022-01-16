@@ -1,13 +1,13 @@
 <template>
-  <v-dialog v-model='dialog' width='400'>
+  <v-dialog v-model='dialog' width='400' :disabled='notHave'>
     <template v-slot:activator='{ on, attrs }'>
-      <v-btn v-bind='attrs' v-on='on' icon :disabled='!islogin' @click='getCreatePlaylist' style='color: inherit'>
+      <v-btn v-bind='attrs' v-on='on' icon :disabled='!islogin' @click='onClick' style='color: inherit'>
         <v-icon>mdi-plus-circle-outline</v-icon>
       </v-btn>
     </template>
     <v-card max-height='400' class='overflow-y-auto scrollbar-hidden' rounded='lg'>
-      <template v-if='showDialog'>
-        <v-overlay :value='dialog'>
+      <template v-if='loading'>
+        <v-overlay>
           <v-progress-circular indeterminate size='64' width='10'></v-progress-circular>
         </v-overlay>
       </template>
@@ -31,13 +31,13 @@ import { mapState } from 'vuex'
 export default {
   props: {
     id: { type: Number, required: true },
-    nolove: { type: Boolean, default: false }
+    nolove: { type: Boolean, default: false }, // 不显示喜欢歌单
+    notHave: { type: Boolean, default: false } // 歌曲没版权
   },
   data: () => ({
     dialog: false,
-    showDialog: false,
-    // 创建的歌单 {coverImgUrl:String, id:Number, name:String, playCount:Number}
-    playlist: []
+    loading: false, // 首次加载
+    playlist: [] // 创建的歌单 {coverImgUrl:String, id:Number, name:String, playCount:Number}
   }),
   computed: {
     ...mapState({
@@ -46,23 +46,47 @@ export default {
     })
   },
   methods: {
-    // 向歌单添加歌曲
-    addSong(params) {
-      this.$http.playlist.tracks(params, this.id, true).then(res => {
-        this.dialog = false
+    onClick() {
+      this.notHave ? this.saveID() : this.getCreatePlaylist()
+    },
+    // 保存ID到本地
+    saveID() {
+      let ids = localStorage.getItem('ids') ? localStorage.getItem('ids').split(',') : []
+      let [text, color] = ['歌曲已存在', 'error']
+      if (!ids.includes(this.id.toString())) {
+        ids.unshift(this.id)
+        localStorage.setItem('ids', ids.join(','))
+        text = '歌曲已保存'
+        color = 'success'
+      }
+      this.$message({
+        text,
+        color,
+        button: {
+          text: '查看',
+          f: () => {
+            this.$router.push('/temporary')
+          }
+        }
       })
     },
     // 获取用户创建的歌单
     getCreatePlaylist() {
       if (!JSON.parse(sessionStorage.getItem('userPlaylistsCached'))) {
-        this.showDialog = true
+        this.loading = true
       }
       this.$http.user.playlist(this.uid).then(res => {
         this.playlist = this.nolove ? res.create.filter(res => !/喜欢的音乐$/.test(res.name)) : res.create
         setTimeout(() => {
-          this.showDialog = false
+          this.loading = false
           sessionStorage.setItem('userPlaylistsCached', true)
         }, 600)
+      })
+    },
+    // 向歌单添加歌曲
+    addSong(params) {
+      this.$http.playlist.tracks(params, this.id, true).then(res => {
+        this.dialog = false
       })
     }
   }

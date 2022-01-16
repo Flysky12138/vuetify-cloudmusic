@@ -1,30 +1,30 @@
 <template>
   <v-container>
-    <v-row justify='center'>
+    <v-row justify='center' style='min-width: 600px'>
       <!-- 封面、歌曲名、歌手 -->
-      <v-col cols='8' class='pb-0'>
+      <v-col cols='8' class='py-0'>
         <v-img :src='music.picUrl' width='80%' aspect-ratio='1' class='rounded-lg mx-auto'></v-img>
         <div class='text-center font-weight-bold text-h5 text-truncate pt-3' v-text='music.name'></div>
         <div class='text-center font-weight-bold text-subtitle-2 text-truncate' v-text='music.artists.map(res=>res.name).join(" / ")'></div>
       </v-col>
       <!-- 按键 -->
       <v-col cols='8'>
-        <div class='d-flex justify-space-between align-center pt-3 mx-auto' style='max-width: 80%; min-width: 300px'>
+        <v-row justify='space-around' align='center' no-gutters style='width: 88%' class='mx-auto'>
           <!-- 左边 -->
-          <div>
+          <v-col cols='auto'>
             <button-add :id='music.id' nolove />
             <button-love :id='music.id' />
-          </div>
+          </v-col>
           <!-- 中间 -->
-          <div>
+          <v-col cols='auto'>
             <player-music-play />
-          </div>
+          </v-col>
           <!-- 右边 -->
-          <div>
+          <v-col cols='auto'>
             <player-music-sound />
             <player-music-mode />
-          </div>
-        </div>
+          </v-col>
+        </v-row>
       </v-col>
       <!-- 进度条 -->
       <v-col cols='8'>
@@ -36,16 +36,13 @@
           color='purple darken-3'
           track-color='purple lighten-3'
           @mousedown='canSetDt = false'
-          @mouseup='
-            canSetDt = true;
-            $emit("changeDt", dt);
-          '
+          @mouseup='$emit("changeDt", dt);canSetDt = true'
         >
           <template v-slot:prepend>
-            <span class='mt-1'>{{ $time.song(dt) }}</span>
+            <span class='mt-1' v-text='$time.song(dt)'></span>
           </template>
           <template v-slot:append>
-            <span class='mt-1'>{{ $time.song(music.dt) }}</span>
+            <span class='mt-1' v-text='$time.song(music.dt)'></span>
           </template>
         </v-slider>
       </v-col>

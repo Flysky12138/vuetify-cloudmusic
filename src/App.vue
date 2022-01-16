@@ -1,6 +1,8 @@
 <template>
-  <v-app>
+  <v-app @contextmenu.native.prevent>
     <template v-if='isPc'>
+      <!-- 左侧抽屉 -->
+      <drawer />
       <!-- 顶部导航栏 -->
       <v-app-bar app :color='$vuetify.theme.isDark ? "" : "white"' elevate-on-scroll>
         <v-container class='width-size'>
@@ -25,10 +27,6 @@
       </v-main>
       <!-- 侧边固定栏 -->
       <side-bar />
-      <!-- 右下角消息栏 -->
-      <div>
-        <div id='message'></div>
-      </div>
     </template>
     <template v-else>
       <v-container class='fill-height'>
@@ -44,10 +42,11 @@
 <script>
 import { mapMutations } from 'vuex'
 import AppBar from './layout/AppBar'
+import Drawer from './layout/Drawer'
 import SideBar from './layout/SideBar'
 import keymaster from 'common/keymaster'
 export default {
-  components: { AppBar, SideBar },
+  components: { AppBar, Drawer, SideBar },
   data: () => ({
     isPc: !/Android|WindowsPhone|webOS|iPhone|iPod|BlackBerry|iPad/.test(navigator.userAgent)
   }),

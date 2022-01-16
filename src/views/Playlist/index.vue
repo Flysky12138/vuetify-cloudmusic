@@ -7,13 +7,11 @@
         <playlist-detail :value='playlistDetail' />
       </v-col>
       <v-col cols='12'>
-        <song-list
-          :title='playlistDetail.name'
-          :value='songlistDetail.songlist'
-          :loading='songlistDetail.loading'
-          :own='playlistDetail.userId === uid'
-          :itemsPerPage='30'
-        />
+        <song-list :title='playlistDetail.name' :value='songlistDetail.songlist' :loading='songlistDetail.loading'>
+          <template #item.btn.one='{ id, name }' v-if='playlistDetail.userId === uid'>
+            <button-delete :name='name' @click='delSong(id)' />
+          </template>
+        </song-list>
       </v-col>
     </v-row>
   </v-container>
@@ -24,8 +22,9 @@ import { mapState } from 'vuex'
 import SkeletonLoader from './components/SkeletonLoader.vue'
 import PlaylistDetail from './components/PlaylistDetail.vue'
 import SongList from 'components/Song/SongList'
+import ButtonDelete from 'components/Button/ButtonDelete.vue'
 export default {
-  components: { SkeletonLoader, PlaylistDetail, SongList },
+  components: { SkeletonLoader, PlaylistDetail, SongList, ButtonDelete },
   data: () => ({
     skeleton: true,
     playlistDetail: {},
@@ -57,6 +56,17 @@ export default {
       this.$http.song.detail(ids).then(res => {
         this.songlistDetail.songlist = res
         this.songlistDetail.loading = false
+      })
+    },
+    // 从歌单删除歌曲
+    delSong(id) {
+      this.$http.playlist.tracks(this.$route.query.id, id, false).then(res => {
+        if (res.body.code == 200) {
+          this.songlistDetail.songlist.splice(
+            this.songlistDetail.songlist.findIndex(res => res.id === id),
+            1
+          )
+        }
       })
     }
   }

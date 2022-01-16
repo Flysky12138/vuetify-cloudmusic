@@ -1,6 +1,6 @@
 <template>
   <div v-if='islogin' class='d-flex'>
-    <image-avatar :uid='user.uid' :src='user.avatarUrl' @contextmenu.native.prevent='logout'></image-avatar>
+    <image-avatar :uid='user.uid' :src='user.avatarUrl'></image-avatar>
     <!-- 等级显示 -->
     <span class='mb-n1 align-self-end green--text text-caption font-weight-black font-italic'>{{ "Lv." + user.level }}</span>
   </div>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState } from 'vuex'
 import ImageAvatar from 'components/Image/ImageAvatar.vue'
 export default {
   components: { ImageAvatar },
@@ -22,18 +22,6 @@ export default {
       islogin: state => state.islogin,
       user: state => state.user
     })
-  },
-  methods: {
-    ...mapMutations({
-      setLogout: 'logout'
-    }),
-    logout() {
-      this.$http.logout().then(() => {
-        this.setLogout()
-        this.$message({ text: '退出登录成功！', color: 'primary' })
-        this.$route.path !== '/' && this.$router.replace('/')
-      })
-    }
   }
 }
 </script>

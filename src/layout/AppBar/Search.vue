@@ -37,7 +37,7 @@ export default {
   }),
   watch: {
     value(newValue) {
-      if (newValue) {
+      if (newValue && newValue.trim()) {
         this.suggest(newValue)
       } else {
         this.items = []
@@ -47,7 +47,7 @@ export default {
   methods: {
     // 跳转到搜索界面
     search(keywords) {
-      if (keywords !== '') {
+      if (keywords.trim()) {
         this.$router
           .push({
             path: '/search',

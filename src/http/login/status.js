@@ -21,14 +21,14 @@ function status() {
                 avatarUrl: response.profile.avatarUrl
               })
             })
-            .catch(error => error)
+            .catch(error => reject(error))
         } else {
           resolve({
             islogin: false
           })
         }
       })
-      .catch(error => error)
+      .catch(error => reject(error))
   })
 }
 
