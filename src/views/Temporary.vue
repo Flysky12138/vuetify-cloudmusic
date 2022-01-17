@@ -19,7 +19,7 @@ export default {
     loading: false
   }),
   activated() {
-    this.ids = localStorage.getItem('ids') ? localStorage.getItem('ids').split(',') : []
+    this.ids = JSON.parse(localStorage.getItem('ids')) || []
     this.getSong()
   },
   methods: {
@@ -36,7 +36,7 @@ export default {
         this.value.findIndex(res => res.id === id),
         1
       )
-      localStorage.setItem('ids', this.value.map(res => res.id).join(','))
+      localStorage.setItem('ids', JSON.stringify(this.value.map(res => res.id)))
     }
   }
 }

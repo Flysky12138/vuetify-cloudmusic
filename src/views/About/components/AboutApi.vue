@@ -73,9 +73,9 @@ export default {
   },
   methods: {
     save() {
-      localStorage.setItem('unApi', JSON.stringify(this.unApi))
+      localStorage.setItem('unApi', this.unApi)
       if (this.get('api') !== this.api) {
-        localStorage.setItem('api', JSON.stringify(this.api))
+        localStorage.setItem('api', this.api)
         this.$message({
           text: '保存成功！刷新页面后生效',
           color: 'success',
@@ -89,7 +89,7 @@ export default {
       }
     },
     get(item) {
-      return JSON.parse(localStorage.getItem(item))
+      return localStorage.getItem(item)
     }
   }
 }

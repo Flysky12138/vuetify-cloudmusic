@@ -11,7 +11,7 @@ key.filter = event => {
   return true
 }
 
-function run() {
+export default (() => {
   key('left', () => {
     store.commit('previous')
   })
@@ -21,8 +21,4 @@ function run() {
   key('space', () => {
     store.commit('playORpause')
   })
-}
-
-export default {
-  run
-}
+})()

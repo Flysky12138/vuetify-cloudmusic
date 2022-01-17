@@ -160,10 +160,8 @@ export default {
     },
     // 自定义过滤器
     customFilter(value, search, item) {
-      return (
-        [this.value.indexOf(item) + 1, item.name, ...item.artists.map(_res => _res.name), item.album.name, this.$time.song(item.dt)].findIndex(res =>
-          res.toString().includes(search)
-        ) !== -1
+      return [String(this.value.indexOf(item) + 1), item.name, ...item.artists.map(_res => _res.name), item.album.name, this.$time.song(item.dt)].some(res =>
+        res.includes(search)
       )
     },
     // 设置正在播放歌曲项的类

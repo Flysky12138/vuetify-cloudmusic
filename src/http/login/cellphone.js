@@ -40,7 +40,9 @@ function password(phone, password) {
 async function captcha(phone, captcha) {
   try {
     const res = await axios.get('/captcha/verify', { params: { phone, captcha } })
-    return res.data ? await axios.get('/login/cellphone', { params: { phone, captcha } }) : Promise.reject(res.message)
+    return res.data
+      ? (await axios.get('/login/cellphone', { params: { phone, captcha } })) || Promise.reject('操作频繁，请稍候再试，或换二维码登录')
+      : Promise.reject(res.message)
   } catch (error) {
     return Promise.reject(error)
   }

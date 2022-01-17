@@ -44,7 +44,6 @@ import { mapMutations } from 'vuex'
 import AppBar from './layout/AppBar'
 import Drawer from './layout/Drawer'
 import SideBar from './layout/SideBar'
-import keymaster from 'common/keymaster'
 export default {
   components: { AppBar, Drawer, SideBar },
   data: () => ({
@@ -55,8 +54,6 @@ export default {
     this.$http.login.status().then(res => {
       res.islogin ? this.login(res) & this.$http.siginin() : this.logout()
     })
-    // 注册快捷键
-    keymaster.run()
   },
   methods: {
     ...mapMutations(['login', 'logout'])

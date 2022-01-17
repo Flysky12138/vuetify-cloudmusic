@@ -152,7 +152,7 @@ export default {
         if ((this.music.privilege.st >= 0 && [0, 8].includes(this.music.privilege.fee)) || this.music.privilege.cs) {
           this.url = await this.$http.song.url(this.music.id).then(_res => _res.url)
         } else {
-          const unApi = JSON.parse(localStorage.getItem('unApi')) || '/'
+          const unApi = localStorage.getItem('unApi') || '/'
           if ((await fetch(unApi + '/test').then(_res => _res.statusText)) === 'OK') {
             this.url = unApi + '/?id=' + this.music.id
           }
