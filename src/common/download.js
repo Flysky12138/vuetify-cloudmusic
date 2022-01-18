@@ -1,15 +1,11 @@
-async function download(url, filename) {
-  const blob = await fetch(url).then(res => res.blob())
-  const _url = window.URL.createObjectURL(blob)
+async function download(url, filename, isText = false) {
+  let content = isText ? new Blob([JSON.stringify(url, null, '  ')]) : await fetch(url).then(res => res.blob())
+  content = window.URL.createObjectURL(content)
   const a = document.createElement('a')
-  a.href = _url
+  a.href = content
   a.download = filename
-  a.target = '_blank'
-  a.style.display = 'none'
-  document.body.appendChild(a)
   a.click()
-  a.remove()
-  window.URL.revokeObjectURL(_url)
+  window.URL.revokeObjectURL(content)
 }
 
 export default download

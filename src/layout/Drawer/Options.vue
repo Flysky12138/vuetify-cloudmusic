@@ -14,11 +14,14 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
+import download from 'common/download'
 export default {
   data: () => ({
     name: '设置',
     items: [
       { name: '夜间模式', icon: 'mdi-brightness-6' },
+      { name: '导出设置', icon: 'mdi-database-export-outline' },
+      { name: '导入设置', icon: 'mdi-database-import-outline' },
       { name: '退出登录', icon: 'mdi-logout' }
     ]
   }),
@@ -41,6 +44,23 @@ export default {
       switch (index) {
         case 0:
           this.setThemeDark(!JSON.parse(localStorage.getItem('isDark')))
+          break
+        case 1:
+          download(localStorage, 'vuetify-cloudmusic-settings.json', true)
+          break
+        case 2:
+          const input = document.createElement('input')
+          input.type = 'file'
+          input.accept = 'application/json'
+          input.onchange = function () {
+            const reader = new FileReader()
+            reader.readAsText(this.files[0], 'UTF-8')
+            reader.onload = function (event) {
+              const obj = JSON.parse(event.target.result)
+              Object.keys(obj).forEach(key => localStorage.setItem(key, obj[key]))
+            }
+          }
+          input.click()
           break
         default:
           this.userLogout()
