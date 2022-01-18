@@ -11,7 +11,7 @@ function suggest(keywords) {
         }
       })
       .then(response => {
-        resolve(response.result.allMatch.filter(res => res.type === 1).map(res => res.keyword))
+        resolve(response.result.allMatch ? response.result.allMatch.filter(res => res.type === 1).map(res => res.keyword) : [])
       })
       .catch(error => reject(error))
   })

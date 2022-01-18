@@ -5,7 +5,6 @@ const state = {
   isShow: false, // 显示侧边音乐按键
   music: {}, // 正在播放音乐的信息
   dt: 0, // 播放进度
-  cache: 0, // 缓存进度 0-100（暂时只获取，没使用）
   route: '', // 路由地址
   lists: [], // 默认播放列表
   randomlists: [], // 随机播放列表
@@ -29,10 +28,6 @@ const state = {
 }
 
 const mutations = {
-  // 保存音乐加载缓存进度
-  saveCache(state, params) {
-    state.cache = params
-  },
   // 保存添加歌曲列表时的完整路由地址
   saveRoute(state, params) {
     state.route = params
@@ -90,11 +85,9 @@ const mutations = {
   },
   // 播放、暂停
   playORpause(state) {
-    if (state.cache > 0) {
-      setTimeout(() => {
-        state.isplay = !state.isplay
-      }, 100)
-    }
+    setTimeout(() => {
+      state.isplay = !state.isplay
+    }, 100)
   },
   // 音量
   setVolume(state, params) {

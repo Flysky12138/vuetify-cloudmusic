@@ -107,11 +107,10 @@ export default {
     })
   },
   methods: {
-    ...mapMutations(['saveCache', 'setPlayDt', 'previous', 'next', 'removeMusic']),
+    ...mapMutations(['setPlayDt', 'previous', 'next', 'removeMusic']),
     // 播放音乐时每250毫秒回调一次
     timeUpdate(res) {
       this.playDt(res)
-      this.cacheProgress()
       this.scrobble(res)
     },
     // 获取播放进度
@@ -121,11 +120,6 @@ export default {
     // 调整播放进度
     setDt(res) {
       this.$refs.audio.currentTime = res / 1000
-    },
-    // 获取缓存进度
-    cacheProgress() {
-      const timeRanges = this.$refs.audio.buffered
-      timeRanges.length !== 0 && this.saveCache(parseInt((timeRanges.end(timeRanges.length - 1) / (this.music.dt / 1000)) * 100))
     },
     // 听歌打卡，播放时间大于歌曲时间的3/4才执行。
     scrobble(res) {
