@@ -51,11 +51,11 @@ export default {
     },
     // 保存ID到本地
     saveID() {
-      let ids = localStorage.getItem('ids') ? localStorage.getItem('ids').split(',') : []
+      let ids = JSON.parse(localStorage.getItem('ids')) || []
       let [text, color] = ['歌曲已存在', 'error']
-      if (!ids.includes(this.id.toString())) {
+      if (!ids.includes(this.id)) {
         ids.unshift(this.id)
-        localStorage.setItem('ids', ids.join(','))
+        localStorage.setItem('ids', JSON.stringify(ids))
         text = '歌曲已保存'
         color = 'success'
       }
