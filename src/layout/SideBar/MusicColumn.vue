@@ -72,6 +72,7 @@ export default {
     this.$refs.audio.volume = this.volume / 10
   },
   watch: {
+    // 获取播放信息
     music: 'getMusicDetail',
     // 播放、暂定
     isplay(newValue) {
@@ -108,7 +109,7 @@ export default {
   },
   methods: {
     ...mapMutations(['setPlayDt', 'previous', 'next', 'removeMusic']),
-    // 播放音乐时每250毫秒回调一次
+    // 播放音乐时约每250ms回调一次
     timeUpdate(res) {
       this.playDt(res)
       this.scrobble(res)
@@ -133,10 +134,15 @@ export default {
     },
     // 获取播放歌曲歌词等信息
     async getMusicDetail() {
-      this.dtOffset = 0
-      document.title = this.music.name + ' - ' + this.music.artists.map(res => res.name).join('/') // 修改标题
+      // 暂停
+      this.$refs.audio.pause()
+      // 还原播放信息
+      this.dtOffset = this.playTime = 0
+      this.setDt(0)
+      // 修改标题
+      document.title = this.music.name + ' - ' + this.music.artists.map(res => res.name).join('/')
       // 获取歌词
-      Object.assign(this.lyrics, { data: [{ lyric: '歌词加载中' }], index: 0 }) // 歌词加载中
+      Object.assign(this.lyrics, { data: [{ lyric: '歌词加载中' }], index: 0 })
       clearTimeout(this.lyrics.settimeout)
       this.lyrics.settimeout = setTimeout(async () => {
         this.lyrics.data = await this.$http.song.lyric(this.music.id)
@@ -154,8 +160,8 @@ export default {
       } catch (error) {
         this.httpError()
       }
-      this.playTime = 0
-      this.setDt(0) // 从头开始播放
+      // 播放
+      this.$refs.audio.load()
     },
     // 加载歌曲错误
     httpError() {
