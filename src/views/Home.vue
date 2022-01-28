@@ -1,41 +1,83 @@
 <template>
   <v-container>
-    <v-row justify='space-around' v-if='skeleton'>
-      <v-col cols='12' class='ml-4 mb-n8'>
-        <v-skeleton-loader type='card-heading' width='200'></v-skeleton-loader>
+    <v-row>
+      <v-col cols='3'>
+        <template v-if='loading.left'>
+          <template v-for='i in 2'>
+            <v-skeleton-loader type='heading' class='px-2 mt-4'></v-skeleton-loader>
+            <v-skeleton-loader type='list-item-avatar-two-line' v-for='j in 2*i+2' height='57' class='mx-n2'></v-skeleton-loader>
+          </template>
+        </template>
+        <template v-else>
+          <v-list class='pa-0'>
+            <v-list-item-group :value='0' color='primary'>
+              <template v-for='(items,index) in data'>
+                <v-subheader class='font-weight-bold'>{{ index === 'feature' ? '云音乐特色榜' : '全球媒体榜' }}</v-subheader>
+                <v-list-item v-for='item in items' :key='item.id' @click='getSonglists(item.id)'>
+                  <v-list-item-icon class='my-auto mr-3'>
+                    <v-img :src='item.coverImgUrl' width='40' aspect-ratio='1'></v-img>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title v-text='item.name' class='text-subtitle-2'></v-list-item-title>
+                    <v-list-item-title v-text='item.updateFrequency' class='text-caption text--disabled'></v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </template>
+            </v-list-item-group>
+          </v-list>
+        </template>
       </v-col>
-      <v-col cols='auto' v-for='item in 30' :key='item' class='px-6'>
-        <v-skeleton-loader class='my-6' width='120' height='120' type='image'></v-skeleton-loader>
+      <v-divider vertical></v-divider>
+      <v-col>
+        <song-list :title='playlist.detail.name || ""' :value='playlist.songs' :disColumn='[3]' :itemsPerPage='playlist.songs.length' :loading='loading.right'>
+          <template #top>
+            <p class='text-subtitle-2 my-0' style='text-indent:2em' v-text='playlist.detail.description'></p>
+          </template>
+        </song-list>
       </v-col>
     </v-row>
-    <template v-else>
-      <div class='d-flex align-center mx-6 mt-3'>
-        <span class='text-h6 font-weight-bold'>推荐歌单</span>
-        <v-spacer></v-spacer>
-        <v-btn class='text--secondary font-weight-bold' text rounded to='/discover/playlist?cat=全部&page=1'>更多 ></v-btn>
-      </div>
-      <v-row justify='space-around' class='py-4'>
-        <v-col cols='auto' v-for='item in value' :key='item.id'>
-          <song-card :value='item' />
-        </v-col>
-      </v-row>
-    </template>
   </v-container>
 </template>
 
 <script>
-import SongCard from 'components/Song/SongCard.vue'
+import SongList from 'components/Song/SongList.vue'
 export default {
-  components: { SongCard },
+  components: { SongList },
   data: () => ({
-    skeleton: true,
-    value: []
+    data: {},
+    playlist: {
+      detail: {},
+      songs: []
+    },
+    loading: {
+      left: true,
+      right: true
+    }
   }),
   created() {
-    this.$http.personalized(30).then(res => {
-      this.value = res
-      this.skeleton = false
+    this.$http.toplist().then(res => {
+      this.data = res
+      this.getSonglists(res.feature[0].id)
+      this.loading.left = false
     })
+  },
+  methods: {
+    getSonglists(id) {
+      this.$vuetify.goTo(0, {
+        duration: 400,
+        offset: 0,
+        easing: 'easeOutQuad'
+      })
+      this.loading.right = true
+      this.$http.playlist.detail(id).then(res => {
+        this.playlist.detail = res
+        this.$http.song.detail(res.trackIds).then(_res => {
+          this.playlist.songs = _res
+          this.loading.right = false
+        })
+      })
+    }
   }
 }
 </script>
+

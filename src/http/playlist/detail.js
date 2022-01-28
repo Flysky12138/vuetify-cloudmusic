@@ -14,6 +14,7 @@ function detail(id) {
           id: response.playlist.id,
           coverImgUrl: response.playlist.coverImgUrl,
           createTime: response.playlist.createTime,
+          updateTime: response.playlist.updateTime,
           description: response.playlist.description || '',
           name: response.playlist.name,
           playCount: response.playlist.playCount,

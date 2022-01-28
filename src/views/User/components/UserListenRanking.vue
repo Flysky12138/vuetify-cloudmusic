@@ -1,88 +1,36 @@
 <template>
   <v-card elevation='1' rounded='lg' class='overflow-hidden'>
-    <!-- 标题 -->
-    <div class='d-flex align-end' style='height: 40px; position: absolute; z-index: 1'>
-      <v-card-title class='pa-0 mx-4'>听歌排行</v-card-title>
-      <v-card-subtitle class='pa-0'>实际播放时间过短的歌曲将不纳入计算</v-card-subtitle>
-    </div>
-    <!-- 选项卡 -->
-    <v-tabs v-model='tab' @change='$emit("change", tab)' right>
-      <v-tab>所有时间</v-tab>
-      <v-tab>最近一周</v-tab>
-    </v-tabs>
-    <v-tabs-items v-model='tab'>
-      <v-tab-item v-for='item in 2' :key='item'>
-        <!-- 表格 -->
-        <v-data-table
-          :headers='headers'
-          :items='value'
-          :item-class='playItemStyle'
-          hide-default-footer
-          class='elevation-0'
-          :loading='loading'
-          disable-sort
-          fixed-header
-          :items-per-page='value.length + 1'
-          no-data-text='暂无听歌记录'
-        >
-          <!-- header.btns插槽 -->
-          <template v-slot:header.btns>
-            <button-play :id='value.map((res) => res.song.id)' tip='播放所有' />
-          </template>
-          <!-- item.artists插槽 -->
-          <template v-slot:item.song.artists='{ item }'>
-            <span v-for='(_item, index) in item.song.artists' :key='index'>
-              <span v-if='index !== 0'>&nbsp;/&nbsp;</span>
-              <button @click='lookArtists(_item.id)'>{{ _item.name }}</button>
-            </span>
-          </template>
-          <!-- item.btns插槽 -->
-          <template v-slot:item.btns='{ item }'>
-            <button-play :id='[item.song.id]' :name='item.song.name' :disable='item.song.id === id' rClick tip='右键添加到下一首播放' />
-          </template>
-        </v-data-table>
-      </v-tab-item>
-    </v-tabs-items>
+    <song-list :value='value' :disColumn='[3]' :itemsPerPage='value.length' :loading='loading'>
+      <template #top>
+        <v-row>
+          <!-- 标题 -->
+          <v-col cols='6' class='d-flex align-end'>
+            <v-card-title class='pa-0 mx-4'>听歌排行</v-card-title>
+            <v-card-subtitle class='pa-0 pb-1'>实际播放时间过短的歌曲将不纳入计算</v-card-subtitle>
+          </v-col>
+          <v-col>
+            <!-- 选项卡 -->
+            <v-tabs v-model='tab' @change='$emit("change", tab)' right>
+              <v-tab>所有时间</v-tab>
+              <v-tab>最近一周</v-tab>
+            </v-tabs>
+          </v-col>
+        </v-row>
+      </template>
+    </song-list>
   </v-card>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import ButtonPlay from 'components/Button/ButtonPlay.vue'
+import SongList from 'components/Song/SongList.vue'
 export default {
-  components: { ButtonPlay },
+  components: { SongList },
   props: {
     value: { type: Array, required: true },
     loading: { type: Boolean, default: false, required: true }
   },
   data: () => ({
-    tab: 1,
-    headers: [
-      { text: '#', align: 'center', value: 'playCount', width: 60 },
-      { text: '歌曲标题', value: 'song.name' },
-      { text: '歌手', value: 'song.artists' },
-      { text: '', align: 'end', value: 'btns' }
-    ]
-  }),
-  computed: {
-    ...mapState({
-      id: state => state.play.music.id
-    })
-  },
-  methods: {
-    // 设置正在播放歌曲项的类
-    playItemStyle(params) {
-      return params.song.id === this.id ? 'playItem' : ''
-    },
-    // 查看歌手
-    lookArtists(params) {
-      this.$router.push({
-        path: '/artists',
-        query: {
-          id: params
-        }
-      })
-    }
-  }
+    tab: 1
+  })
 }
 </script>

@@ -26,7 +26,7 @@
           </span>
         </v-col>
         <!-- 标签 行 -->
-        <v-col cols='12' class='pb-0'>
+        <v-col cols='12' class='pb-0' v-if='value.tags.length'>
           <span class='text-subtitle-2'>标签：</span>
           <song-chip v-for='item in value.tags' :key='item.id' :value='item' class='mr-2' />
         </v-col>

@@ -3,11 +3,11 @@ import artist from './artist'
 import cloud from './cloud'
 import login from './login'
 import logout from './logout'
-import personalized from './personalized'
 import playlist from './playlist'
 import search from './search'
 import siginin from './siginin'
 import song from './song'
+import toplist from './toplist'
 import user from './user'
 
 export default {
@@ -17,9 +17,9 @@ export default {
   user,
   artist,
   logout,
-  personalized,
   siginin,
   cloud,
   search,
-  album
+  album,
+  toplist
 }

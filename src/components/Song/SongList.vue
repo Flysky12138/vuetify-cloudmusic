@@ -1,7 +1,9 @@
 <template>
   <v-data-table
+    id='dataTable'
+    ref='dataTable'
     class='elevation-0'
-    :headers='headers'
+    :headers='filterHeaders'
     :items='value'
     :item-class='playItemStyle'
     hide-default-footer
@@ -13,32 +15,25 @@
     @page-count='pageCount = $event'
     :loading='loading'
     fixed-header
-    ref='dataTable'
     @current-items='getFilteredItems'
     :custom-filter='customFilter'
   >
     <!-- top插槽 -->
     <template v-slot:top>
-      <div class='d-flex align-end pb-4 px-3' id='tableTop'>
-        <span class='light-blue--text text--accent-4 text-h5'>{{ '"' + title + '"' }}</span>
-        <span class='teal--text text--accent-4 font-italic text-caption mx-4'>
-          <span v-text='value.length'></span>
-          <span v-show='filteredItems.length !== value.length'>{{ ' • ' + filteredItems.length }}</span>
-        </span>
-        <slot />
-        <v-spacer></v-spacer>
-        <v-sheet width='200'>
-          <v-text-field
-            :placeholder='value.length >= length ? "Enter or Blur..." : ""'
-            @input='searchInput'
-            @change='searchChange'
-            clearable
-            append-icon='mdi-magnify'
-            single-line
-            hide-details
-          ></v-text-field>
-        </v-sheet>
-      </div>
+      <slot name='top'>
+        <div class='d-flex align-end pb-4 px-3'>
+          <span class='light-blue--text text--accent-4 text-h5'>{{ '"' + title + '"' }}</span>
+          <span class='teal--text text--accent-4 font-italic text-caption mx-4'>
+            <span v-text='value.length'></span>
+            <span v-show='filteredItems.length !== value.length'>{{ ' • ' + filteredItems.length }}</span>
+          </span>
+          <slot />
+          <v-spacer></v-spacer>
+          <v-sheet width='200'>
+            <v-text-field v-model='search' clearable append-icon='mdi-magnify' single-line hide-details></v-text-field>
+          </v-sheet>
+        </div>
+      </slot>
     </template>
     <!-- header.btns插槽 -->
     <template v-slot:header.btns>
@@ -46,7 +41,8 @@
     </template>
     <!-- item.count插槽 -->
     <template v-slot:item.count='{ item }'>
-      <span v-if='[1, 4].includes(item.privilege.fee)' class='text-caption red--text'>vip</span>
+      <span v-if='item.hasOwnProperty("count")'>{{ item.count }}</span>
+      <span v-else-if='[1, 4].includes(item.privilege.fee)' class='text-caption red--text'>vip</span>
       <span v-else>{{ value.indexOf(item) + 1 }}</span>
     </template>
     <!-- item.artists插槽 -->
@@ -58,7 +54,7 @@
     </template>
     <!-- item.album插槽 -->
     <template v-slot:item.album='{ item: { album } }'>
-      <button @click='lookAlbum(album.id)' v-if='album.id'>{{ '《' + album.name + '》' }}</button>
+      <button @click='lookAlbum(album.id)' v-if='album.id' style='text-indent: -5px;text-align: start'>{{ '《' + album.name + '》' }}</button>
     </template>
     <!-- item.dt插槽 -->
     <template v-slot:item.dt='{ item }'>
@@ -89,17 +85,18 @@ export default {
   components: { ButtonPlay, ButtonAdd },
   props: {
     // 标题
-    title: { type: String, required: true },
+    title: { type: String, default: '' },
     // 每一项包含歌曲详情
     value: { type: Array, required: true },
     // 单页显示列表数
     itemsPerPage: { type: Number, default: 30 },
     // 是否正在加载
-    loading: { type: Boolean, default: false }
+    loading: { type: Boolean, default: false },
+    // 隐藏的项
+    disColumn: { type: Array, default: () => [] }
   },
   data: () => ({
     search: '', // 过滤
-    length: 800, // 过滤方法的不同触发方式分界线
     page: 1, // 当前浏览页
     pageCount: 0, // 分页数
     // 表头
@@ -117,7 +114,11 @@ export default {
   computed: {
     ...mapState({
       id: state => state.play.music.id
-    })
+    }),
+    // 过滤表头
+    filterHeaders() {
+      return this.showAlbum ? this.headers : this.headers.filter((res, index) => !this.disColumn.includes(index))
+    }
   },
   watch: {
     /**
@@ -131,7 +132,7 @@ export default {
       }
       // 换页滚动到表格顶部
       if (!this.autoPage) {
-        this.$vuetify.goTo('#tableTop', {
+        this.$vuetify.goTo('#dataTable', {
           duration: 600, // 动画时长
           offset: 0, // 偏移
           easing: 'easeOutQuad' // 动画
@@ -141,17 +142,6 @@ export default {
     }
   },
   methods: {
-    // 过滤
-    searchChange(event) {
-      if (this.value.length >= this.length) {
-        this.search = event
-      }
-    },
-    searchInput(event) {
-      if (!event || this.value.length < this.length) {
-        this.search = event
-      }
-    },
     // 获取过滤后的列表数据
     getFilteredItems() {
       this.$nextTick(() => {
@@ -160,8 +150,8 @@ export default {
     },
     // 自定义过滤器
     customFilter(value, search, item) {
-      return [String(this.value.indexOf(item) + 1), item.name, ...item.artists.map(_res => _res.name), item.album.name, this.$time.song(item.dt)].some(res =>
-        res.includes(search)
+      return [item.name, ...item.artists.map(_res => _res.name), item.album.name, this.$time.song(item.dt)].some(res =>
+        res.toLowerCase().includes(search.toLowerCase())
       )
     },
     // 设置正在播放歌曲项的类
