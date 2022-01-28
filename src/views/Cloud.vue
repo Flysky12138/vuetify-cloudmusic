@@ -2,7 +2,7 @@
   <v-container>
     <song-list title='网易云音乐云盘' :value='songlist' :loading='loading'>
       <v-file-input style='transform: translate(15px,3px)' prepend-icon='mdi-cloud-upload' hide-input multiple accept='audio/*' @change='upload'></v-file-input>
-      <template #item.btn.one='{ id, name }'>
+      <template #item.btn.before='{ id, name }'>
         <button-delete :name='name' @click='delSong(id)' />
       </template>
     </song-list>

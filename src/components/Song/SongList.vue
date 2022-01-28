@@ -63,6 +63,7 @@
     <!-- item.btns插槽 -->
     <template v-slot:item.btns='{ item }'>
       <div class='d-flex justify-end'>
+        <slot name='item.btn.before' v-bind='item' />
         <slot name='item.btn.one' v-bind='item'>
           <button-add :id='item.id' :notHave='item.privilege.st < 0 && !item.privilege.cs' />
         </slot>

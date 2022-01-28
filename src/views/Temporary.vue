@@ -1,8 +1,11 @@
 <template>
   <v-container>
     <song-list title='暂存于浏览器中的无版权歌曲' :value='value' :loading='loading'>
-      <template #item.btn.one='{ id, name, privilege }'>
-        <button-delete :name='name' @click='delSong(id)' v-if='privilege.st < 0 && !privilege.cs' />
+      <template #item.btn.before='{ id, name }'>
+        <button-delete :name='name' @click='delSong(id)' />
+      </template>
+      <template #item.btn.one='{ privilege }'>
+        <div v-if='privilege.st < 0 && !privilege.cs'></div>
       </template>
     </song-list>
   </v-container>
