@@ -5,7 +5,7 @@
         <template v-if='loading.left'>
           <template v-for='i in 2'>
             <v-skeleton-loader type='heading' class='px-2 mt-4'></v-skeleton-loader>
-            <v-skeleton-loader type='list-item-avatar-two-line' v-for='j in 2*i+2' height='57' class='mx-n2'></v-skeleton-loader>
+            <v-skeleton-loader type='list-item-avatar-two-line' v-for='j in 2*i+2' :key='j.id' height='57' class='mx-n2'></v-skeleton-loader>
           </template>
         </template>
         <template v-else>
@@ -29,11 +29,22 @@
       </v-col>
       <v-divider vertical></v-divider>
       <v-col>
-        <song-list :title='playlist.detail.name || ""' :value='playlist.songs' :disColumn='[3]' :itemsPerPage='playlist.songs.length' :loading='loading.right'>
-          <template #top>
-            <p class='text-subtitle-2 my-0' style='text-indent:2em' v-text='playlist.detail.description'></p>
+        <my-router-transition>
+          <template v-if='playlist.songs.length > 0'>
+            <song-list :value='playlist.songs' :disColumn='[3]' :itemsPerPage='playlist.songs.length' :loading='loading.right'>
+              <template #top>
+                <p class='text-subtitle-2 my-0' style='text-indent:2em' v-text='playlist.detail.description'></p>
+              </template>
+            </song-list>
           </template>
-        </song-list>
+          <template v-else>
+            <v-sheet height='80vh' class='d-flex align-center justify-center'>
+              <v-btn icon disabled absolute>
+                <v-icon size='100'>mdi-cards-heart</v-icon>
+              </v-btn>
+            </v-sheet>
+          </template>
+        </my-router-transition>
       </v-col>
     </v-row>
   </v-container>
