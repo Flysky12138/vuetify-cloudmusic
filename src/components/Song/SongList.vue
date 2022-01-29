@@ -118,7 +118,7 @@ export default {
     }),
     // 过滤表头
     filterHeaders() {
-      return this.showAlbum ? this.headers : this.headers.filter((res, index) => !this.disColumn.includes(index))
+      return this.headers.filter((res, index) => !this.disColumn.includes(index))
     }
   },
   watch: {
