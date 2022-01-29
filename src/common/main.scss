@@ -15,3 +15,16 @@ html {
 .playItem {
   color: #f4511e;
 }
+// 路由动画，src\plugins\vuetify中导入可在组件的transition属性或直接当标签使用
+.router-transition {
+  &-enter {
+    opacity: 0;
+    // transform: scale(0.97);
+  }
+  &-leave {
+    display: none;
+  }
+  &-enter-active {
+    transition: all 1.5s;
+  }
+}

@@ -14,14 +14,14 @@
         <v-container class='width-size' style='height: 100%'>
           <v-sheet rounded='lg' height='100%'>
             <!-- 对路由添加一个进入动画：渐显 -->
-            <transition name='router'>
+            <my-router-transition>
               <keep-alive>
                 <router-view v-if='$route.meta.keepAlive' :key='$route.fullPath' />
               </keep-alive>
-            </transition>
-            <transition name='router'>
+            </my-router-transition>
+            <my-router-transition>
               <router-view v-if='!$route.meta.keepAlive' />
-            </transition>
+            </my-router-transition>
           </v-sheet>
         </v-container>
       </v-main>
@@ -62,19 +62,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// 路由动画
-.router {
-  &-enter {
-    opacity: 0;
-    // transform: scale(0.97);
-  }
-  &-leave {
-    display: none;
-  }
-  &-enter-active {
-    transition: all 1.5s;
-  }
-}
 // 界面宽度限制
 .width-size {
   width: 75vw;
