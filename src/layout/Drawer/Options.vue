@@ -15,6 +15,7 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import download from 'common/download'
+import theme from 'common/theme'
 export default {
   data: () => ({
     name: '设置',
@@ -35,15 +36,12 @@ export default {
       return _items
     }
   },
-  created() {
-    this.setThemeDark(JSON.parse(localStorage.getItem('isDark')))
-  },
   methods: {
     ...mapMutations(['logout']),
     onClick(index) {
       switch (index) {
         case 0:
-          this.setThemeDark(!JSON.parse(localStorage.getItem('isDark')))
+          theme.isDark = !theme.isDark
           break
         case 1:
           download(localStorage, 'vuetify-cloudmusic-settings.json', true)
@@ -63,22 +61,13 @@ export default {
           input.click()
           break
         default:
-          this.userLogout()
+          // 登出
+          this.$http.logout().then(() => {
+            this.logout()
+            this.$message({ text: '退出登录成功！', color: 'primary' })
+            this.$route.path !== '/' && this.$router.replace('/')
+          })
       }
-    },
-    // 设置主题色
-    setThemeDark(boolean) {
-      localStorage.setItem('isDark', boolean)
-      this.$vuetify.theme.isDark = boolean
-      document.querySelector('meta[name="theme-color"]').setAttribute('content', boolean ? '#272727' : '#ffffff')
-    },
-    // 登出
-    userLogout() {
-      this.$http.logout().then(() => {
-        this.logout()
-        this.$message({ text: '退出登录成功！', color: 'primary' })
-        this.$route.path !== '/' && this.$router.replace('/')
-      })
     }
   }
 }
