@@ -1,19 +1,21 @@
 <template>
   <div style='z-index: 2'>
     <!-- 歌词 -->
-    <div class='left center' style='transform: translateY(-40%)'>
+    <div class='left'>
       <lyrics />
     </div>
-    <!-- 音乐按键 -->
-    <v-scale-transition>
-      <div class='right center mr-n2' v-show='isShow'>
-        <music-column />
+    <div class='right'>
+      <!-- 音乐按键 -->
+      <v-scale-transition hide-on-leave>
+        <div v-show='isShow'>
+          <music-column v-show='isShow' />
+        </div>
+      </v-scale-transition>
+      <!-- 定位歌曲、回顶按键 -->
+      <div class='bottom'>
+        <locate-music v-if='isShowLocate' />
+        <go-top v-else />
       </div>
-    </v-scale-transition>
-    <!-- 回顶按键 -->
-    <div class='right bottom'>
-      <locate-music v-if='isShowLocate' />
-      <go-top v-else />
     </div>
   </div>
 </template>
@@ -40,29 +42,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.left,
-.right {
+@mixin common($position: left) {
+  width: 0;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  #{$position}: 7vw;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
-.bottom {
-  flex-direction: column-reverse;
-}
 .left {
-  position: fixed;
-  left: 6vw;
+  @include common(left);
 }
 .right {
-  position: fixed;
-  right: 6vw;
-}
-.center {
-  top: 45vh;
-}
-.top {
-  top: 10vh;
-}
-.bottom {
-  bottom: 10vh;
+  @include common(right);
+  .bottom {
+    position: absolute;
+    bottom: 10vh;
+  }
 }
 </style>
