@@ -9,7 +9,7 @@
           </template>
         </template>
         <template v-else>
-          <v-list class='pa-0'>
+          <v-list class='pa-0' nav>
             <v-list-item-group :value='0' color='primary'>
               <template v-for='(items,index) in data'>
                 <v-subheader class='font-weight-bold'>{{ index === 'feature' ? '云音乐特色榜' : '全球媒体榜' }}</v-subheader>
