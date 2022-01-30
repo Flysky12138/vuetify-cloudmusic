@@ -33,7 +33,7 @@ export default {
       route: state => state.play.route
     }),
     isShowLocate() {
-      return this.$route.path !== '/user' && this.route === this.$route.fullPath
+      return !this.$route.meta.disShowLocateMusicBtn && this.route === this.$route.fullPath
     }
   }
 }
