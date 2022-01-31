@@ -50,9 +50,9 @@ export default {
     isPc: !/Android|WindowsPhone|webOS|iPhone|iPod|BlackBerry|iPad/.test(navigator.userAgent)
   }),
   created() {
-    // 获取ID、等级和头像；签到
+    // 获取ID、等级和头像
     this.$http.login.status().then(res => {
-      res.islogin ? this.login(res) & this.$http.siginin() : this.logout()
+      res.islogin ? this.login(res) : this.logout()
     })
   },
   methods: {
