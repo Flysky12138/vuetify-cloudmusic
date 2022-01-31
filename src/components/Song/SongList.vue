@@ -52,7 +52,7 @@
         <template v-slot:activator='{ on, attrs }'>
           <span v-on='on' v-bind='attrs'>{{ item.name }}</span>
         </template>
-        <mv :id='item.id' ref='mv' />
+        <mv :songid='item.id' :mvid='item.mv' ref='mv' />
       </v-dialog>
     </template>
     <!-- item.artists插槽 -->

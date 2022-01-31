@@ -28,6 +28,7 @@ function record(uid, type = 0) {
                 name: element.song.al.name
               },
               dt: element.song.dt,
+              mv: element.song.mv,
               privilege: {
                 fee: element.song.privilege.fee, // 0、8：免费；4：所在专辑需单独付费；1：VIP可听
                 cs: element.song.privilege.cs, // boolean：云盘

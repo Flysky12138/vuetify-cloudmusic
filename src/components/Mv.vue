@@ -16,27 +16,27 @@
 <script>
 export default {
   props: {
-    id: { type: Number, required: true }
+    songid: { type: Number, required: true },
+    mvid: { type: Number, default: 0, required: true }
   },
   data: () => ({
     height: window.screen.height * 0.7,
     video: {}
   }),
   mounted() {
-    this.getVideoInfo(this.id)
+    this.getVideoInfo(this.songid, this.mvid)
   },
   methods: {
-    // 获取视频信息
-    getVideoInfo(songid) {
-      this.$http.mv.rcmd(songid).then(res => {
-        this.$http.mv.url(res[0]).then(_res => {
-          this.video = _res
-          // 移除过渡动画
-          setTimeout(() => {
-            this.$refs.video.style.cssText = ''
-          }, 500)
-        })
-      })
+    async getVideoInfo(songid, mvid) {
+      try {
+        // 获取视频信息
+        const lists = await this.$http.mv.rcmd(songid, mvid)
+        this.video = /^\d+$/.test(lists[0]) ? await this.$http.mv.url.mv(lists[0]) : await this.$http.mv.url.mlog(lists[0])
+        // 移除视频大小变化过渡动画，防止手动点击放大视频出问题
+        setTimeout(() => {
+          this.$refs.video.style.cssText = ''
+        }, 500)
+      } catch (error) {}
     },
     // 暂停视频
     pause() {

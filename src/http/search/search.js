@@ -33,6 +33,7 @@ function cloudsearch(keywords, offset = 0, limit = 36, type = 1) {
                 name: element.al.name
               },
               dt: element.dt,
+              mv: element.mv,
               privilege: {
                 fee: element.privilege.fee, // 0、8：免费；4：所在专辑需单独付费；1：VIP可听
                 cs: element.privilege.cs, // boolean：云盘
