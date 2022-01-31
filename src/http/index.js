@@ -3,6 +3,7 @@ import artist from './artist'
 import cloud from './cloud'
 import login from './login'
 import logout from './logout'
+import mv from './mv'
 import playlist from './playlist'
 import search from './search'
 import siginin from './siginin'
@@ -21,5 +22,6 @@ export default {
   cloud,
   search,
   album,
-  toplist
+  toplist,
+  mv
 }

@@ -23,12 +23,12 @@ export default {
   }),
   activated() {
     this.ids = JSON.parse(localStorage.getItem('ids')) || []
-    this.getSong()
+    this.getSong(this.ids)
   },
   methods: {
-    getSong() {
+    getSong(ids) {
       this.loading = true
-      this.$http.song.detail(this.ids).then(res => {
+      this.$http.song.detail(ids).then(res => {
         this.value = res
         this.loading = false
       })

@@ -41,9 +41,19 @@
     </template>
     <!-- item.count插槽 -->
     <template v-slot:item.count='{ item }'>
+      <!-- 听歌排行的听歌数 -->
       <span v-if='item.hasOwnProperty("count")'>{{ item.count }}</span>
       <span v-else-if='[1, 4].includes(item.privilege.fee)' class='text-caption red--text'>vip</span>
       <span v-else>{{ value.indexOf(item) + 1 }}</span>
+    </template>
+    <!-- item.name插槽 -->
+    <template v-slot:item.name='{ item }'>
+      <v-dialog overlay-opacity='0.9' content-class='dialog' @click:outside='$refs.mv.pause()'>
+        <template v-slot:activator='{ on, attrs }'>
+          <span v-on='on' v-bind='attrs'>{{ item.name }}</span>
+        </template>
+        <mv :id='item.id' ref='mv' />
+      </v-dialog>
     </template>
     <!-- item.artists插槽 -->
     <template v-slot:item.artists='{ item }'>
@@ -82,8 +92,9 @@ import { mapState } from 'vuex'
 import { EventBus } from 'common/eventBus.js'
 import ButtonPlay from 'components/Button/ButtonPlay.vue'
 import ButtonAdd from 'components/Button/ButtonAdd.vue'
+import Mv from 'components/Mv.vue'
 export default {
-  components: { ButtonPlay, ButtonAdd },
+  components: { ButtonPlay, ButtonAdd, Mv },
   props: {
     // 标题
     title: { type: String, default: '' },
@@ -221,3 +232,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.dialog {
+  width: auto;
+}
+</style>
