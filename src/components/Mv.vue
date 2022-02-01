@@ -1,15 +1,6 @@
 <template>
   <v-card class='d-flex'>
-    <video
-      style='transition: all 0.5s'
-      autoplay
-      controls
-      crossorigin='anonymous'
-      ref='video'
-      :height='video.height ? height : 200'
-      :poster='video.frameUrl'
-      :src='video.url'
-    ></video>
+    <video controls crossorigin='anonymous' width='100%' ref='video' :poster='video.frameUrl' :src='video.url' :style='videoStyle' @canplay='canplay'></video>
   </v-card>
 </template>
 
@@ -20,23 +11,42 @@ export default {
     mvid: { type: Number, default: 0, required: true }
   },
   data: () => ({
-    height: window.screen.height * 0.7,
-    video: {}
+    video: {},
+    timestamp: 0
   }),
   mounted() {
     this.getVideoInfo(this.songid, this.mvid)
   },
+  computed: {
+    // 视频窗口样式
+    videoStyle() {
+      return {
+        maxHeight: this.video.url ? '80vh' : '200px',
+        transition: 'all .5s .5s'
+      }
+    }
+  },
   methods: {
-    async getVideoInfo(songid, mvid) {
-      try {
-        // 获取视频信息
-        const lists = await this.$http.mv.rcmd(songid, mvid)
-        this.video = /^\d+$/.test(lists[0]) ? await this.$http.mv.url.mv(lists[0]) : await this.$http.mv.url.mlog(lists[0])
-        // 移除视频大小变化过渡动画，防止手动点击放大视频出问题
+    // 可以播放媒体文件了
+    canplay() {
+      const time = 1500 - (new Date().getTime() - this.timestamp)
+      if (time > 0) {
         setTimeout(() => {
-          this.$refs.video.style.cssText = ''
-        }, 500)
-      } catch (error) {}
+          this.play()
+        }, time)
+      } else {
+        this.play()
+      }
+    },
+    // 获取视频信息
+    async getVideoInfo(songid, mvid) {
+      const lists = await this.$http.mv.rcmd(songid, mvid)
+      this.video = /^\d+$/.test(lists[0]) ? await this.$http.mv.url.mv(lists[0]) : await this.$http.mv.url.mlog(lists[0])
+      this.timestamp = new Date().getTime()
+    },
+    // 播放视频
+    play() {
+      this.$refs.video.play()
     },
     // 暂停视频
     pause() {

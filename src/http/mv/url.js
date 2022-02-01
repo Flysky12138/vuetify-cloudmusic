@@ -12,7 +12,6 @@ function mv(id) {
       .then(response => {
         resolve({
           frameUrl: '',
-          height: -1,
           url: response.data.url
         })
       })
@@ -34,7 +33,6 @@ function mlog(id) {
           response.data
             ? {
                 frameUrl: response.data.resource.content.video.frameUrl,
-                height: response.data.resource.content.video.height,
                 url: response.data.resource.content.video.urlInfo.url
               }
             : {}
