@@ -1,10 +1,11 @@
 <template>
   <v-card class='d-flex'>
-    <video controls crossorigin='anonymous' width='100%' ref='video' :poster='video.frameUrl' :src='video.url' :style='videoStyle' @canplay='canplay'></video>
+    <video controls crossorigin='anonymous' width='100%' ref='video' :poster='video.frameUrl' :src='video.url' :style='videoStyle' @canplay.once='canplay'></video>
   </v-card>
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 export default {
   props: {
     songid: { type: Number, required: true },
@@ -12,12 +13,17 @@ export default {
   },
   data: () => ({
     video: {},
-    timestamp: 0
+    timestamp: 0,
+    musicIsplaying: false
   }),
-  mounted() {
+  created() {
     this.getVideoInfo(this.songid, this.mvid)
   },
   computed: {
+    ...mapState({
+      isplay: state => state.play.isplay,
+      isShow: state => state.play.isShow
+    }),
     // 视频窗口样式
     videoStyle() {
       return {
@@ -27,6 +33,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['playORpause']),
     // 可以播放媒体文件了
     canplay() {
       const time = 1500 - (new Date().getTime() - this.timestamp)
@@ -46,11 +53,22 @@ export default {
     },
     // 播放视频
     play() {
-      this.$refs.video.play()
+      this.musicIsplaying = this.isplay && this.isShow // 记录歌曲播放状态
+      this.playORpause(false) // 暂停歌曲播放
+      setTimeout(() => {
+        this.$refs.video.play()
+      }, 200)
     },
     // 暂停视频
     pause() {
-      this.$refs.video.pause()
+      if (this.video.url) {
+        setTimeout(() => {
+          this.$refs.video.pause()
+          setTimeout(() => {
+            this.playORpause(this.musicIsplaying) // 恢复歌曲播放状态
+          }, 200)
+        }, 200)
+      }
     }
   }
 }
