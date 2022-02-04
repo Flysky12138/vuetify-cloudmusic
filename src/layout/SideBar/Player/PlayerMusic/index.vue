@@ -52,18 +52,13 @@
 
 <script>
 import { mapState } from 'vuex'
-import ButtonAdd from '@/components/Button/ButtonAdd.vue'
-import ButtonLove from '@/components/Button/ButtonLove.vue'
-import PlayerMusicPlay from './PlayerMusicPlay.vue'
-import PlayerMusicSound from './PlayerMusicSound.vue'
-import PlayerMusicMode from './PlayerMusicMode.vue'
 export default {
   components: {
-    ButtonAdd,
-    ButtonLove,
-    PlayerMusicPlay,
-    PlayerMusicSound,
-    PlayerMusicMode
+    ButtonAdd: () => import('@/components/Button/ButtonAdd.vue'),
+    ButtonLove: () => import('@/components/Button/ButtonLove.vue'),
+    PlayerMusicPlay: () => import('./PlayerMusicPlay.vue'),
+    PlayerMusicSound: () => import('./PlayerMusicSound.vue'),
+    PlayerMusicMode: () => import('./PlayerMusicMode.vue')
   },
   data: () => ({
     dt: 0, // 播放进度

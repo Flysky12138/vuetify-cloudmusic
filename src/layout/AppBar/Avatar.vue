@@ -13,9 +13,10 @@
 
 <script>
 import { mapState } from 'vuex'
-import ImageAvatar from '@/components/Image/ImageAvatar.vue'
 export default {
-  components: { ImageAvatar },
+  components: {
+    ImageAvatar: () => import('@/components/Image/ImageAvatar.vue')
+  },
   data: () => ({}),
   computed: {
     ...mapState({

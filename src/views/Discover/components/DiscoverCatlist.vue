@@ -25,13 +25,14 @@
 </template>
 
 <script>
-import DiscoverCatlistItem from './DiscoverCatlistItem.vue'
 export default {
+  components: {
+    DiscoverCatlistItem: () => import('./DiscoverCatlistItem.vue')
+  },
   props: {
     cat: { type: String, required: true },
     value: { type: Array, required: true }
   },
-  components: { DiscoverCatlistItem },
   data: () => ({
     isShow: false
   }),

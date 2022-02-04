@@ -90,11 +90,12 @@
 <script>
 import { mapState } from 'vuex'
 import { EventBus } from '@/common/eventBus.js'
-import ButtonPlay from '@/components/Button/ButtonPlay.vue'
-import ButtonAdd from '@/components/Button/ButtonAdd.vue'
-import Mv from '@/components/Mv.vue'
 export default {
-  components: { ButtonPlay, ButtonAdd, Mv },
+  components: {
+    ButtonPlay: () => import('@/components/Button/ButtonPlay.vue'),
+    ButtonAdd: () => import('@/components/Button/ButtonAdd.vue'),
+    Mv: () => import('@/components/Mv.vue')
+  },
   props: {
     // 标题
     title: { type: String, default: '' },

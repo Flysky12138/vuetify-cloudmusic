@@ -41,11 +41,12 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import AppBar from './layout/AppBar'
-import Drawer from './layout/Drawer'
-import SideBar from './layout/SideBar'
 export default {
-  components: { AppBar, Drawer, SideBar },
+  components: {
+    AppBar: () => import('./layout/AppBar'),
+    Drawer: () => import('./layout/Drawer'),
+    SideBar: () => import('./layout/SideBar')
+  },
   data: () => ({
     isPc: !/Android|WindowsPhone|webOS|iPhone|iPod|BlackBerry|iPad/.test(navigator.userAgent)
   }),

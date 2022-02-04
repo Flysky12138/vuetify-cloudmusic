@@ -35,9 +35,10 @@
 </template>
 
 <script>
-import SongCard from '@/components/Song/SongCard.vue'
 export default {
-  components: { SongCard },
+  components: {
+    SongCard: () => import('@/components/Song/SongCard.vue')
+  },
   props: {
     value: { type: Array, required: true },
     title: { type: String, required: true }

@@ -23,11 +23,12 @@
 </template>
 
 <script>
-import SongList from '@/components/Song/SongList.vue'
-import ImageCover from '@/components/Image/ImageCover.vue'
-import Introduce from '@/components/Introduce.vue'
 export default {
-  components: { SongList, ImageCover, Introduce },
+  components: {
+    SongList: () => import('@/components/Song/SongList.vue'),
+    ImageCover: () => import('@/components/Image/ImageCover.vue'),
+    Introduce: () => import('@/components/Introduce.vue')
+  },
   data: () => ({
     info: {
       artist: {

@@ -22,12 +22,13 @@
 
 <script>
 import { mapState } from 'vuex'
-import MusicColumn from './MusicColumn.vue'
-import GoTop from './GoTop.vue'
-import LocateMusic from './LocateMusic.vue'
-import Lyrics from './Lyrics.vue'
 export default {
-  components: { MusicColumn, GoTop, LocateMusic, Lyrics },
+  components: {
+    MusicColumn: () => import('./MusicColumn.vue'),
+    GoTop: () => import('./GoTop.vue'),
+    LocateMusic: () => import('./LocateMusic.vue'),
+    Lyrics: () => import('./Lyrics.vue')
+  },
   data: () => ({}),
   computed: {
     ...mapState({

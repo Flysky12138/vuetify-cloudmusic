@@ -50,9 +50,10 @@
 </template>
 
 <script>
-import ImageCover from '@/components/Image/ImageCover.vue'
 export default {
-  components: { ImageCover },
+  components: {
+    ImageCover: () => import('@/components/Image/ImageCover.vue')
+  },
   props: {
     value: { type: Object, required: true }
   },

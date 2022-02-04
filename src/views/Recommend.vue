@@ -5,9 +5,10 @@
 </template>
 
 <script>
-import SongList from '@/components/Song/SongList.vue'
 export default {
-  components: { SongList },
+  components: {
+    SongList: () => import('@/components/Song/SongList.vue')
+  },
   data: () => ({
     value: [],
     itemsPerPage: 1,

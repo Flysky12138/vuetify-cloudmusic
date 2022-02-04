@@ -29,11 +29,12 @@
 </template>
 
 <script>
-import Router from './Router.vue'
-import Options from './Options.vue'
-import Tools from './Tools.vue'
 export default {
-  components: { Router, Options, Tools },
+  components: {
+    Router: () => import('./Router.vue'),
+    Options: () => import('./Options.vue'),
+    Tools: () => import('./Tools.vue')
+  },
   data: () => ({
     isShow: false,
     mini: false

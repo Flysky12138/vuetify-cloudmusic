@@ -9,10 +9,11 @@
 </template>
 
 <script>
-import AboutGithub from './components/AboutGithub.vue'
-import AboutApi from './components/AboutApi.vue'
 export default {
-  components: { AboutGithub, AboutApi },
+  components: {
+    AboutGithub: () => import('./components/AboutGithub.vue'),
+    AboutApi: () => import('./components/AboutApi.vue')
+  },
   data: () => ({
     components: ['AboutGithub', 'AboutApi']
   })

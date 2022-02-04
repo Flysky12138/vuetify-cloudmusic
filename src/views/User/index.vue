@@ -23,12 +23,13 @@
 </template>
 
 <script>
-import SkeletonLoader from './components/SkeletonLoader.vue'
-import UserDetail from './components/UserDetail.vue'
-import UserPlaylist from './components/UserPlaylist.vue'
-import UserListenRanking from './components/UserListenRanking.vue'
 export default {
-  components: { SkeletonLoader, UserDetail, UserPlaylist, UserListenRanking },
+  components: {
+    SkeletonLoader: () => import('./components/SkeletonLoader.vue'),
+    UserDetail: () => import('./components/UserDetail.vue'),
+    UserPlaylist: () => import('./components/UserPlaylist.vue'),
+    UserListenRanking: () => import('./components/UserListenRanking.vue')
+  },
   data: () => ({
     count: 0,
     uid: 0,
