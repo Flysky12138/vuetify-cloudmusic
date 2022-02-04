@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <v-row>
+      <!-- 左侧导航栏 -->
       <v-col cols='3'>
         <template v-if='loading.left'>
           <template v-for='i in 2'>
@@ -11,7 +12,7 @@
         <template v-else>
           <v-list class='pa-0' nav>
             <v-list-item-group :value='0' color='primary'>
-              <template v-for='(items,index) in data'>
+              <template v-for='(items,index) in lists'>
                 <v-subheader class='font-weight-bold'>{{ index === 'feature' ? '云音乐特色榜' : '全球媒体榜' }}</v-subheader>
                 <v-list-item v-for='item in items' :key='item.id' @click='getSonglists(item.id)'>
                   <v-list-item-icon class='my-auto mr-3'>
@@ -28,6 +29,7 @@
         </template>
       </v-col>
       <v-divider vertical></v-divider>
+      <!-- 右侧歌曲 -->
       <v-col>
         <my-router-transition>
           <template v-if='playlist.songs.length > 0'>
@@ -56,7 +58,7 @@ export default {
     SongList: () => import('@/components/Song/SongList.vue')
   },
   data: () => ({
-    data: {},
+    lists: {},
     playlist: {
       detail: {},
       songs: []
@@ -68,7 +70,7 @@ export default {
   }),
   created() {
     this.$http.toplist().then(res => {
-      this.data = res
+      this.lists = res
       this.getSonglists(res.feature[0].id)
       this.loading.left = false
     })
@@ -82,8 +84,8 @@ export default {
       })
       this.loading.right = true
       this.$http.playlist.detail(id).then(res => {
-        this.playlist.detail = res
         this.$http.song.detail(res.trackIds).then(_res => {
+          this.playlist.detail = res
           this.playlist.songs = _res
           this.loading.right = false
         })
