@@ -12,13 +12,12 @@
 </template>
 
 <script>
+import ButtonRouter from './ButtonRouter.vue'
+import Search from './Search.vue'
+import Avatar from './Avatar.vue'
+import History from './History.vue'
 export default {
-  components: {
-    ButtonRouter: () => import('./ButtonRouter.vue'),
-    Search: () => import('./Search.vue'),
-    Avatar: () => import('./Avatar.vue'),
-    History: () => import('./History.vue')
-  },
+  components: { ButtonRouter, Search, Avatar, History },
   data: () => ({})
 }
 </script>

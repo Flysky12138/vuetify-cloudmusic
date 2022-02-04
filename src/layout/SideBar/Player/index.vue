@@ -29,13 +29,12 @@
 </template>
 
 <script>
+import PlayerLists from './PlayerLists.vue'
+import PlayerMusic from './PlayerMusic'
+import PlayerLyrics from './PlayerLyrics.vue'
+import PlayerComment from './PlayerComment.vue'
 export default {
-  components: {
-    PlayerLists: () => import('./PlayerLists.vue'),
-    PlayerMusic: () => import('./PlayerMusic'),
-    PlayerLyrics: () => import('./PlayerLyrics.vue'),
-    PlayerComment: () => import('./PlayerComment.vue')
-  },
+  components: { PlayerLists, PlayerMusic, PlayerLyrics, PlayerComment },
   props: {
     picUrl: { type: String, required: true }
   },

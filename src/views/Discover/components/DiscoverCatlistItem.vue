@@ -12,14 +12,13 @@
 </template>
 
 <script>
+import SongChip from '@/components/Song/SongChip.vue'
 export default {
-  components: {
-    SongChip: () => import('@/components/Song/SongChip.vue')
-  },
   props: {
     head: { type: String, required: true },
     items: { type: Array, required: true }
   },
+  components: { SongChip },
   data: () => ({
     isShow: false
   })

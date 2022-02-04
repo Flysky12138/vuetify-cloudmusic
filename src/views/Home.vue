@@ -1,4 +1,4 @@
-<template>
+@/<template>
   <v-container>
     <v-row>
       <!-- 左侧导航栏 -->
@@ -53,10 +53,9 @@
 </template>
 
 <script>
+import SongList from '@/components/Song/SongList.vue'
 export default {
-  components: {
-    SongList: () => import('@/components/Song/SongList.vue')
-  },
+  components: { SongList },
   data: () => ({
     lists: {},
     playlist: {

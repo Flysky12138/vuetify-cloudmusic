@@ -12,11 +12,10 @@
 </template>
 
 <script>
+import SongList from '@/components/Song/SongList.vue'
+import ButtonDelete from '@/components/Button/ButtonDelete.vue'
 export default {
-  components: {
-    SongList: () => import('@/components/Song/SongList.vue'),
-    ButtonDelete: () => import('@/components/Button/ButtonDelete.vue')
-  },
+  components: { SongList, ButtonDelete },
   data: () => ({
     value: [],
     ids: [],

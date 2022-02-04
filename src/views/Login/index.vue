@@ -32,11 +32,10 @@
 
 <script>
 import { mapMutations } from 'vuex'
+import LoginPhone from './components/LoginPhone.vue'
+import LoginQR from './components/LoginQR.vue'
 export default {
-  components: {
-    LoginPhone: () => import('./components/LoginPhone.vue'),
-    LoginQR: () => import('./components/LoginQR.vue')
-  },
+  components: { LoginPhone, LoginQR },
   data: () => ({
     tab: 0,
     loading: false,

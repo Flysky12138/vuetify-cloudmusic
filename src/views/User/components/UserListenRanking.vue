@@ -22,10 +22,9 @@
 </template>
 
 <script>
+import SongList from '@/components/Song/SongList.vue'
 export default {
-  components: {
-    SongList: () => import('@/components/Song/SongList.vue')
-  },
+  components: { SongList },
   props: {
     value: { type: Array, required: true },
     loading: { type: Boolean, default: false, required: true }

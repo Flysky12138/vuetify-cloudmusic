@@ -42,10 +42,9 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import { EventBus } from '@/common/eventBus.js'
+import Player from './Player'
 export default {
-  components: {
-    Player: () => import('./Player')
-  },
+  components: { Player },
   data: () => ({
     dialog: false, // 播放界面显示
     url: '', // 歌曲地址

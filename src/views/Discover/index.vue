@@ -28,11 +28,10 @@
 </template>
 
 <script>
+import DiscoverCatlist from './components/DiscoverCatlist.vue'
+import SongCard from '@/components/Song/SongCard.vue'
 export default {
-  components: {
-    DiscoverCatlist: () => import('./components/DiscoverCatlist.vue'),
-    SongCard: () => import('@/components/Song/SongCard.vue')
-  },
+  components: { DiscoverCatlist, SongCard },
   data: () => ({
     catlist: [],
     playlists: [], // 显示的歌单列表
