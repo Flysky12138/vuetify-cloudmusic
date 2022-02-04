@@ -52,8 +52,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import ButtonAdd from 'components/Button/ButtonAdd.vue'
-import ButtonLove from 'components/Button/ButtonLove.vue'
+import ButtonAdd from '@/components/Button/ButtonAdd.vue'
+import ButtonLove from '@/components/Button/ButtonLove.vue'
 import PlayerMusicPlay from './PlayerMusicPlay.vue'
 import PlayerMusicSound from './PlayerMusicSound.vue'
 import PlayerMusicMode from './PlayerMusicMode.vue'

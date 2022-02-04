@@ -41,10 +41,10 @@
 
 <script>
 import { mapState } from 'vuex'
-import ImageAvatar from 'components/Image/ImageAvatar.vue'
-import ImageCover from 'components/Image/ImageCover.vue'
-import SongChip from 'components/Song/SongChip.vue'
-import Introduce from 'components/Introduce.vue'
+import ImageAvatar from '@/components/Image/ImageAvatar.vue'
+import ImageCover from '@/components/Image/ImageCover.vue'
+import SongChip from '@/components/Song/SongChip.vue'
+import Introduce from '@/components/Introduce.vue'
 export default {
   components: { ImageAvatar, ImageCover, SongChip, Introduce },
   props: {

@@ -14,8 +14,8 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import download from 'common/download'
-import theme from 'common/theme'
+import download from '@/common/download'
+import theme from '@/common/theme'
 export default {
   data: () => ({
     name: '设置',

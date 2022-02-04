@@ -26,11 +26,11 @@
 </template>
 
 <script>
-import SongList from 'components/Song/SongList.vue'
-import ImageCover from 'components/Image/ImageCover.vue'
-import ImageAvatar from 'components/Image/ImageAvatar.vue'
+import SongList from '@/components/Song/SongList.vue'
+import ImageCover from '@/components/Image/ImageCover.vue'
+import ImageAvatar from '@/components/Image/ImageAvatar.vue'
 import SkeletonLoader from './Playlist/components/SkeletonLoader.vue'
-import Introduce from 'components/Introduce.vue'
+import Introduce from '@/components/Introduce.vue'
 export default {
   components: { SongList, ImageCover, ImageAvatar, SkeletonLoader, Introduce },
   data: () => ({

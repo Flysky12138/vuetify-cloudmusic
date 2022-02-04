@@ -1,5 +1,5 @@
-import city from 'common/province-city-china/city.json'
-import province from 'common/province-city-china/province.json'
+import city from '@/common/province-city-china/city.json'
+import province from '@/common/province-city-china/province.json'
 import axios from '../api'
 
 // 获取用户详情

@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import playCount from 'common/playCount'
+import playCount from '@/common/playCount'
 export default {
   props: {
     // @params Object

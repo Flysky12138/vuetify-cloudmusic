@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import SongList from 'components/Song/SongList.vue'
+import SongList from '@/components/Song/SongList.vue'
 export default {
   components: { SongList },
   props: {

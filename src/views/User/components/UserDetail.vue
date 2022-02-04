@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import ImageCover from 'components/Image/ImageCover.vue'
+import ImageCover from '@/components/Image/ImageCover.vue'
 export default {
   components: { ImageCover },
   props: {

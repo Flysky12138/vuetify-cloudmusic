@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import SongCard from 'components/Song/SongCard.vue'
+import SongCard from '@/components/Song/SongCard.vue'
 export default {
   components: { SongCard },
   props: {

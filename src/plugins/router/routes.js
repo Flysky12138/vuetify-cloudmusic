@@ -1,4 +1,4 @@
-import message from 'common/message'
+import message from '@/common/message'
 import store from '../store'
 
 const routes = [
@@ -10,7 +10,7 @@ const routes = [
   },
   {
     path: '/login',
-    component: () => import('views/Login'),
+    component: () => import('@/views/Login'),
     // 路由独享的守卫
     beforeEnter(to, from, next) {
       if (store.state.islogin) {
@@ -27,7 +27,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('views/Home'),
+    component: () => import('@/views/Home'),
     meta: {
       keepAlive: true,
       disShowLocateMusicBtn: true
@@ -35,36 +35,36 @@ const routes = [
   },
   {
     path: '/user',
-    component: () => import('views/User'),
+    component: () => import('@/views/User'),
     meta: {
       disShowLocateMusicBtn: true
     }
   },
   {
     path: '/search',
-    component: () => import('views/Search')
+    component: () => import('@/views/Search')
   },
   {
     path: '/playlist',
-    component: () => import('views/Playlist'),
+    component: () => import('@/views/Playlist'),
     meta: {
       keepAlive: true
     }
   },
   {
     path: '/discover/playlist',
-    component: () => import('views/Discover'),
+    component: () => import('@/views/Discover'),
     meta: {
       keepAlive: true
     }
   },
   {
     path: '/about',
-    component: () => import('views/About')
+    component: () => import('@/views/About')
   },
   {
     path: '/recommend',
-    component: () => import('views/Recommend'),
+    component: () => import('@/views/Recommend'),
     meta: {
       requiresAuth: true,
       keepAlive: true
@@ -72,21 +72,21 @@ const routes = [
   },
   {
     path: '/artists',
-    component: () => import('views/Artists'),
+    component: () => import('@/views/Artists'),
     meta: {
       keepAlive: true
     }
   },
   {
     path: '/album',
-    component: () => import('views/Album'),
+    component: () => import('@/views/Album'),
     meta: {
       keepAlive: true
     }
   },
   {
     path: '/cloud',
-    component: () => import('views/Cloud'),
+    component: () => import('@/views/Cloud'),
     meta: {
       requiresAuth: true,
       keepAlive: true
@@ -94,14 +94,14 @@ const routes = [
   },
   {
     path: '/temporary',
-    component: () => import('views/Temporary'),
+    component: () => import('@/views/Temporary'),
     meta: {
       keepAlive: true
     }
   },
   {
     path: '/css',
-    component: () => import('views/Css')
+    component: () => import('@/views/Css')
   }
 ]
 

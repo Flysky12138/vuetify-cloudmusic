@@ -14,7 +14,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import download from 'common/download'
+import download from '@/common/download'
 export default {
   data: () => ({
     name: '功能',

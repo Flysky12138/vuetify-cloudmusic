@@ -41,7 +41,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import { EventBus } from 'common/eventBus.js'
+import { EventBus } from '@/common/eventBus.js'
 import Player from './Player'
 export default {
   components: { Player },

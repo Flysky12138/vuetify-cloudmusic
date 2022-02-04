@@ -1,4 +1,4 @@
-<template>
+@/<template>
   <v-container>
     <song-list title='网易云音乐云盘' :value='songlist' :loading='loading'>
       <v-file-input style='transform: translate(15px,3px)' prepend-icon='mdi-cloud-upload' hide-input multiple accept='audio/*' @change='upload'></v-file-input>
@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import SongList from 'components/Song/SongList.vue'
-import ButtonDelete from 'components/Button/ButtonDelete.vue'
+import SongList from '@/components/Song/SongList.vue'
+import ButtonDelete from '@/components/Button/ButtonDelete.vue'
 export default {
   components: { SongList, ButtonDelete },
   data: () => ({

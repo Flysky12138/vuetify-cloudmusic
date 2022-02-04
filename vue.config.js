@@ -3,16 +3,6 @@ module.exports = {
   devServer: {
     port: 8888
   },
-  configureWebpack: {
-    resolve: {
-      alias: {
-        common: '@/common',
-        components: '@/components',
-        plugins: '@/plugins',
-        views: '@/views'
-      }
-    }
-  },
   pwa: {
     name: 'Vuetify CloudMusic',
     themeColor: '#ffffff',

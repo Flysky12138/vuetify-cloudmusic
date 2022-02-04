@@ -29,7 +29,7 @@
 
 <script>
 import DiscoverCatlist from './components/DiscoverCatlist.vue'
-import SongCard from 'components/Song/SongCard.vue'
+import SongCard from '@/components/Song/SongCard.vue'
 export default {
   components: { DiscoverCatlist, SongCard },
   data: () => ({

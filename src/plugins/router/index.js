@@ -1,4 +1,4 @@
-import message from 'common/message'
+import message from '@/common/message'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import goTo from 'vuetify/es5/services/goto'

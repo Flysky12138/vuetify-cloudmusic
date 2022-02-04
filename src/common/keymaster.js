@@ -1,5 +1,5 @@
 import key from 'keymaster'
-import store from 'plugins/store'
+import store from '@/plugins/store'
 
 // 移除按键默认事件
 key.filter = event => {

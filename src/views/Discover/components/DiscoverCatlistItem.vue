@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import SongChip from 'components/Song/SongChip.vue'
+import SongChip from '@/components/Song/SongChip.vue'
 export default {
   props: {
     head: { type: String, required: true },

@@ -1,4 +1,4 @@
-<template>
+@/<template>
   <v-container>
     <v-row>
       <v-col cols='3'>
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import SongList from 'components/Song/SongList.vue'
+import SongList from '@/components/Song/SongList.vue'
 export default {
   components: { SongList },
   data: () => ({

@@ -21,8 +21,8 @@
 import { mapState } from 'vuex'
 import SkeletonLoader from './components/SkeletonLoader.vue'
 import PlaylistDetail from './components/PlaylistDetail.vue'
-import SongList from 'components/Song/SongList'
-import ButtonDelete from 'components/Button/ButtonDelete.vue'
+import SongList from '@/components/Song/SongList'
+import ButtonDelete from '@/components/Button/ButtonDelete.vue'
 export default {
   components: { SkeletonLoader, PlaylistDetail, SongList, ButtonDelete },
   data: () => ({

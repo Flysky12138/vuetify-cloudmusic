@@ -89,10 +89,10 @@
 
 <script>
 import { mapState } from 'vuex'
-import { EventBus } from 'common/eventBus.js'
-import ButtonPlay from 'components/Button/ButtonPlay.vue'
-import ButtonAdd from 'components/Button/ButtonAdd.vue'
-import Mv from 'components/Mv.vue'
+import { EventBus } from '@/common/eventBus.js'
+import ButtonPlay from '@/components/Button/ButtonPlay.vue'
+import ButtonAdd from '@/components/Button/ButtonAdd.vue'
+import Mv from '@/components/Mv.vue'
 export default {
   components: { ButtonPlay, ButtonAdd, Mv },
   props: {

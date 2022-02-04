@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import SongList from 'components/Song/SongList.vue'
-import ButtonDelete from 'components/Button/ButtonDelete.vue'
+import SongList from '@/components/Song/SongList.vue'
+import ButtonDelete from '@/components/Button/ButtonDelete.vue'
 export default {
   components: { SongList, ButtonDelete },
   data: () => ({
