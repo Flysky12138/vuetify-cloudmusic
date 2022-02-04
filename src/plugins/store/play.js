@@ -85,18 +85,20 @@ const mutations = {
   },
   // 播放、暂停
   playORpause(state, params = 2) {
-    setTimeout(() => {
-      switch (params) {
-        case false:
-          state.isplay = false
-          break
-        case true:
-          state.isplay = true
-          break
-        default:
-          state.isplay = !state.isplay
-      }
-    }, 100)
+    if (Object.keys(state.music).length) {
+      setTimeout(() => {
+        switch (params) {
+          case false:
+            state.isplay = false
+            break
+          case true:
+            state.isplay = true
+            break
+          default:
+            state.isplay = !state.isplay
+        }
+      }, 100)
+    }
   },
   // 音量
   setVolume(state, params) {
