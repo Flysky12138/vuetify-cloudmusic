@@ -145,11 +145,13 @@ export default {
       }
       // 换页滚动到表格顶部
       if (!this.autoPage) {
-        this.$vuetify.goTo('#dataTable', {
-          duration: 600, // 动画时长
-          offset: 0, // 偏移
-          easing: 'easeOutQuad' // 动画
-        })
+        setTimeout(() => {
+          this.$vuetify.goTo('#dataTable', {
+            duration: 600, // 动画时长
+            offset: 0, // 偏移
+            easing: 'easeOutQuad' // 动画
+          })
+        }, 500)
       }
       this.autoPage = false
     }
