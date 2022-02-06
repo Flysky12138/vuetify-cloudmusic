@@ -40,7 +40,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { userStore } from '@/plugins/store/user'
+import { mapState } from 'pinia'
 import ImageAvatar from '@/components/Image/ImageAvatar.vue'
 import ImageCover from '@/components/Image/ImageCover.vue'
 import SongChip from '@/components/Song/SongChip.vue'
@@ -52,8 +53,8 @@ export default {
   },
   data: () => ({}),
   computed: {
-    ...mapState({
-      uid: state => state.user.uid
+    ...mapState(userStore, {
+      uid: state => state.info.uid
     })
   },
   methods: {

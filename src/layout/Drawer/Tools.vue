@@ -13,7 +13,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { playerStore } from '@/plugins/store/player'
+import { mapState } from 'pinia'
 import download from '@/common/download'
 export default {
   data: () => ({
@@ -21,9 +22,7 @@ export default {
     items: [{ name: '歌曲下载', icon: 'mdi-download' }]
   }),
   computed: {
-    ...mapState({
-      music: state => state.play.music
-    })
+    ...mapState(playerStore, ['music'])
   },
   methods: {
     onClick(index) {

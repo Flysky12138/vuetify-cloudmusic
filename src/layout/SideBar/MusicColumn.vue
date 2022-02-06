@@ -40,7 +40,8 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { playerStore } from '@/plugins/store/player'
+import { mapState, mapActions } from 'pinia'
 import { EventBus } from '@/common/eventBus.js'
 import Player from './Player'
 export default {
@@ -97,18 +98,10 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      isShow: state => state.play.isShow,
-      music: state => state.play.music,
-      isplay: state => state.play.isplay,
-      volume: state => state.play.volume,
-      muted: state => state.play.muted,
-      mode: state => state.play.mode,
-      dt: state => state.play.dt
-    })
+    ...mapState(playerStore, ['isShow', 'music', 'isplay', 'volume', 'muted', 'mode', 'dt'])
   },
   methods: {
-    ...mapMutations(['setPlayDt', 'previous', 'next', 'removeMusic']),
+    ...mapActions(playerStore, ['setPlayDt', 'previous', 'next', 'removeMusic']),
     // 播放音乐时约每250ms回调一次
     timeUpdate(res) {
       this.playDt(res)

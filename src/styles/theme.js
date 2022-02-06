@@ -1,12 +1,16 @@
+import pinia from '@/plugins/store'
+import { styleStore } from '@/plugins/store/style'
 import vuetify from '@/plugins/vuetify'
+
+const style = styleStore(pinia)
 
 const theme = {
   get isDark() {
-    return JSON.parse(localStorage.getItem('isDark'))
+    return style.isDark
   },
   set isDark(boolean) {
     vuetify.framework.theme.isDark = boolean
-    localStorage.setItem('isDark', boolean)
+    style.setIsDark(boolean)
     setTitleColor(boolean)
   }
 }

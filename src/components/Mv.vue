@@ -15,7 +15,8 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { playerStore } from '@/plugins/store/player'
+import { mapState, mapActions } from 'pinia'
 export default {
   props: {
     songid: { type: Number, required: true },
@@ -37,10 +38,7 @@ export default {
     })
   },
   computed: {
-    ...mapState({
-      isplay: state => state.play.isplay,
-      isShow: state => state.play.isShow
-    }),
+    ...mapState(playerStore, ['isplay', 'isShow']),
     // 视频窗口样式
     videoStyle() {
       return {
@@ -50,7 +48,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['playORpause']),
+    ...mapActions(playerStore, ['playORpause']),
     // 获取视频信息
     async getVideoInfo(id = this.video.ids[this.video.index]) {
       this.video.info = /^\d+$/.test(id) ? await this.$http.mv.url.mv(id) : await this.$http.mv.url.mlog(id)

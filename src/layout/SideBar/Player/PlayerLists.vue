@@ -14,7 +14,7 @@
       <v-banner sticky single-line class='font-weight-bold'>
         <v-row align='center'>
           <v-col>
-            <span>当前播放({{ playIndex + 1 }}/{{ lists.length }})</span>
+            <span>当前播放({{ indexMusicInLists + 1 }}/{{ lists.length }})</span>
           </v-col>
           <v-col cols='auto'>
             <v-btn class='mx-4' color='cyan darken-4' x-small :to='route' @click='$emit("close")'>
@@ -40,7 +40,8 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from 'vuex'
+import { playerStore } from '@/plugins/store/player'
+import { mapState, mapActions } from 'pinia'
 export default {
   data: () => ({
     dialog: false
@@ -51,21 +52,14 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      music: state => state.play.music, // 当前播放的音乐
-      lists: state => state.play.lists, // 音乐列表
-      route: state => state.play.route // 添加歌曲列表时的路由地址
-    }),
-    ...mapGetters({
-      playIndex: 'indexMusicInLists'
-    })
+    ...mapState(playerStore, ['music', 'lists', 'route', 'indexMusicInLists'])
   },
   methods: {
-    ...mapMutations(['chooseMusic', 'removeMusic']),
+    ...mapActions(playerStore, ['chooseMusic', 'removeMusic']),
     // 当前播放音乐置顶
     locateItem() {
       setTimeout(() => {
-        this.$refs.playerlists.$el.scrollTop = this.playIndex * 40
+        this.$refs.playerlists.$el.scrollTop = this.indexMusicInLists * 40
       }, 50)
     }
   }

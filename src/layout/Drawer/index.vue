@@ -4,7 +4,7 @@
     app
     hide-overlay
     width='160'
-    :mini-variant='mini'
+    :mini-variant='miniDrawer'
     temporary
     @mouseleave.native='isShow = false'
     @click.native='allClick'
@@ -16,9 +16,9 @@
     <options />
     <!-- 改变抽屉栏样式 -->
     <v-list dense nav class='list'>
-      <v-list-item link @click.stop='onClick'>
+      <v-list-item link @click.stop='setMiniDrawer(!miniDrawer)'>
         <v-list-item-icon>
-          <v-icon color='purple lighten-3'>{{ mini ? 'mdi-share' : 'mdi-reply' }}</v-icon>
+          <v-icon color='purple lighten-3'>{{ miniDrawer ? 'mdi-share' : 'mdi-reply' }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>改变样式</v-list-item-title>
@@ -29,17 +29,17 @@
 </template>
 
 <script>
+import { styleStore } from '@/plugins/store/style'
+import { mapActions, mapState } from 'pinia'
 import Router from './Router.vue'
 import Options from './Options.vue'
 import Tools from './Tools.vue'
 export default {
   components: { Router, Options, Tools },
   data: () => ({
-    isShow: false,
-    mini: false
+    isShow: false
   }),
   created() {
-    this.mini = JSON.parse(localStorage.getItem('miniDrawer'))
     // 创建触发显示抽屉栏的DOM
     const div = document.createElement('div')
     this.elementStyle(div, {
@@ -55,15 +55,15 @@ export default {
       this.isShow = true
     })
   },
+  computed: {
+    ...mapState(styleStore, ['miniDrawer'])
+  },
   methods: {
+    ...mapActions(styleStore, ['setMiniDrawer']),
     allClick(event) {
       if (['v-list-item', 'v-icon'].some(res => event.target.className.includes(res))) {
         this.isShow = false
       }
-    },
-    onClick() {
-      this.mini = !this.mini
-      localStorage.setItem('miniDrawer', this.mini)
     },
     elementStyle(element, object) {
       Object.keys(object).forEach(name => {

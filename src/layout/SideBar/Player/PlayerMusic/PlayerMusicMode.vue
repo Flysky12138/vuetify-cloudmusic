@@ -5,7 +5,8 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { playerStore } from '@/plugins/store/player'
+import { mapState, mapActions } from 'pinia'
 export default {
   data: () => ({
     playMode: 0 // 播放模式：单曲0、顺序1、随机2
@@ -19,9 +20,7 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      mode: state => state.play.mode
-    }),
+    ...mapState(playerStore, ['mode']),
     theIcon() {
       switch (this.mode) {
         case 1:
@@ -34,7 +33,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['playmode'])
+    ...mapActions(playerStore, ['playmode'])
   }
 }
 </script>

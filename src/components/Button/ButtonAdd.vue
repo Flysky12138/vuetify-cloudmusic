@@ -27,7 +27,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { userStore } from '@/plugins/store/user'
+import { mapState } from 'pinia'
 export default {
   props: {
     id: { type: Number, required: true },
@@ -40,10 +41,7 @@ export default {
     playlist: [] // 创建的歌单 {coverImgUrl:String, id:Number, name:String, playCount:Number}
   }),
   computed: {
-    ...mapState({
-      islogin: state => state.islogin,
-      uid: state => state.user.uid
-    })
+    ...mapState(userStore, ['islogin', 'info'])
   },
   methods: {
     onClick() {
@@ -75,7 +73,7 @@ export default {
       if (!JSON.parse(sessionStorage.getItem('userPlaylistsCached'))) {
         this.loading = true
       }
-      this.$http.user.playlist(this.uid).then(res => {
+      this.$http.user.playlist(this.info.uid).then(res => {
         this.playlist = this.nolove ? res.create.filter(res => !/喜欢的音乐$/.test(res.name)) : res.create
         setTimeout(() => {
           this.loading = false

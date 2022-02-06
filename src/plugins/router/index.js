@@ -1,8 +1,9 @@
 import message from '@/common/message'
+import { userStore } from '@/plugins/store/user'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import goTo from 'vuetify/es5/services/goto'
-import store from '../store'
+import pinia from '../store'
 import routes from './routes'
 
 // 解决报错问题：Error: Avoided redundant navigation to current location
@@ -46,7 +47,7 @@ router.beforeEach((to, from, next) => {
   } else {
     localStorage.setItem('lastAddress', to.fullPath)
   }
-  if (!store.state.islogin && to.matched.some(record => record.meta.requiresAuth)) {
+  if (!userStore(pinia).islogin && to.meta.requiresAuth) {
     message({ text: '未登录，跳转到登录界面！' })
     params = { path: '/login' }
   }

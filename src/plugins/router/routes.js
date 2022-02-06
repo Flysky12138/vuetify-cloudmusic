@@ -1,5 +1,6 @@
 import message from '@/common/message'
-import store from '../store'
+import { userStore } from '@/plugins/store/user'
+import pinia from '../store'
 
 const routes = [
   {
@@ -13,7 +14,7 @@ const routes = [
     component: () => import('@/views/Login'),
     // 路由独享的守卫
     beforeEnter(to, from, next) {
-      if (store.state.islogin) {
+      if (userStore(pinia).islogin) {
         message({
           text: '已经登录过了！',
           color: 'success'

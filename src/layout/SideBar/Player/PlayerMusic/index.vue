@@ -29,20 +29,20 @@
       <!-- 进度条 -->
       <v-col cols='8'>
         <v-slider
-          v-model='dt'
+          v-model='playDt'
           min='0'
           :max='music.dt'
           hide-details
           color='purple darken-3'
           track-color='purple lighten-3'
           @mousedown='canSetDt = false'
-          @mouseup='$emit("changeDt", dt);canSetDt = true'
+          @mouseup='$emit("changeDt", playDt);canSetDt = true'
         >
           <template v-slot:prepend>
-            <span class='mt-1' v-text='$time.song(dt)'></span>
+            <span class='mt-1' v-text='$time.song(playDt)'></span>
           </template>
           <template v-slot:append>
-            <span class='mt-1' v-text='$time.song(music.dt)'></span>
+            <span class='mt-1' v-text='$time.song(music.playDt)'></span>
           </template>
         </v-slider>
       </v-col>
@@ -51,7 +51,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { playerStore } from '@/plugins/store/player'
+import { mapState } from 'pinia'
 import ButtonAdd from '@/components/Button/ButtonAdd.vue'
 import ButtonLove from '@/components/Button/ButtonLove.vue'
 import PlayerMusicPlay from './PlayerMusicPlay.vue'
@@ -66,20 +67,17 @@ export default {
     PlayerMusicMode
   },
   data: () => ({
-    dt: 0, // 播放进度
+    playDt: 0, // 播放进度
     canSetDt: true // 鼠标是否正在滑动滑动条
   }),
   watch: {
     // 手动滑动时不赋值
-    playDt(newValue) {
-      this.canSetDt && (this.dt = newValue)
+    dt(newValue) {
+      this.canSetDt && (this.playDt = newValue)
     }
   },
   computed: {
-    ...mapState({
-      music: state => state.play.music, // 正在播放的歌曲信息
-      playDt: state => state.play.dt // 当前播放音乐进度
-    })
+    ...mapState(playerStore, ['music', 'dt'])
   }
 }
 </script>

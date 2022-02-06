@@ -17,7 +17,8 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex'
+import { playerStore } from '@/plugins/store/player'
+import { mapState, mapActions } from 'pinia'
 export default {
   props: {
     id: { type: Array, required: true },
@@ -28,13 +29,10 @@ export default {
   },
   data: () => ({}),
   computed: {
-    ...mapState({
-      isShow: state => state.play.isShow
-    })
+    ...mapState(playerStore, ['isShow'])
   },
   methods: {
-    ...mapActions(['addID', 'addIDs']),
-    ...mapMutations(['saveRoute']),
+    ...mapActions(playerStore, ['addID', 'addIDs', 'saveRoute']),
     hint() {
       this.$message({
         text: '〖 ' + this.name + ' 〗 添加到下一首播放',

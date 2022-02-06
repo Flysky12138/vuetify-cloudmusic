@@ -40,7 +40,8 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { userStore } from '@/plugins/store/user'
+import { mapActions } from 'pinia'
 import AppBar from './layout/AppBar'
 import Drawer from './layout/Drawer'
 import SideBar from './layout/SideBar'
@@ -49,14 +50,15 @@ export default {
   data: () => ({
     isPc: !/Android|WindowsPhone|webOS|iPhone|iPod|BlackBerry|iPad/.test(navigator.userAgent)
   }),
-  created() {
-    // 获取ID、等级和头像
-    this.$http.login.status().then(res => {
-      res.islogin ? this.login(res) : this.logout()
-    })
+  async created() {
+    try {
+      this.setInfo(await this.$http.login.status())
+    } catch (error) {
+      this.logout()
+    }
   },
   methods: {
-    ...mapMutations(['login', 'logout'])
+    ...mapActions(userStore, ['setInfo', 'logout'])
   }
 }
 </script>

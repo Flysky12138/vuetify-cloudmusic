@@ -16,10 +16,10 @@
       <!-- 手机号、二维码 -->
       <v-tabs-items v-model='tab' vertical>
         <v-tab-item class='py-12'>
-          <component is='LoginPhone' @login='login'></component>
+          <component is='LoginPhone' @login='userlogin'></component>
         </v-tab-item>
         <v-tab-item class='py-8'>
-          <component is='LoginQR' @login='login' @loading='loading = $event'></component>
+          <component is='LoginQR' @login='userlogin' @loading='loading = $event'></component>
         </v-tab-item>
       </v-tabs-items>
       <!-- 加载提示圈 -->
@@ -31,7 +31,8 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { userStore } from '@/plugins/store/user'
+import { mapActions } from 'pinia'
 import LoginPhone from './components/LoginPhone.vue'
 import LoginQR from './components/LoginQR.vue'
 export default {
@@ -43,20 +44,16 @@ export default {
     fullPath: '/' // 登陆后的跳转路由
   }),
   methods: {
-    ...mapMutations({
-      setLogin: 'login'
-    }),
-    login(cookie) {
+    ...mapActions(userStore, ['login', 'setInfo']),
+    userlogin(cookie) {
       this.overlay = true
-      localStorage.setItem('cookie', cookie)
+      this.login(cookie)
       // 获取ID,等级和头像
       this.$http.login.status().then(res => {
-        if (res.islogin) {
-          this.setLogin(res)
-          this.overlay = false
-          this.$message({ text: '登录成功，欢迎使用！', color: 'success' })
-          this.$router.replace(this.fullPath)
-        }
+        this.setInfo(res)
+        this.overlay = false
+        this.$message({ text: '登录成功，欢迎使用！', color: 'success' })
+        this.$router.replace(this.fullPath)
       })
     }
   },

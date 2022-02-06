@@ -1,4 +1,5 @@
-import store from '@/plugins/store'
+import pinia from '@/plugins/store'
+import { playerStore } from '@/plugins/store/player'
 import key from 'keymaster'
 
 // 移除按键默认事件
@@ -11,14 +12,16 @@ key.filter = event => {
   return true
 }
 
+const player = playerStore(pinia)
+
 export default (() => {
   key('left', () => {
-    store.commit('previous')
+    player.previous()
   })
   key('right', () => {
-    store.commit('next')
+    player.next()
   })
   key('space', () => {
-    store.commit('playORpause')
+    player.playORpause()
   })
 })()

@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'pinia'
+import { styleStore } from '@/plugins/store/style'
 import PlayerLists from './PlayerLists.vue'
 import PlayerMusic from './PlayerMusic'
 import PlayerLyrics from './PlayerLyrics.vue'
@@ -38,20 +40,15 @@ export default {
   props: {
     picUrl: { type: String, required: true }
   },
-  data: () => ({
-    blur: 70
-  }),
-  created() {
-    const _blur = JSON.parse(localStorage.getItem('blur'))
-    this.blur = _blur !== null ? _blur : 70
+  data: () => ({}),
+  computed: {
+    ...mapState(styleStore, ['blur'])
   },
   methods: {
+    ...mapActions(styleStore, ['setBlur']),
     mouseWheel(event) {
       if (event.clientX === 0) {
-        // 动态设置背景模糊程度 [10,100]
-        const _blur = this.blur + Math.sign(event.wheelDelta) * 5
-        this.blur = Math.min(Math.max(10, _blur), 100)
-        localStorage.setItem('blur', JSON.stringify(this.blur))
+        this.setBlur(Math.sign(event.wheelDelta) * 5)
       }
     },
     changeDt(e) {

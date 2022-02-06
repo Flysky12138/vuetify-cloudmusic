@@ -15,7 +15,6 @@ function status() {
             })
             .then(response => {
               resolve({
-                islogin: true,
                 uid: response.profile.userId,
                 level: response.level,
                 avatarUrl: response.profile.avatarUrl
@@ -23,9 +22,7 @@ function status() {
             })
             .catch(error => reject(error))
         } else {
-          resolve({
-            islogin: false
-          })
+          reject()
         }
       })
       .catch(error => reject(error))

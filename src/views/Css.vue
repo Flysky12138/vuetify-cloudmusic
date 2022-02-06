@@ -1,6 +1,6 @@
 <template>
   <v-container style='position: relative' class='py-6'>
-    <prism-editor v-model='code' :highlight='highlighter' line-numbers :tabSize='4' ref='prismEditor'></prism-editor>
+    <prism-editor v-model='css' :highlight='highlighter' line-numbers :tabSize='4' ref='prismEditor'></prism-editor>
     <v-btn color='success' icon absolute right top @click='onClick'>
       <v-icon>mdi-content-save-check</v-icon>
     </v-btn>
@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import { styleStore } from '@/plugins/store/style'
+import { mapWritableState } from 'pinia'
 // prism
 import { highlight, languages } from 'prismjs/components/prism-core'
 import 'prismjs/components/prism-css' // 高亮目标代码
@@ -19,22 +21,24 @@ import 'vue-prism-editor/dist/prismeditor.min.css'
 import jsBeautify from 'js-beautify'
 export default {
   components: { PrismEditor },
-  data: () => ({
-    code: localStorage.getItem('css')
-  }),
+  data: () => ({}),
   mounted() {
     this.$refs.prismEditor.$el.querySelector('textarea').focus() // 聚焦
   },
+  computed: {
+    ...mapWritableState(styleStore, ['css'])
+  },
   methods: {
+    // 高亮
     highlighter(code) {
       return highlight(code, languages.css)
     },
+    // 美化代码格式
     onClick() {
-      this.code = jsBeautify.css(this.code, {
-        end_with_newline: !/^\s*$/.test(this.code) // 以空行结束
-      }) // 美化代码格式
-      document.querySelector('style[id=user-css]').innerHTML = this.code // 修改样式
-      localStorage.setItem('css', this.code)
+      this.css = jsBeautify.css(this.css, {
+        end_with_newline: !/^\s*$/.test(this.css) // 以空行结束
+      })
+      document.querySelector('style[id=user-css]').innerHTML = this.css // 修改样式
     }
   }
 }

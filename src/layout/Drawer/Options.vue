@@ -13,9 +13,10 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { userStore } from '@/plugins/store/user'
+import { mapState, mapActions } from 'pinia'
 import download from '@/common/download'
-import theme from '@/common/theme'
+import theme from '@/styles/theme'
 export default {
   data: () => ({
     name: '设置',
@@ -27,9 +28,7 @@ export default {
     ]
   }),
   computed: {
-    ...mapState({
-      islogin: state => state.islogin
-    }),
+    ...mapState(userStore, ['islogin']),
     filterItems() {
       const _items = [...this.items]
       this.islogin || _items.pop()
@@ -37,7 +36,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['logout']),
+    ...mapActions(userStore, ['logout']),
     onClick(index) {
       switch (index) {
         case 0:

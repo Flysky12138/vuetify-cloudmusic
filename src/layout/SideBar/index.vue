@@ -21,7 +21,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { playerStore } from '@/plugins/store/player'
+import { mapState } from 'pinia'
 import MusicColumn from './MusicColumn.vue'
 import GoTop from './GoTop.vue'
 import LocateMusic from './LocateMusic.vue'
@@ -30,10 +31,7 @@ export default {
   components: { MusicColumn, GoTop, LocateMusic, Lyrics },
   data: () => ({}),
   computed: {
-    ...mapState({
-      isShow: state => state.play.isShow,
-      route: state => state.play.route
-    }),
+    ...mapState(playerStore, ['isShow', 'route']),
     isShowLocate() {
       return !this.$route.meta.disShowLocateMusicBtn && this.route === this.$route.fullPath
     }

@@ -18,7 +18,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { userStore } from '@/plugins/store/user'
+import { mapState } from 'pinia'
 import SkeletonLoader from './components/SkeletonLoader.vue'
 import PlaylistDetail from './components/PlaylistDetail.vue'
 import SongList from '@/components/Song/SongList'
@@ -37,8 +38,8 @@ export default {
     this.getPlaylistDetail(this.$route.query.id)
   },
   computed: {
-    ...mapState({
-      uid: state => state.user.uid
+    ...mapState(userStore, {
+      uid: state => state.info.uid
     })
   },
   methods: {

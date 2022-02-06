@@ -24,11 +24,11 @@
           hide-details
           hide-no-data
           clearable
-          v-model='api'
-          :search-input.sync='api'
-          :items='items'
+          v-model='api1'
+          :search-input.sync='api1'
+          :items='["http://localhost:3000"]'
           @blur='save'
-          :error='!/^https?:\/\/[^\s/]+$/.test(api) && api'
+          :error='!/^https?:\/\/[^\s/]+$/.test(api1) && api1'
         >
           <template v-slot:item='{ item }'>
             <v-list-item-content v-text='item'></v-list-item-content>
@@ -44,11 +44,10 @@
           hide-details
           hide-no-data
           clearable
-          v-model='unApi'
-          :search-input.sync='unApi'
-          :items='unItems'
-          @blur='save'
-          :error='!/^https?:\/\/[^\s/]+$/.test(unApi) && unApi'
+          v-model='api2'
+          :search-input.sync='api2'
+          :items='["http://localhost:3001"]'
+          :error='!/^https?:\/\/[^\s/]+$/.test(api2) && api2'
         >
           <template v-slot:item='{ item }'>
             <v-list-item-content v-text='item'></v-list-item-content>
@@ -60,36 +59,25 @@
 </template>
 
 <script>
+import { apiStore } from '@/plugins/store/api'
+import { mapWritableState } from 'pinia'
 export default {
-  data: () => ({
-    api: '',
-    items: ['http://localhost:3000'],
-    unApi: '',
-    unItems: ['http://localhost:3001']
-  }),
-  created() {
-    this.api = this.get('api')
-    this.unApi = this.get('unApi')
+  data: () => ({}),
+  computed: {
+    ...mapWritableState(apiStore, ['api1', 'api2'])
   },
   methods: {
     save() {
-      localStorage.setItem('unApi', this.unApi)
-      if (this.get('api') !== this.api) {
-        localStorage.setItem('api', this.api)
-        this.$message({
-          text: '保存成功！刷新页面后生效',
-          color: 'success',
-          button: {
-            text: '刷新',
-            f: () => {
-              window.location.reload()
-            }
+      this.$message({
+        text: '保存成功！刷新页面后生效',
+        color: 'success',
+        button: {
+          text: '刷新',
+          f: () => {
+            window.location.reload()
           }
-        })
-      }
-    },
-    get(item) {
-      return localStorage.getItem(item)
+        }
+      })
     }
   }
 }

@@ -22,16 +22,15 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { playerStore } from '@/plugins/store/player'
+import { mapState, mapActions } from 'pinia'
 export default {
   data: () => ({}),
   computed: {
-    ...mapState({
-      isplay: state => state.play.isplay
-    })
+    ...mapState(playerStore, ['isplay'])
   },
   methods: {
-    ...mapMutations(['previous', 'next', 'playORpause'])
+    ...mapActions(playerStore, ['previous', 'next', 'playORpause'])
   }
 }
 </script>

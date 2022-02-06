@@ -10,7 +10,8 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { playerStore } from '@/plugins/store/player'
+import { mapState, mapActions } from 'pinia'
 export default {
   data: () => ({
     volume: 0, // 音量 0-10
@@ -29,12 +30,12 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      vuexVolume: state => state.play.volume
+    ...mapState(playerStore, {
+      vuexVolume: state => state.volume
     })
   },
   methods: {
-    ...mapMutations(['setVolume', 'setMuted']),
+    ...mapActions(playerStore, ['setVolume', 'setMuted']),
     // 控制音量
     mouseWheel(event) {
       if (event.deltaY < 0 && this.volume < 10) {

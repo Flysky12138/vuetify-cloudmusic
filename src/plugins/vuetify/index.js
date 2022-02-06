@@ -1,4 +1,4 @@
-import theme from '@/common/theme'
+import theme from '@/styles/theme'
 import Vue from 'vue'
 import Vuetify from 'vuetify/lib'
 import { createSimpleTransition } from 'vuetify/lib/components/transitions/createTransition'

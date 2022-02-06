@@ -88,7 +88,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { playerStore } from '@/plugins/store/player'
+import { mapState } from 'pinia'
 import { EventBus } from '@/common/eventBus.js'
 import ButtonPlay from '@/components/Button/ButtonPlay.vue'
 import ButtonAdd from '@/components/Button/ButtonAdd.vue'
@@ -124,8 +125,8 @@ export default {
     autoPage: false // 是否是为了定位歌曲而自动换页
   }),
   computed: {
-    ...mapState({
-      id: state => state.play.music.id
+    ...mapState(playerStore, {
+      id: state => state.music.id
     }),
     // 过滤表头
     filterHeaders() {

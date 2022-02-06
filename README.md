@@ -34,3 +34,4 @@ $ yarn serve
 - [uiwjs/province-city-china](https://github.com/uiwjs/province-city-china)
 - [beautify-web/js-beautify](https://github.com/beautify-web/js-beautify)
 - [blueimp/JavaScript-MD5](https://github.com/blueimp/JavaScript-MD5)
+- [prazdevs/pinia-plugin-persistedstate](https://github.com/prazdevs/pinia-plugin-persistedstate)
