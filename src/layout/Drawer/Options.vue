@@ -16,7 +16,6 @@
 import { userStore } from '@/plugins/store/user'
 import { mapState, mapActions } from 'pinia'
 import download from '@/common/download'
-import theme from '@/styles/theme'
 export default {
   data: () => ({
     name: '设置',
@@ -40,7 +39,7 @@ export default {
     onClick(index) {
       switch (index) {
         case 0:
-          theme.isDark = !theme.isDark
+          this.$vuetify.theme.isDark = !this.$vuetify.theme.isDark
           break
         case 1:
           download(localStorage, 'vuetify-cloudmusic-settings.json', true)
