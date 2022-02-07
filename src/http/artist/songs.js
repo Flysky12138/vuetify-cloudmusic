@@ -1,24 +1,22 @@
 import axios from '../api'
 
 // 歌手全部歌曲
-function once(id, page = 0) {
+function once(id, page = 0, limit = 200) {
   return new Promise((resolve, reject) => {
     axios
       .get('/artist/songs', {
         params: {
           id,
           order: 'hot',
-          limit: 200,
-          offset: 200 * page
+          limit,
+          offset: limit * page
         }
       })
       .then(response => {
-        let data = {
-          songs: [],
-          more: response.more
-        }
-        response.songs.forEach(element => {
-          data.songs.push({
+        resolve({
+          more: response.more,
+          songs: response.songs.map((element, index) => ({
+            count: limit * page + index + 1,
             id: element.id,
             name: element.name,
             artists: element.ar.map(res => ({
@@ -36,9 +34,8 @@ function once(id, page = 0) {
               cs: element.privilege.cs, // boolean：云盘
               st: element.privilege.st // -200：无版权
             }
-          })
+          }))
         })
-        resolve(data)
       })
       .catch(error => reject(error))
   })

@@ -6,9 +6,9 @@ function recommend() {
     axios
       .get('/recommend/songs')
       .then(response => {
-        let arr = []
-        response.data.dailySongs.forEach(element => {
-          arr.push({
+        resolve(
+          response.data.dailySongs.map((element, index) => ({
+            count: index + 1,
             id: element.id,
             name: element.name,
             artists: element.ar.map(res => ({
@@ -26,9 +26,8 @@ function recommend() {
               cs: element.privilege.cs, // boolean：云盘
               st: element.privilege.st // -200：无版权
             }
-          })
-        })
-        resolve(arr)
+          }))
+        )
       })
       .catch(error => reject(error))
   })

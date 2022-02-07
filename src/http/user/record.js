@@ -12,10 +12,9 @@ function record(uid, type = 0) {
       })
       .then(response => {
         if (response) {
-          let arr = []
-          const key = type === 0 ? 'allData' : 'weekData'
-          response[key].forEach(element => {
-            arr.push({
+          resolve(
+            response[type === 0 ? 'allData' : 'weekData'].map((element, index) => ({
+              count: index + 1,
               count: element.playCount === 0 ? '-' : element.playCount,
               id: element.song.id,
               name: element.song.name,
@@ -34,9 +33,8 @@ function record(uid, type = 0) {
                 cs: element.song.privilege.cs, // boolean：云盘
                 st: element.song.privilege.st // -200：无版权
               }
-            })
-          })
-          resolve(arr)
+            }))
+          )
         } else {
           resolve(false)
         }

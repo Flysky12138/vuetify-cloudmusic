@@ -10,24 +10,9 @@ function personalized(id) {
         }
       })
       .then(response => {
-        let obj = {
-          songs: [],
-          info: {
-            artist: {
-              name: response.album.artist.name,
-              alias: response.album.artist.alias,
-              img1v1Url: response.album.artist.img1v1Url
-            },
-            id: response.album.id,
-            name: response.album.name,
-            picUrl: response.album.picUrl,
-            publishTime: response.album.publishTime,
-            company: response.album.company,
-            description: response.album.description || ''
-          }
-        }
-        response.songs.forEach(element => {
-          obj.songs.push({
+        resolve({
+          songs: response.songs.map((element, index) => ({
+            count: index + 1,
             id: element.id,
             name: element.name,
             artists: element.ar.map(res => ({
@@ -45,9 +30,21 @@ function personalized(id) {
               cs: element.privilege.cs, // boolean：云盘
               st: element.privilege.st // -200：无版权
             }
-          })
+          })),
+          info: {
+            artist: {
+              name: response.album.artist.name,
+              alias: response.album.artist.alias,
+              img1v1Url: response.album.artist.img1v1Url
+            },
+            id: response.album.id,
+            name: response.album.name,
+            picUrl: response.album.picUrl,
+            publishTime: response.album.publishTime,
+            company: response.album.company,
+            description: response.album.description || ''
+          }
         })
-        resolve(obj)
       })
       .catch(error => reject(error))
   })

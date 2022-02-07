@@ -10,9 +10,9 @@ function once(ids) {
         }
       })
       .then(response => {
-        let arr = []
-        response.songs.forEach((element, index) => {
-          arr.push({
+        resolve(
+          response.songs.map((element, index) => ({
+            count: index + 1,
             id: element.id,
             name: element.name,
             picUrl: element.al.picUrl,
@@ -32,9 +32,8 @@ function once(ids) {
               cs: response.privileges[index].cs, // boolean：云盘
               st: response.privileges[index].st // -200：无版权
             }
-          })
-        })
-        resolve(arr)
+          }))
+        )
       })
       .catch(error => reject(error))
   })

@@ -42,9 +42,8 @@
     <!-- item.count插槽 -->
     <template v-slot:item.count='{ item }'>
       <!-- 听歌排行的听歌数 -->
-      <span v-if='item.hasOwnProperty("count")'>{{ item.count }}</span>
-      <span v-else-if='[1, 4].includes(item.privilege.fee)' class='text-caption red--text'>vip</span>
-      <span v-else>{{ value.indexOf(item) + 1 }}</span>
+      <span v-if='[1, 4].includes(item.privilege.fee)' class='text-caption red--text'>vip</span>
+      <span v-else>{{ item.count }}</span>
     </template>
     <!-- item.name插槽 -->
     <template v-slot:item.name='{ item }'>
@@ -165,8 +164,8 @@ export default {
     },
     // 自定义过滤器
     customFilter(value, search, item) {
-      return [item.name, ...item.artists.map(_res => _res.name), item.album.name, this.$time.song(item.dt)].some(res =>
-        res.toLowerCase().includes(search.toLowerCase())
+      return [item.count, item.name, ...item.artists.map(_res => _res.name), item.album.name, this.$time.song(item.dt)].some(res =>
+        res.toString().toLowerCase().includes(search.toLowerCase())
       )
     },
     // 设置正在播放歌曲项的类

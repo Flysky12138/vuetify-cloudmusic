@@ -1,22 +1,20 @@
 import axios from '../api'
 
 // 获取云盘数据
-function once(page = 0) {
+function once(page = 0, limit = 200) {
   return new Promise((resolve, reject) => {
     axios
       .get('/user/cloud', {
         params: {
-          limit: 200,
-          offset: 200 * page
+          limit,
+          offset: limit * page
         }
       })
       .then(response => {
-        let obj = {
+        resolve({
           hasMore: response.hasMore,
-          data: []
-        }
-        response.data.forEach(element => {
-          obj.data.push({
+          data: response.data.map((element, index) => ({
+            count: limit * page + index + 1,
             id: element.simpleSong.id,
             name: element.simpleSong.name,
             artists: element.simpleSong.ar
@@ -41,9 +39,8 @@ function once(page = 0) {
               cs: element.simpleSong.privilege.cs, // boolean：云盘
               st: element.simpleSong.privilege.st // -200：无版权
             }
-          })
+          }))
         })
-        resolve(obj)
       })
       .catch(error => reject(error))
   })
