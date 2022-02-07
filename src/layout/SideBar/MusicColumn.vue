@@ -41,6 +41,7 @@
 
 <script>
 import { playerStore } from '@/plugins/store/player'
+import { apiStore } from '@/plugins/store/api'
 import { mapState, mapActions } from 'pinia'
 import { EventBus } from '@/common/eventBus.js'
 import Player from './Player'
@@ -98,7 +99,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(playerStore, ['isShow', 'music', 'isplay', 'volume', 'muted', 'mode', 'dt'])
+    ...mapState(playerStore, ['isShow', 'music', 'isplay', 'volume', 'muted', 'mode', 'dt']),
+    ...mapState(apiStore, ['api2'])
   },
   methods: {
     ...mapActions(playerStore, ['setPlayDt', 'previous', 'next', 'removeMusic']),
@@ -145,9 +147,8 @@ export default {
         if ((this.music.privilege.st >= 0 && [0, 8].includes(this.music.privilege.fee)) || this.music.privilege.cs) {
           this.url = await this.$http.song.url(this.music.id).then(_res => _res.url)
         } else {
-          const unApi = localStorage.getItem('unApi') || '/'
-          if ((await fetch(unApi + '/test').then(_res => _res.statusText)) === 'OK') {
-            this.url = unApi + '/?id=' + this.music.id
+          if ((await fetch(this.api2 + '/test').then(_res => _res.statusText)) === 'OK') {
+            this.url = this.api2 + '/?id=' + this.music.id
           }
         }
       } catch (error) {

@@ -42,7 +42,7 @@
             <span class='mt-1' v-text='$time.song(playDt)'></span>
           </template>
           <template v-slot:append>
-            <span class='mt-1' v-text='$time.song(music.playDt)'></span>
+            <span class='mt-1' v-text='$time.song(music.dt)'></span>
           </template>
         </v-slider>
       </v-col>
