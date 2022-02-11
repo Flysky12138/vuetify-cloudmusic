@@ -87,12 +87,12 @@
 </template>
 
 <script>
+import { EventBus } from '@/common/eventBus.js'
+import ButtonAdd from '@/components/Button/ButtonAdd.vue'
+import ButtonPlay from '@/components/Button/ButtonPlay.vue'
+import Mv from '@/components/Mv.vue'
 import { playerStore } from '@/plugins/store/player'
 import { mapState } from 'pinia'
-import { EventBus } from '@/common/eventBus.js'
-import ButtonPlay from '@/components/Button/ButtonPlay.vue'
-import ButtonAdd from '@/components/Button/ButtonAdd.vue'
-import Mv from '@/components/Mv.vue'
 export default {
   components: { ButtonPlay, ButtonAdd, Mv },
   props: {
@@ -121,7 +121,7 @@ export default {
       { text: '', align: 'end', value: 'btns' }
     ],
     filteredItems: [], // 过滤后的列表数据
-    autoPage: false // 是否是为了定位歌曲而自动换页
+    scrollToEnable: true // 换页滚动
   }),
   computed: {
     ...mapState(playerStore, {
@@ -133,26 +133,15 @@ export default {
     }
   },
   watch: {
-    /**
-     * 到达最后一页时回调事件
-     * 由于过滤搜索时会减少分页，因此当过滤后数据减少，可能会到最后一页，所以和oldValue比较大小，以便排除该事件
-     * 效果：从数值小的一页跳转到数值更大的最后一页才会执行
-     */
     page(newValue, oldValue) {
+      // 到达最后一页时回调事件
       if (newValue > oldValue && newValue === this.pageCount) {
         this.$emit('pageEnd', this.pageCount)
       }
       // 换页滚动到表格顶部
-      if (!this.autoPage) {
-        setTimeout(() => {
-          this.$vuetify.goTo('#dataTable', {
-            duration: 600, // 动画时长
-            offset: 0, // 偏移
-            easing: 'easeOutQuad' // 动画
-          })
-        }, 500)
+      if (this.scrollToEnable) {
+        this.scrollTo('#dataTable')
       }
-      this.autoPage = false
     }
   },
   methods: {
@@ -182,35 +171,26 @@ export default {
     },
     // 查看歌手
     lookArtists(params) {
-      if (this.$route.query.id !== params && !!params) {
-        this.$router.push({
-          path: '/artists',
-          query: {
-            id: params
-          }
-        })
+      if (this.$route.query.id !== params && params) {
+        this.$router.push(`/artists?id=${params}`)
       }
     },
     // 查看专辑
     lookAlbum(params) {
-      if (this.$route.query.id !== params && !!params) {
-        this.$router.push({
-          path: '/album',
-          query: {
-            id: params
-          }
-        })
+      if (this.$route.query.id !== params && params) {
+        this.$router.push(`/album?id=${params}`)
       }
     },
-    // 为了定位播放歌曲而换页
+    // 定位播放歌曲
     locate() {
       return {
         start: () => {
           EventBus.$on('locateMusicEvent', () => {
-            this.autoPage = true
             const index = this.value.findIndex(res => res.id === this.id)
             if (index !== -1) {
+              this.scrollToEnable = false
               this.page = Math.ceil((index + 1) / this.itemsPerPage)
+              this.scrollTo('.playItem', 400, 13, document.querySelector('.playItem') ? 0 : 600)
             }
           })
         },
@@ -218,6 +198,17 @@ export default {
           EventBus.$off('locateMusicEvent')
         }
       }
+    },
+    // 滚动定位
+    scrollTo(dom = 0, duration = 600, offset = 0, timeout = 600) {
+      setTimeout(() => {
+        this.$vuetify.goTo(dom, {
+          duration,
+          offset,
+          easing: 'easeOutQuad'
+        })
+        this.scrollToEnable = true
+      }, timeout)
     }
   },
   created() {
