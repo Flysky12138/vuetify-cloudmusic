@@ -41,7 +41,6 @@
 
 <script>
 import { userStore } from '@/plugins/store/user'
-import { mapActions } from 'pinia'
 import AppBar from './layout/AppBar'
 import Drawer from './layout/Drawer'
 import SideBar from './layout/SideBar'
@@ -51,14 +50,7 @@ export default {
     isPc: !/Android|WindowsPhone|webOS|iPhone|iPod|BlackBerry|iPad/.test(navigator.userAgent)
   }),
   async created() {
-    try {
-      this.setInfo(await this.$http.login.status())
-    } catch (error) {
-      this.logout()
-    }
-  },
-  methods: {
-    ...mapActions(userStore, ['setInfo', 'logout'])
+    userStore().setInfo(await this.$http.login.status())
   }
 }
 </script>
