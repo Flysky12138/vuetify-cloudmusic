@@ -12,15 +12,15 @@
       <!-- 路由显示区 -->
       <v-main :class='$vuetify.theme.isDark ? "" : "grey lighten-3"'>
         <v-container class='width-size' style='height: 100%'>
-          <v-sheet rounded='lg' height='100%'>
+          <v-sheet rounded='lg' height='100%' v-if='$route.matched[0]'>
             <!-- 对路由添加一个进入动画：渐显 -->
             <my-router-transition>
               <keep-alive>
-                <router-view v-if='$route.meta.keepAlive' :key='$route.fullPath' />
+                <router-view v-if='$route.matched[0].meta.keepAlive' :key='$route.matched[0].meta.key || $route.fullPath' />
               </keep-alive>
             </my-router-transition>
             <my-router-transition>
-              <router-view v-if='!$route.meta.keepAlive' />
+              <router-view v-if='!$route.matched[0].meta.keepAlive' />
             </my-router-transition>
           </v-sheet>
         </v-container>

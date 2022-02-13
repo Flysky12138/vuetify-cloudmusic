@@ -1,5 +1,5 @@
 <template>
-  <div style='z-index: 2'>
+  <aside style='z-index: 2'>
     <!-- 歌词 -->
     <div class='left'>
       <lyrics />
@@ -17,7 +17,7 @@
         <go-top v-else />
       </div>
     </div>
-  </div>
+  </aside>
 </template>
 
 <script>

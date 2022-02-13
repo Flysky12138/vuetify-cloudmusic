@@ -53,11 +53,18 @@ const routes = [
     }
   },
   {
-    path: '/discover/playlist',
+    path: '/discover',
     component: () => import('@/views/Discover'),
     meta: {
-      keepAlive: true
-    }
+      keepAlive: true,
+      key: 'discover' // 唯一key值，用于<router-view>标签，使该页面只会创建一次
+    },
+    children: [
+      {
+        path: 'playlist',
+        component: () => import('@/views/Discover/view/Playlist')
+      }
+    ]
   },
   {
     path: '/about',
