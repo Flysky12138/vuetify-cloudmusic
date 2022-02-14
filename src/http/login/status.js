@@ -22,7 +22,11 @@ function status() {
             })
             .catch(error => reject(error))
         } else {
-          reject()
+          resolve({
+            uid: -1,
+            level: 0,
+            avatarUrl: ''
+          })
         }
       })
       .catch(error => reject(error))

@@ -44,13 +44,19 @@ import { userStore } from '@/plugins/store/user'
 import AppBar from './layout/AppBar'
 import Drawer from './layout/Drawer'
 import SideBar from './layout/SideBar'
+import { mapActions } from 'pinia'
 export default {
   components: { AppBar, Drawer, SideBar },
   data: () => ({
     isPc: !/Android|WindowsPhone|webOS|iPhone|iPod|BlackBerry|iPad/.test(navigator.userAgent)
   }),
-  async created() {
-    userStore().setInfo(await this.$http.login.status())
+  created() {
+    this.$http.login.status().then(res => {
+      res.uid === -1 ? this.logout() : this.setInfo(res)
+    })
+  },
+  methods: {
+    ...mapActions(userStore, ['setInfo', 'logout'])
   }
 }
 </script>
