@@ -24,7 +24,7 @@
         </v-row>
       </v-banner>
       <!-- 播放列表 - 虚拟滚动 -->
-      <v-virtual-scroll :items='lists' bench='11' max-height='440' item-height='40' class='scrollbar-hidden' ref='playerlists'>
+      <v-virtual-scroll :items='lists' bench='3' max-height='440' item-height='40' class='scrollbar-hidden' ref='playerlists'>
         <template v-slot:default='{ item }'>
           <v-list :class='{"playItem": item.id === music.id}' dense class='py-0 d-flex align-center'>
             <v-list-item @click='chooseMusic(item.id)' @contextmenu.prevent='removeMusic(item.id)'>
@@ -59,7 +59,7 @@ export default {
     // 当前播放音乐置顶
     locateItem() {
       setTimeout(() => {
-        this.$refs.playerlists.$el.scrollTop = this.indexMusicInLists * 40
+        this.$refs.playerlists.$el.scrollTop = this.indexMusicInLists * 40 || 1
       }, 50)
     }
   }
