@@ -11,7 +11,7 @@ function rcmd(songid, mvid = 0) {
         }
       })
       .then(response => {
-        resolve(response.data.feeds.map(res => res.id))
+        response.data.feeds.length > 0 ? resolve(response.data.feeds.map(res => res.id)) : reject()
       })
       .catch(error => reject(error))
   })

@@ -1,17 +1,21 @@
 <template>
-  <v-card class='d-flex'>
-    <video
-      controls
-      crossorigin='anonymous'
-      width='100%'
-      ref='video'
-      :poster='video.info.frameUrl'
-      :src='video.info.url'
-      :style='videoStyle'
-      @loadeddata='autoplay'
-      @click.prevent='onClick'
-    ></video>
-  </v-card>
+  <v-dialog v-model='dialog' overlay-opacity='0.9' :disabled='disabled' content-class='dialog'>
+    <template v-slot:activator='{ on, attrs }'>
+      <slot v-bind='{ on, attrs }' />
+    </template>
+    <v-card class='d-flex'>
+      <video
+        controls
+        crossorigin='anonymous'
+        width='100%'
+        ref='video'
+        :poster='video.info.frameUrl'
+        :src='video.info.url'
+        :style='videoStyle'
+        @click.prevent='onClick'
+      ></video>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>
@@ -23,19 +27,39 @@ export default {
     mvid: { type: Number, default: 0, required: true }
   },
   data: () => ({
+    dialog: false,
+    disabled: false,
     video: {
       ids: [],
-      index: 0,
+      index: -1,
       info: {}
     },
-    timestamp: 0,
     musicIsplaying: false
   }),
-  created() {
-    this.$http.mv.rcmd(this.songid, this.mvid).then(res => {
-      this.video.ids = res
-      this.getVideoInfo()
-    })
+  watch: {
+    async dialog(newValue) {
+      if (newValue) {
+        this.musicIsplaying = this.isplay // 记录歌曲播放状态
+        if (this.video.info.url) {
+          this.play()
+        } else {
+          try {
+            this.video.ids = await this.$http.mv.rcmd(this.songid, this.mvid) // 获取视频ID
+            this.video.index = 0
+          } catch (error) {
+            this.dialog = false
+            this.disabled = true
+          }
+        }
+      } else {
+        if (this.video.info.url) {
+          this.pause()
+        }
+      }
+    },
+    'video.index'(newValue) {
+      this.getVideoInfo(this.video.ids[newValue])
+    }
   },
   computed: {
     ...mapState(playerStore, ['isplay', 'isShow']),
@@ -50,9 +74,12 @@ export default {
   methods: {
     ...mapActions(playerStore, ['playORpause']),
     // 获取视频信息
-    async getVideoInfo(id = this.video.ids[this.video.index]) {
+    async getVideoInfo(id) {
+      const timestamp = new Date().getTime()
       this.video.info = /^\d+$/.test(id) ? await this.$http.mv.url.mv(id) : await this.$http.mv.url.mlog(id)
-      this.timestamp = new Date().getTime()
+      setTimeout(() => {
+        this.dialog && this.play() // 有过渡动画，所以延迟播放
+      }, Math.max(0, 1500 - (new Date().getTime() - timestamp)))
     },
     // 切换视频
     onClick(event) {
@@ -60,25 +87,11 @@ export default {
       if (event.offsetX < 100) {
         this.video.index = Math.max(0, index - 1)
       } else if (event.target.offsetWidth - event.offsetX < 100) {
-        this.video.index = Math.min(this.video.ids.length, index + 1)
-      }
-      this.video.index !== index && this.getVideoInfo()
-    },
-    // 首帧加载后自动播放视频
-    autoplay() {
-      // 有过渡动画，所以延迟播放
-      const time = 1500 - (new Date().getTime() - this.timestamp)
-      if (time > 0) {
-        setTimeout(() => {
-          this.play()
-        }, time)
-      } else {
-        this.play()
+        this.video.index = Math.min(this.video.ids.length - 1, index + 1)
       }
     },
     // 播放视频
     play() {
-      this.musicIsplaying = this.musicIsplaying || (this.isplay && this.isShow) // 记录歌曲播放状态
       this.playORpause(false) // 暂停歌曲播放
       setTimeout(() => {
         this.$refs.video.play()
@@ -86,15 +99,19 @@ export default {
     },
     // 暂停视频
     pause() {
-      if (this.video.info.url) {
+      setTimeout(() => {
+        this.$refs.video.pause()
         setTimeout(() => {
-          this.$refs.video.pause()
-          setTimeout(() => {
-            this.playORpause(this.musicIsplaying) // 恢复歌曲播放状态
-          }, 200)
+          this.playORpause(this.musicIsplaying) // 恢复歌曲播放状态
         }, 200)
-      }
+      }, 200)
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+[class*='v-dialog']::v-deep .dialog {
+  width: auto;
+}
+</style>

@@ -47,12 +47,11 @@
     </template>
     <!-- item.name插槽 -->
     <template v-slot:item.name='{ item }'>
-      <v-dialog overlay-opacity='0.9' content-class='dialog' @click:outside='$refs[`mv${item.id}`].pause()'>
-        <template v-slot:activator='{ on, attrs }'>
-          <span v-on='on' v-bind='attrs' @click='$refs[`mv${item.id}`] && $refs[`mv${item.id}`].play()'>{{ item.name }}</span>
+      <mv :songid='item.id' :mvid='item.mv'>
+        <template #default='{ on, attrs }'>
+          <span v-on='on' v-bind='attrs'>{{ item.name }}</span>
         </template>
-        <mv :songid='item.id' :mvid='item.mv' :ref='`mv${item.id}`' />
-      </v-dialog>
+      </mv>
     </template>
     <!-- item.artists插槽 -->
     <template v-slot:item.artists='{ item }'>
@@ -225,9 +224,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.dialog {
-  width: auto;
-}
-</style>
