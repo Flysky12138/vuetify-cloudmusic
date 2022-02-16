@@ -13,6 +13,7 @@
         :src='video.info.url'
         :style='videoStyle'
         @click.prevent='onClick'
+        @error='error'
       ></video>
     </v-card>
   </v-dialog>
@@ -46,9 +47,8 @@ export default {
           try {
             this.video.ids = await this.$http.mv.rcmd(this.songid, this.mvid) // 获取视频ID
             this.video.index = 0
-          } catch (error) {
-            this.dialog = false
-            this.disabled = true
+          } catch (err) {
+            this.error()
           }
         }
       } else {
@@ -105,6 +105,11 @@ export default {
           this.playORpause(this.musicIsplaying) // 恢复歌曲播放状态
         }, 200)
       }, 200)
+    },
+    // 播放出错
+    error() {
+      this.dialog = false
+      this.disabled = true
     }
   }
 }

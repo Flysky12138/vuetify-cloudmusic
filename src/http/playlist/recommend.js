@@ -1,4 +1,5 @@
 import axios from '../api'
+import detail from '../song/detail'
 
 // 日推
 function recommend() {
@@ -6,28 +7,9 @@ function recommend() {
     axios
       .get('/recommend/songs')
       .then(response => {
-        resolve(
-          response.data.dailySongs.map((element, index) => ({
-            count: index + 1,
-            id: element.id,
-            name: element.name,
-            artists: element.ar.map(res => ({
-              id: res.id,
-              name: res.name
-            })),
-            album: {
-              id: element.al.id,
-              name: element.al.name
-            },
-            dt: element.dt,
-            mv: element.mv,
-            privilege: {
-              fee: element.privilege.fee, // 0、8：免费；4：所在专辑需单独付费；1：VIP可听
-              cs: element.privilege.cs, // boolean：云盘
-              st: element.privilege.st // -200：无版权
-            }
-          }))
-        )
+        detail(response.data.dailySongs.map(element => element.id))
+          .then(resolve)
+          .catch(reject)
       })
       .catch(error => reject(error))
   })

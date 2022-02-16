@@ -1,4 +1,5 @@
 import axios from '../api'
+import detail from '../song/detail'
 
 // 歌手全部歌曲
 function once(id, page = 0, limit = 200) {
@@ -15,26 +16,7 @@ function once(id, page = 0, limit = 200) {
       .then(response => {
         resolve({
           more: response.more,
-          songs: response.songs.map((element, index) => ({
-            count: limit * page + index + 1,
-            id: element.id,
-            name: element.name,
-            artists: element.ar.map(res => ({
-              id: res.id,
-              name: res.name
-            })),
-            album: {
-              id: element.al.id,
-              name: element.al.name
-            },
-            dt: element.dt,
-            mv: element.mv,
-            privilege: {
-              fee: element.privilege.fee, // 0、8：免费；4：所在专辑需单独付费；1：VIP可听
-              cs: element.privilege.cs, // boolean：云盘
-              st: element.privilege.st // -200：无版权
-            }
-          }))
+          ids: response.songs.map(element => element.id)
         })
       })
       .catch(error => reject(error))
@@ -43,16 +25,16 @@ function once(id, page = 0, limit = 200) {
 
 async function songs(id) {
   let data = {
-    songs: [],
+    ids: [],
     i: 0,
     more: false
   }
   do {
     const res = await once(id, data.i++)
     data.more = res.more
-    data.songs = data.songs.concat(res.songs)
+    data.ids = data.ids.concat(res.ids)
   } while (data.more)
-  return data.songs
+  return await detail(data.ids)
 }
 
 export default songs

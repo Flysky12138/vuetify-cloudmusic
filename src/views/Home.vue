@@ -1,4 +1,4 @@
-@/<template>
+<template>
   <v-container>
     <v-row>
       <!-- 左侧导航栏 -->

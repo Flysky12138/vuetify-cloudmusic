@@ -43,11 +43,10 @@ async function playlist(uid) {
     more: false
   }
   do {
-    const res = await once(uid, data.i)
+    const res = await once(uid, data.i++)
     data.more = res.more
     data.obj.create = data.obj.create.concat(res.create)
     data.obj.collect = data.obj.collect.concat(res.collect)
-    data.i++
   } while (data.more)
   return data.obj
 }
