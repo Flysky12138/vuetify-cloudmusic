@@ -15,6 +15,7 @@ function once(ids, offset) {
             count: index + 1 + offset,
             id: element.id,
             name: element.name,
+            alia: element.alia,
             picUrl: element.al.picUrl,
             artists: element.ar.map(res => ({
               id: res.id,
