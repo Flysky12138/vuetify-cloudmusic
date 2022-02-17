@@ -51,7 +51,7 @@
         <template #default='{ on, attrs }'>
           <div v-on='on' v-bind='attrs' style='min-width: 12vw'>
             <div>{{ item.name }}</div>
-            <div v-if='item.alia.length' class='text-caption text--disabled' :style='`text-indent: ${item.alia[0][0] === "《" ? -5 : 0}px`'>{{ item.alia[0] }}</div>
+            <div v-if='item.alia.length' class='text-caption text--disabled'>{{ item.alia[0] }}</div>
           </div>
         </template>
       </mv>
@@ -65,13 +65,7 @@
     </template>
     <!-- item.album插槽 -->
     <template v-slot:item.album='{ item: { album } }'>
-      <button
-        @click='lookAlbum(album.id)'
-        v-if='album.id'
-        class='text-truncate'
-        style='max-width: 12vw;text-indent: -5px;text-align: start'
-        :title='album.name'
-      >{{ '《' + album.name + '》' }}</button>
+      <button @click='lookAlbum(album.id)' v-if='album.id' class='text-truncate' style='max-width: 12vw' :title='album.name' v-text='album.name'></button>
     </template>
     <!-- item.dt插槽 -->
     <template v-slot:item.dt='{ item }'>
