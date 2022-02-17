@@ -43,15 +43,15 @@
     <template v-slot:item.count='{ item }'>
       <!-- 听歌排行的听歌数 -->
       <span v-if='[1, 4].includes(item.privilege.fee)' class='text-caption red--text'>vip</span>
-      <span v-else>{{ item.count }}</span>
+      <span v-else v-text='item.count'></span>
     </template>
     <!-- item.name插槽 -->
     <template v-slot:item.name='{ item }'>
       <mv :songid='item.id' :mvid='item.mv'>
         <template #default='{ on, attrs }'>
           <div v-on='on' v-bind='attrs' style='min-width: 12vw'>
-            <div>{{ item.name }}</div>
-            <div v-if='item.alia.length' class='text-caption text--disabled'>{{ item.alia[0] }}</div>
+            <span v-text='item.name'></span>
+            <span v-if='item.alia.length' class='text-caption text--disabled'>{{ ' - ' + item.alia[0] }}</span>
           </div>
         </template>
       </mv>
@@ -60,7 +60,7 @@
     <template v-slot:item.artists='{ item }'>
       <span v-for='(_item, index) in item.artists' :key='index'>
         <span v-if='index !== 0'>&nbsp;/&nbsp;</span>
-        <button @click='lookArtists(_item.id)'>{{ _item.name }}</button>
+        <button @click='lookArtists(_item.id)' v-text='_item.name'></button>
       </span>
     </template>
     <!-- item.album插槽 -->
@@ -89,12 +89,12 @@
 </template>
 
 <script>
+import { playerStore } from '@/plugins/store/player'
+import { mapState } from 'pinia'
 import { EventBus } from '@/common/eventBus.js'
 import ButtonAdd from '@/components/Button/ButtonAdd.vue'
 import ButtonPlay from '@/components/Button/ButtonPlay.vue'
 import Mv from '@/components/Mv.vue'
-import { playerStore } from '@/plugins/store/player'
-import { mapState } from 'pinia'
 export default {
   components: { ButtonPlay, ButtonAdd, Mv },
   props: {
@@ -164,10 +164,8 @@ export default {
       let _class = ''
       if (params.id === this.id) {
         _class = 'playItem'
-      } else if (params.privilege) {
-        if (params.privilege.st < 0 && !params.privilege.cs) {
-          _class += ' text--disabled'
-        }
+      } else if (params.privilege.st < 0 && !params.privilege.cs) {
+        _class += ' text--disabled'
       }
       return _class
     },
