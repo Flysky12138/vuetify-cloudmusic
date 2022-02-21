@@ -49,9 +49,11 @@
     <template v-slot:item.name='{ item }'>
       <mv :songid='item.id' :mvid='item.mv'>
         <template #default='{ on, attrs }'>
-          <div v-on='on' v-bind='attrs' style='min-width: 12vw'>
-            <span v-text='item.name'></span>
-            <span v-if='item.alia.length' class='text-caption text--disabled'>{{ ' - ' + item.alia[0] }}</span>
+          <div style='min-width: 12vw'>
+            <span v-on='on' v-bind='attrs'>
+              <span v-text='item.name'></span>
+              <span v-if='item.alia.length' class='text-caption text--disabled'>{{ ' - ' + item.alia[0] }}</span>
+            </span>
           </div>
         </template>
       </mv>
