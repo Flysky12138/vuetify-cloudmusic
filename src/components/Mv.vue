@@ -3,18 +3,19 @@
     <template v-slot:activator='{ on, attrs }'>
       <slot v-bind='{ on, attrs }' />
     </template>
-    <v-card class='d-flex'>
-      <video
-        controls
-        crossorigin='anonymous'
-        width='100%'
-        ref='video'
-        :poster='video.info.frameUrl'
-        :src='video.info.url'
-        :style='videoStyle'
-        @click.prevent='onClick'
-        @error='error'
-      ></video>
+    <v-card class='d-flex align-center' @mouseenter='showBtn = true' @mouseleave='showBtn = false'>
+      <video controls crossorigin='anonymous' width='100%' ref='video' :poster='video.info.frameUrl' :src='video.info.url' :style='videoStyle' @error='error'></video>
+      <!-- 切换视频按键 -->
+      <v-slide-x-transition>
+        <v-btn v-show='video.info.url && showBtn' icon absolute left large @click.prevent='previous'>
+          <v-icon large>mdi-chevron-left</v-icon>
+        </v-btn>
+      </v-slide-x-transition>
+      <v-slide-x-reverse-transition>
+        <v-btn v-show='video.info.url && showBtn' icon absolute right large @click.prevent='next'>
+          <v-icon large>mdi-chevron-right</v-icon>
+        </v-btn>
+      </v-slide-x-reverse-transition>
     </v-card>
   </v-dialog>
 </template>
@@ -30,6 +31,7 @@ export default {
   data: () => ({
     dialog: false,
     disabled: false,
+    showBtn: false,
     video: {
       ids: [],
       index: -1,
@@ -82,13 +84,11 @@ export default {
       }, Math.max(0, 1500 - (new Date().getTime() - timestamp)))
     },
     // 切换视频
-    onClick(event) {
-      const index = this.video.index
-      if (event.offsetX < 100) {
-        this.video.index = Math.max(0, index - 1)
-      } else if (event.target.offsetWidth - event.offsetX < 100) {
-        this.video.index = Math.min(this.video.ids.length - 1, index + 1)
-      }
+    previous() {
+      this.video.index = Math.max(0, this.video.index - 1)
+    },
+    next() {
+      this.video.index = Math.min(this.video.ids.length - 1, this.video.index + 1)
     },
     // 播放视频
     play() {
@@ -118,5 +118,8 @@ export default {
 <style lang="scss" scoped>
 [class*='v-dialog']::v-deep .dialog {
   width: auto;
+}
+.v-btn {
+  background: rgba($color: #000000, $alpha: 0.2);
 }
 </style>
