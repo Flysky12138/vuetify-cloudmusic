@@ -5,17 +5,26 @@
 </template>
 
 <script>
-import { EventBus } from '@/common/eventBus.js'
+import { playerStore } from '@/plugins/store/player'
+import { mapState } from 'pinia'
 export default {
   data: () => ({
     lyrics: null,
     refresh: new Date().getTime()
   }),
-  mounted() {
-    EventBus.$on('nowLyrics', params => {
-      this.refresh = new Date().getTime()
-      this.lyrics = params
-    })
+  computed: {
+    ...mapState(playerStore, ['lyric'])
+  },
+  created() {
+    this.$watch(
+      () => this.lyric.data[this.lyric.index],
+      (newValue, oldValue) => {
+        if (newValue && newValue !== oldValue) {
+          this.refresh = new Date().getTime()
+          this.lyrics = newValue.tlyric || newValue.lyric
+        }
+      }
+    )
   }
 }
 </script>

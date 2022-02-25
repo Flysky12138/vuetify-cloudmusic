@@ -6,6 +6,10 @@ export const playerStore = defineStore('player', {
     isplay: true, // 正在播放
     isShow: false, // 显示侧边音乐按键
     music: {}, // 正在播放的音乐信息
+    lyric: {
+      data: [],
+      index: 0
+    }, // 歌词
     dt: 0, // 播放进度
     route: '', // 路由地址
     lists: [], // 默认播放列表
@@ -74,6 +78,15 @@ export const playerStore = defineStore('player', {
     // 存放播放进度
     setPlayDt(params) {
       this.dt = params
+    },
+    // 存放歌词
+    setlyricData(params) {
+      this.lyric.data = [...params]
+      this.lyric.index = 0
+    },
+    // 存放当前播放歌词的索引
+    setlyricIndex(params) {
+      this.lyric.index = params
     },
     // 播放、暂停
     playORpause(params = 2) {

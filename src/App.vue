@@ -27,6 +27,8 @@
       </v-main>
       <!-- 侧边固定栏 -->
       <side-bar />
+      <!-- audio标签 -->
+      <my-audio />
     </template>
     <template v-else>
       <v-container class='fill-height'>
@@ -41,12 +43,13 @@
 
 <script>
 import { userStore } from '@/plugins/store/user'
+import { mapActions } from 'pinia'
 import AppBar from './layout/AppBar'
 import Drawer from './layout/Drawer'
 import SideBar from './layout/SideBar'
-import { mapActions } from 'pinia'
+import MyAudio from '@/components/MyAudio.vue'
 export default {
-  components: { AppBar, Drawer, SideBar },
+  components: { AppBar, Drawer, SideBar, MyAudio },
   data: () => ({
     isPc: !/Android|WindowsPhone|webOS|iPhone|iPod|BlackBerry|iPad/.test(navigator.userAgent)
   }),

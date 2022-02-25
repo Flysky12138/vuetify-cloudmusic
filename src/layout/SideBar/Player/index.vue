@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class='pa-0 overflow-hidden' style='position: relative; height: 100vh; min-width: 900px' @mousewheel='mouseWheel'>
     <!-- 背景 -->
-    <v-img class='bg' :src='picUrl'></v-img>
+    <v-img class='bg' :src='music.picUrl'></v-img>
     <!-- 内容 -->
     <v-card elevation='0' height='100%' color='transparent' :style='`backdrop-filter: blur(${blur}px) brightness(70%)`'>
       <!-- 左上播放列表按键 -->
@@ -13,11 +13,11 @@
       <v-row class='ma-0' align='center' style='height: 100%'>
         <!-- 播放 -->
         <v-col cols='6'>
-          <player-music v-on='$listeners' />
+          <player-music />
         </v-col>
         <!-- 歌词 -->
         <v-col v-if='true' cols='5'>
-          <player-lyrics v-bind='$attrs' @rClickIndex='changeDt' />
+          <player-lyrics />
         </v-col>
         <!-- 评论 -->
         <v-col v-else cols='5'>
@@ -31,18 +31,17 @@
 <script>
 import { mapState, mapActions } from 'pinia'
 import { styleStore } from '@/plugins/store/style'
+import { playerStore } from '@/plugins/store/player'
 import PlayerLists from './PlayerLists.vue'
 import PlayerMusic from './PlayerMusic'
 import PlayerLyrics from './PlayerLyrics.vue'
 import PlayerComment from './PlayerComment.vue'
 export default {
   components: { PlayerLists, PlayerMusic, PlayerLyrics, PlayerComment },
-  props: {
-    picUrl: { type: String, required: true }
-  },
   data: () => ({}),
   computed: {
-    ...mapState(styleStore, ['blur'])
+    ...mapState(styleStore, ['blur']),
+    ...mapState(playerStore, ['music'])
   },
   methods: {
     ...mapActions(styleStore, ['setBlur']),
@@ -50,9 +49,6 @@ export default {
       if (event.clientX === 0) {
         this.setBlur(Math.sign(event.wheelDelta) * 5)
       }
-    },
-    changeDt(e) {
-      this.$emit('changeDt', this.$attrs.lyrics.data[e].time)
     }
   }
 }
