@@ -17,6 +17,7 @@ function once(page = 0, limit = 200) {
             count: limit * page + index + 1,
             id: element.simpleSong.id,
             name: element.simpleSong.name,
+            alia: element.simpleSong.alia,
             artists: element.simpleSong.ar
               ? element.simpleSong.ar.map(res => ({
                   id: res.id,
