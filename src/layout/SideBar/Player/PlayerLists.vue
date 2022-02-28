@@ -17,7 +17,7 @@
             <span>当前播放({{ indexMusicInLists + 1 }}/{{ lists.length }})</span>
           </v-col>
           <v-col cols='auto'>
-            <v-btn class='mx-4' color='cyan darken-4' x-small :to='route' @click='$emit("close")'>
+            <v-btn class='mx-4' color='cyan darken-4' x-small :to='route' @click='onClick'>
               <v-icon small>mdi-near-me</v-icon>
             </v-btn>
           </v-col>
@@ -42,6 +42,7 @@
 <script>
 import { playerStore } from '@/plugins/store/player'
 import { mapState, mapActions } from 'pinia'
+import { EventBus } from '@/common/eventBus.js'
 export default {
   data: () => ({
     dialog: false
@@ -61,6 +62,12 @@ export default {
       setTimeout(() => {
         this.$refs.playerlists.$el.scrollTop = this.indexMusicInLists * 40 || 1
       }, 50)
+    },
+    onClick() {
+      this.$emit('close')
+      setTimeout(() => {
+        EventBus.$emit('locateMusicEvent')
+      }, 800)
     }
   }
 }
