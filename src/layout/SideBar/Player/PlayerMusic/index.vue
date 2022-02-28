@@ -53,7 +53,6 @@
 <script>
 import { playerStore } from '@/plugins/store/player'
 import { mapState } from 'pinia'
-import { EventBus } from '@/common/eventBus.js'
 import ButtonAdd from '@/components/Button/ButtonAdd.vue'
 import ButtonLove from '@/components/Button/ButtonLove.vue'
 import PlayerMusicPlay from './PlayerMusicPlay.vue'
@@ -82,7 +81,7 @@ export default {
   },
   methods: {
     mouseUp() {
-      EventBus.$emit('changeDt', this.playDt)
+      this.$bus.$emit('changeDt', this.playDt)
       this.canSetDt = true
     }
   }

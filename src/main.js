@@ -15,6 +15,7 @@ Vue.config.productionTip = false
 Vue.prototype.$http = http
 Vue.prototype.$message = message
 Vue.prototype.$time = time
+Vue.prototype.$bus = new Vue()
 
 new Vue({
   router,

@@ -17,7 +17,6 @@
 <script>
 import { playerStore } from '@/plugins/store/player'
 import { mapState } from 'pinia'
-import { EventBus } from '@/common/eventBus.js'
 export default {
   data: () => ({
     // 歌词视窗
@@ -70,7 +69,7 @@ export default {
     // 右击歌词
     contextMenu(event) {
       const match = event.target.parentNode.id.match(/songlyrics_(\d+)/) || event.target.id.match(/songlyrics_(\d+)/)
-      EventBus.$emit('changeDt', this.lyric.data[match[1]].time)
+      this.$bus.$emit('changeDt', this.lyric.data[match[1]].time)
       this.scroll.onMouse = false
       setTimeout(() => {
         this.scrollGoto()

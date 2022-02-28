@@ -5,12 +5,11 @@
 </template>
 
 <script>
-import { EventBus } from '@/common/eventBus.js'
 export default {
   data: () => ({}),
   methods: {
     locateMusic() {
-      EventBus.$emit('locateMusicEvent')
+      this.$bus.$emit('locateMusicEvent')
     }
   }
 }

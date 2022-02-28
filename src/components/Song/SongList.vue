@@ -93,7 +93,6 @@
 <script>
 import { playerStore } from '@/plugins/store/player'
 import { mapState } from 'pinia'
-import { EventBus } from '@/common/eventBus.js'
 import ButtonAdd from '@/components/Button/ButtonAdd.vue'
 import ButtonPlay from '@/components/Button/ButtonPlay.vue'
 import Mv from '@/components/Mv.vue'
@@ -187,7 +186,7 @@ export default {
     locate() {
       return {
         start: () => {
-          EventBus.$on('locateMusicEvent', () => {
+          this.$bus.$on('locateMusicEvent', () => {
             const index = this.value.findIndex(res => res.id === this.id)
             if (index !== -1) {
               this.scrollToEnable = false
@@ -197,7 +196,7 @@ export default {
           })
         },
         stop: () => {
-          EventBus.$off('locateMusicEvent')
+          this.$bus.$off('locateMusicEvent')
         }
       }
     },

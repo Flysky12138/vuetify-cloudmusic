@@ -18,7 +18,6 @@
 import { playerStore } from '@/plugins/store/player'
 import { apiStore } from '@/plugins/store/api'
 import { mapState, mapActions } from 'pinia'
-import { EventBus } from '@/common/eventBus.js'
 export default {
   data: () => ({
     url: '', // 歌曲地址
@@ -27,7 +26,7 @@ export default {
     playTime: 0 // 记录单首歌曲的播放时间
   }),
   created() {
-    EventBus.$on('changeDt', time => {
+    this.$bus.$on('changeDt', time => {
       this.setDt(time)
     })
   },

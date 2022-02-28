@@ -42,7 +42,6 @@
 <script>
 import { playerStore } from '@/plugins/store/player'
 import { mapState, mapActions } from 'pinia'
-import { EventBus } from '@/common/eventBus.js'
 export default {
   data: () => ({
     dialog: false
@@ -66,7 +65,7 @@ export default {
     onClick() {
       this.$emit('close')
       setTimeout(() => {
-        EventBus.$emit('locateMusicEvent')
+        this.$bus.$emit('locateMusicEvent')
       }, 800)
     }
   }
