@@ -6,10 +6,10 @@ import axios from 'axios'
 // 根据环境变量区分接口的默认地址
 switch (process.env.NODE_ENV) {
   case 'production':
-    axios.defaults.baseURL = apiStore(pinia).api1 || 'https://netease-cloud-music-api-gamma.vercel.app'
+    axios.defaults.baseURL = apiStore(pinia).api1 || 'https://netease-cloud-music-api-flysky.vercel.app/'
     break
   default:
-    axios.defaults.baseURL = 'http://localhost:3000'
+    axios.defaults.baseURL = 'http://localhost:3000/'
 }
 
 axios.defaults.timeout = 10000 // 超时时间
@@ -22,6 +22,7 @@ axios.interceptors.request.use(
   config => {
     config.params = {
       ...config.params,
+      realIP: '211.149.189.135',
       timestamp: new Date().getTime(), // 添加时间戳
       cookie: userStore(pinia).cookie // 手动携带Cookie；Chrome v91开始浏览器默认SameSite=Lax无法修改，导致跨域不携带Cookie
     }
