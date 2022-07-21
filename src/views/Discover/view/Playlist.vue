@@ -1,28 +1,28 @@
 <template>
-  <v-container class='pa-0' id='playlistHead'>
-    <!-- 歌单刷新前的骨架图 -->
-    <v-row v-if='loading' justify='space-around'>
-      <v-col cols='auto' v-for='item in 30' :key='item' class='px-6'>
-        <v-skeleton-loader class='mb-12' width='120' height='120' type='image'></v-skeleton-loader>
-      </v-col>
-    </v-row>
-    <!-- 歌单 -->
-    <v-row v-else justify='space-around'>
-      <v-col cols='auto' v-for='(item, index) in playlists' :key='index'>
-        <song-card :value='item' />
-      </v-col>
-    </v-row>
-    <!-- 分页 -->
-    <v-pagination
-      class='pt-6 pb-3'
-      v-if='total > params.limit'
-      :value='Number($route.query.page)'
-      :length='Math.ceil(total / params.limit)'
-      :total-visible='13'
-      circle
-      @input='clickChangePage'
-    ></v-pagination>
-  </v-container>
+	<v-container class='pa-0' id='playlistHead'>
+		<!-- 歌单刷新前的骨架图 -->
+		<v-row justify='space-around' v-if='loading'>
+			<v-col :key='item' class='px-6' cols='auto' v-for='item in params.limit'>
+				<v-skeleton-loader class='mb-12' height='120' type='image' width='120'></v-skeleton-loader>
+			</v-col>
+		</v-row>
+		<!-- 歌单 -->
+		<v-row justify='space-around' v-else>
+			<v-col :key='index' cols='auto' v-for='(item, index) in playlists'>
+				<song-card :value='item' />
+			</v-col>
+		</v-row>
+		<!-- 分页 -->
+		<v-pagination
+			:length='Math.ceil(total / params.limit)'
+			:total-visible='13'
+			:value='Number($route.query.page)'
+			@input='clickChangePage'
+			circle
+			class='pt-6 pb-3'
+			v-if='total > params.limit'
+		></v-pagination>
+	</v-container>
 </template>
 
 <script>
@@ -35,31 +35,23 @@ export default {
     // 歌单请求参数
     params: {
       cat: '全部',
-      limit: 30,
+      limit: 24,
       offset: 0,
       order: 'hot'
     },
     loading: true
   }),
   created() {
-    /**
-     * 该组件用在嵌套的 <router-view/> 中，路由 /discover/playlist
-     * 第一层App.vue中使用固定key值，第二层./index.vue中每个界面使用单独key值
-     * 实现 /discover 路由下整体缓存，但该组件单独缓存
-     * 这里存在未知BUG：首次进入其他路由都会执行这里
-     */
-    if (this.$route.path === '/discover/playlist') {
-      Object.assign(this.params, {
-        cat: this.$route.query.cat,
-        offset: (this.$route.query.page - 1) * this.params.limit
-      })
-      // 获取歌单列表
-      this.$http.playlist.top(this.params).then(res => {
-        this.playlists = res.playlists
-        this.total = res.total
-        this.loading = false
-      })
-    }
+    Object.assign(this.params, {
+      cat: this.$route.query.cat,
+      offset: (this.$route.query.page - 1) * this.params.limit
+    })
+    // 获取歌单列表
+    this.$http.playlist.top(this.params).then(res => {
+      this.playlists = res.playlists
+      this.total = res.total
+      this.loading = false
+    })
   },
   methods: {
     // 点击分页组件换页

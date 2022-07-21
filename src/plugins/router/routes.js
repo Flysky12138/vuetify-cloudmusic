@@ -55,14 +55,14 @@ const routes = [
   {
     path: '/discover',
     component: () => import('@/views/Discover'),
-    meta: {
-      keepAlive: true,
-      key: 'discover' // 唯一key值，用于<router-view>标签，使该页面只会创建一次
-    },
     children: [
       {
         path: 'playlist',
-        component: () => import('@/views/Discover/view/Playlist')
+        component: () => import('@/views/Discover/view/Playlist'),
+        meta: {
+          keepAlive: true,
+          key: 'discover' // 根 <router-view> 标签的 key 属性值，默认是 $route.fullPath
+        }
       }
     ]
   },

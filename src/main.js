@@ -17,9 +17,13 @@ Vue.prototype.$message = message
 Vue.prototype.$time = time
 Vue.prototype.$bus = new Vue()
 
-new Vue({
+const app = new Vue({
   router,
   pinia,
   vuetify,
   render: h => h(App)
-}).$mount('#app')
+})
+
+router.onReady(() => {
+  app.$mount('#app')
+})

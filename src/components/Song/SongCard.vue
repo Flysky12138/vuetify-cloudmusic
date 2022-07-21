@@ -1,19 +1,19 @@
 <template>
-  <v-card max-width='150' elevation='0'>
-    <v-img :src='value.coverImgUrl' class='mx-3 my-1 text-end rounded-lg' transition='fade-transition' width='126' height='126' @click='toPlaylist'>
-      <!-- 图片加载前显示 -->
-      <template v-slot:placeholder>
-        <v-row class='fill-height ma-0' align='center' justify='center'>
-          <v-progress-circular indeterminate color='grey lighten-5'></v-progress-circular>
-        </v-row>
-      </template>
-      <!-- 默认插槽 -->
-      <template v-slot:default>
-        <v-chip color='rgba(88, 89, 93, .45)' class='ma-1 px-2 white--text' x-small v-text='theplayCount'></v-chip>
-      </template>
-    </v-img>
-    <v-card-text class='text-caption py-0' v-text='value.name'></v-card-text>
-  </v-card>
+	<v-card elevation='0' max-width='150'>
+		<v-img :src='value.coverImgUrl' @click='toPlaylist' class='mx-3 my-1 text-end rounded-lg' height='126' transition='fade-transition' width='126'>
+			<!-- 图片加载前显示 -->
+			<template v-slot:placeholder>
+				<v-row align='center' class='fill-height ma-0' justify='center'>
+					<v-progress-circular color='grey lighten-5' indeterminate></v-progress-circular>
+				</v-row>
+			</template>
+			<!-- 默认插槽 -->
+			<template v-slot:default>
+				<v-chip class='ma-1 px-2 white--text' color='rgba(88, 89, 93, .45)' v-text='theplayCount' x-small></v-chip>
+			</template>
+		</v-img>
+		<v-card-text class='text-caption py-0' :title='value.name' v-text='value.name'></v-card-text>
+	</v-card>
 </template>
 
 <script>
