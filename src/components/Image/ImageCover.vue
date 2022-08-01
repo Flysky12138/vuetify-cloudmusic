@@ -1,9 +1,9 @@
 <template>
-  <v-dialog max-width='80vmin' overlay-opacity='0.9'>
-    <template v-slot:activator='{ on, attrs }'>
-      <v-img v-bind='attrs' v-on='on' :src='src' :width='size' :height='size' class='rounded-xl' style='box-shadow: #80d8ff 0 0 5px'></v-img>
+  <v-dialog max-width="80vmin" overlay-opacity="0.9">
+    <template v-slot:activator="{ on, attrs }">
+      <v-img v-bind="attrs" v-on="on" :src="src" :width="size" :height="size" class="rounded-xl" style="box-shadow: #80d8ff 0 0 5px"></v-img>
     </template>
-    <v-img :src='src'></v-img>
+    <v-img :src="src"></v-img>
   </v-dialog>
 </template>
 

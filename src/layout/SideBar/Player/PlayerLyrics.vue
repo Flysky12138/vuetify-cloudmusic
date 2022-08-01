@@ -1,15 +1,15 @@
 <template>
-  <v-row class='overflow-y-auto scrollbar-hidden lyricsScroll ma-0' :style='`height:${view.height}px`' @mousewheel='mouseWheel' v-intersect='onIntersect'>
-    <v-col cols='12' class='text-center' @contextmenu='contextMenu'>
-      <v-responsive :height='spaceHeight(-1)'></v-responsive>
-      <div v-for='(item, index) in lyric.data' :key='item.id' :id='"songlyrics_" + index' class='py-4 font-weight-bold' :style='lyricsStyle(index)'>
+  <v-row class="overflow-y-auto scrollbar-hidden lyricsScroll ma-0" :style="`height:${view.height}px`" @mousewheel="mouseWheel" v-intersect="onIntersect">
+    <v-col cols="12" class="text-center" @contextmenu="contextMenu">
+      <v-responsive :height="spaceHeight(-1)"></v-responsive>
+      <div v-for="(item, index) in lyric.data" :key="item.id" :id="'songlyrics_' + index" class="py-4 font-weight-bold" :style="lyricsStyle(index)">
         <span>{{ item.lyric }}</span>
-        <span v-if='item.tlyric'>
+        <span v-if="item.tlyric">
           <br />
           {{ item.tlyric }}
         </span>
       </div>
-      <v-responsive :height='spaceHeight(1)'></v-responsive>
+      <v-responsive :height="spaceHeight(1)"></v-responsive>
     </v-col>
   </v-row>
 </template>

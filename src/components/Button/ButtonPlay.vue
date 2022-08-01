@@ -1,13 +1,16 @@
 <template>
-  <v-tooltip left open-delay='1000' color='blue-grey' :disabled='tip === ""' transition='slide-x-reverse-transition'>
-    <template v-slot:activator='{ on }'>
+  <v-tooltip left open-delay="1000" color="blue-grey" :disabled="tip === ''" transition="slide-x-reverse-transition">
+    <template v-slot:activator="{ on }">
       <v-btn
         icon
-        v-on='on'
-        @click='addIDs(id);saveRoute($route.fullPath)'
-        @contextmenu.prevent='rClick && isShow && addID(id) & hint()'
-        :disabled='disable'
-        style='color: inherit'
+        v-on="on"
+        @click="
+          addIDs(id)
+          saveRoute($route.fullPath)
+        "
+        @contextmenu.prevent="rClick && isShow && addID(id) & hint()"
+        :disabled="disable"
+        style="color: inherit"
       >
         <v-icon>mdi-motion-play-outline</v-icon>
       </v-btn>

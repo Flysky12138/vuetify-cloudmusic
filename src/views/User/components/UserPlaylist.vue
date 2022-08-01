@@ -1,31 +1,31 @@
 <template>
-  <v-card elevation='0' rounded='lg'>
+  <v-card elevation="0" rounded="lg">
     <!-- 标题 -->
-    <v-card-title class='pt-0'>
+    <v-card-title class="pt-0">
       {{ title + '（' + value.length + '）' }}
       <v-spacer></v-spacer>
       <!-- 换页按键 -->
-      <div class='d-flex align-center mr-2' v-if='maxPage !== 1'>
-        <v-btn small icon @click='page--' :disabled='page <= 1' color='primary'>
+      <div class="d-flex align-center mr-2" v-if="maxPage !== 1">
+        <v-btn small icon @click="page--" :disabled="page <= 1" color="primary">
           <v-icon>mdi-pan-left</v-icon>
         </v-btn>
-        <v-card-subtitle class='green--text py-0' v-text='page + " / " + maxPage'></v-card-subtitle>
-        <v-btn small icon @click='page++' :disabled='page >= maxPage' color='primary'>
+        <v-card-subtitle class="green--text py-0">{{ page + ' / ' + maxPage }}</v-card-subtitle>
+        <v-btn small icon @click="page++" :disabled="page >= maxPage" color="primary">
           <v-icon>mdi-pan-right</v-icon>
         </v-btn>
       </div>
     </v-card-title>
     <!-- 歌单卡片 -->
-    <v-hover v-slot='{ hover }'>
-      <v-card-text class='d-flex px-1 overflow-x-auto scrollbar-hidden' ref='songCard'>
-        <div class='userPlaylist_left' v-show='hover && scrollButton.left'>
-          <v-btn dark icon class='userPlaylist_btn' @click='onScrollButton(-1)'>
+    <v-hover v-slot="{ hover }">
+      <v-card-text class="d-flex px-1 overflow-x-auto scrollbar-hidden" ref="songCard">
+        <div class="userPlaylist_left" v-show="hover && scrollButton.left">
+          <v-btn dark icon class="userPlaylist_btn" @click="onScrollButton(-1)">
             <v-icon large>mdi-chevron-left</v-icon>
           </v-btn>
         </div>
-        <song-card v-for='item in lists' :key='item.id' :value='item' />
-        <div class='userPlaylist_right' v-show='hover && scrollButton.right'>
-          <v-btn dark icon class='userPlaylist_btn' @click='onScrollButton(1)'>
+        <song-card v-for="item in lists" :key="item.id" :value="item" />
+        <div class="userPlaylist_right" v-show="hover && scrollButton.right">
+          <v-btn dark icon class="userPlaylist_btn" @click="onScrollButton(1)">
             <v-icon large>mdi-chevron-right</v-icon>
           </v-btn>
         </div>

@@ -1,19 +1,19 @@
 <template>
-  <aside style='z-index: 2'>
+  <aside style="z-index: 2">
     <!-- 歌词 -->
-    <div class='left'>
+    <div class="left">
       <lyrics />
     </div>
-    <div class='right'>
+    <div class="right">
       <!-- 音乐按键 -->
       <v-scale-transition hide-on-leave>
-        <div v-show='isShow'>
-          <music-column v-show='isShow' />
+        <div v-show="isShow">
+          <music-column v-show="isShow" />
         </div>
       </v-scale-transition>
       <!-- 定位歌曲、回顶按键 -->
-      <div class='bottom'>
-        <locate-music v-if='isShowLocate' />
+      <div class="bottom">
+        <locate-music v-if="isShowLocate" />
         <go-top v-else />
       </div>
     </div>

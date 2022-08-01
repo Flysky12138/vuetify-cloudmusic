@@ -1,7 +1,7 @@
 <template>
-  <v-container style='position: relative' class='py-6'>
-    <prism-editor v-model='css' :highlight='highlighter' line-numbers :tabSize='4' ref='prismEditor'></prism-editor>
-    <v-btn color='success' icon absolute right top @click='onClick'>
+  <v-container style="position: relative" class="py-6">
+    <prism-editor v-model="css" :highlight="highlighter" line-numbers :tabSize="4" ref="prismEditor"></prism-editor>
+    <v-btn color="success" icon absolute right top @click="onClick">
       <v-icon>mdi-content-save-check</v-icon>
     </v-btn>
   </v-container>
@@ -43,7 +43,6 @@ export default {
   }
 }
 </script>
-
 
 <style lang="scss">
 .prism-editor-wrapper .prism-editor__line-numbers {

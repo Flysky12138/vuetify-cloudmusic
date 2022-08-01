@@ -5,7 +5,13 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "eslint --fix src/**/*.{js,vue}",
+    "format": "prettier --write src/**",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{js,vue}": "eslint --fix",
+    "*.{js,jsx,ts,tsx,md,html,css,scss,json}": "prettier --write"
   },
   "dependencies": {
     "@vue/composition-api": "^1.4.5",
@@ -28,6 +34,12 @@
     "@vue/cli-plugin-router": "^4.5.9",
     "@vue/cli-plugin-vuex": "^4.5.9",
     "@vue/cli-service": "~4.5.0",
+    "eslint": "^8.20.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-vue": "^9.3.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.0.3",
+    "prettier": "2.7.1",
     "sass": "^1.32.8",
     "sass-loader": "^8.0.0",
     "vue-cli-plugin-vuetify": "^2.2.2",

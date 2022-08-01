@@ -1,13 +1,13 @@
 <template>
   <v-navigation-drawer
-    v-model='isShow'
+    v-model="isShow"
     app
     hide-overlay
-    width='160'
-    :mini-variant='miniDrawer'
+    width="160"
+    :mini-variant="miniDrawer"
     temporary
-    @mouseleave.native='isShow = false'
-    @click.native='allClick'
+    @mouseleave.native="isShow = false"
+    @click.native="allClick"
   >
     <router />
     <v-divider></v-divider>
@@ -15,10 +15,10 @@
     <v-divider></v-divider>
     <options />
     <!-- 改变抽屉栏样式 -->
-    <v-list dense nav class='list'>
-      <v-list-item link @click.stop='setMiniDrawer(!miniDrawer)'>
+    <v-list dense nav class="list">
+      <v-list-item link @click.stop="setMiniDrawer(!miniDrawer)">
         <v-list-item-icon>
-          <v-icon color='purple lighten-3'>{{ miniDrawer ? 'mdi-share' : 'mdi-reply' }}</v-icon>
+          <v-icon color="purple lighten-3">{{ miniDrawer ? 'mdi-share' : 'mdi-reply' }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>改变样式</v-list-item-title>

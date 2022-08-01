@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    <v-row justify='center' v-intersect='onIntersect'>
-      <v-col cols='6'>
-        <v-img :src='qrimg'></v-img>
+    <v-row justify="center" v-intersect="onIntersect">
+      <v-col cols="6">
+        <v-img :src="qrimg"></v-img>
       </v-col>
     </v-row>
   </v-container>

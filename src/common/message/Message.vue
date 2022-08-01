@@ -1,20 +1,20 @@
 <template>
   <v-snackbar
-    :light='!$vuetify.theme.isDark'
-    v-model='isShow'
-    transition='slide-x-reverse-transition'
+    :light="!$vuetify.theme.isDark"
+    v-model="isShow"
+    transition="slide-x-reverse-transition"
     vertical
     right
     bottom
-    class='mb-8 mr-8'
-    elevation='12'
-    :timeout='timeout'
-    id='message'
+    class="mb-8 mr-8"
+    elevation="12"
+    :timeout="timeout"
+    id="message"
   >
     {{ text }}
-    <template v-slot:action='{ attrs }'>
-      <v-btn v-bind='attrs' color='primary' class='mr-5' @click='isShow = false' v-if='button.text !== "Close"' elevation='0'>Close</v-btn>
-      <v-btn v-bind='attrs' :color='color' @click='onClick()' elevation='0'>{{ button.text }}</v-btn>
+    <template v-slot:action="{ attrs }">
+      <v-btn v-bind="attrs" color="primary" class="mr-5" @click="isShow = false" v-if="button.text !== 'Close'" elevation="0">Close</v-btn>
+      <v-btn v-bind="attrs" :color="color" @click="onClick()" elevation="0">{{ button.text }}</v-btn>
     </template>
   </v-snackbar>
 </template>

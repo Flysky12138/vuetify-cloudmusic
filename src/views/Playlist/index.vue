@@ -1,15 +1,15 @@
 <template>
   <v-container>
     <!-- 获取数据前骨架图 -->
-    <skeleton-loader v-if='skeleton' />
+    <skeleton-loader v-if="skeleton" />
     <v-row v-else>
-      <v-col cols='12'>
-        <playlist-detail :value='playlistDetail' />
+      <v-col cols="12">
+        <playlist-detail :value="playlistDetail" />
       </v-col>
-      <v-col cols='12'>
-        <song-list :title='playlistDetail.name' :value='songlistDetail.songlist' :loading='songlistDetail.loading'>
-          <template #item.btn.one='{ id, name }' v-if='playlistDetail.userId === uid'>
-            <button-delete :name='name' @click='delSong(id)' />
+      <v-col cols="12">
+        <song-list :title="playlistDetail.name" :value="songlistDetail.songlist" :loading="songlistDetail.loading">
+          <template #item.btn.one="{ id, name }" v-if="playlistDetail.userId === uid">
+            <button-delete :name="name" @click="delSong(id)" />
           </template>
         </song-list>
       </v-col>

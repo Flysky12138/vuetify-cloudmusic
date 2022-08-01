@@ -1,8 +1,8 @@
 <template>
-  <v-hover v-slot='{ hover }' open-delay='300'>
-    <v-badge left overlap color='cyan' :value='hover && volume !== 0 && !muted' :content='volume'>
-      <v-btn icon @click='muted = !muted' @mousewheel='mouseWheel'>
-        <v-icon v-if='muted'>mdi-volume-mute</v-icon>
+  <v-hover v-slot="{ hover }" open-delay="300">
+    <v-badge left overlap color="cyan" :value="hover && volume !== 0 && !muted" :content="volume">
+      <v-btn icon @click="muted = !muted" @mousewheel="mouseWheel">
+        <v-icon v-if="muted">mdi-volume-mute</v-icon>
         <v-icon v-else>mdi-volume-high</v-icon>
       </v-btn>
     </v-badge>

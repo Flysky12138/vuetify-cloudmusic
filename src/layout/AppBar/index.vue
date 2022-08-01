@@ -1,11 +1,11 @@
 <template>
-  <v-container class='d-flex align-center'>
+  <v-container class="d-flex align-center">
     <!-- 按键 -->
     <button-router />
     <!-- 前进后退刷新 -->
     <history />
     <!-- 搜索框 -->
-    <search class='mx-6' />
+    <search class="mx-6" />
     <!-- 头像 -->
     <avatar />
   </v-container>

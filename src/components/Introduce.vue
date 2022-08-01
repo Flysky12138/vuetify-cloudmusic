@@ -1,8 +1,8 @@
 <template>
-  <div class='content' v-if='value'>
-    <v-divider class='my-3'></v-divider>
-    <div :style='spanHeight()' ref='text' v-text='textContent()'></div>
-    <v-btn v-if='isShowBtn' small color='cyan lighten-3' class='ml-4 mt-n1' @click='btnClick' icon>
+  <div class="content" v-if="value">
+    <v-divider class="my-3"></v-divider>
+    <div :style="spanHeight()" ref="text" v-text="textContent()"></div>
+    <v-btn v-if="isShowBtn" small color="cyan lighten-3" class="ml-4 mt-n1" @click="btnClick" icon>
       <v-icon>{{ showAllDescription ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
     </v-btn>
   </div>

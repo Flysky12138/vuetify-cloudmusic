@@ -1,15 +1,23 @@
 <template>
-  <v-dialog v-model='dialog' max-width='350'>
-    <template v-slot:activator='{ on, attrs }'>
-      <v-btn v-bind='attrs' v-on='on' icon style='color: inherit'>
+  <v-dialog max-width="350" v-model="dialog">
+    <template v-slot:activator="{ on, attrs }">
+      <v-btn icon style="color: inherit" v-bind="attrs" v-on="on">
         <v-icon>mdi-close-circle-outline</v-icon>
       </v-btn>
     </template>
     <v-card>
-      <v-card-title v-text='name'></v-card-title>
+      <v-card-title>{{ name }}</v-card-title>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color='green darken-1' text @click='$emit("click");dialog=false'>确定删除</v-btn>
+        <v-btn
+          @click="
+            $emit('click')
+            dialog = false
+          "
+          color="green darken-1"
+          text
+          >确定删除</v-btn
+        >
       </v-card-actions>
     </v-card>
   </v-dialog>

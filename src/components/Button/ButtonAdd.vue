@@ -1,23 +1,23 @@
 <template>
-  <v-dialog v-model='dialog' width='400' :disabled='notHave'>
-    <template v-slot:activator='{ on, attrs }'>
-      <v-btn v-bind='attrs' v-on='on' icon :disabled='!islogin' @click='onClick' style='color: inherit'>
+  <v-dialog :disabled="notHave" v-model="dialog" width="400">
+    <template v-slot:activator="{ on, attrs }">
+      <v-btn :disabled="!islogin" @click="onClick" icon style="color: inherit" v-bind="attrs" v-on="on">
         <v-icon>mdi-plus-circle-outline</v-icon>
       </v-btn>
     </template>
-    <v-card max-height='400' class='overflow-y-auto scrollbar-hidden' rounded='lg'>
-      <template v-if='loading'>
+    <v-card class="overflow-y-auto scrollbar-hidden" max-height="400" rounded="lg">
+      <template v-if="loading">
         <v-overlay>
-          <v-progress-circular indeterminate size='64' width='10'></v-progress-circular>
+          <v-progress-circular indeterminate size="64" width="10"></v-progress-circular>
         </v-overlay>
       </template>
       <template v-else>
         <v-list>
-          <v-list-item v-for='item in playlist' :key='item.id' @click='addSong(item.id)' class='py-2'>
-            <v-img :src='item.coverImgUrl' max-width='60' class='mr-4 rounded-lg'></v-img>
-            <div class='d-flex flex-column justify-space-between py-1' style='height: 60px'>
-              <div class='font-weight-bold text-truncate' style='max-width: 250px'>{{ item.name }}</div>
-              <div class='font-weight-bold text-subtitle-1'>{{ item.trackCount }} 首</div>
+          <v-list-item :key="item.id" @click="addSong(item.id)" class="py-2" v-for="item in playlist">
+            <v-img :src="item.coverImgUrl" class="mr-4 rounded-lg" max-width="60"></v-img>
+            <div class="d-flex flex-column justify-space-between py-1" style="height: 60px">
+              <div class="font-weight-bold text-truncate" style="max-width: 250px">{{ item.name }}</div>
+              <div class="font-weight-bold text-subtitle-1">{{ item.trackCount }} 首</div>
             </div>
           </v-list-item>
         </v-list>
@@ -83,7 +83,7 @@ export default {
     },
     // 向歌单添加歌曲
     addSong(params) {
-      this.$http.playlist.tracks(params, this.id, true).then(res => {
+      this.$http.playlist.tracks(params, this.id, true).then(() => {
         this.dialog = false
       })
     }

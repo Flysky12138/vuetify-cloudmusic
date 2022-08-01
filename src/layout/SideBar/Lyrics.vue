@@ -1,6 +1,6 @@
 <template>
   <v-slide-x-reverse-transition hide-on-leave>
-    <div class='lyrics' :key='refresh' v-text='lyrics'></div>
+    <div class="lyrics" :key="refresh" v-text="lyrics"></div>
   </v-slide-x-reverse-transition>
 </template>
 

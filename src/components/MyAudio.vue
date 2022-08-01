@@ -1,15 +1,15 @@
 <template>
   <footer>
     <audio
-      :src='url'
-      :autoplay='isplay'
-      :loop='!mode'
-      @timeupdate='timeUpdate'
-      @ended='next'
-      @error='httpError'
-      crossorigin='anonymous'
-      preload='auto'
-      ref='audio'
+      :src="url"
+      :autoplay="isplay"
+      :loop="!mode"
+      @timeupdate="timeUpdate"
+      @ended="next"
+      @error="httpError"
+      crossorigin="anonymous"
+      preload="auto"
+      ref="audio"
     ></audio>
   </footer>
 </template>

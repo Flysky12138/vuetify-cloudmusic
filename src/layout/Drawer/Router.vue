@@ -1,12 +1,12 @@
 <template>
   <v-list dense nav>
-    <v-subheader v-text='name'></v-subheader>
-    <v-list-item v-for='item in items' :key='item.id' link :to='item.link'>
+    <v-subheader>{{ name }}</v-subheader>
+    <v-list-item v-for="item in items" :key="item.id" link :to="item.link">
       <v-list-item-icon>
-        <v-icon color='purple lighten-3' v-text='item.icon'></v-icon>
+        <v-icon color="purple lighten-3">{{ item.icon }}</v-icon>
       </v-list-item-icon>
       <v-list-item-content>
-        <v-list-item-title v-text='item.name'></v-list-item-title>
+        <v-list-item-title>{{ item.name }}</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
   </v-list>

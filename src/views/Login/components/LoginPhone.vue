@@ -1,25 +1,34 @@
 <template>
   <v-container>
-    <v-row justify='center'>
+    <v-row justify="center">
       <!-- 手机号输入 -->
-      <v-col cols='7' sm='4'>
-        <v-text-field label='手机号' prefix='+86' counter='11' maxlength='11' clearable autofocus v-model='phone.value' :success='phone.inputTrue'></v-text-field>
+      <v-col cols="7" sm="4">
+        <v-text-field
+          label="手机号"
+          prefix="+86"
+          counter="11"
+          maxlength="11"
+          clearable
+          autofocus
+          v-model="phone.value"
+          :success="phone.inputTrue"
+        ></v-text-field>
       </v-col>
       <!-- 布局占位 -->
-      <v-col cols='1' class='hidden-xs-only'></v-col>
+      <v-col cols="1" class="hidden-xs-only"></v-col>
       <!-- 密码输入 -->
-      <v-col cols='7' sm='4'>
+      <v-col cols="7" sm="4">
         <v-text-field
-          label='密码/验证码'
-          :hint='password.value ? "回车确认登录" : "此时回车可获取验证码"'
-          ref='Code'
+          label="密码/验证码"
+          :hint="password.value ? '回车确认登录' : '此时回车可获取验证码'"
+          ref="Code"
           counter
-          :append-icon='password.isShow ? "mdi-eye" : "mdi-eye-off"'
-          @click:append='password.isShow = !password.isShow'
-          :type='password.isShow ? "text" : "password"'
-          :disabled='password.disabled'
-          v-model='password.value'
-          @keyup.enter='enter'
+          :append-icon="password.isShow ? 'mdi-eye' : 'mdi-eye-off'"
+          @click:append="password.isShow = !password.isShow"
+          :type="password.isShow ? 'text' : 'password'"
+          :disabled="password.disabled"
+          v-model="password.value"
+          @keyup.enter="enter"
         ></v-text-field>
       </v-col>
     </v-row>

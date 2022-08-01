@@ -1,22 +1,22 @@
 <template>
   <v-container>
     <!-- 获取数据前骨架图 -->
-    <skeleton-loader v-if='count != 2' />
-    <v-row class='pa-3' v-else>
+    <skeleton-loader v-if="count != 2" />
+    <v-row class="pa-3" v-else>
       <!-- 个人信息 -->
-      <v-col cols='12' class='py-10 px-7'>
-        <user-detail :value='userDetail' />
+      <v-col cols="12" class="py-10 px-7">
+        <user-detail :value="userDetail" />
       </v-col>
       <!-- 歌单 -->
-      <v-col cols='12' v-if='!!userPlaylist.create.length'>
-        <user-playlist :value='userPlaylist.create' title='创建的歌单' />
+      <v-col cols="12" v-if="!!userPlaylist.create.length">
+        <user-playlist :value="userPlaylist.create" title="创建的歌单" />
       </v-col>
-      <v-col cols='12' v-if='!!userPlaylist.collect.length'>
-        <user-playlist :value='userPlaylist.collect' title='收藏的歌单' />
+      <v-col cols="12" v-if="!!userPlaylist.collect.length">
+        <user-playlist :value="userPlaylist.collect" title="收藏的歌单" />
       </v-col>
       <!-- 听歌排行 -->
-      <v-col cols='12' v-if='userListenRanking.isShow' class='userListenRanking'>
-        <user-listen-ranking :value='userListenRanking.items' :loading='userListenRanking.loading' @change='getUserListenRanking' />
+      <v-col cols="12" v-if="userListenRanking.isShow" class="userListenRanking">
+        <user-listen-ranking :value="userListenRanking.items" :loading="userListenRanking.loading" @change="getUserListenRanking" />
       </v-col>
     </v-row>
   </v-container>
@@ -100,4 +100,3 @@ export default {
   }
 }
 </script>
-

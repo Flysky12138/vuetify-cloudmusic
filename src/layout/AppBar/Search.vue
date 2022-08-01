@@ -1,25 +1,25 @@
 <template>
-  <v-sheet width='230' color='transparent' style='position: relative'>
+  <v-sheet width="230" color="transparent" style="position: relative">
     <v-text-field
       solo
       flat
       dense
       hide-details
-      placeholder='search'
-      :background-color='$vuetify.theme.isDark ? "" : "grey lighten-2"'
-      @focus='isFocus = true'
-      @blur='isFocus = false'
-      v-model='value'
-      @keyup.13='search(value)'
+      placeholder="search"
+      :background-color="$vuetify.theme.isDark ? '' : 'grey lighten-2'"
+      @focus="isFocus = true"
+      @blur="isFocus = false"
+      v-model="value"
+      @keyup.13="search(value)"
       clearable
-      :items='items'
-      :rounded='!items.length'
+      :items="items"
+      :rounded="!items.length"
     ></v-text-field>
     <v-slide-y-transition hide-on-leave>
-      <v-list class='elevation-1 py-0 mt-1' dense v-show='!!items.length'>
-        <v-list-item v-for='item in items' :key='item.id' @click='search(item)'>
+      <v-list class="elevation-1 py-0 mt-1" dense v-show="!!items.length">
+        <v-list-item v-for="item in items" :key="item.id" @click="search(item)">
           <v-list-item-content>
-            <v-list-item-title v-text='item'></v-list-item-title>
+            <v-list-item-title>{{ item }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -73,7 +73,6 @@ export default {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 .v-list {

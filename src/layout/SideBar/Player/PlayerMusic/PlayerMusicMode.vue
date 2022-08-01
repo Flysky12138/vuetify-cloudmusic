@@ -1,6 +1,6 @@
 <template>
   <v-btn icon text>
-    <v-icon @click='playMode = (playMode + 1) % 3'>{{ theIcon }}</v-icon>
+    <v-icon @click="playMode = (playMode + 1) % 3">{{ theIcon }}</v-icon>
   </v-btn>
 </template>
 

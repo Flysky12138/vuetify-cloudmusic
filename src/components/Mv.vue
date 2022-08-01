@@ -1,18 +1,27 @@
 <template>
-  <v-dialog v-model='dialog' overlay-opacity='0.9' :disabled='disabled' content-class='dialog'>
-    <template v-slot:activator='{ on, attrs }'>
-      <slot v-bind='{ on, attrs }' />
+  <v-dialog v-model="dialog" overlay-opacity="0.9" :disabled="disabled" content-class="dialog">
+    <template v-slot:activator="{ on, attrs }">
+      <slot v-bind="{ on, attrs }" />
     </template>
-    <v-card class='d-flex align-center' @mouseenter='showBtn = true' @mouseleave='showBtn = false'>
-      <video controls crossorigin='anonymous' width='100%' ref='video' :poster='video.info.frameUrl' :src='video.info.url' :style='videoStyle' @error='error'></video>
+    <v-card class="d-flex align-center" @mouseenter="showBtn = true" @mouseleave="showBtn = false">
+      <video
+        controls
+        crossorigin="anonymous"
+        width="100%"
+        ref="video"
+        :poster="video.info.frameUrl"
+        :src="video.info.url"
+        :style="videoStyle"
+        @error="error"
+      ></video>
       <!-- 切换视频按键 -->
       <v-slide-x-transition>
-        <v-btn v-show='video.index > 0 && video.info.url && showBtn' icon absolute left large @click.prevent='previous'>
+        <v-btn v-show="video.index > 0 && video.info.url && showBtn" icon absolute left large @click.prevent="previous">
           <v-icon large>mdi-chevron-left</v-icon>
         </v-btn>
       </v-slide-x-transition>
       <v-slide-x-reverse-transition>
-        <v-btn v-show='video.index < video.ids.length - 1  && video.info.url && showBtn' icon absolute right large @click.prevent='next'>
+        <v-btn v-show="video.index < video.ids.length - 1 && video.info.url && showBtn" icon absolute right large @click.prevent="next">
           <v-icon large>mdi-chevron-right</v-icon>
         </v-btn>
       </v-slide-x-reverse-transition>

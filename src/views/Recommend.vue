@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <song-list :title='`${$time.nowDate()} 日推歌曲列表`' :value='value' :loading='loading' :itemsPerPage='itemsPerPage' />
+    <song-list :title="`${$time.nowDate()} 日推歌曲列表`" :value="value" :loading="loading" :itemsPerPage="itemsPerPage" />
   </v-container>
 </template>
 
@@ -23,4 +23,3 @@ export default {
   }
 }
 </script>
-

@@ -1,5 +1,5 @@
 <template>
-  <v-chip small v-text='value' @click='toRouter' :color='theChipColor'></v-chip>
+  <v-chip small @click="toRouter" :color="theChipColor">{{ value }}</v-chip>
 </template>
 
 <script>

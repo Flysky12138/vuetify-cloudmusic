@@ -1,26 +1,27 @@
+<!-- eslint-disable vue/valid-v-for -->
 <template>
   <v-container>
     <v-row>
       <!-- 左侧导航栏 -->
-      <v-col cols='3'>
-        <template v-if='loading.left'>
-          <template v-for='i in 2'>
-            <v-skeleton-loader type='heading' class='px-2 mt-4'></v-skeleton-loader>
-            <v-skeleton-loader type='list-item-avatar-two-line' v-for='j in 2*i+2' :key='j.id' height='57' class='mx-n2'></v-skeleton-loader>
+      <v-col cols="3">
+        <template v-if="loading.left">
+          <template v-for="i in 2">
+            <v-skeleton-loader type="heading" class="px-2 mt-4"></v-skeleton-loader>
+            <v-skeleton-loader type="list-item-avatar-two-line" v-for="j in 2 * i + 2" :key="j.id" height="57" class="mx-n2"></v-skeleton-loader>
           </template>
         </template>
         <template v-else>
-          <v-list class='pa-0' nav>
-            <v-list-item-group :value='0' color='primary'>
-              <template v-for='(items,index) in lists'>
-                <v-subheader class='font-weight-bold'>{{ index === 'feature' ? '云音乐特色榜' : '全球媒体榜' }}</v-subheader>
-                <v-list-item v-for='item in items' :key='item.id' @click='getSonglists(item.id)'>
-                  <v-list-item-icon class='my-auto mr-3'>
-                    <v-img :src='item.coverImgUrl' width='40' aspect-ratio='1'></v-img>
+          <v-list class="pa-0" nav>
+            <v-list-item-group :value="0" color="primary">
+              <template v-for="(items, index) in lists">
+                <v-subheader class="font-weight-bold">{{ index === 'feature' ? '云音乐特色榜' : '全球媒体榜' }}</v-subheader>
+                <v-list-item v-for="item in items" :key="item.id" @click="getSonglists(item.id)">
+                  <v-list-item-icon class="my-auto mr-3">
+                    <v-img :src="item.coverImgUrl" width="40" aspect-ratio="1"></v-img>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title v-text='item.name' class='text-subtitle-2'></v-list-item-title>
-                    <v-list-item-title v-text='item.updateFrequency' class='text-caption text--disabled'></v-list-item-title>
+                    <v-list-item-title class="text-subtitle-2">{{ item.name }}</v-list-item-title>
+                    <v-list-item-title class="text-caption text--disabled">{{ item.updateFrequency }}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </template>
@@ -32,17 +33,17 @@
       <!-- 右侧歌曲 -->
       <v-col>
         <my-router-transition>
-          <template v-if='playlist.songs.length > 0'>
-            <song-list :value='playlist.songs' :disColumn='[3]' :itemsPerPage='playlist.songs.length' :loading='loading.right'>
+          <template v-if="playlist.songs.length > 0">
+            <song-list :value="playlist.songs" :disColumn="[3]" :itemsPerPage="playlist.songs.length" :loading="loading.right">
               <template #top>
-                <p class='text-subtitle-2 my-0' style='text-indent:2em' v-text='playlist.detail.description'></p>
+                <p class="text-subtitle-2 my-0" style="text-indent: 2em" v-text="playlist.detail.description"></p>
               </template>
             </song-list>
           </template>
           <template v-else>
-            <v-sheet height='80vh' class='d-flex align-center justify-center'>
+            <v-sheet height="80vh" class="d-flex align-center justify-center">
               <v-btn icon disabled absolute>
-                <v-icon size='100'>mdi-cards-heart</v-icon>
+                <v-icon size="100">mdi-cards-heart</v-icon>
               </v-btn>
             </v-sheet>
           </template>
@@ -93,4 +94,3 @@ export default {
   }
 }
 </script>
-

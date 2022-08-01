@@ -1,6 +1,6 @@
 <template>
-  <v-btn icon @click='love' :disabled='!islogin'>
-    <v-icon v-if='islove' color='red'>mdi-heart</v-icon>
+  <v-btn :disabled="!islogin" @click="love" icon>
+    <v-icon color="red" v-if="islove">mdi-heart</v-icon>
     <v-icon v-else>mdi-heart-plus</v-icon>
   </v-btn>
 </template>

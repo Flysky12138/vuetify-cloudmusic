@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <song-list :title='keywords' :value='songs' :loading='loading' :itemsPerPage='itemsPerPage' @pageEnd='getMoreSongs' ref='songlist' />
+    <song-list :title="keywords" :value="songs" :loading="loading" :itemsPerPage="itemsPerPage" @pageEnd="getMoreSongs" ref="songlist" />
   </v-container>
 </template>
 
@@ -47,4 +47,3 @@ export default {
   }
 }
 </script>
-

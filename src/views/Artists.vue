@@ -1,25 +1,25 @@
 <template>
   <v-container>
     <!-- 获取数据前骨架图 -->
-    <skeleton-loader v-if='skeleton' />
+    <skeleton-loader v-if="skeleton" />
     <v-row v-else>
-      <v-col cols='12' class='d-flex'>
-        <v-col cols='auto'>
-          <image-cover :src='value.img1v1Url' :size='180' />
+      <v-col cols="12" class="d-flex">
+        <v-col cols="auto">
+          <image-cover :src="value.img1v1Url" :size="180" />
         </v-col>
-        <v-col class='text-subtitle-2'>
-          <div class='d-flex align-center'>
-            <image-avatar :uid='value.accountId' :src='value.img1v1Url' />
-            <span v-if='value.alias.length > 0' class='ml-5'>艺名：{{ value.alias.join("/") }}</span>
-            <span class='ml-9'>歌曲：{{ value.musicSize }}</span>
-            <span class='ml-9'>专辑：{{ value.albumSize }}</span>
-            <span class='ml-9'>视频：{{ value.mvSize }}</span>
+        <v-col class="text-subtitle-2">
+          <div class="d-flex align-center">
+            <image-avatar :uid="value.accountId" :src="value.img1v1Url" />
+            <span v-if="value.alias.length > 0" class="ml-5">艺名：{{ value.alias.join('/') }}</span>
+            <span class="ml-9">歌曲：{{ value.musicSize }}</span>
+            <span class="ml-9">专辑：{{ value.albumSize }}</span>
+            <span class="ml-9">视频：{{ value.mvSize }}</span>
           </div>
-          <introduce :value='value.briefDesc' />
+          <introduce :value="value.briefDesc" />
         </v-col>
       </v-col>
-      <v-col cols='12'>
-        <song-list :title='value.name' :value='songs' :loading='loading' ref='songlist' />
+      <v-col cols="12">
+        <song-list :title="value.name" :value="songs" :loading="loading" ref="songlist" />
       </v-col>
     </v-row>
   </v-container>

@@ -1,91 +1,91 @@
 <template>
   <v-data-table
-    id='dataTable'
-    ref='dataTable'
-    class='elevation-0'
-    :headers='filterHeaders'
-    :items='value'
-    :item-class='playItemStyle'
+    id="dataTable"
+    ref="dataTable"
+    class="elevation-0"
+    :headers="filterHeaders"
+    :items="value"
+    :item-class="playItemStyle"
     hide-default-footer
     disable-sort
-    :search='search'
-    no-results-text='没有找到匹配项'
-    :items-per-page='itemsPerPage'
-    :page.sync='page'
-    @page-count='pageCount = $event'
-    :loading='loading'
+    :search="search"
+    no-results-text="没有找到匹配项"
+    :items-per-page="itemsPerPage"
+    :page.sync="page"
+    @page-count="pageCount = $event"
+    :loading="loading"
     fixed-header
-    @current-items='getFilteredItems'
-    :custom-filter='customFilter'
+    @current-items="getFilteredItems"
+    :custom-filter="customFilter"
   >
     <!-- top插槽 -->
     <template v-slot:top>
-      <slot name='top'>
-        <div class='d-flex align-end pb-4 px-3'>
-          <span class='light-blue--text text--accent-4 text-h5'>{{ '"' + title + '"' }}</span>
-          <span class='teal--text text--accent-4 font-italic text-caption mx-4'>
-            <span v-text='value.length'></span>
-            <span v-show='filteredItems.length !== value.length'>{{ ' • ' + filteredItems.length }}</span>
+      <slot name="top">
+        <div class="d-flex align-end pb-4 px-3">
+          <span class="light-blue--text text--accent-4 text-h5">{{ '"' + title + '"' }}</span>
+          <span class="teal--text text--accent-4 font-italic text-caption mx-4">
+            <span v-text="value.length"></span>
+            <span v-show="filteredItems.length !== value.length">{{ ' • ' + filteredItems.length }}</span>
           </span>
           <slot />
           <v-spacer></v-spacer>
-          <v-sheet width='200'>
-            <v-text-field v-model='search' clearable append-icon='mdi-magnify' single-line hide-details></v-text-field>
+          <v-sheet width="200">
+            <v-text-field v-model="search" clearable append-icon="mdi-magnify" single-line hide-details></v-text-field>
           </v-sheet>
         </div>
       </slot>
     </template>
     <!-- header.btns插槽 -->
     <template v-slot:header.btns>
-      <button-play :id='filteredItems.map((res) => res.id)' :disable='loading || !filteredItems.length' tip='播放所有' />
+      <button-play :id="filteredItems.map(res => res.id)" :disable="loading || !filteredItems.length" tip="播放所有" />
     </template>
     <!-- item.count插槽 -->
-    <template v-slot:item.count='{ item }'>
+    <template v-slot:item.count="{ item }">
       <!-- 听歌排行的听歌数 -->
-      <span v-if='[1, 4].includes(item.privilege.fee)' class='text-caption red--text'>vip</span>
-      <span v-else v-text='item.count'></span>
+      <span v-if="[1, 4].includes(item.privilege.fee)" class="text-caption red--text">vip</span>
+      <span v-else v-text="item.count"></span>
     </template>
     <!-- item.name插槽 -->
-    <template v-slot:item.name='{ item }'>
-      <mv :songid='item.id' :mvid='item.mv'>
-        <template #default='{ on, attrs }'>
-          <div style='min-width: 12vw'>
-            <span v-on='on' v-bind='attrs'>
-              <span v-text='item.name'></span>
-              <span v-if='item.alia.length' class='text-caption text--disabled'>{{ ' - ' + item.alia[0] }}</span>
+    <template v-slot:item.name="{ item }">
+      <mv :songid="item.id" :mvid="item.mv">
+        <template #default="{ on, attrs }">
+          <div style="min-width: 12vw">
+            <span v-on="on" v-bind="attrs">
+              <span v-text="item.name"></span>
+              <span v-if="item.alia.length" class="text-caption text--disabled">{{ ' - ' + item.alia[0] }}</span>
             </span>
           </div>
         </template>
       </mv>
     </template>
     <!-- item.artists插槽 -->
-    <template v-slot:item.artists='{ item }'>
-      <span v-for='(_item, index) in item.artists' :key='index'>
-        <span v-if='index !== 0'>&nbsp;/&nbsp;</span>
-        <button @click='lookArtists(_item.id)' v-text='_item.name'></button>
+    <template v-slot:item.artists="{ item }">
+      <span v-for="(_item, index) in item.artists" :key="index">
+        <span v-if="index !== 0">&nbsp;/&nbsp;</span>
+        <button @click="lookArtists(_item.id)" v-text="_item.name"></button>
       </span>
     </template>
     <!-- item.album插槽 -->
-    <template v-slot:item.album='{ item: { album } }'>
-      <button @click='lookAlbum(album.id)' v-if='album.id' class='text-truncate' style='max-width: 12vw' :title='album.name' v-text='album.name'></button>
+    <template v-slot:item.album="{ item: { album } }">
+      <button @click="lookAlbum(album.id)" v-if="album.id" class="text-truncate" style="max-width: 12vw" :title="album.name" v-text="album.name"></button>
     </template>
     <!-- item.dt插槽 -->
-    <template v-slot:item.dt='{ item }'>
+    <template v-slot:item.dt="{ item }">
       <span>{{ $time.song(item.dt) }}</span>
     </template>
     <!-- item.btns插槽 -->
-    <template v-slot:item.btns='{ item }'>
-      <div class='d-flex justify-end'>
-        <slot name='item.btn.before' v-bind='item' />
-        <slot name='item.btn.one' v-bind='item'>
-          <button-add :id='item.id' :notHave='item.privilege.st < 0 && !item.privilege.cs' />
+    <template v-slot:item.btns="{ item }">
+      <div class="d-flex justify-end">
+        <slot name="item.btn.before" v-bind="item" />
+        <slot name="item.btn.one" v-bind="item">
+          <button-add :id="item.id" :notHave="item.privilege.st < 0 && !item.privilege.cs" />
         </slot>
-        <button-play :id='[item.id]' :name='item.name' :disable='item.id === id' rClick tip='右键添加到下一首播放' />
+        <button-play :id="[item.id]" :name="item.name" :disable="item.id === id" rClick tip="右键添加到下一首播放" />
       </div>
     </template>
     <!-- footer插槽 -->
     <template v-slot:footer>
-      <v-pagination v-if='pageCount > 1' v-model='page' :length='pageCount' :total-visible='11' circle color='blue lighten-2' class='my-3'></v-pagination>
+      <v-pagination v-if="pageCount > 1" v-model="page" :length="pageCount" :total-visible="11" circle color="blue lighten-2" class="my-3"></v-pagination>
     </template>
   </v-data-table>
 </template>

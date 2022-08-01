@@ -1,9 +1,16 @@
 <template>
   <v-container>
-    <song-list title='网易云音乐云盘' :value='songlist' :loading='loading'>
-      <v-file-input style='transform: translate(15px,3px)' prepend-icon='mdi-cloud-upload' hide-input multiple accept='audio/*' @change='upload'></v-file-input>
-      <template #item.btn.before='{ id, name }'>
-        <button-delete :name='name' @click='delSong(id)' />
+    <song-list title="网易云音乐云盘" :value="songlist" :loading="loading">
+      <v-file-input
+        style="transform: translate(15px, 3px)"
+        prepend-icon="mdi-cloud-upload"
+        hide-input
+        multiple
+        accept="audio/*"
+        @change="upload"
+      ></v-file-input>
+      <template #item.btn.before="{ id, name }">
+        <button-delete :name="name" @click="delSong(id)" />
       </template>
     </song-list>
   </v-container>
@@ -24,7 +31,7 @@ export default {
   methods: {
     // 上传歌曲
     upload(file) {
-      this.$http.cloud.upload(file).then(res => {
+      this.$http.cloud.upload(file).then(() => {
         this.getData()
       })
     },

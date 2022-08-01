@@ -1,12 +1,12 @@
 <template>
   <v-list dense nav>
-    <v-subheader v-text='name'></v-subheader>
-    <v-list-item v-for='(item,index) in filterItems' :key='item.id' link @click='onClick(index)'>
+    <v-subheader>{{ name }}</v-subheader>
+    <v-list-item v-for="(item, index) in filterItems" :key="item.id" link @click="onClick(index)">
       <v-list-item-icon>
-        <v-icon color='purple lighten-3' v-text='item.icon'></v-icon>
+        <v-icon color="purple lighten-3">{{ item.icon }}</v-icon>
       </v-list-item-icon>
       <v-list-item-content>
-        <v-list-item-title v-text='item.name'></v-list-item-title>
+        <v-list-item-title>{{ item.name }}</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
   </v-list>
@@ -45,6 +45,7 @@ export default {
           download(localStorage, 'vuetify-cloudmusic-settings.json', true)
           break
         case 2:
+          // eslint-disable-next-line no-case-declarations
           const input = document.createElement('input')
           input.type = 'file'
           input.accept = 'application/json'
