@@ -1,30 +1,46 @@
 # Vuetify CloudMusic
 
+[![OSCS Status](https://www.oscs1024.com/platform/badge/Flysky12138/vuetify-cloudmusic.svg?size=small)](https://www.murphysec.com/dr/YsINmrKQZ9A77pRAYy)
 [![GitHub last commit](https://img.shields.io/github/last-commit/Flysky12138/vuetify-cloudmusic)](https://github.com/Flysky12138/vuetify-cloudmusic/commits/master)
 ![GitHub repo size](https://img.shields.io/github/repo-size/Flysky12138/vuetify-cloudmusic)
 [![GitHub license](https://img.shields.io/github/license/Flysky12138/vuetify-cloudmusic)](https://github.com/Flysky12138/vuetify-cloudmusic/blob/master/LICENSE)
 
-### 预览
+## 预览
 
-![Snipaste_2022-01-16_13-30-20](https://cdn.jsdelivr.net/gh/Flysky12138/warehouse/PicGo/202201161330200.png)
+![202208072256535.webp](https://cdn.jsdelivr.net/gh/Flysky12138/warehouse/PicGo/202208072256535.webp)
 
-### 安装
+![202208072257018.webp](https://cdn.jsdelivr.net/gh/Flysky12138/warehouse/PicGo/202208072257018.webp)
 
-```
-$ git clone https://github.com/Flysky12138/vuetify-cloudmusic.git
+## 安装
 
-$ cd vuetify-cloudmusic
+```bash
+git clone https://github.com/Flysky12138/vuetify-cloudmusic.git
 
-$ yarn
-```
+cd vuetify-cloudmusic
 
-### 运行
-
-```
-$ yarn serve
+yarn
 ```
 
-### 鸣谢
+## 运行
+
+```bash
+yarn serve
+```
+
+## 其他
+
+调整侧边歌词颜色，代码示例
+
+```css
+.lyrics {
+  width: 1em !important;
+  background-image: linear-gradient(to bottom, red 20%, #8080ff, cyan 80%);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+```
+
+## 鸣谢
 
 - [Binaryify/NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
 - [UnblockNeteaseMusic/server](https://github.com/UnblockNeteaseMusic/server)
