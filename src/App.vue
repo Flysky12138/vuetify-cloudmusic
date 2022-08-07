@@ -51,7 +51,7 @@ import MyAudio from '@/components/MyAudio.vue'
 export default {
   components: { AppBar, Drawer, SideBar, MyAudio },
   data: () => ({
-    isPc: !/Android|WindowsPhone|webOS|iPhone|iPod|BlackBerry|iPad/.test(navigator.userAgent)
+    isPc: !/Android|WindowsPhone|webOS|iPhone|iPod|BlackBerry|iPad/.test(navigator.userAgent) && window.screen.width > 1280
   }),
   created() {
     this.$http.login.status().then(res => {
