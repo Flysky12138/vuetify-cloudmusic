@@ -11,11 +11,11 @@
   },
   "lint-staged": {
     "*.{js,vue}": "eslint --fix",
-    "*.{js,jsx,ts,tsx,md,html,css,scss,json}": "prettier --write"
+    "*.{js,md,scss,json}": "prettier --write"
   },
   "dependencies": {
     "@vue/composition-api": "^1.4.5",
-    "axios": "^0.21.1",
+    "axios": "^0.21.4",
     "blueimp-md5": "^2.19.0",
     "core-js": "^3.9.1",
     "js-beautify": "^1.14.0",

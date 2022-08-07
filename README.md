@@ -1,6 +1,6 @@
 # Vuetify CloudMusic
 
-[![OSCS Status](https://www.oscs1024.com/platform/badge/Flysky12138/vuetify-cloudmusic.svg?size=small)](https://www.murphysec.com/dr/YsINmrKQZ9A77pRAYy)
+[![OSCS Status](https://www.oscs1024.com/platform/badge/Flysky12138/vuetify-cloudmusic.svg?size=small)](https://www.murphysec.com/dr/owvCqXgmI2aJ7qkwsD)
 [![GitHub last commit](https://img.shields.io/github/last-commit/Flysky12138/vuetify-cloudmusic)](https://github.com/Flysky12138/vuetify-cloudmusic/commits/master)
 ![GitHub repo size](https://img.shields.io/github/repo-size/Flysky12138/vuetify-cloudmusic)
 [![GitHub license](https://img.shields.io/github/license/Flysky12138/vuetify-cloudmusic)](https://github.com/Flysky12138/vuetify-cloudmusic/blob/master/LICENSE)
