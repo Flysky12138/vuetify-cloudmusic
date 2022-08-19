@@ -97,7 +97,8 @@ export default {
       this.dtOffset = this.playTime = 0
       this.setDt(0)
       // 修改标题
-      document.title = this.music.name + ' - ' + this.music.artists.map(res => res.name).join('/')
+      const alia = this.music.alia.length > 0 ? ' - ' + this.music.alia[0] : ''
+      document.title = this.music.name + alia + ' - ' + this.music.artists.map(res => res.name).join('/')
       // 获取歌词
       this.setlyricData([{ lyric: '歌词加载中' }])
       clearTimeout(this.settimeout)
