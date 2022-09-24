@@ -22,9 +22,10 @@ axios.interceptors.request.use(
   config => {
     config.params = {
       ...config.params,
-      timestamp: new Date().getTime(), // 添加时间戳
-      cookie: userStore(pinia).cookie // 手动携带Cookie；Chrome v91开始浏览器默认SameSite=Lax无法修改，导致跨域不携带Cookie
+      timestamp: new Date().getTime() // 添加时间戳
     }
+    const cookie = userStore(pinia).cookie // 手动携带Cookie；Chrome v91开始浏览器默认SameSite=Lax无法修改，导致跨域不携带Cookie
+    if (cookie) Object.assign(config.params, { cookie })
     return config
   },
   error => Promise.reject(error)
