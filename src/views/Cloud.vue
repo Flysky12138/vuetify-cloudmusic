@@ -9,8 +9,9 @@
         accept="audio/*"
         @change="upload"
       ></v-file-input>
-      <template #item.btn.before="{ id, name }">
+      <template #[`item.btn.before`]="{ id, name }">
         <button-delete :name="name" @click="delSong(id)" />
+        <button-match :sid="id" :name="name" @success="getData" />
       </template>
     </song-list>
   </v-container>
@@ -19,8 +20,9 @@
 <script>
 import SongList from '@/components/Song/SongList.vue'
 import ButtonDelete from '@/components/Button/ButtonDelete.vue'
+import ButtonMatch from '@/components/Button/ButtonMatch.vue'
 export default {
-  components: { SongList, ButtonDelete },
+  components: { SongList, ButtonDelete, ButtonMatch },
   data: () => ({
     songlist: [],
     loading: false

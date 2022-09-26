@@ -36,17 +36,19 @@
       </slot>
     </template>
     <!-- header.btns插槽 -->
-    <template v-slot:header.btns>
-      <button-play :id="filteredItems.map(res => res.id)" :disable="loading || !filteredItems.length" tip="播放所有" />
+    <template v-slot:[`header.btns`]>
+      <slot name="header.btns">
+        <button-play :id="filteredItems.map(res => res.id)" :disable="loading || !filteredItems.length" tip="播放所有" />
+      </slot>
     </template>
     <!-- item.count插槽 -->
-    <template v-slot:item.count="{ item }">
+    <template v-slot:[`item.count`]="{ item }">
       <!-- 听歌排行的听歌数 -->
       <span v-if="[1, 4].includes(item.privilege.fee)" class="text-caption red--text">vip</span>
       <span v-else v-text="item.count"></span>
     </template>
     <!-- item.name插槽 -->
-    <template v-slot:item.name="{ item }">
+    <template v-slot:[`item.name`]="{ item }">
       <mv :songid="item.id" :mvid="item.mv">
         <template #default="{ on, attrs }">
           <div style="min-width: 12vw">
@@ -59,29 +61,31 @@
       </mv>
     </template>
     <!-- item.artists插槽 -->
-    <template v-slot:item.artists="{ item }">
+    <template v-slot:[`item.artists`]="{ item }">
       <span v-for="(_item, index) in item.artists" :key="index">
         <span v-if="index !== 0">&nbsp;/&nbsp;</span>
         <button @click="lookArtists(_item.id)" v-text="_item.name"></button>
       </span>
     </template>
     <!-- item.album插槽 -->
-    <template v-slot:item.album="{ item: { album } }">
+    <template v-slot:[`item.album`]="{ item: { album } }">
       <button @click="lookAlbum(album.id)" v-if="album.id" class="text-truncate" style="max-width: 12vw" :title="album.name" v-text="album.name"></button>
     </template>
     <!-- item.dt插槽 -->
-    <template v-slot:item.dt="{ item }">
+    <template v-slot:[`item.dt`]="{ item }">
       <span>{{ $time.song(item.dt) }}</span>
     </template>
     <!-- item.btns插槽 -->
-    <template v-slot:item.btns="{ item }">
-      <div class="d-flex justify-end">
-        <slot name="item.btn.before" v-bind="item" />
-        <slot name="item.btn.one" v-bind="item">
-          <button-add :id="item.id" :notHave="item.privilege.st < 0 && !item.privilege.cs" />
-        </slot>
-        <button-play :id="[item.id]" :name="item.name" :disable="item.id === id" rClick tip="右键添加到下一首播放" />
-      </div>
+    <template v-slot:[`item.btns`]="{ item }">
+      <slot name="item.btns" v-bind="{ item }">
+        <div class="d-flex justify-end">
+          <slot name="item.btn.before" v-bind="item" />
+          <slot name="item.btn.one" v-bind="item">
+            <button-add :id="item.id" :notHave="item.privilege.st < 0 && !item.privilege.cs" />
+          </slot>
+          <button-play :id="[item.id]" :name="item.name" :disable="item.id === id" rClick tip="右键添加到下一首播放" />
+        </div>
+      </slot>
     </template>
     <!-- footer插槽 -->
     <template v-slot:footer>
