@@ -6,5 +6,8 @@
     "paths": {
       "@/*": ["./src/*"]
     }
+  },
+  "vueCompilerOptions": {
+    "target": 2
   }
 }
