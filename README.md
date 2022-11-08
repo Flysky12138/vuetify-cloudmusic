@@ -7,9 +7,9 @@
 
 ## 预览
 
-![202208072256535.webp](https://cdn.jsdelivr.net/gh/Flysky12138/warehouse/PicGo/202208072256535.webp)
+![0392a0e95386e6f2507f70120aff0026.webp](https://cdn.jsdelivr.net/gh/Flysky12138/warehouse/PicW/vuetify-cloudmusic/0392a0e95386e6f2507f70120aff0026.webp)
 
-![202208072257018.webp](https://cdn.jsdelivr.net/gh/Flysky12138/warehouse/PicGo/202208072257018.webp)
+![b75a24f1b6d429fab38c78cbaac8e16f.webp](https://cdn.jsdelivr.net/gh/Flysky12138/warehouse/PicW/vuetify-cloudmusic/b75a24f1b6d429fab38c78cbaac8e16f.webp)
 
 ## 安装
 
